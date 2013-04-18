@@ -1,0 +1,15 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="TuneRoboWPF.StatusBar"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480" Width="1100" Height="27">
+
+	<Grid x:Name="LayoutRoot" Width="1100">
+		<Rectangle Fill="#FF54545C" Height="27" Margin="0" Stroke="Black" VerticalAlignment="Bottom" Width="1100"/>
+		<ProgressBar x:Name="ProgressBar" HorizontalAlignment="Left" Margin="8,9,0,8" Width="100" Visibility="Hidden"/>
+	</Grid>
+</UserControl>

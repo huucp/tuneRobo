@@ -1,8 +1,11 @@
-﻿<Window x:Class="TuneRoboWPF.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        xmlns:local="clr-namespace:TuneRoboWPF" x:Name="MainScreen" x:Class="TuneRoboWPF.MainWindow"
+        Title="TuneRobo" Height="770" Width="1100" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+	<DockPanel x:Name="MainDock" LastChildFill="True" >
+		<local:NavigationBar x:Name="navigationBar" DockPanel.Dock="Top" Width="1100"/>
+		<local:StatusBar x:Name="statusBar" DockPanel.Dock = "Bottom"/>
+		<local:RemoteControlScreen x:Name="remoteScreen"/>
+	</DockPanel>
 </Window>
