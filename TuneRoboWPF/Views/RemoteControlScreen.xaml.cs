@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using TuneRoboWPF.RobotService;
 using TuneRoboWPF.ViewModels;
+using TuneRoboWPF.Utility;
 
-namespace TuneRoboWPF
+namespace TuneRoboWPF.Views
 {
     /// <summary>
     /// Interaction logic for RemoteControlScreen.xaml
@@ -26,14 +21,12 @@ namespace TuneRoboWPF
             // Insert code required on object creation below this point.
             var remoteViewModel = new RemoteControlScreenModel();
             DataContext = remoteViewModel;
-            ObservableCollection<MotionTitleItem> remoteListItem = AddRemoteItem();
-            viewModel = ((RemoteControlScreenModel) (DataContext));
+            viewModel = ((RemoteControlScreenModel)(DataContext));
 
-            viewModel.RemoteListItem = remoteListItem;
         }
 
         private RemoteControlScreenModel viewModel;
-        
+
         private ObservableCollection<MotionTitleItem> AddRemoteItem()
         {
             var listItem = new ObservableCollection<MotionTitleItem>();
@@ -50,9 +43,50 @@ namespace TuneRoboWPF
         {
             if (viewModel.LastSelectedMotionItem != null)
             {
-                viewModel.LastSelectedMotionItem.ViewModel.RectangleFillColor = "Yellow"; 
+                viewModel.LastSelectedMotionItem.ViewModel.RectangleFillColor = "Yellow";
             }
             viewModel.SelectedMotion.ViewModel.RectangleFillColor = "Red";
+        }
+
+        private void UnconnectedTextBox_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ConnectMrobo();
+            //GetListMotion();
+        }
+        private void ConnectMrobo()
+        {
+            var helloRequest = new RemoteRequest(RobotPacket.PacketID.Hello);
+            helloRequest.ProcessSuccessfully += (s) =>
+            {
+                MessageBox.Show("Connect successfully!", "Connect to mRobo via Wireless connection", MessageBoxButton.OK);
+                Dispatcher.BeginInvoke((Action)delegate
+                                                   {
+                                                       UnconnectedTextBox.Visibility = Visibility.Hidden;
+                                                   });
+            };
+            helloRequest.ProcessError += (e, msg) =>
+                                             {
+                                                 MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                             };
+
+            GlobalVariables.MRoboConnectionWorker.AddJob(helloRequest);
+        }
+
+        private void GetListMotion()
+        {
+            var listAllMotionRequest = new ListAllMotionRequest();
+            listAllMotionRequest.ProcessSuccessfully += (s) =>
+                                                            {
+                                                                foreach (MotionInfo info in s)
+                                                                {
+                                                                    Console.WriteLine("MotionID: {0}", info.MotionID);
+                                                                }
+                                                            };
+            listAllMotionRequest.ProcessError += (e, msg) =>
+            {
+
+            };
+            GlobalVariables.MRoboConnectionWorker.AddJob(listAllMotionRequest);
         }
     }
 }

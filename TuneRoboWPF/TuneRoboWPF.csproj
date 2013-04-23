@@ -42,7 +42,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,6 +73,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RobotService\InformationRequest.cs" />
+    <Compile Include="RobotService\ListAllMotionRequest.cs" />
+    <Compile Include="RobotService\MotionInfo.cs" />
+    <Compile Include="RobotService\RemoteRequest.cs" />
+    <Compile Include="RobotService\RobotPacket.cs" />
+    <Compile Include="RobotService\RobotReply.cs" />
+    <Compile Include="RobotService\RobotRequest.cs" />
+    <Compile Include="RobotService\WirelessConnection.cs" />
+    <Compile Include="Utility\CRCCCIT.cs" />
+    <Compile Include="Utility\GlobalVariables.cs" />
+    <Compile Include="Utility\mRoboState.cs" />
+    <Compile Include="Utility\GlobalFunctions.cs" />
+    <Compile Include="Utility\Worker.cs" />
     <Compile Include="ViewModels\MotionTitleItemViewModel.cs" />
     <Compile Include="ViewModels\RemoteControlScreenViewModel.cs" />
     <Compile Include="Views\MotionTitleItem.xaml.cs">
@@ -140,8 +155,11 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Store\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

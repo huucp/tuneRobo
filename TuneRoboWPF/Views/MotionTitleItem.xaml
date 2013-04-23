@@ -7,7 +7,7 @@
 	
 
 	<Grid x:Name="LayoutRoot"  Height="27">
-		<Rectangle Fill="{Binding RectangleFillColor}" Stroke="Black"/>
+		<Rectangle Fill="{Binding RectangleFillColor}" Stroke="Black" StrokeThickness="0"/>
         <TextBlock x:Name="MotionTitle"  HorizontalAlignment="Left" Height="15" Margin="32,6,0,0" TextWrapping="Wrap" Text="{Binding Title}" VerticalAlignment="Top" Width="211"/>
 	</Grid>
 </UserControl>
