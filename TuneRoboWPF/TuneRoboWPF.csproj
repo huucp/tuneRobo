@@ -73,6 +73,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\ControlButtonModel.cs" />
+    <Compile Include="Models\MotionTitleItemModel.cs" />
+    <Compile Include="Models\NavigationBarModel.cs" />
+    <Compile Include="Models\PlayPauseButtonModel.cs" />
+    <Compile Include="Models\RemoteControlScreenModel.cs" />
     <Compile Include="RobotService\InformationRequest.cs" />
     <Compile Include="RobotService\ListAllMotionRequest.cs" />
     <Compile Include="RobotService\MotionInfo.cs" />
@@ -82,23 +87,44 @@
     <Compile Include="RobotService\RobotRequest.cs" />
     <Compile Include="RobotService\WirelessConnection.cs" />
     <Compile Include="Utility\CRCCCIT.cs" />
+    <Compile Include="Utility\GlobalResource.cs" />
     <Compile Include="Utility\GlobalVariables.cs" />
-    <Compile Include="Utility\mRoboState.cs" />
+    <Compile Include="Utility\RobotState.cs" />
     <Compile Include="Utility\GlobalFunctions.cs" />
     <Compile Include="Utility\Worker.cs" />
-    <Compile Include="ViewModels\MotionTitleItemViewModel.cs" />
+    <Compile Include="ViewModels\ControlButtonViewModel.cs" />
+    <Compile Include="ViewModels\MotionTitleItemViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\NavigationBarViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\PlayPauseButtonViewModel.cs" />
     <Compile Include="ViewModels\RemoteControlScreenViewModel.cs" />
+    <Compile Include="Views\ControlButton.xaml.cs">
+      <DependentUpon>ControlButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MotionTitleItem.xaml.cs">
       <DependentUpon>MotionTitleItem.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\NavigationBar.xaml.cs">
+      <DependentUpon>NavigationBar.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\NextTrackButton.cs" />
+    <Compile Include="Views\PlayPauseButton.xaml.cs">
+      <DependentUpon>PlayPauseButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PreviousTrackButton.cs" />
     <Compile Include="Views\RemoteControlScreen.xaml.cs">
       <DependentUpon>RemoteControlScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\NavigationBarViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\VolumeButton.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -111,13 +137,21 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\MotionTitleItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Views\ControlButton.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MotionTitleItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NavigationBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PlayPauseButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RemoteControlScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -129,9 +163,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Views\NavigationBar.xaml.cs">
-      <DependentUpon>NavigationBar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -157,6 +188,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Store\" />
+    <Folder Include="Themes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Play.png" />
+    <Resource Include="Resources\Next-Track.png" />
+    <Resource Include="Resources\Pause.png" />
+    <Resource Include="Resources\Previous-Track.png" />
+    <Resource Include="Resources\Volume-Down.png" />
+    <Resource Include="Resources\Volume-Mute.png" />
+    <Resource Include="Resources\Volume-Up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Lock.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />

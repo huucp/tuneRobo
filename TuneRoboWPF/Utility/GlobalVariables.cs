@@ -1,5 +1,10 @@
 ﻿
 
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using TuneRoboWPF.RobotService;
+
 namespace TuneRoboWPF.Utility
 {
     public static class GlobalVariables
@@ -218,7 +223,7 @@ namespace TuneRoboWPF.Utility
         public static int PORT_WIRELESS { get; set; }
         public static int TIMEOUT
         {
-            get { return 10000; }
+            get { return 500; }
         }
 
         #endregion
@@ -236,29 +241,17 @@ namespace TuneRoboWPF.Utility
 
         public static byte[] MRoboSessionID = new byte[] { 0, 0 };
 
-        public static mRoboState CurrentMRoboState = new mRoboState();
+        public static RobotState CurrentRobotState = new RobotState();
+        public static List<MotionInfo> CurrentListMotion = new List<MotionInfo>();
 
-        public static StoreWorker StoreConnectionWorker = StoreWorker.Instance;
-        public static RoboWorker MRoboConnectionWorker = RoboWorker.Instance;
+        public static StoreWorker StoreWorker = StoreWorker.Instance;
+        public static RoboWorker RobotWorker = RoboWorker.Instance;
 
-
-        #region IdCommand
+        
         public const int PACKET_HEADER = 0x0080;
         public const int ID_ACK = 0x0001;
         public const int ID_ERROR = 0x0002;
         public const int ID_CRC_ERROR = 0x0003;
-        public const int ID_OPEN_FILE_TO_WRITE = 0x0303;
-        public const int ID_WRITE_TO_OPEN_FILE = 0x0304;
-        public const int ID_CLOSE_OPEN_FILE_TO_WRITE = 0x0305;
-        public const int ID_OPEN_FILE_TO_READ = 0x0306;
-        public const int ID_READ_FROM_OPEN_FILE = 0x0307;
-        public const int ID_CLOSE_FILE_TO_READ = 0x0308;
-        public const int ID_REQUEST_LIST_FILE = 0x0309;
-        public const int ID_REQUEST_NEXT_FILE_NAME = 0x030A;
-        public const int ID_END_REQUEST_FILE_NAME = 0x030B;
-        public const int ID_DELETE_FILE = 0x0301;
-        #endregion
-
         static GlobalVariables()
         {
             USB_CONNECTION = false;

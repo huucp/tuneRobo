@@ -42,15 +42,44 @@ namespace TuneRoboWPF.RobotService
 
         private bool CheckReplyID()
         {
-            var tmp = GlobalFunction.SplitByteArray(ReplyPacket, 8, 2);
-            var id = GlobalFunction.LE2ToDec(tmp);
+            byte[] tmp = GlobalFunction.SplitByteArray(ReplyPacket, 8, 2);
+            int id = GlobalFunction.LE2ToDec(tmp);
             return (id == GlobalVariables.ID_ACK);
         }
         private ReplyData ProcessACKPacket()
         {
             var replyData = new ReplyData();
-
+            replyData.Type = ReplyData.ReplyType.Success;
+            switch (RequestID)
+            {
+                case RobotPacket.PacketID.Play:
+                case RobotPacket.PacketID.Pause:
+                case RobotPacket.PacketID.Forward:
+                case RobotPacket.PacketID.Backward:
+                case RobotPacket.PacketID.OpenTransform:
+                case RobotPacket.PacketID.CloseTransform:
+                case RobotPacket.PacketID.SetVolumeLevel:
+                case RobotPacket.PacketID.SelectMotionToPlay:
+                    GetCurrentState();
+                    break;
+                case RobotPacket.PacketID.WriteMotionData:
+                case RobotPacket.PacketID.CountMotions:
+                case RobotPacket.PacketID.GetInfoMotionAtIndex:
+                    replyData.Data = ProcessInformationRequest();
+                    break;                
+            }
             return replyData;
+        }
+
+        private void GetCurrentState()
+        {
+            var stateBytes = GlobalFunction.SplitByteArray(ReplyPacket, 12, 11);
+            GlobalVariables.CurrentRobotState.UpdateState(stateBytes);
+        }
+
+        private byte[] ProcessInformationRequest()
+        {
+            return GlobalFunction.SplitByteArray(ReplyPacket, 12, ReplyPacket.Length - 12);
         }
 
         private ReplyData ProcessErrorPacket()
@@ -58,7 +87,6 @@ namespace TuneRoboWPF.RobotService
             var replyData = new ReplyData();
             return replyData;
         }
-
     }
 
     public class ReplyData

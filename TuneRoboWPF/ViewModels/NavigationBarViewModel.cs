@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using TuneRoboWPF.Models;
 
 namespace TuneRoboWPF.ViewModels
 {
     public class NavigationBarViewModel : ViewModelBase
     {
-        private string username = "";
+        private NavigationBarModel model = new NavigationBarModel();
+       
         public string Username
         {
-            get { return username; }
+            get { return model.Username; }
             set
             {
-                username = value;
+                model.Username = value;
                 NotifyPropertyChanged("Username");
             }
         }       

@@ -12,7 +12,7 @@ namespace TuneRoboWPF.RobotService
         {
             Hello = 0x0101,
             Play = 0x0201,
-            Stop = 0x0202,
+            Pause = 0x0202,
             Forward = 0x0203,
             Backward = 0x0204,
             OpenTransform = 0x0205,

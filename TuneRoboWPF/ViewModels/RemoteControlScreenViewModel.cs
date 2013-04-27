@@ -1,36 +1,33 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using TuneRoboWPF.Models;
+using TuneRoboWPF.Views;
+
 
 namespace TuneRoboWPF.ViewModels
 {
-    public class RemoteControlScreenModel : ViewModelBase
+    public class RemoteControlScreenViewModel : ViewModelBase
     {
-        public RemoteControlScreenModel()
-        {
-
-        }
-
-        private ObservableCollection<MotionTitleItem> remoteListItem;
+        private RemoteControlScreenModel model = new RemoteControlScreenModel();
+        
         public ObservableCollection<MotionTitleItem> RemoteListItem
         {
-            get { return remoteListItem; }
+            get { return model.RemoteListItem; }
             set
             {
-                remoteListItem = value;
+                model.RemoteListItem = value;
                 NotifyPropertyChanged("RemoteListItem");
             }
         }
 
         public MotionTitleItem LastSelectedMotionItem { get; set; }
-        private MotionTitleItem selectedMotion;
+        
         public MotionTitleItem SelectedMotion
         {
-            get { return selectedMotion; }
+            get { return model.SelectedMotion; }
             set
             {
-                LastSelectedMotionItem = selectedMotion;                
-                selectedMotion = value;
+                LastSelectedMotionItem = model.SelectedMotion;                
+                model.SelectedMotion = value;
                 NotifyPropertyChanged("SelectedMotion");
             }
         }

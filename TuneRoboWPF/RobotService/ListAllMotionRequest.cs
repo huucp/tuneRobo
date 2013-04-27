@@ -65,6 +65,7 @@ namespace TuneRoboWPF.RobotService
                 listMotionInfo.Add(GetMotionInfoAtIndex(i));
             }
             OnProcessSuccessfully(listMotionInfo);
+            Connection.ReleaseConnection();
             return 1;
         }
 

@@ -83,7 +83,7 @@ namespace TuneRoboWPF.RobotService
                 Console.WriteLine("Receive nothing!.");
                 return null;
             }
-            var hearderIndex = GlobalFunction.findPacketHeader(receive);
+            var hearderIndex = GlobalFunction.FindPacketHeader(receive);
             byte[] receivePacket = GlobalFunction.SplitByteArray(receive, hearderIndex, ret - hearderIndex);
 
             if (!GlobalFunction.CheckCRC(receivePacket))

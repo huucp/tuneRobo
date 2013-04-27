@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
 using Microsoft.Win32;
+using TuneRoboWPF.RobotService;
 
 namespace TuneRoboWPF.Utility
 {
@@ -444,7 +445,7 @@ namespace TuneRoboWPF.Utility
         }
 
         // Find packet header
-        public static int findPacketHeader(byte[] data)
+        public static int FindPacketHeader(byte[] data)
         {
             var index = -1;
             for (var i = 0; i < data.Length; i++)
@@ -471,7 +472,7 @@ namespace TuneRoboWPF.Utility
 
 
         // Extract Length of data
-        public static int extractLengthOfData(IList<byte> p)
+        public static int ExtractLengthOfData(IList<byte> p)
         {
             var tmp = SplitByteArray(p, 1, 2);
             return LE2ToDec(tmp);
@@ -501,6 +502,13 @@ namespace TuneRoboWPF.Utility
             return File.ReadAllBytes(filename);
         }
 
+        // Update current list motion
+        public static void UpdateCurrentListMotion(List<MotionInfo> listMotionInfo)
+        {
+            GlobalVariables.CurrentListMotion.Clear();
+            GlobalVariables.CurrentListMotion.AddRange(listMotionInfo);
+        }
+        
         #endregion
 
         #region Server connection

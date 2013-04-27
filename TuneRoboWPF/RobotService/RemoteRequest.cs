@@ -2,12 +2,12 @@ using TuneRoboWPF.Utility;
 
 namespace TuneRoboWPF.RobotService
 {
-    class RemoteRequest : RobotRequest
+    public class RemoteRequest : RobotRequest
     {
         private int volumeLevel;
-        private int motionIDToPlay;
+        private ulong motionIDToPlay;
 
-        public RemoteRequest(RobotPacket.PacketID id, int vol = -1, int motionPlay = -1)
+        public RemoteRequest(RobotPacket.PacketID id, int vol = -1, ulong motionPlay = 0)
         {
             RequestID = id;
             volumeLevel = vol;
@@ -23,7 +23,7 @@ namespace TuneRoboWPF.RobotService
                 packet.Parameters = new[] { (byte)volumeLevel };
             }
 
-            if (motionIDToPlay != -1)
+            if (motionIDToPlay != 0)
             {
                 var param = GlobalFunction.DecToLE8(motionIDToPlay);
                 packet.Parameters = param;

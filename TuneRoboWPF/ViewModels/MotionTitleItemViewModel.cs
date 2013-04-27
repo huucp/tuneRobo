@@ -1,32 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Data;
-using System.ComponentModel;
-using TuneRoboWPF.ViewModels;
+﻿using TuneRoboWPF.Models;
 
 namespace TuneRoboWPF.ViewModels
 {
     public class MotionTitleItemViewModel : ViewModelBase
     {
-        private string title = "Motion title";
+        private MotionTitleItemModel model = new MotionTitleItemModel();
+        
         public string Title
         {
-            get { return title; }
+            get { return model.MotionTitle; }
             set
             {
-                title = value;
+                model.MotionTitle = value;
                 NotifyPropertyChanged("Title");
             }
         }
 
-        private string rectangleFillColor = "Yellow";
+        
         public string RectangleFillColor
         {
-            get { return rectangleFillColor; }
+            get { return model.RectangleFillColor; }
             set
             {
-                rectangleFillColor = value;
+                model.RectangleFillColor = value;
                 NotifyPropertyChanged("RectangleFillColor");
             }
         }

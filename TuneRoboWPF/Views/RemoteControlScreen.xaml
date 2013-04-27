@@ -3,8 +3,11 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:TuneRoboWPF="clr-namespace:TuneRoboWPF"
+	xmlns:local="clr-namespace:TuneRoboWPF.Views"
 	mc:Ignorable="d" x:Class="TuneRoboWPF.Views.RemoteControlScreen"
-	d:DesignWidth="1100" d:DesignHeight="703">    
+	d:DesignWidth="1100" d:DesignHeight="703">
+
     <Grid x:Name="LayoutRoot">
         <ListBox x:Name="RemoteListBox" HorizontalAlignment="Right" Margin="0,88.5,8,0" 
                  Width="382.5" 
@@ -14,7 +17,7 @@
                  SelectionChanged="RemoteListBox_SelectionChanged" 
                  SelectedIndex="0">
             <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
+                <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Padding" Value="0"/>
                 </Style>
             </ListBox.ItemContainerStyle>
@@ -23,9 +26,9 @@
                  Margin="4.5,88.5,437,0" 
                  SelectedIndex="0"/>
         <TextBlock x:Name="UnconnectedTextBox" 
-                   HorizontalAlignment="Right" 
+                   HorizontalAlignment="Left" 
                    MouseDown="UnconnectedTextBox_MouseDown"  
-                   TextWrapping="Wrap" Margin="0,0,88.42,321.373" 
+                   TextWrapping="Wrap" Margin="806.167,354,0,0" 
                    Width="205.413" 
                    Panel.ZIndex="1" 
                    TextAlignment="Center" 
@@ -33,7 +36,12 @@
                    TextDecorations="Underline" 
                    RenderTransformOrigin="0.165,0.33" 
                    Height="27.627" 
-                   VerticalAlignment="Bottom" 
+                   VerticalAlignment="Top" 
                    Cursor="Hand"><Run Text="please connect to robo"/></TextBlock>
+        <local:PreviousTrackButton x:Name="PreviousButton" HorizontalAlignment="Left" Margin="832,55,0,0" VerticalAlignment="Top" Width="35" Height="35" />
+        <local:PlayPauseButton x:Name="PlayPauseButton" HorizontalAlignment="Left" Height="35" Margin="868,55,0,0" VerticalAlignment="Top" Width="35"/>
+        <local:NextTrackButton x:Name="NextButton" Margin="904,55,0,0" VerticalAlignment="Top" Width="35" Height="35" HorizontalAlignment="Left" d:LayoutOverrides="Width"/>
+        <local:VolumeButton x:Name="VolumeButton" HorizontalAlignment="Left" Margin="940,55,0,0" VerticalAlignment="Top" Width="35" Height="35"/>
+
     </Grid>
 </UserControl>
