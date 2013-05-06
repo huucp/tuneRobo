@@ -34,6 +34,9 @@ namespace TuneRoboWPF.Views
             ViewModel = (PlayPauseButtonViewModel)(DataContext);
         }
 
+        // Button state - Music state
+        // Play         - Pause
+        // Pause        - Play
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             switch (ViewModel.State)

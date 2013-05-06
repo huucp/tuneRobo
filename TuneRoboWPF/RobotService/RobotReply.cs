@@ -11,12 +11,12 @@ namespace TuneRoboWPF.RobotService
             ReplyPacket = packet;
         }
 
-        public ReplyData Process()
+        public RobotReplyData Process()
         {
-            var replyData = new ReplyData();
-            if(!GetSessionID())
+            var replyData = new RobotReplyData();
+            if (!GetSessionID())
             {
-                replyData.Type = ReplyData.ReplyType.Failed;
+                replyData.Type = RobotReplyData.ReplyType.Failed;
                 return replyData;
             }
             if (CheckReplyID())
@@ -46,10 +46,10 @@ namespace TuneRoboWPF.RobotService
             int id = GlobalFunction.LE2ToDec(tmp);
             return (id == GlobalVariables.ID_ACK);
         }
-        private ReplyData ProcessACKPacket()
+        private RobotReplyData ProcessACKPacket()
         {
-            var replyData = new ReplyData();
-            replyData.Type = ReplyData.ReplyType.Success;
+            var replyData = new RobotReplyData();
+            replyData.Type = RobotReplyData.ReplyType.Success;
             switch (RequestID)
             {
                 case RobotPacket.PacketID.Play:
@@ -63,10 +63,11 @@ namespace TuneRoboWPF.RobotService
                     GetCurrentState();
                     break;
                 case RobotPacket.PacketID.WriteMotionData:
+                case RobotPacket.PacketID.WriteMusicData:
                 case RobotPacket.PacketID.CountMotions:
                 case RobotPacket.PacketID.GetInfoMotionAtIndex:
                     replyData.Data = ProcessInformationRequest();
-                    break;                
+                    break;
             }
             return replyData;
         }
@@ -82,14 +83,14 @@ namespace TuneRoboWPF.RobotService
             return GlobalFunction.SplitByteArray(ReplyPacket, 12, ReplyPacket.Length - 12);
         }
 
-        private ReplyData ProcessErrorPacket()
+        private RobotReplyData ProcessErrorPacket()
         {
-            var replyData = new ReplyData();
+            var replyData = new RobotReplyData();
             return replyData;
         }
     }
 
-    public class ReplyData
+    public class RobotReplyData
     {
         public enum ReplyType
         {
@@ -99,7 +100,7 @@ namespace TuneRoboWPF.RobotService
 
         public ReplyType Type { get; set; }
         public byte[] Data { get; set; }
-        public ReplyData()
+        public RobotReplyData()
         {
             Type = ReplyType.Failed;
             Data = null;

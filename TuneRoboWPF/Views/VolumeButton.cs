@@ -12,7 +12,7 @@ namespace TuneRoboWPF.Views
             ViewModel.Active = false;
         }
 
-        protected override void OnProcessSuccessfully(ReplyData data)
+        protected override void OnProcessSuccessfully(RobotReplyData data)
         {
         }
 

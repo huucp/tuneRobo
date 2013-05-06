@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using TuneRoboWPF.Utility;
 
 namespace TuneRoboWPF
 {
@@ -22,6 +11,16 @@ namespace TuneRoboWPF
         public MainWindow()
         {
             InitializeComponent();
+            
+        }
+
+        private void MainScreen_ContentRendered(object sender, System.EventArgs e)
+        {
+            if (GlobalVariables.ServerConnection.ConfigAndConnectSocket() == 0)
+            {
+                MessageBox.Show("Cannot connect to server!", "Connection error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
     }
 }

@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="protobuf-net">
+      <HintPath>..\..\tuneRobo\tuneRobo\bin\Debug\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -52,15 +55,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="Telerik.Windows.Controls, Version=2013.1.403.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7">
-      <HintPath>C:\Program Files (x86)\Telerik\RadControls for WPF Q1 2013\Binaries\WPF40\Telerik.Windows.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Windows.Controls.Navigation, Version=2013.1.403.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7">
-      <HintPath>C:\Program Files (x86)\Telerik\RadControls for WPF Q1 2013\Binaries\WPF40\Telerik.Windows.Controls.Navigation.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Windows.Data, Version=2013.1.403.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7">
-      <HintPath>C:\Program Files (x86)\Telerik\RadControls for WPF Q1 2013\Binaries\WPF40\Telerik.Windows.Data.dll</HintPath>
     </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
@@ -78,6 +72,9 @@
     <Compile Include="Models\NavigationBarModel.cs" />
     <Compile Include="Models\PlayPauseButtonModel.cs" />
     <Compile Include="Models\RemoteControlScreenModel.cs" />
+    <Compile Include="Models\RobotTransformButtonModel.cs" />
+    <Compile Include="Models\TempStoreScreenModel.cs" />
+    <Compile Include="Models\TransferWindowModel.cs" />
     <Compile Include="RobotService\InformationRequest.cs" />
     <Compile Include="RobotService\ListAllMotionRequest.cs" />
     <Compile Include="RobotService\MotionInfo.cs" />
@@ -85,7 +82,26 @@
     <Compile Include="RobotService\RobotPacket.cs" />
     <Compile Include="RobotService\RobotReply.cs" />
     <Compile Include="RobotService\RobotRequest.cs" />
+    <Compile Include="RobotService\TransferMotionToRobot.cs" />
     <Compile Include="RobotService\WirelessConnection.cs" />
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StoreService\MessageDefinition\Artist.cs" />
+    <Compile Include="StoreService\MessageDefinition\Comm.cs" />
+    <Compile Include="StoreService\MessageDefinition\Motion.cs" />
+    <Compile Include="StoreService\MessageDefinition\User.cs" />
+    <Compile Include="StoreService\SimpleRequest\GetFullArtistInfoStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\ListAllArtistRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\ListCategoryMotionStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\SigninStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\SignoutStoreRequest.cs" />
+    <Compile Include="StoreService\StoreConnection.cs" />
+    <Compile Include="StoreService\StoreReply.cs" />
+    <Compile Include="StoreService\StoreRequest.cs" />
+    <Compile Include="TransferWindow.xaml.cs">
+      <DependentUpon>TransferWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utility\CRCCCIT.cs" />
     <Compile Include="Utility\GlobalResource.cs" />
     <Compile Include="Utility\GlobalVariables.cs" />
@@ -101,8 +117,17 @@
     </Compile>
     <Compile Include="ViewModels\PlayPauseButtonViewModel.cs" />
     <Compile Include="ViewModels\RemoteControlScreenViewModel.cs" />
+    <Compile Include="ViewModels\RobotTransformButtonViewModel.cs" />
+    <Compile Include="ViewModels\TempStoreScreenViewModel.cs" />
+    <Compile Include="ViewModels\TransferWindowViewModel.cs" />
     <Compile Include="Views\ControlButton.xaml.cs">
       <DependentUpon>ControlButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TempStoreScreen.xaml.cs">
+      <DependentUpon>TempStoreScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MotionFullInfoItem.xaml.cs">
+      <DependentUpon>MotionFullInfoItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MotionTitleItem.xaml.cs">
       <DependentUpon>MotionTitleItem.xaml</DependentUpon>
@@ -119,6 +144,9 @@
     <Compile Include="Views\PreviousTrackButton.cs" />
     <Compile Include="Views\RemoteControlScreen.xaml.cs">
       <DependentUpon>RemoteControlScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RobotTransformButton.xaml.cs">
+      <DependentUpon>RobotTransformButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
@@ -137,9 +165,25 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="LoginWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TransferWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ControlButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TempStoreScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MotionFullInfoItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MotionTitleItem.xaml">
       <SubType>Designer</SubType>
@@ -156,6 +200,10 @@
     <Page Include="Views\RemoteControlScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RobotTransformButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -187,8 +235,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Store\" />
-    <Folder Include="Themes\" />
+    <Folder Include="StoreService\DataRequest\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Play.png" />
@@ -201,6 +248,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mrobo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\face-smile-big-4.ico" />
+    <Resource Include="Resources\face-tired.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />

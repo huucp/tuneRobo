@@ -5,7 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Windows.Forms;
 using TuneRoboWPF.Utility;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TuneRoboWPF
 {
@@ -16,7 +19,7 @@ namespace TuneRoboWPF
     {
         public App()
         {
-            GlobalFunction.ReadConfig();
+            GlobalFunction.ReadConfig();            
         }
     }
 }

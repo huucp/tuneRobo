@@ -33,8 +33,8 @@ namespace TuneRoboWPF.Views
         public RemoteRequest Request { get; set; }
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (Request == null) return;
             ClickProcess();
+            if (Request == null) return;
             Request.ProcessSuccessfully += data =>
                                                {                                                   
                                                    OnProcessSuccessfully(data);
@@ -48,7 +48,7 @@ namespace TuneRoboWPF.Views
             GlobalVariables.RobotWorker.AddJob(Request);
         }
 
-        protected virtual void OnProcessSuccessfully(ReplyData data)
+        protected virtual void OnProcessSuccessfully(RobotReplyData data)
         {            
         }
 

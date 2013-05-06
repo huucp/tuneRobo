@@ -9,14 +9,14 @@ namespace TuneRoboWPF.RobotService
 {
     public class RobotRequest : IRequest
     {
-        public delegate void SuccessfullyEventHandler(ReplyData replyData);
+        public delegate void SuccessfullyEventHandler(RobotReplyData robotReplyData);
 
         public event SuccessfullyEventHandler ProcessSuccessfully;
 
-        private void OnProcessSuccessfully(ReplyData replyData)
+        private void OnProcessSuccessfully(RobotReplyData robotReplyData)
         {
             SuccessfullyEventHandler handler = ProcessSuccessfully;
-            if (handler != null) handler(replyData);
+            if (handler != null) handler(robotReplyData);
         }
 
         public delegate void ErrorEventHandler(ErrorCode errorCode, string errorMessage);
@@ -63,7 +63,7 @@ namespace TuneRoboWPF.RobotService
         /// <returns>Data of reply</returns>
         public object Process()
         {
-            var replyData = new ReplyData();
+            var replyData = new RobotReplyData();
             if (!SetupConnection())
             {
                 OnProcessError(ErrorCode.SetupConnection, "Setup connection error");

@@ -11,7 +11,7 @@ using Microsoft.Win32;
 using TuneRoboWPF.RobotService;
 
 namespace TuneRoboWPF.Utility
-{
+{    
     class GlobalFunction
     {
         [DllImport("kernel32")]
@@ -329,13 +329,13 @@ namespace TuneRoboWPF.Utility
         {
             var le = new byte[8];
             le[0] = (byte)num;
-            le[1] = (byte)(((uint)num >> 8) & 0xFF);
-            le[2] = (byte)(((uint)num >> 16) & 0xFF);
-            le[3] = (byte)(((uint)num >> 24) & 0xFF);
-            le[4] = (byte)(((uint)num >> 32) & 0xFF);
-            le[5] = (byte)(((uint)num >> 40) & 0xFF);
-            le[6] = (byte)(((uint)num >> 48) & 0xFF);
-            le[7] = (byte)(((uint)num >> 56) & 0xFF);
+            le[1] = (byte)((num >> 8) & 0xFF);
+            le[2] = (byte)((num >> 16) & 0xFF);
+            le[3] = (byte)((num >> 24) & 0xFF);
+            le[4] = (byte)((num >> 32) & 0xFF);
+            le[5] = (byte)((num >> 40) & 0xFF);
+            le[6] = (byte)((num >> 48) & 0xFF);
+            le[7] = (byte)((num >> 56) & 0xFF);
             return le;
         }
 
@@ -491,12 +491,12 @@ namespace TuneRoboWPF.Utility
             var fInfo = new FileInfo(filename);
             if (!fInfo.Exists)
             {
-                MessageBox.Show("File is not exist", "File error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("File " + filename + " is not exist", "File error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
             if (fInfo.Length > (100 * 1024 * 1024))
             {
-                MessageBox.Show("File is too big", "File error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("File " + filename + " is too big", "File error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return null;
             }
             return File.ReadAllBytes(filename);
@@ -508,7 +508,7 @@ namespace TuneRoboWPF.Utility
             GlobalVariables.CurrentListMotion.Clear();
             GlobalVariables.CurrentListMotion.AddRange(listMotionInfo);
         }
-        
+
         #endregion
 
         #region Server connection
@@ -561,70 +561,27 @@ namespace TuneRoboWPF.Utility
         }
 
         // Convert a decimal number to a hexadecimal number in 8 byte big endian format
-        public static byte[] DecToBE8(int num)
+        public static byte[] DecToBE8(ulong num)
         {
             var le = new byte[8];
 
             le[7] = (byte)num;
-            le[6] = (byte)(((uint)num >> 8) & 0xFF);
-            le[5] = (byte)(((uint)num >> 16) & 0xFF);
-            le[4] = (byte)(((uint)num >> 24) & 0xFF);
-            le[3] = (byte)(((uint)num >> 32) & 0xFF);
-            le[2] = (byte)(((uint)num >> 40) & 0xFF);
-            le[1] = (byte)(((uint)num >> 48) & 0xFF);
-            le[0] = (byte)(((uint)num >> 56) & 0xFF);
+            le[6] = (byte)((num >> 8) & 0xFF);
+            le[5] = (byte)((num >> 16) & 0xFF);
+            le[4] = (byte)((num >> 24) & 0xFF);
+            le[3] = (byte)((num >> 32) & 0xFF);
+            le[2] = (byte)((num >> 40) & 0xFF);
+            le[1] = (byte)((num >> 48) & 0xFF);
+            le[0] = (byte)((num >> 56) & 0xFF);
             return le;
         }
 
         // Convert a hexadecimal number in 8 byte big endian format to a decimal number
-        public static int BE8ToDec(byte[] data)
+        public static ulong BE8ToDec(byte[] data)
         {
-            return (data[0] << 56) | (data[1] << 48) | (data[2] << 40) | (data[3] << 32) | (data[4] << 24) | (data[5] << 16) | (data[6] << 8) | data[7];
+            return (ulong)((data[0] << 56) | (data[1] << 48) | (data[2] << 40) | (data[3] << 32) | (data[4] << 24) | (data[5] << 16) | (data[6] << 8) | data[7]);
         }
 
-        // Build a packet
-        public static byte[] BuildServerPacket(int size, int type, int meta, byte[] data, int id = 0)
-        {
-            var packet = new byte[size];
-
-            // Magic bytes
-            packet[0] = 0xEE;
-            packet[1] = 0xEE;
-
-            // Size
-            var tmpSize = DecToBE2(size);
-            packet[2] = tmpSize[0];
-            packet[3] = tmpSize[1];
-
-            // Type
-            var tmpType = DecToBE3(type);
-            packet[4] = tmpType[0];
-            packet[5] = tmpType[1];
-            packet[6] = tmpType[2];
-
-            // Meta
-            packet[7] = (byte)meta;
-
-            var pos = 8;
-            // ID
-            if (id > 0)
-            {
-                var tmpId = DecToBE8(id);
-                packet[8] = tmpId[0];
-                packet[9] = tmpId[1];
-                packet[10] = tmpId[2];
-                packet[11] = tmpId[3];
-                packet[12] = tmpId[4];
-                packet[13] = tmpId[5];
-                packet[14] = tmpId[6];
-                packet[15] = tmpId[7];
-                pos = 16;
-            }
-
-            Buffer.BlockCopy(data, 0, packet, pos, data.Length);
-
-            return packet;
-        }
         #endregion
     }
 }

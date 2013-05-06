@@ -13,7 +13,7 @@
 
     <Grid x:Name="LayoutRoot">
         <Rectangle x:Name="Bar" Fill="#FF4C4C52" Height="40" Margin="0" Stroke="Black" VerticalAlignment="Top" Width="1100"/>
-        <Button x:Name="SignInButton" Content="SignIn" HorizontalAlignment="Left" Margin="43,4,0,0" VerticalAlignment="Top" Width="85" Height="32" Click="SignInButton_Click" />
+        <Button x:Name="SignInButton" Content="Login" HorizontalAlignment="Left" Margin="43,4,0,0" VerticalAlignment="Top" Width="85" Height="32" Click="SignInButton_Click" />
         <Menu x:Name="UserMenu" HorizontalAlignment="Left" Height="32" Margin="43,4,0,0" VerticalAlignment="Top" Width="85" Cursor="Hand" Visibility="Hidden">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -24,8 +24,8 @@
                 <MenuItem.Header>
                     <TextBlock Text="{Binding Username}"  VerticalAlignment="Center"/>
                 </MenuItem.Header>
-                <MenuItem x:Name="AccountMenu" Header="Account"/>
-                <MenuItem x:Name="SignOutMenu" Header="Sign Out"/>
+                <MenuItem x:Name="AccountMenu" Header="Account" Click="AccountMenu_Click"/>
+                <MenuItem x:Name="SignOutMenu" Header="Sign Out" Click ="SignOutMenu_Click"/>
             </MenuItem>
         </Menu>
         <Button x:Name="StoreButton"  Content="Store" Height="28" Margin="463,4,531,0" VerticalAlignment="Top"/>

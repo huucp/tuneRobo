@@ -3,7 +3,7 @@ using TuneRoboWPF.Utility;
 
 namespace TuneRoboWPF.Views
 {
-    public class NextTrackButton:ControlButton
+    public class NextTrackButton : ControlButton
     {
         public NextTrackButton()
         {
@@ -13,9 +13,20 @@ namespace TuneRoboWPF.Views
         }
         protected override void ClickProcess()
         {
+            var index = GlobalVariables.CurrentRobotState.CurrentMotionIndex;
+            if (index == GlobalVariables.CurrentListMotion.Count - 1)
+            {
+                index = 0;
+                GlobalVariables.CurrentRobotState.CurrentMotionIndex = 0;
+            }
+            else
+            {
+                index++;
+                GlobalVariables.CurrentRobotState.CurrentMotionIndex++;
+            }
             ulong nextMotionID =
-                GlobalVariables.CurrentListMotion[GlobalVariables.CurrentRobotState.CurrentMotionIndex + 1].MotionID;
-            Request = new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay,-1,nextMotionID);
+                GlobalVariables.CurrentListMotion[index].MotionID;
+            Request = new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay, -1, nextMotionID);
         }
     }
 }

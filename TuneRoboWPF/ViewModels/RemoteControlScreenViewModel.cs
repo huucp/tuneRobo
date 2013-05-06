@@ -8,27 +8,37 @@ namespace TuneRoboWPF.ViewModels
     public class RemoteControlScreenViewModel : ViewModelBase
     {
         private RemoteControlScreenModel model = new RemoteControlScreenModel();
-        
-        public ObservableCollection<MotionTitleItem> RemoteListItem
+
+        private ObservableCollection<MotionTitleItem> _remoteItemsList;
+        public ObservableCollection<MotionTitleItem> RemoteItemsList
         {
-            get { return model.RemoteListItem; }
+            get { return model.RemoteItemsList; }
             set
             {
-                model.RemoteListItem = value;
-                NotifyPropertyChanged("RemoteListItem");
+                model.RemoteItemsList = value;
+                NotifyPropertyChanged("RemoteItemsList");
+            }
+        }
+        public ObservableCollection<MotionTitleItem> LibraryItemsList
+        {
+            get { return model.LibraryItemsList; }
+            set
+            {
+                model.LibraryItemsList = value;
+                NotifyPropertyChanged("LibraryItemsList");
             }
         }
 
         public MotionTitleItem LastSelectedMotionItem { get; set; }
         
-        public MotionTitleItem SelectedMotion
+        public MotionTitleItem RemoteSelectedMotion
         {
-            get { return model.SelectedMotion; }
+            get { return model.RemoteSelectedMotion; }
             set
             {
-                LastSelectedMotionItem = model.SelectedMotion;                
-                model.SelectedMotion = value;
-                NotifyPropertyChanged("SelectedMotion");
+                LastSelectedMotionItem = model.RemoteSelectedMotion;                
+                model.RemoteSelectedMotion = value;
+                NotifyPropertyChanged("RemoteSelectedMotion");
             }
         }
     }

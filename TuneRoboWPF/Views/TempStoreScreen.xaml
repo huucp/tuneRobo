@@ -1,0 +1,28 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="TuneRoboWPF.Views.TempStoreScreen"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480" Width="1094" Height="675">
+
+	<Grid x:Name="LayoutRoot">
+		<ListBox x:Name="HotListBox" HorizontalAlignment="Left" Margin="57.643,181.516,0,23.751" 
+                 Width="298.03" ItemsSource="{Binding HotItemsList}">
+            
+        </ListBox>
+	    <ListBox x:Name="FeatureListBox" Margin="408.41,181.516,387.56,23.751" 
+                 ItemsSource="{Binding FeaturedItemsList}">
+            
+        </ListBox>
+	    <ListBox x:Name="ArtistListBox" Margin="0,181.516,41.699,23.751" HorizontalAlignment="Right" 
+                 Width="298.03" ItemsSource="{Binding ArtistItemsList}">
+            
+        </ListBox>
+	    <Label Content="Hot" HorizontalAlignment="Left" Height="32.794" Margin="149.628,144.722,0,0" VerticalAlignment="Top" Width="101.796"/>
+		<Label Content="Feature" Height="32.794" Margin="468.507,144.722,495.489,0" VerticalAlignment="Top"/>
+		<Label Content="Artist" HorizontalAlignment="Right" Height="32.794" Margin="0,144.722,155.76,0" VerticalAlignment="Top" Width="96.89"/>
+	</Grid>
+</UserControl>

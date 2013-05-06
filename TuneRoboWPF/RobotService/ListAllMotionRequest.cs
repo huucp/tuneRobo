@@ -76,10 +76,10 @@ namespace TuneRoboWPF.RobotService
             var getMotionCountRequest = new GetMotionCountRequest(RobotPacket.PacketID.CountMotions);
             RobotReply reply = Connection.SendAndReceivePacket(getMotionCountRequest.BuildRequest());
             reply.RequestID = RobotPacket.PacketID.CountMotions;
-            ReplyData replyData = reply.Process();
-            if (replyData.Type == ReplyData.ReplyType.Success)
+            RobotReplyData robotReplyData = reply.Process();
+            if (robotReplyData.Type == RobotReplyData.ReplyType.Success)
             {
-                return (int)GlobalFunction.LE4ToDec(replyData.Data);
+                return (int)GlobalFunction.LE4ToDec(robotReplyData.Data);
             }
             return motionCount;
         }
@@ -90,12 +90,12 @@ namespace TuneRoboWPF.RobotService
                 RobotPacket.PacketID.GetInfoMotionAtIndex, motionIndex);
             RobotReply reply = Connection.SendAndReceivePacket(getMotionInfoAtIndexRequest.BuildRequest());
             reply.RequestID = RobotPacket.PacketID.GetInfoMotionAtIndex;
-            ReplyData replyData = reply.Process();
-            if (replyData.Type == ReplyData.ReplyType.Failed)
+            RobotReplyData robotReplyData = reply.Process();
+            if (robotReplyData.Type == RobotReplyData.ReplyType.Failed)
             {
                 return null;
             }
-            return new MotionInfo(replyData.Data);
+            return new MotionInfo(robotReplyData.Data);
         }
     }
 }

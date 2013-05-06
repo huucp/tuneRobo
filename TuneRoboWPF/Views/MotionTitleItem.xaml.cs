@@ -14,19 +14,9 @@ namespace TuneRoboWPF.Views
 			this.InitializeComponent();
 			
 			// Insert code required on object creation below this point.
-            var viewModel = new MotionTitleItemViewModel();
-		    DataContext = viewModel;
+            DataContext = new MotionTitleItemViewModel();
 		    ViewModel = (MotionTitleItemViewModel) (DataContext);
-		}        
-
-        /// <summary>
-        /// Set information of motion to item
-        /// </summary>
-        /// <param name="info">Motion information</param>
-        public void SetInfo(MotionInfo info)
-        {
-            MotionTitle.Text = info.Title;
-        }
+		}               
 	    public MotionTitleItemViewModel ViewModel;
 	}
 }

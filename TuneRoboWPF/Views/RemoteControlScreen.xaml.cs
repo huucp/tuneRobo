@@ -23,8 +23,54 @@ namespace TuneRoboWPF.Views
             // Insert code required on object creation below this point.
             var remoteViewModel = new RemoteControlScreenViewModel();
             DataContext = remoteViewModel;
-            viewModel = ((RemoteControlScreenViewModel)(DataContext));
+            viewModel = (RemoteControlScreenViewModel)DataContext;
             PlayPauseButton.UpdateParentControl += PlayPauseButton_UpdateParentControl;
+            NextButton.UpdateParentControl += NextButton_UpdateParentControl;
+            PreviousButton.UpdateParentControl += PreviousButton_UpdateParentControl;
+            TransformButton.UpdateParentControl += TransformButton_UpdateParentControl;
+        }
+
+        private void PreviousButton_UpdateParentControl(object sender)
+        {
+            //Dispatcher.BeginInvoke((Action)delegate
+            //{
+            //    if (RemoteListBox.SelectedIndex == 0)
+            //    {
+            //        RemoteListBox.SelectedIndex =
+            //            GlobalVariables.CurrentListMotion.Count - 1;
+            //        return;
+            //    }
+            //    RemoteListBox.SelectedIndex--;
+            //});
+        }
+
+        private void NextButton_UpdateParentControl(object sender)
+        {
+            //Dispatcher.BeginInvoke((Action)delegate
+            //{
+            //    if (RemoteListBox.SelectedIndex ==
+            //        GlobalVariables.CurrentListMotion.Count - 1)
+            //    {
+            //        RemoteListBox.SelectedIndex = 0;
+            //        return;
+            //    }
+            //    RemoteListBox.SelectedIndex++;
+            //});
+        }
+
+        private void TransformButton_UpdateParentControl(object sender)
+        {
+            switch (TransformButton.ViewModel.State)
+            {
+                case RobotTransformButtonModel.ButtonState.Transform:
+                    PlayPauseButton.ViewModel.State = PlayPauseButtonModel.ButtonState.InActive;
+                    SetControlButtonState(false);
+                    break;
+                case RobotTransformButtonModel.ButtonState.Untransform:
+                    PlayPauseButton.ViewModel.State = PlayPauseButtonModel.ButtonState.Play;
+                    SetControlButtonState(true);
+                    break;
+            }
         }
 
         private void PlayPauseButton_UpdateParentControl(object sender)
@@ -34,7 +80,7 @@ namespace TuneRoboWPF.Views
 
         private void UpdateRemoteControl()
         {
-            UpdateMusicState();
+            //UpdateMusicState();
             UpdateMotionPlay();
         }
 
@@ -57,14 +103,14 @@ namespace TuneRoboWPF.Views
 
         private void UpdateMotionPlay()
         {
-            RemoteListBox.SelectedIndex = GlobalVariables.CurrentRobotState.CurrentMotionIndex;
+            //RemoteListBox.SelectedIndex = GlobalVariables.CurrentRobotState.CurrentMotionIndex;
         }
 
         private void SetControlButtonState(bool state)
         {
             NextButton.ViewModel.Active = state;
             PreviousButton.ViewModel.Active = state;
-            VolumeButton.ViewModel.Active = state;           
+            VolumeButton.ViewModel.Active = state;
         }
 
         private RemoteControlScreenViewModel viewModel;
@@ -75,15 +121,13 @@ namespace TuneRoboWPF.Views
             {
                 viewModel.LastSelectedMotionItem.ViewModel.RectangleFillColor = "Yellow";
             }
-            viewModel.SelectedMotion.ViewModel.RectangleFillColor = "Red";
+            viewModel.RemoteSelectedMotion.ViewModel.RectangleFillColor = "Red";
         }
 
         private void UnconnectedTextBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Cursor = Cursors.Wait;
             ConnectMrobo();
-
-
         }
         private void ConnectMrobo()
         {
@@ -92,14 +136,22 @@ namespace TuneRoboWPF.Views
             {
                 MessageBox.Show("Connect successfully!", "Connect to mRobo via Wireless connection", MessageBoxButton.OK);
                 Dispatcher.BeginInvoke((Action)delegate
-                                                   {
-                                                       UnconnectedTextBox.Visibility = Visibility.Hidden;
-                                                       PlayPauseButton.ViewModel.State = PlayPauseButtonModel.ButtonState.Play;
-                                                       SetControlButtonState(true);
-                                                       GetListMotion();
-                                                   });
+                {
+                    UnconnectedTextBox.Visibility = Visibility.Hidden;
+                    TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;
+                    GetListMotion();
+                    Cursor = Cursors.Arrow;
+                });
             };
-            helloRequest.ProcessError += (errorCode, msg) => MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            helloRequest.ProcessError += (errorCode, msg) =>
+            {
+                MessageBox.Show(msg, "Error", MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Cursor = Cursors.Arrow;
+                });
+            };
 
             GlobalVariables.RobotWorker.AddJob(helloRequest);
         }
@@ -107,19 +159,23 @@ namespace TuneRoboWPF.Views
         private void GetListMotion()
         {
             var listAllMotionRequest = new ListAllMotionRequest();
-            listAllMotionRequest.ProcessSuccessfully += (s) => Dispatcher.BeginInvoke((Action)delegate
+            if (viewModel.RemoteItemsList.Count > 0) viewModel.RemoteItemsList.Clear();
+            listAllMotionRequest.ProcessSuccessfully += (listMotionInfo) => Dispatcher.BeginInvoke((Action)delegate
             {
                 var listMotion = new ObservableCollection<MotionTitleItem>();
-                foreach (MotionInfo info in s)
+                var listMotion2 = new ObservableCollection<MotionTitleItem>();
+                foreach (MotionInfo info in listMotionInfo)
                 {
                     var motionTitleItem = new MotionTitleItem();
                     motionTitleItem.ViewModel.Title = info.Title;
                     listMotion.Add(motionTitleItem);
+                    viewModel.RemoteItemsList.Add(motionTitleItem);
                 }
-                viewModel.RemoteListItem = listMotion;
+                
+                GlobalFunction.UpdateCurrentListMotion(listMotionInfo);
                 Dispatcher.BeginInvoke((Action)delegate
                                                     {
-                                                        Cursor = Cursors.Arrow;                                                        
+                                                        Cursor = Cursors.Arrow;
                                                     });
             });
             listAllMotionRequest.ProcessError += (e, msg) =>
@@ -131,6 +187,13 @@ namespace TuneRoboWPF.Views
                 Console.WriteLine(msg);
             };
             GlobalVariables.RobotWorker.AddJob(listAllMotionRequest);
+        }
+
+        private void TransferButton_Click(object sender, RoutedEventArgs e)
+        {
+            var transferRequest = new TransferMotionToRobot(89);
+            var transferWindow = new TransferWindow(transferRequest, 89.ToString());
+            transferWindow.ShowDialog();
         }
     }
 }

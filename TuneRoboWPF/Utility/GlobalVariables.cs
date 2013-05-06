@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using TuneRoboWPF.RobotService;
+using TuneRoboWPF.StoreService;
+using comm;
 
 namespace TuneRoboWPF.Utility
 {
@@ -236,6 +238,8 @@ namespace TuneRoboWPF.Utility
 
         // Online user
         public static bool USER_ONLINE { get; set; }
+        public static ulong CurrentUserID { get; set; }
+        public static string CurrentUser { get; set; }
         // Maximum of packet size
         public const int WirelessPacketMtu = 512;
 
@@ -246,6 +250,9 @@ namespace TuneRoboWPF.Utility
 
         public static StoreWorker StoreWorker = StoreWorker.Instance;
         public static RoboWorker RobotWorker = RoboWorker.Instance;
+
+        public static StoreConnection ServerConnection = StoreConnection.Instance;
+        public static ulong CountRequest = 0;
 
         
         public const int PACKET_HEADER = 0x0080;

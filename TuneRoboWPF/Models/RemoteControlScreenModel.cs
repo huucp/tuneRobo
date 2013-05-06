@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 using TuneRoboWPF.Views;
 
 namespace TuneRoboWPF.Models
 {
     public class RemoteControlScreenModel
     {
-        public ObservableCollection<MotionTitleItem> RemoteListItem;
-        public MotionTitleItem SelectedMotion;
+        public ObservableCollection<MotionTitleItem> RemoteItemsList = new ObservableCollection<MotionTitleItem>();
+        public ObservableCollection<MotionTitleItem> LibraryItemsList = new ObservableCollection<MotionTitleItem>();
+        public MotionTitleItem RemoteSelectedMotion;
     }
 }
