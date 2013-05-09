@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Forms;
 using TuneRoboWPF.RobotService;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
+using TuneRoboWPF.StoreService.BigRequest;
+using comm;
 
 namespace TuneRoboWPF
 {
@@ -12,16 +13,17 @@ namespace TuneRoboWPF
 	/// </summary>
 	public partial class TransferWindow : Window
 	{
-        private TransferMotionToRobot Request { get; set; }
+        private TransferMotionToRobot RobotRequest { get; set; }
+        private DownloadMotionStoreRequest StoreRequest { get; set; }
 	    private TransferWindowViewModel ViewModel;
         public TransferWindow(TransferMotionToRobot request, string motionTitle)
 		{
 			InitializeComponent();
 		    
-            Request = request;
-            Request.ProcessError += Request_ProcessError;
-            Request.ProcessSuccessfully += Request_ProcessSuccessfully;
-            Request.ProgressReport += Request_ProgressReport;
+            RobotRequest = request;
+            RobotRequest.ProcessError += Request_ProcessError;
+            RobotRequest.ProcessSuccessfully += Request_ProcessSuccessfully;
+            RobotRequest.ProgressReport += Request_ProgressReport;
             
             ProgressBar.Maximum = 100;
 
@@ -31,7 +33,24 @@ namespace TuneRoboWPF
             ViewModel.Title = motionTitle;
 		}
 
-        private void Request_ProgressReport(int progressValue)
+        public TransferWindow(DownloadMotionStoreRequest request, string motionTitle)
+        {
+            InitializeComponent();
+
+            StoreRequest = request;
+            StoreRequest.ProcessError += Request_ProcessError;
+            StoreRequest.ProcessSuccessfully += Request_ProcessSuccessfully;
+            StoreRequest.ProgressReport += Request_ProgressReport;
+
+            ProgressBar.Maximum = 100;
+
+            var viewModel = new TransferWindowViewModel();
+            DataContext = viewModel;
+            ViewModel = (TransferWindowViewModel)DataContext;
+            ViewModel.Title = motionTitle;
+        }
+
+	    private void Request_ProgressReport(int progressValue)
         {
             Dispatcher.BeginInvoke((Action) delegate
                                                 {
@@ -59,20 +78,30 @@ namespace TuneRoboWPF
                                                 });
         }
 
+        private void Request_ProcessError(Reply.Type errorcode, string errorMessage)
+        {
+            Dispatcher.BeginInvoke((Action)delegate
+            {
+                DialogResult = false;
+                Console.WriteLine(errorMessage);
+                Close();
+            });
+        }
+
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            if (Request== null) return;            
-            GlobalVariables.RobotWorker.AddJob(Request);
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
+            if (RobotRequest == null && StoreRequest == null) return;            
+            if (RobotRequest!=null) GlobalVariables.RobotWorker.AddJob(RobotRequest);
+            else
+            {
+                GlobalVariables.StoreWorker.AddJob(StoreRequest);
+            }
+        }        
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Request.CancelProcess = true;
+            if (RobotRequest != null) RobotRequest.CancelProcess = true;
+            else StoreRequest.CancelProcess = true;
         }        
 	}
 }

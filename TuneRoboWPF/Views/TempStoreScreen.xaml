@@ -6,23 +6,32 @@
 	mc:Ignorable="d"
 	x:Class="TuneRoboWPF.Views.TempStoreScreen"
 	x:Name="UserControl"
-	d:DesignWidth="640" d:DesignHeight="480" Width="1094" Height="675">
+	d:DesignWidth="640" d:DesignHeight="480" Width="1094" Height="675"
+    IsVisibleChanged="UserControl_IsVisibleChanged">
 
 	<Grid x:Name="LayoutRoot">
 		<ListBox x:Name="HotListBox" HorizontalAlignment="Left" Margin="57.643,181.516,0,23.751" 
-                 Width="298.03" ItemsSource="{Binding HotItemsList}">
+                 Width="298.03" ItemsSource="{Binding HotItemsList}"
+                 HorizontalContentAlignment="Stretch">
             
         </ListBox>
 	    <ListBox x:Name="FeatureListBox" Margin="408.41,181.516,387.56,23.751" 
-                 ItemsSource="{Binding FeaturedItemsList}">
+                 ItemsSource="{Binding FeaturedItemsList}"
+                 HorizontalContentAlignment="Stretch">
             
         </ListBox>
 	    <ListBox x:Name="ArtistListBox" Margin="0,181.516,41.699,23.751" HorizontalAlignment="Right" 
-                 Width="298.03" ItemsSource="{Binding ArtistItemsList}">
+                 Width="298.03" ItemsSource="{Binding ArtistItemsList}"
+                 HorizontalContentAlignment="Stretch">
             
         </ListBox>
 	    <Label Content="Hot" HorizontalAlignment="Left" Height="32.794" Margin="149.628,144.722,0,0" VerticalAlignment="Top" Width="101.796"/>
 		<Label Content="Feature" Height="32.794" Margin="468.507,144.722,495.489,0" VerticalAlignment="Top"/>
 		<Label Content="Artist" HorizontalAlignment="Right" Height="32.794" Margin="0,144.722,155.76,0" VerticalAlignment="Top" Width="96.89"/>
-	</Grid>
+        <Button Content="Download" Height="23" HorizontalAlignment="Left" Margin="257,146,0,0" 
+                Name="DownloadButton" VerticalAlignment="Top" Width="65" 
+                Click="DownloadButton_Click" />
+        <Button Content="View Info" Height="27" HorizontalAlignment="Left" Margin="257,112,0,0" 
+                Name="InfoButton" VerticalAlignment="Top" Width="65" Click="InfoButton_Click"/>
+    </Grid>
 </UserControl>

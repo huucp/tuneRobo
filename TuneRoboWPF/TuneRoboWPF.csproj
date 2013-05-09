@@ -87,15 +87,31 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StoreService\BigRequest\DownloadMotionStoreRequest.cs" />
     <Compile Include="StoreService\MessageDefinition\Artist.cs" />
     <Compile Include="StoreService\MessageDefinition\Comm.cs" />
     <Compile Include="StoreService\MessageDefinition\Motion.cs" />
     <Compile Include="StoreService\MessageDefinition\User.cs" />
+    <Compile Include="StoreService\SimpleRequest\ChangePasswordStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\FollowStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\ForgotPasswordStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\GetFullArtistInfoStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\GetMotionDownloadByUserStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\GetMotionFullInfoStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\GetMotionOfArtistStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\GetMotionVersionStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\GetNotificationStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\GetRatingMotionInfoStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\GetUserArtistRelationStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\GetUserInfoStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\ListAllArtistRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\ListCategoryMotionStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\RatingMotionStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\SearchMotionStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\SetUserInfoStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\SigninStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\SignoutStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\SignupStoreRequest.cs" />
     <Compile Include="StoreService\StoreConnection.cs" />
     <Compile Include="StoreService\StoreReply.cs" />
     <Compile Include="StoreService\StoreRequest.cs" />
@@ -234,9 +250,7 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="StoreService\DataRequest\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Play.png" />
     <Resource Include="Resources\Next-Track.png" />

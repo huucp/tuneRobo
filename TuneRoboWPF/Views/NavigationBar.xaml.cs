@@ -12,6 +12,26 @@ namespace TuneRoboWPF
     /// </summary>
     public partial class NavigationBar : UserControl
     {
+        public delegate void LoginSuccessfullyEventHandler(object sender);
+
+        public event LoginSuccessfullyEventHandler LoginProcessSuccessfully;
+
+        private void OnLoginSuccessfully(object sender)
+        {
+            LoginSuccessfullyEventHandler handler = LoginProcessSuccessfully;
+            if (handler != null) handler(sender);
+        }
+
+        public delegate void LogoutSuccessfullyEventHandler(object sender);
+
+        public event LogoutSuccessfullyEventHandler LogoutSuccessfully;
+
+        private void OnLogoutSuccessfully(object sender)
+        {
+            LogoutSuccessfullyEventHandler handler = LogoutSuccessfully;
+            if (handler != null) handler(sender);
+        }
+
         public NavigationBar()
         {
             InitializeComponent();
@@ -29,8 +49,9 @@ namespace TuneRoboWPF
             if (loginWindow.DialogResult == true)
             {
                 UserMenu.Visibility = Visibility.Visible;
-                SignInButton.Visibility = Visibility.Collapsed;
+                SignInButton.Visibility = Visibility.Hidden;
                 viewModel.Username = GlobalVariables.CurrentUser;
+                OnLoginSuccessfully(null);
             }
         }
 
@@ -41,7 +62,19 @@ namespace TuneRoboWPF
 
         private void AccountMenu_Click(object sender, RoutedEventArgs e)
         {
+            var getUserInfoRequest = new GetUserInfoStoreRequest();
+            getUserInfoRequest.ProcessSuccessfully += (reply) =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                                                   {
+                                                       MessageBox.Show(reply.profile.email, reply.profile.display_name);
+                                                   });
+            };
+            getUserInfoRequest.ProcessError += (reply, msg) =>
+            {
 
+            };
+            GlobalVariables.StoreWorker.AddJob(getUserInfoRequest);
         }
 
         private void SignOutMenu_Click(object sender, RoutedEventArgs e)
@@ -50,6 +83,7 @@ namespace TuneRoboWPF
             signoutRequest.ProcessSuccessfully += (reply) =>
                                                       {
                                                           Console.WriteLine("signout successfully");
+                                                          OnLogoutSuccessfully(null);
                                                       };
             signoutRequest.ProcessError += (reply, msg) =>
                                                {

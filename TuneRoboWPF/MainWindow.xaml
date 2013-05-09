@@ -12,6 +12,6 @@
 		<local:NavigationBar x:Name="navigationBar" DockPanel.Dock="Top" Width="1100"/>
 		<local:StatusBar x:Name="statusBar" DockPanel.Dock = "Bottom"/>
 		<Views:RemoteControlScreen x:Name="remoteScreen" Width="1094"/>
-		<Views:TempStoreScreen x:Name="TestStoreScreen" Height="675" Margin="0,0,0,32" Width="1094" Visibility="Collapsed"/>
+		<Views:TempStoreScreen x:Name="testStoreScreen" Height="675" Margin="0,0,0,0" Width="1094" Visibility="Collapsed"/>
 	</DockPanel>
 </Window>

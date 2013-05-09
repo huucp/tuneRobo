@@ -3,12 +3,11 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	x:Class="TuneRoboWPF.TransferWindow"
 	x:Name="Window"
-	Title="TransferWindow"
+	Title="{Binding WindowTitle}"
 	Width="373" Height="185"
 	WindowStartupLocation="CenterScreen"
 	ResizeMode="CanMinimize"
 	ShowInTaskbar="False"
-    Closing="Window_Closing"
     ContentRendered="Window_ContentRendered">
 
 	<Grid x:Name="LayoutRoot">
