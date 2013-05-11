@@ -1690,6 +1690,13 @@ namespace motion
             get { return _comment_content; }
         }
 
+        private readonly global::System.Collections.Generic.List<string> _comment_title = new global::System.Collections.Generic.List<string>();
+        [global::ProtoBuf.ProtoMember(7, Name = @"comment_title", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        public global::System.Collections.Generic.List<string> comment_title
+        {
+            get { return _comment_title; }
+        }
+
         [global::ProtoBuf.ProtoContract(Name = @"Type")]
         public enum Type
         {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using ProtoBuf;
 using TuneRoboWPF.Utility;
 using comm;
@@ -10,11 +6,11 @@ using user;
 
 namespace TuneRoboWPF.StoreService.SimpleRequest
 {
-    public class FollowStoreRequest:StoreRequest
+    public class FollowStoreRequest : StoreRequest
     {
         private FollowRequest.Type FollowType { get; set; }
         private ulong ArtistID { get; set; }
-        public FollowStoreRequest(FollowRequest.Type type,ulong artistID)
+        public FollowStoreRequest(FollowRequest.Type type, ulong artistID)
         {
             FollowType = type;
             ArtistID = artistID;
@@ -23,11 +19,11 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
         {
             base.BuildPacket();
             var followRequest = new FollowRequest()
-                                    {
-                                        type = FollowType,
-                                        user_id = GlobalVariables.CurrentUserID,
-                                        artist_id = ArtistID
-                                    };
+            {
+                type = FollowType,
+                user_id = GlobalVariables.CurrentUserID,
+                artist_id = ArtistID
+            };
             byte[] packetData;
             using (var stream = new MemoryStream())
             {
@@ -39,4 +35,5 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
                                                        packetData, GlobalVariables.CountRequest);
         }
     }
+
 }

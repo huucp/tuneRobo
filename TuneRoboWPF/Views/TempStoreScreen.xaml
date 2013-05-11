@@ -10,28 +10,45 @@
     IsVisibleChanged="UserControl_IsVisibleChanged">
 
 	<Grid x:Name="LayoutRoot">
-		<ListBox x:Name="HotListBox" HorizontalAlignment="Left" Margin="57.643,181.516,0,23.751" 
+		<ListBox x:Name="HotListBox" HorizontalAlignment="Left" Margin="63,70,0,136" 
                  Width="298.03" ItemsSource="{Binding HotItemsList}"
                  HorizontalContentAlignment="Stretch">
             
         </ListBox>
-	    <ListBox x:Name="FeatureListBox" Margin="408.41,181.516,387.56,23.751" 
+	    <ListBox x:Name="FeatureListBox" Margin="413,70,383,136" 
                  ItemsSource="{Binding FeaturedItemsList}"
                  HorizontalContentAlignment="Stretch">
             
         </ListBox>
-	    <ListBox x:Name="ArtistListBox" Margin="0,181.516,41.699,23.751" HorizontalAlignment="Right" 
+	    <ListBox x:Name="ArtistListBox" Margin="0,70,37,136" HorizontalAlignment="Right" 
                  Width="298.03" ItemsSource="{Binding ArtistItemsList}"
                  HorizontalContentAlignment="Stretch">
             
         </ListBox>
-	    <Label Content="Hot" HorizontalAlignment="Left" Height="32.794" Margin="149.628,144.722,0,0" VerticalAlignment="Top" Width="101.796"/>
-		<Label Content="Feature" Height="32.794" Margin="468.507,144.722,495.489,0" VerticalAlignment="Top"/>
-		<Label Content="Artist" HorizontalAlignment="Right" Height="32.794" Margin="0,144.722,155.76,0" VerticalAlignment="Top" Width="96.89"/>
-        <Button Content="Download" Height="23" HorizontalAlignment="Left" Margin="257,146,0,0" 
+	    <Label Content="Hot" HorizontalAlignment="Left" Height="32.794" Margin="155,33,0,0" VerticalAlignment="Top" Width="101.796"/>
+		<Label Content="Feature" Height="32.794" Margin="474,33,490,0" VerticalAlignment="Top"/>
+		<Label Content="Artist" HorizontalAlignment="Right" Height="32.794" Margin="0,33,151,0" VerticalAlignment="Top" Width="96.89"/>
+        <Button Content="Download" Height="23" HorizontalAlignment="Left" Margin="180,559,0,0" 
                 Name="DownloadButton" VerticalAlignment="Top" Width="65" 
                 Click="DownloadButton_Click" />
-        <Button Content="View Info" Height="27" HorizontalAlignment="Left" Margin="257,112,0,0" 
+        <Button Content="View Info" Height="23" HorizontalAlignment="Left" Margin="63,559,0,0" 
                 Name="InfoButton" VerticalAlignment="Top" Width="65" Click="InfoButton_Click"/>
+        <Button Content="Follow" Height="23" HorizontalAlignment="Right" Margin="0,559,270,0" 
+                Name="FollowButton" VerticalAlignment="Top" Width="65" Click="FollowButton_Click"/>
+        <Button Content="Get version" Height="23" HorizontalAlignment="Right" Margin="0,559,733,0" 
+                Name="GetVersionButton" VerticalAlignment="Top" Width="65" Click="GetVersionButton_Click" />
+        <Button Content="User motion" Height="23" HorizontalAlignment="Right" Margin="0,10,1003,0" 
+                Name="GetMotionDownloadByUserButton" VerticalAlignment="Top" Width="81" 
+                Click="GetMotionDownloadByUserButton_Click"/>
+        <Button Content="Rating" Height="23" HorizontalAlignment="Right" Margin="0,609,966,0" 
+                Name="RatingButton" VerticalAlignment="Top" Width="65" Click="RatingButton_Click" />
+        <Button Content="Rating Info" Height="23" HorizontalAlignment="Right" Margin="0,609,849,0" 
+                Name="RatingInfoButton" VerticalAlignment="Top" Width="65" Click="RatingInfoButton_Click"/>
+        <Button Content="List artist follow" Height="23" HorizontalAlignment="Right" Margin="0,10,882,0" 
+                Name="ListArtistFollowUser" VerticalAlignment="Top" Width="104" Click="ListArtistFollowUser_Click" />
+        <TextBox Height="28" HorizontalAlignment="Left" Margin="581,621,0,0" Name="SearchTextBox" 
+                 VerticalAlignment="Top" Width="299" />
+        <Button Content="Search" Height="24" HorizontalAlignment="Left" Margin="914,622,0,0" 
+                Name="SearchButton" VerticalAlignment="Top" Width="94" Click="SearchButton_Click"/>
     </Grid>
 </UserControl>

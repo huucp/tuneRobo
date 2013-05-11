@@ -93,6 +93,7 @@
     <Compile Include="StoreService\MessageDefinition\Motion.cs" />
     <Compile Include="StoreService\MessageDefinition\User.cs" />
     <Compile Include="StoreService\SimpleRequest\ChangePasswordStoreRequest.cs" />
+    <Compile Include="StoreService\BigRequest\FollowArtistStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\FollowStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\ForgotPasswordStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\GetFullArtistInfoStoreRequest.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="StoreService\SimpleRequest\GetUserInfoStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\ListAllArtistRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\ListCategoryMotionStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\ListUserFollowArtistStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\RatingMotionStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\SearchMotionStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\SetUserInfoStoreRequest.cs" />
