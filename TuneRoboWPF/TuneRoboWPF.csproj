@@ -77,7 +77,6 @@
     <Compile Include="Models\TransferWindowModel.cs" />
     <Compile Include="RobotService\InformationRequest.cs" />
     <Compile Include="RobotService\ListAllMotionRequest.cs" />
-    <Compile Include="RobotService\MotionInfo.cs" />
     <Compile Include="RobotService\RemoteRequest.cs" />
     <Compile Include="RobotService\RobotPacket.cs" />
     <Compile Include="RobotService\RobotReply.cs" />
@@ -123,6 +122,7 @@
     <Compile Include="Utility\CRCCCIT.cs" />
     <Compile Include="Utility\GlobalResource.cs" />
     <Compile Include="Utility\GlobalVariables.cs" />
+    <Compile Include="Utility\MotionInfo.cs" />
     <Compile Include="Utility\RobotState.cs" />
     <Compile Include="Utility\GlobalFunctions.cs" />
     <Compile Include="Utility\Worker.cs" />

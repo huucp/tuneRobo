@@ -161,6 +161,7 @@ namespace TuneRoboWPF.Views
             var infoRequest = new GetMotionFullInfoStoreRequest(motionID);
             infoRequest.ProcessSuccessfully += (reply) =>
                                                    {
+                                                       Console.WriteLine("==============");
                                                        Console.WriteLine("Motion ID: " + reply.motion_info.motion_id);
                                                        Console.WriteLine("Title: " + reply.motion_info.title);
                                                        Console.WriteLine("Description: " + reply.motion_info.description);
@@ -183,6 +184,7 @@ namespace TuneRoboWPF.Views
                                                    };
             infoRequest.ProcessError += (reply, msg) =>
                                             {
+                                                Console.WriteLine("==============");
                                                 Console.WriteLine("Get motion info failed: " + msg);
                                             };
             GlobalVariables.StoreWorker.AddJob(infoRequest);
@@ -196,6 +198,7 @@ namespace TuneRoboWPF.Views
             var followRequest = new FollowArtistStoreRequest(artistID);
             followRequest.ProcessSuccessfully += (reply) =>
                                                      {
+                                                         Console.WriteLine("==============");
                                                          if ((bool)reply)
                                                          {
                                                              Console.WriteLine("User " + GlobalVariables.CurrentUser +
@@ -211,6 +214,7 @@ namespace TuneRoboWPF.Views
                                                      };
             followRequest.ProcessError += (reply, msg) =>
                                               {
+                                                  Console.WriteLine("==============");
                                                   Console.WriteLine("Follow failed: " + msg);
                                               };
             GlobalVariables.StoreWorker.AddJob(followRequest);
@@ -226,6 +230,7 @@ namespace TuneRoboWPF.Views
             var versionRequest = new GetMotionVersionStoreRequest(listMotionID);
             versionRequest.ProcessSuccessfully += (reply) =>
                                                       {
+                                                          Console.WriteLine("==============");
                                                           for (int i = 0; i < listMotionID.Count; i++)
                                                           {
                                                               Console.WriteLine("Version of motion {0:s} is {1:s} ", hotList[i].title, reply.motion_version.version[i].version_name);
@@ -233,6 +238,7 @@ namespace TuneRoboWPF.Views
                                                       };
             versionRequest.ProcessError += (reply, msg) =>
                                                {
+                                                   Console.WriteLine("==============");
                                                    Console.WriteLine("Ger motion version failed: " + msg);
                                                };
             GlobalVariables.StoreWorker.AddJob(versionRequest);
@@ -243,6 +249,7 @@ namespace TuneRoboWPF.Views
             var request = new GetMotionDownloadByUserStoreRequest(0, 20);
             request.ProcessSuccessfully += (reply) =>
                                                {
+                                                   Console.WriteLine("==============");
                                                    foreach (var motion in reply.user_motion.motion_short_info)
                                                    {
                                                        Console.WriteLine("Motion download by user {0:s} has ID: {1:d}", motion.title, motion.motion_id);
@@ -250,6 +257,7 @@ namespace TuneRoboWPF.Views
                                                };
             request.ProcessError += (reply, msg) =>
                                         {
+                                            Console.WriteLine("==============");
                                             Console.WriteLine("Get motion download by user failed" + msg);
                                         };
             GlobalVariables.StoreWorker.AddJob(request);
@@ -260,8 +268,8 @@ namespace TuneRoboWPF.Views
             var random = new Random();
             int rating = random.Next(0, 10);
 
-            ulong motionID = 29;
-            uint versionID = 27;
+            ulong motionID = 196;
+            uint versionID = 194;
             string commentTitle = "good";
             string commentContent = "why not?";
 
@@ -269,10 +277,12 @@ namespace TuneRoboWPF.Views
                                                              commentContent);
             ratingRequest.ProcessSuccessfully += (reply) =>
                                                      {
+                                                         Console.WriteLine("==============");
                                                          Console.WriteLine("Rating succeed");
                                                      };
             ratingRequest.ProcessError += (reply, msg) =>
                                               {
+                                                  Console.WriteLine("==============");
                                                   Console.WriteLine("Rating failed: " + msg);
                                               };
             GlobalVariables.StoreWorker.AddJob(ratingRequest);
@@ -280,9 +290,10 @@ namespace TuneRoboWPF.Views
 
         private void RatingInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            var request = new GetRatingMotionInfoStoreRequest(29, 0, 20);
+            var request = new GetRatingMotionInfoStoreRequest(196, 0, 100);
             request.ProcessSuccessfully += (reply) =>
                                                {
+                                                   Console.WriteLine("==============");
                                                    Console.WriteLine("Rating motion ID: {0:d}",reply.rating_info.motion_id);
                                                    
                                                    for (int i = 0; i < reply.rating_info.version_name.Count;i++)
@@ -298,6 +309,7 @@ namespace TuneRoboWPF.Views
                                                };
             request.ProcessError += (reply, msg) =>
                                         {
+                                            Console.WriteLine("==============");
                                             Console.WriteLine("Get rating info failed: " + msg);
                                         };
             GlobalVariables.StoreWorker.AddJob(request);
@@ -308,6 +320,7 @@ namespace TuneRoboWPF.Views
             var request = new ListArtistFollowByUserStoreRequest();
             request.ProcessSuccessfully += (reply) =>
                                                {
+                                                   Console.WriteLine("==============");
                                                    foreach(var artist in reply.user_artist.artist_short_info)
                                                    {
                                                        Console.WriteLine("User {0:s} followed artist {1:s}", GlobalVariables.CurrentUser,artist.artist_name);
@@ -315,6 +328,7 @@ namespace TuneRoboWPF.Views
                                                };
             request.ProcessError += (reply, msg) =>
                                         {
+                                            Console.WriteLine("==============");
                                             Console.WriteLine("List artist follow by current failed: {0:s}",msg);
                                         };
             GlobalVariables.StoreWorker.AddJob(request);
@@ -334,6 +348,7 @@ namespace TuneRoboWPF.Views
                                                };
             request.ProcessError += (reply, msg) =>
                                         {
+                                            Console.WriteLine("==============");
                                             Console.WriteLine("Search motion failed: {0:s}",msg);
                                         };
             GlobalVariables.StoreWorker.AddJob(request);
