@@ -12,6 +12,6 @@ namespace TuneRoboWPF.Models
             InActive,Play,Pause
         }
         public string ImageSource;
-        public ButtonState State;
+        public ButtonState StateButton;
     }
 }

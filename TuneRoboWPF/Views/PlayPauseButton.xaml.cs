@@ -39,7 +39,7 @@ namespace TuneRoboWPF.Views
         // Pause        - Play
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            switch (ViewModel.State)
+            switch (ViewModel.StateButton)
             {
                 case PlayPauseButtonModel.ButtonState.InActive:
                     break;
@@ -56,10 +56,10 @@ namespace TuneRoboWPF.Views
 
         private void PlayRequest()
         {
-            var playRequest = new RemoteRequest(RobotPacket.PacketID.Play);
+            var playRequest = new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay,-1,GlobalVariables.CurrentListMotion[1].MotionID);
             playRequest.ProcessSuccessfully += (data) =>
                                                    {
-                                                       ViewModel.State = PlayPauseButtonModel.ButtonState.Pause;
+                                                       ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Pause;
                                                        Dispatcher.BeginInvoke((Action)delegate
                                                        {
                                                            Cursor = Cursors.Arrow;
@@ -75,13 +75,13 @@ namespace TuneRoboWPF.Views
                                                 Console.WriteLine(msg);
                                             };
             GlobalVariables.RobotWorker.AddJob(playRequest);
-        }
+        }   
         private void PauseRequest()
         {
             var pauseRequest = new RemoteRequest(RobotPacket.PacketID.Pause);
             pauseRequest.ProcessSuccessfully += (data) =>
             {
-                ViewModel.State = PlayPauseButtonModel.ButtonState.Play;
+                ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Play;
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     Cursor = Cursors.Arrow;

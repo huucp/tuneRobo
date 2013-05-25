@@ -187,13 +187,28 @@ namespace TuneRoboWPF.StoreService
         }
 
         /// <summary>
+        /// Check socket alive
+        /// </summary>
+        /// <param name="s">socket</param>
+        /// <returns>true if alive and against</returns>
+        private bool SocketConnected(Socket s)
+        {
+            bool part1 = s.Poll(1000, SelectMode.SelectRead);
+            bool part2 = (s.Available == 0);
+            if (part1 & part2)
+                return false;
+            else
+                return true;
+        }
+
+        /// <summary>
         /// Get connection state
         /// </summary>
         public bool Connected
         {
             get
             {
-                return Connection.Connected;
+                return SocketConnected(Connection);
             }
         }
 

@@ -19,7 +19,7 @@ namespace TuneRoboWPF.ViewModels
                 NotifyPropertyChanged("RemoteItemsList");
             }
         }
-        public ObservableCollection<MotionTitleItem> LibraryItemsList
+        public ObservableCollection<MotionFullInfoItem> LibraryItemsList
         {
             get { return model.LibraryItemsList; }
             set
@@ -29,16 +29,28 @@ namespace TuneRoboWPF.ViewModels
             }
         }
 
-        public MotionTitleItem LastSelectedMotionItem { get; set; }
-        
+        public MotionTitleItem LastRemoteSelectedMotion { get; set; }
+
         public MotionTitleItem RemoteSelectedMotion
         {
             get { return model.RemoteSelectedMotion; }
             set
             {
-                LastSelectedMotionItem = model.RemoteSelectedMotion;                
+                LastRemoteSelectedMotion = model.RemoteSelectedMotion;
                 model.RemoteSelectedMotion = value;
                 NotifyPropertyChanged("RemoteSelectedMotion");
+            }
+        }
+
+        public MotionFullInfoItem LastLibrarySlectedMotion { get; set; }
+        public MotionFullInfoItem LibrarySelectedMotion
+        {
+            get { return model.LibrarySelectedMotion; }
+            set
+            {
+                LastLibrarySlectedMotion = model.LibrarySelectedMotion;
+                model.LibrarySelectedMotion = value;
+                NotifyPropertyChanged("LibrarySelectedMotion");
             }
         }
     }

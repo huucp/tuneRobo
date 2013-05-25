@@ -28,7 +28,10 @@
                 <MenuItem x:Name="SignOutMenu" Header="Sign Out" Click ="SignOutMenu_Click"/>
             </MenuItem>
         </Menu>
-        <Button x:Name="StoreButton"  Content="Store" Height="28" Margin="463,4,531,0" VerticalAlignment="Top"/>
-        <Button x:Name="RemoteButton"   Content="Remote" VerticalAlignment="Top" Margin="0,4,409,0" Width="106" Height="28" HorizontalAlignment="Right" d:LayoutOverrides="Width" Click="RemoteButton_Click" />
+        <Button x:Name="StoreButton"  Content="Store" Height="28" Margin="463,4,531,0" 
+                VerticalAlignment="Top" Click="StoreButton_Click"/>
+        <Button x:Name="RemoteButton"   Content="Remote" VerticalAlignment="Top" Margin="0,4,409,0" 
+                Width="106" Height="28" HorizontalAlignment="Right" d:LayoutOverrides="Width" 
+                Click="RemoteButton_Click" />
     </Grid>
 </UserControl>

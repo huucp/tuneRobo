@@ -16,7 +16,7 @@ namespace comm
 
 
         private motion.CreateMotionReply _create_motion = null;
-        [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name = @"create_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name = @"create_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.CreateMotionReply create_motion
         {
@@ -25,7 +25,7 @@ namespace comm
         }
 
         private motion.OpenMotionPartReply _open_motion_part = null;
-        [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name = @"open_motion_part", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name = @"open_motion_part", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.OpenMotionPartReply open_motion_part
         {
@@ -34,7 +34,7 @@ namespace comm
         }
 
         private motion.WriteMotionDataReply _write_data = null;
-        [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name = @"write_data", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(18, IsRequired = false, Name = @"write_data", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.WriteMotionDataReply write_data
         {
@@ -43,7 +43,7 @@ namespace comm
         }
 
         private motion.CloseMotionPartReply _close_motion_part = null;
-        [global::ProtoBuf.ProtoMember(18, IsRequired = false, Name = @"close_motion_part", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name = @"close_motion_part", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.CloseMotionPartReply close_motion_part
         {
@@ -52,7 +52,7 @@ namespace comm
         }
 
         private motion.CancelCreatingMotionReply _cancel_create_motion = null;
-        [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name = @"cancel_create_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(20, IsRequired = false, Name = @"cancel_create_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.CancelCreatingMotionReply cancel_create_motion
         {
@@ -61,7 +61,7 @@ namespace comm
         }
 
         private motion.PostReply _post = null;
-        [global::ProtoBuf.ProtoMember(20, IsRequired = false, Name = @"post", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name = @"post", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.PostReply post
         {
@@ -70,7 +70,7 @@ namespace comm
         }
 
         private motion.MotionDownloadReply _motion_download = null;
-        [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name = @"motion_download", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(22, IsRequired = false, Name = @"motion_download", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.MotionDownloadReply motion_download
         {
@@ -79,7 +79,7 @@ namespace comm
         }
 
         private motion.ReadMotionDataReply _read_data = null;
-        [global::ProtoBuf.ProtoMember(22, IsRequired = false, Name = @"read_data", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(23, IsRequired = false, Name = @"read_data", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.ReadMotionDataReply read_data
         {
@@ -88,7 +88,7 @@ namespace comm
         }
 
         private motion.UpdateMotionInfoReply _update_motion_info = null;
-        [global::ProtoBuf.ProtoMember(23, IsRequired = false, Name = @"update_motion_info", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(24, IsRequired = false, Name = @"update_motion_info", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.UpdateMotionInfoReply update_motion_info
         {
@@ -97,7 +97,7 @@ namespace comm
         }
 
         private motion.UpdateMotionDataReply _update_motion_data = null;
-        [global::ProtoBuf.ProtoMember(24, IsRequired = false, Name = @"update_motion_data", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(25, IsRequired = false, Name = @"update_motion_data", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.UpdateMotionDataReply update_motion_data
         {
@@ -106,7 +106,7 @@ namespace comm
         }
 
         private motion.CompleteUpdateReply _complete_update = null;
-        [global::ProtoBuf.ProtoMember(25, IsRequired = false, Name = @"complete_update", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(26, IsRequired = false, Name = @"complete_update", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.CompleteUpdateReply complete_update
         {
@@ -115,7 +115,7 @@ namespace comm
         }
 
         private motion.MotionInfoReply _motion_info = null;
-        [global::ProtoBuf.ProtoMember(26, IsRequired = false, Name = @"motion_info", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(27, IsRequired = false, Name = @"motion_info", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.MotionInfoReply motion_info
         {
@@ -124,7 +124,7 @@ namespace comm
         }
 
         private motion.ArtistMotionReply _artist_motion = null;
-        [global::ProtoBuf.ProtoMember(27, IsRequired = false, Name = @"artist_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(28, IsRequired = false, Name = @"artist_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.ArtistMotionReply artist_motion
         {
@@ -133,7 +133,7 @@ namespace comm
         }
 
         private motion.UserMotionReply _user_motion = null;
-        [global::ProtoBuf.ProtoMember(28, IsRequired = false, Name = @"user_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(29, IsRequired = false, Name = @"user_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.UserMotionReply user_motion
         {
@@ -142,7 +142,7 @@ namespace comm
         }
 
         private motion.CategoryMotionReply _list_motion = null;
-        [global::ProtoBuf.ProtoMember(29, IsRequired = false, Name = @"list_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(30, IsRequired = false, Name = @"list_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.CategoryMotionReply list_motion
         {
@@ -151,7 +151,7 @@ namespace comm
         }
 
         private motion.SearchMotionReply _search_motion = null;
-        [global::ProtoBuf.ProtoMember(30, IsRequired = false, Name = @"search_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(31, IsRequired = false, Name = @"search_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.SearchMotionReply search_motion
         {
@@ -160,7 +160,7 @@ namespace comm
         }
 
         private motion.MotionVersionReply _motion_version = null;
-        [global::ProtoBuf.ProtoMember(31, IsRequired = false, Name = @"motion_version", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(32, IsRequired = false, Name = @"motion_version", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.MotionVersionReply motion_version
         {
@@ -169,7 +169,7 @@ namespace comm
         }
 
         private motion.RatingReply _rating = null;
-        [global::ProtoBuf.ProtoMember(32, IsRequired = false, Name = @"rating", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(33, IsRequired = false, Name = @"rating", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.RatingReply rating
         {
@@ -178,7 +178,7 @@ namespace comm
         }
 
         private motion.RatingMotionInfoReply _rating_info = null;
-        [global::ProtoBuf.ProtoMember(33, IsRequired = false, Name = @"rating_info", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(34, IsRequired = false, Name = @"rating_info", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.RatingMotionInfoReply rating_info
         {
@@ -187,7 +187,7 @@ namespace comm
         }
 
         private motion.AddMotionToFeatureReply _add_motion_feature = null;
-        [global::ProtoBuf.ProtoMember(34, IsRequired = false, Name = @"add_motion_feature", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(35, IsRequired = false, Name = @"add_motion_feature", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.AddMotionToFeatureReply add_motion_feature
         {
@@ -196,7 +196,7 @@ namespace comm
         }
 
         private motion.RemMotionToFeatureReply _rem_motion_feature = null;
-        [global::ProtoBuf.ProtoMember(35, IsRequired = false, Name = @"rem_motion_feature", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::ProtoBuf.ProtoMember(36, IsRequired = false, Name = @"rem_motion_feature", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
         public motion.RemMotionToFeatureReply rem_motion_feature
         {
@@ -204,8 +204,51 @@ namespace comm
             set { _rem_motion_feature = value; }
         }
 
-    }
+        private motion.NumberMotionOfCategoryReply _number_motion_of_category = null;
+        [global::ProtoBuf.ProtoMember(37, IsRequired = false, Name = @"number_motion_of_category", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::System.ComponentModel.DefaultValue(null)]
+        public motion.NumberMotionOfCategoryReply number_motion_of_category
+        {
+            get { return _number_motion_of_category; }
+            set { _number_motion_of_category = value; }
+        }
 
+        private motion.NumberMotionOfArtistReply _number_motion_artist = null;
+        [global::ProtoBuf.ProtoMember(38, IsRequired = false, Name = @"number_motion_artist", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::System.ComponentModel.DefaultValue(null)]
+        public motion.NumberMotionOfArtistReply number_motion_artist
+        {
+            get { return _number_motion_artist; }
+            set { _number_motion_artist = value; }
+        }
+
+        private motion.NumberMotionSearchReply _number_motion_search = null;
+        [global::ProtoBuf.ProtoMember(39, IsRequired = false, Name = @"number_motion_search", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::System.ComponentModel.DefaultValue(null)]
+        public motion.NumberMotionSearchReply number_motion_search
+        {
+            get { return _number_motion_search; }
+            set { _number_motion_search = value; }
+        }
+
+        private motion.NumberMotionDownloadReply _number_motion_download = null;
+        [global::ProtoBuf.ProtoMember(40, IsRequired = false, Name = @"number_motion_download", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::System.ComponentModel.DefaultValue(null)]
+        public motion.NumberMotionDownloadReply number_motion_download
+        {
+            get { return _number_motion_download; }
+            set { _number_motion_download = value; }
+        }
+
+        private motion.NumberRatingInfoReply _number_rating_info = null;
+        [global::ProtoBuf.ProtoMember(41, IsRequired = false, Name = @"number_rating_info", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::System.ComponentModel.DefaultValue(null)]
+        public motion.NumberRatingInfoReply number_rating_info
+        {
+            get { return _number_rating_info; }
+            set { _number_rating_info = value; }
+        }
+    }
 }
 // Generated from: motion.proto
 // Note: requires additional types generated from: comm.proto
@@ -861,12 +904,23 @@ namespace motion
             get { return _screenshoot_urls; }
         }
 
-        private ulong _duration;
-        [global::ProtoBuf.ProtoMember(7, IsRequired = true, Name = @"duration", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+
+        private ulong _duration = default(ulong);
+        [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name = @"duration", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        [global::System.ComponentModel.DefaultValue(default(ulong))]
         public ulong duration
         {
             get { return _duration; }
             set { _duration = value; }
+        }
+
+        private string _icon_URL = "";
+        [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name = @"icon_URL", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::System.ComponentModel.DefaultValue("")]
+        public string icon_URL
+        {
+            get { return _icon_URL; }
+            set { _icon_URL = value; }
         }
         private global::ProtoBuf.IExtension extensionObject;
         global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -1173,6 +1227,13 @@ namespace motion
         {
             get { return _update_id; }
             set { _update_id = value; }
+        }
+        private string _icon_url;
+        [global::ProtoBuf.ProtoMember(20, IsRequired = true, Name = @"icon_url", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        public string icon_url
+        {
+            get { return _icon_url; }
+            set { _icon_url = value; }
         }
         [global::ProtoBuf.ProtoContract(Name = @"Type")]
         public enum Type
@@ -1853,6 +1914,267 @@ namespace motion
             get { return _index; }
             set { _index = value; }
         }
+        private ulong _rating_count;
+        [global::ProtoBuf.ProtoMember(7, IsRequired = true, Name = @"rating_count", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong rating_count
+        {
+            get { return _rating_count; }
+            set { _rating_count = value; }
+        }
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NumberMotionOfCategoryRequest")]
+    public partial class NumberMotionOfCategoryRequest : global::ProtoBuf.IExtensible
+    {
+        public NumberMotionOfCategoryRequest() { }
+
+        private motion.NumberMotionOfCategoryRequest.Type _type;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public motion.NumberMotionOfCategoryRequest.Type type
+        {
+            get { return _type; }
+            set { _type = value; }
+        }
+        [global::ProtoBuf.ProtoContract(Name = @"Type")]
+        public enum Type
+        {
+
+            [global::ProtoBuf.ProtoEnum(Name = @"TRENDING", Value = 1)]
+            TRENDING = 1,
+
+            [global::ProtoBuf.ProtoEnum(Name = @"TOP_RATED", Value = 2)]
+            TOP_RATED = 2,
+
+            [global::ProtoBuf.ProtoEnum(Name = @"FEATURE", Value = 3)]
+            FEATURE = 3
+        }
+
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NumberMotionOfCategoryReply")]
+    public partial class NumberMotionOfCategoryReply : global::ProtoBuf.IExtensible
+    {
+        public NumberMotionOfCategoryReply() { }
+
+        private uint _type;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public uint type
+        {
+            get { return _type; }
+            set { _type = value; }
+        }
+        private uint _number_motion;
+        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"number_motion", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public uint number_motion
+        {
+            get { return _number_motion; }
+            set { _number_motion = value; }
+        }
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NumberMotionOfArtistRequest")]
+    public partial class NumberMotionOfArtistRequest : global::ProtoBuf.IExtensible
+    {
+        public NumberMotionOfArtistRequest() { }
+
+        private ulong _artist_id;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"artist_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong artist_id
+        {
+            get { return _artist_id; }
+            set { _artist_id = value; }
+        }
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NumberMotionOfArtistReply")]
+    public partial class NumberMotionOfArtistReply : global::ProtoBuf.IExtensible
+    {
+        public NumberMotionOfArtistReply() { }
+
+        private ulong _artist_id;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"artist_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong artist_id
+        {
+            get { return _artist_id; }
+            set { _artist_id = value; }
+        }
+        private uint _number_motion;
+        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"number_motion", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public uint number_motion
+        {
+            get { return _number_motion; }
+            set { _number_motion = value; }
+        }
+        [global::ProtoBuf.ProtoContract(Name = @"Type")]
+        public enum Type
+        {
+
+            [global::ProtoBuf.ProtoEnum(Name = @"NO_ARTIST", Value = 4)]
+            NO_ARTIST = 4
+        }
+
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NumberMotionSearchRequest")]
+    public partial class NumberMotionSearchRequest : global::ProtoBuf.IExtensible
+    {
+        public NumberMotionSearchRequest() { }
+
+        private string _query;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"query", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        public string query
+        {
+            get { return _query; }
+            set { _query = value; }
+        }
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NumberMotionSearchReply")]
+    public partial class NumberMotionSearchReply : global::ProtoBuf.IExtensible
+    {
+        public NumberMotionSearchReply() { }
+
+        private string _query;
+        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"query", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        public string query
+        {
+            get { return _query; }
+            set { _query = value; }
+        }
+        private uint _number_motion;
+        [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name = @"number_motion", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public uint number_motion
+        {
+            get { return _number_motion; }
+            set { _number_motion = value; }
+        }
+        [global::ProtoBuf.ProtoContract(Name = @"Type")]
+        public enum Type
+        {
+
+            [global::ProtoBuf.ProtoEnum(Name = @"INVALID_QUERY", Value = 4)]
+            INVALID_QUERY = 4
+        }
+
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NumberMotionDownloadRequest")]
+    public partial class NumberMotionDownloadRequest : global::ProtoBuf.IExtensible
+    {
+        public NumberMotionDownloadRequest() { }
+
+        private ulong _user_id;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong user_id
+        {
+            get { return _user_id; }
+            set { _user_id = value; }
+        }
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NumberMotionDownloadReply")]
+    public partial class NumberMotionDownloadReply : global::ProtoBuf.IExtensible
+    {
+        public NumberMotionDownloadReply() { }
+
+        private ulong _user_id;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong user_id
+        {
+            get { return _user_id; }
+            set { _user_id = value; }
+        }
+        private uint _number_motion;
+        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"number_motion", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public uint number_motion
+        {
+            get { return _number_motion; }
+            set { _number_motion = value; }
+        }
+        [global::ProtoBuf.ProtoContract(Name = @"Type")]
+        public enum Type
+        {
+
+            [global::ProtoBuf.ProtoEnum(Name = @"NO_USER", Value = 4)]
+            NO_USER = 4,
+
+            [global::ProtoBuf.ProtoEnum(Name = @"USER_ERROR", Value = 5)]
+            USER_ERROR = 5
+        }
+
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NumberRatingInfoRequest")]
+    public partial class NumberRatingInfoRequest : global::ProtoBuf.IExtensible
+    {
+        public NumberRatingInfoRequest() { }
+
+        private ulong _motion_id;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong motion_id
+        {
+            get { return _motion_id; }
+            set { _motion_id = value; }
+        }
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NumberRatingInfoReply")]
+    public partial class NumberRatingInfoReply : global::ProtoBuf.IExtensible
+    {
+        public NumberRatingInfoReply() { }
+
+        private ulong _motion_id;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong motion_id
+        {
+            get { return _motion_id; }
+            set { _motion_id = value; }
+        }
+        private uint _number;
+        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"number", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public uint number
+        {
+            get { return _number; }
+            set { _number = value; }
+        }
+        [global::ProtoBuf.ProtoContract(Name = @"Type")]
+        public enum Type
+        {
+
+            [global::ProtoBuf.ProtoEnum(Name = @"NO_MOTION", Value = 4)]
+            NO_MOTION = 4
+        }
+
         private global::ProtoBuf.IExtension extensionObject;
         global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
         { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

@@ -12,6 +12,10 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
 {
     public class ListArtistFollowByUserStoreRequest:StoreRequest
     {
+        public ListArtistFollowByUserStoreRequest()
+        {
+            RequestKey = GetType().ToString();
+        }
         public override void BuildPacket()
         {
             base.BuildPacket();

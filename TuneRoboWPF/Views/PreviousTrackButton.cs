@@ -13,16 +13,16 @@ namespace TuneRoboWPF.Views
         }
         protected override void ClickProcess()
         {
-            var index = GlobalVariables.CurrentRobotState.CurrentMotionIndex;
+            var index = GlobalVariables.CurrentRobotState.MotionIndex;
             if (index == 0)
             {
                 index = GlobalVariables.CurrentListMotion.Count - 1;
-                GlobalVariables.CurrentRobotState.CurrentMotionIndex = GlobalVariables.CurrentListMotion.Count - 1;
+                GlobalVariables.CurrentRobotState.MotionIndex = GlobalVariables.CurrentListMotion.Count - 1;
             }
             else
             {
                 index--;
-                GlobalVariables.CurrentRobotState.CurrentMotionIndex--;
+                GlobalVariables.CurrentRobotState.MotionIndex--;
             }
             ulong previousMotionID =
                 GlobalVariables.CurrentListMotion[index].MotionID;

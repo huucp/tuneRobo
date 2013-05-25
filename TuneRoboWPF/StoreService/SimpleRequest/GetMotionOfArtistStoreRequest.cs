@@ -21,6 +21,7 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
             ArtistID = artistID;
             Start = start;
             End = end;
+            RequestKey = GetType() + artistID.ToString() + start.ToString() + end.ToString();
         }
         public override void BuildPacket()
         {

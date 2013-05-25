@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Windows.Forms;
 using TuneRoboWPF.Utility;
@@ -28,11 +29,19 @@ namespace TuneRoboWPF.StoreService
             if (handler != null) handler(sender, msg);
         }
 
-
         protected byte[] Packet { get; set; }
+        protected string RequestKey { get; set; }
+
         public object Process()
         {
-
+            if (RequestKey!=string.Empty)
+            {
+                if (GlobalVariables.RequestDictionary.ContainsKey(RequestKey))
+                {
+                    OnProcessSuccessfully(GlobalVariables.RequestDictionary[RequestKey]);
+                    return GlobalVariables.RequestDictionary[RequestKey];
+                }
+            }
             var count = 0;
             StoreConnection connection;
             do
@@ -91,6 +100,10 @@ namespace TuneRoboWPF.StoreService
             if (dataReply.type == (decimal) Reply.Type.OK)
             {
                 OnProcessSuccessfully(dataReply);
+                if (RequestKey!= string.Empty)
+                {
+                    GlobalVariables.RequestDictionary.Add(RequestKey,dataReply);
+                }
             }
             else
             {

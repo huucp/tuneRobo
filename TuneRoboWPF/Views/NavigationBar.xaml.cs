@@ -32,6 +32,38 @@ namespace TuneRoboWPF
             if (handler != null) handler(sender);
         }
 
+
+
+        public static readonly RoutedEvent StoreButtonClickEvent = EventManager.RegisterRoutedEvent("StoreButtonClick", RoutingStrategy.Bubble,
+                                                                                    typeof(RoutedEventHandler),
+                                                                                    typeof(NavigationBar));
+        public event RoutedEventHandler StoreButtonClick
+        {
+            add { AddHandler(StoreButtonClickEvent, value); }
+            remove { RemoveHandler(StoreButtonClickEvent, value); }
+        }
+
+        void OnStoreButtonClickEvent()
+        {
+            var newEventArgs = new RoutedEventArgs(StoreButtonClickEvent);
+            RaiseEvent(newEventArgs);
+        }
+
+        public static readonly RoutedEvent RemoteButtonClickEvent = EventManager.RegisterRoutedEvent("RemoteButtonClick", RoutingStrategy.Bubble,
+                                                                                    typeof(RoutedEventHandler),
+                                                                                    typeof(NavigationBar));
+        public event RoutedEventHandler RemoteButtonClick
+        {
+            add { AddHandler(RemoteButtonClickEvent, value); }
+            remove { RemoveHandler(RemoteButtonClickEvent, value); }
+        }
+
+        void OnRemoteButtonClickEvent()
+        {
+            var newEventArgs = new RoutedEventArgs(RemoteButtonClickEvent);
+            RaiseEvent(newEventArgs);
+        }
+
         public NavigationBar()
         {
             InitializeComponent();
@@ -53,11 +85,6 @@ namespace TuneRoboWPF
                 viewModel.Username = GlobalVariables.CurrentUser;
                 OnLoginSuccessfully(null);
             }
-        }
-
-        private void RemoteButton_Click(object sender, RoutedEventArgs e)
-        {
-            RemoteButton.Style = (Style)FindResource("ButtonFlatStyle");
         }
 
         private void AccountMenu_Click(object sender, RoutedEventArgs e)
@@ -91,5 +118,16 @@ namespace TuneRoboWPF
                                                };
             GlobalVariables.StoreWorker.AddJob(signoutRequest);
         }
+
+        private void StoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            OnStoreButtonClickEvent();
+        }
+        private void RemoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            //RemoteButton.Style = (Style)FindResource("ButtonFlatStyle");
+            OnRemoteButtonClickEvent();
+        }
+
     }
 }

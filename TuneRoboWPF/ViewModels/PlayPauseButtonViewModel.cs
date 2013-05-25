@@ -12,7 +12,7 @@ namespace TuneRoboWPF.ViewModels
         {
             get
             {
-                switch (State)
+                switch (StateButton)
                 {
                     case PlayPauseButtonModel.ButtonState.Play:
                         model.ImageSource = GlobalResource.PlayImageSource;
@@ -29,12 +29,12 @@ namespace TuneRoboWPF.ViewModels
         }
 
 
-        public PlayPauseButtonModel.ButtonState State
+        public PlayPauseButtonModel.ButtonState StateButton
         {
-            get { return model.State; }
+            get { return model.StateButton; }
             set
             {
-                model.State = value;
+                model.StateButton = value;
                 NotifyPropertyChanged("ImageSource");
             }
         }

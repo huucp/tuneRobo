@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using TuneRoboWPF.RobotService;
 using TuneRoboWPF.StoreService;
 using comm;
@@ -204,6 +205,8 @@ namespace TuneRoboWPF.Utility
             set { _configFile = value; }
         }
 
+        public static string AppDataFolder { get; set; }
+
         //Home screen
         public static string HIDE_HOME_SCREEN { get; set; }
 
@@ -250,6 +253,7 @@ namespace TuneRoboWPF.Utility
 
         public static StoreWorker StoreWorker = StoreWorker.Instance;
         public static RoboWorker RobotWorker = RoboWorker.Instance;
+        public static ImageDownloadWorker ImageDownloadWorker = ImageDownloadWorker.Instance;
 
         public static StoreConnection ServerConnection = StoreConnection.Instance;
         public static ulong CountRequest = 0;
@@ -259,6 +263,10 @@ namespace TuneRoboWPF.Utility
         public const int ID_ACK = 0x0001;
         public const int ID_ERROR = 0x0002;
         public const int ID_CRC_ERROR = 0x0003;
+
+        public static Dictionary<string,BitmapImage> ImageDictionary = new Dictionary<string, BitmapImage>();
+        public static Dictionary<string, Reply> RequestDictionary = new Dictionary<string, Reply>();
+
         static GlobalVariables()
         {
             USB_CONNECTION = false;

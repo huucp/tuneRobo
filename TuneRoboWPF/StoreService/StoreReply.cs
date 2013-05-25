@@ -36,9 +36,5 @@ namespace TuneRoboWPF.StoreService
             var reply = Serializer.Deserialize<Reply>(new MemoryStream(dataReply));
             return reply;
         }
-    }
-    public class StoreReplyData
-    {
-
-    }
+    }    
 }

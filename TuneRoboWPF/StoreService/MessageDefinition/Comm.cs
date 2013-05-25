@@ -128,7 +128,25 @@ namespace comm
       ADD_MOTION_FEATURE = 135,
             
       [global::ProtoBuf.ProtoEnum(Name=@"REM_MOTION_FEATURE", Value=136)]
-      REM_MOTION_FEATURE = 136
+      REM_MOTION_FEATURE = 136,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NUMBER_MOTION_OF_CATEGORY", Value=137)]
+      NUMBER_MOTION_OF_CATEGORY = 137,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NUMBER_ARTIST", Value=138)]
+      NUMBER_ARTIST = 138,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NUMBER_MOTION_OF_ARTIST", Value=139)]
+      NUMBER_MOTION_OF_ARTIST = 139,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NUMBER_MOTION_SEARCH", Value=140)]
+      NUMBER_MOTION_SEARCH = 140,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NUMBER_MOTION_DOWNLOAD", Value=141)]
+      NUMBER_MOTION_DOWNLOAD = 141,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NUMBER_MOTION_RATING_INFO", Value=142)]
+      NUMBER_MOTION_RATING_INFO = 142
     }
   
     private global::ProtoBuf.IExtension extensionObject;

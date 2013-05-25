@@ -7,11 +7,12 @@
 		mc:Ignorable="d" x:Name="MainScreen" x:Class="TuneRoboWPF.MainWindow"
         Title="TuneRobo" Height="770" Width="1100" WindowStartupLocation="CenterScreen" 
 		ResizeMode="CanMinimize"
-    	ContentRendered="MainScreen_ContentRendered">
-	<DockPanel x:Name="MainDock" LastChildFill="True" >
-		<local:NavigationBar x:Name="navigationBar" DockPanel.Dock="Top" Width="1100"/>
-		<local:StatusBar x:Name="statusBar" DockPanel.Dock = "Bottom"/>
-		<Views:RemoteControlScreen x:Name="remoteScreen" Width="1094"/>
-		<Views:TempStoreScreen x:Name="testStoreScreen" Height="675" Margin="0,0,0,0" Width="1094" Visibility="Collapsed"/>
-	</DockPanel>
+    	ContentRendered="MainScreen_ContentRendered"
+        Loaded="MainScreen_Loaded">
+    <DockPanel x:Name="MainDock" LastChildFill="True" >
+        <local:NavigationBar x:Name="navigationBar" DockPanel.Dock="Top" Width="1100"
+                             StoreButtonClick="navigationBar_StoreButtonClick"
+                             RemoteButtonClick="navigationBar_RemoteButtonClick"/>
+        <!--<local:StatusBar x:Name="statusBar" DockPanel.Dock = "Bottom"/>-->        
+    </DockPanel>
 </Window>

@@ -7,35 +7,50 @@ namespace TuneRoboWPF.Utility
 {
     public class MotionInfo
     {
+        public enum MotionType
+        {
+            Transform= 1,
+            Untransform =2,
+            Dance = 3
+        }
         public string FilePath { get; set; }
+        public MotionType MType { get; set; }
         public ulong MotionID { get; set; }
         public uint Duration { get; set; }
         public string Title { get; set; }
         public string Artist { get; set; }
         public string VersionName { get; set; }
 
+        private Dictionary<string, int> FirstIndex = new Dictionary<string, int>();
         public MotionInfo(byte[] infoData)
         {
+            FirstIndex["type"] = 0;
+            FirstIndex["id"] = 1;
+            FirstIndex["duration"] = 9;
+            FirstIndex["rest"] = 13;
             GetInfo(infoData);
         }
 
         private void GetInfo(byte[] infoData)
         {
-            byte[] idBytes = GlobalFunction.SplitByteArray(infoData, 0, 8);
+            byte[] typeBytes = GlobalFunction.SplitByteArray(infoData, FirstIndex["type"], 1);
+            MType = (MotionType) typeBytes[0];
+
+            byte[] idBytes = GlobalFunction.SplitByteArray(infoData, FirstIndex["id"], 8);
             MotionID = GlobalFunction.LE8ToDec(idBytes);
 
-            byte[] durationBytes = GlobalFunction.SplitByteArray(infoData, 8, 4);
+            byte[] durationBytes = GlobalFunction.SplitByteArray(infoData, FirstIndex["duration"], 4);
             Duration = GlobalFunction.LE4ToDec(durationBytes);
 
             int firstCRPos = FindCRPosition(1, infoData);
-            byte[] titleBytes = GlobalFunction.SplitByteArray(infoData, 12, firstCRPos + 1 - 12);
+            byte[] titleBytes = GlobalFunction.SplitByteArray(infoData, FirstIndex["rest"], firstCRPos + 1 - FirstIndex["rest"]);
             Title = Encoding.UTF8.GetString(titleBytes);
 
             int secondCRPos = FindCRPosition(2, infoData);
             byte[] artistBytes = GlobalFunction.SplitByteArray(infoData, firstCRPos, secondCRPos - firstCRPos);
             Artist = Encoding.UTF8.GetString(artistBytes);
 
-            byte[] versionBytes = GlobalFunction.SplitByteArray(infoData, 12, infoData.Length - secondCRPos - 1);
+            byte[] versionBytes = GlobalFunction.SplitByteArray(infoData, secondCRPos, infoData.Length - secondCRPos - 1);
             VersionName = Encoding.UTF8.GetString(versionBytes);
         }
 
@@ -85,7 +100,7 @@ namespace TuneRoboWPF.Utility
             string s = RemoveAllWhiteSpace(line);
             int equalIndex = FindEqualOperator(s);
             return s.Substring(equalIndex + 1, s.Length - equalIndex - 1);
-        }        
+        }
 
         private ulong GetContentUlong(string line)
         {
@@ -101,7 +116,7 @@ namespace TuneRoboWPF.Utility
 
         private static string RemoveAllWhiteSpace(string s)
         {
-            return s.Replace(" ", "");
+            return s.Trim();
         }
 
         public static bool IsDanceMotion(string filePath)
@@ -110,5 +125,6 @@ namespace TuneRoboWPF.Utility
             if (RemoveAllWhiteSpace(lines[0]) == "type=3") return true;
             return false;
         }
+
     }
 }

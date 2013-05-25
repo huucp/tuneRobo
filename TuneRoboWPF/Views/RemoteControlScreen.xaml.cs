@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using TuneRoboWPF.Models;
 using TuneRoboWPF.RobotService;
+using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.ViewModels;
 using TuneRoboWPF.Utility;
 
@@ -16,7 +19,8 @@ namespace TuneRoboWPF.Views
     /// </summary>
     public partial class RemoteControlScreen : UserControl
     {
-        public RemoteControlScreen()
+        private DockPanel MainWindowDock { get; set; }
+        public RemoteControlScreen(DockPanel dock)
         {
             this.InitializeComponent();
 
@@ -24,7 +28,9 @@ namespace TuneRoboWPF.Views
             var remoteViewModel = new RemoteControlScreenViewModel();
             DataContext = remoteViewModel;
             viewModel = (RemoteControlScreenViewModel)DataContext;
-            PlayPauseButton.UpdateParentControl += PlayPauseButton_UpdateParentControl;
+            MainWindowDock = dock;
+
+            PlayPauseButtons.UpdateParentControl += PlayPauseButtonsUpdateParentControl;
             NextButton.UpdateParentControl += NextButton_UpdateParentControl;
             PreviousButton.UpdateParentControl += PreviousButton_UpdateParentControl;
             TransformButton.UpdateParentControl += TransformButton_UpdateParentControl;
@@ -32,30 +38,30 @@ namespace TuneRoboWPF.Views
 
         private void PreviousButton_UpdateParentControl(object sender)
         {
-            //Dispatcher.BeginInvoke((Action)delegate
-            //{
-            //    if (RemoteListBox.SelectedIndex == 0)
-            //    {
-            //        RemoteListBox.SelectedIndex =
-            //            GlobalVariables.CurrentListMotion.Count - 1;
-            //        return;
-            //    }
-            //    RemoteListBox.SelectedIndex--;
-            //});
+            Dispatcher.BeginInvoke((Action)delegate
+            {
+                if (RemoteListBox.SelectedIndex == 0)
+                {
+                    RemoteListBox.SelectedIndex =
+                        GlobalVariables.CurrentListMotion.Count - 1;
+                    return;
+                }
+                RemoteListBox.SelectedIndex--;
+            });
         }
 
         private void NextButton_UpdateParentControl(object sender)
         {
-            //Dispatcher.BeginInvoke((Action)delegate
-            //{
-            //    if (RemoteListBox.SelectedIndex ==
-            //        GlobalVariables.CurrentListMotion.Count - 1)
-            //    {
-            //        RemoteListBox.SelectedIndex = 0;
-            //        return;
-            //    }
-            //    RemoteListBox.SelectedIndex++;
-            //});
+            Dispatcher.BeginInvoke((Action)delegate
+            {
+                if (RemoteListBox.SelectedIndex ==
+                    GlobalVariables.CurrentListMotion.Count - 1)
+                {
+                    RemoteListBox.SelectedIndex = 0;
+                    return;
+                }
+                RemoteListBox.SelectedIndex++;
+            });
         }
 
         private void TransformButton_UpdateParentControl(object sender)
@@ -63,17 +69,17 @@ namespace TuneRoboWPF.Views
             switch (TransformButton.ViewModel.State)
             {
                 case RobotTransformButtonModel.ButtonState.Transform:
-                    PlayPauseButton.ViewModel.State = PlayPauseButtonModel.ButtonState.InActive;
+                    PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.InActive;
                     SetControlButtonState(false);
                     break;
                 case RobotTransformButtonModel.ButtonState.Untransform:
-                    PlayPauseButton.ViewModel.State = PlayPauseButtonModel.ButtonState.Play;
+                    PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Play;
                     SetControlButtonState(true);
                     break;
             }
         }
 
-        private void PlayPauseButton_UpdateParentControl(object sender)
+        private void PlayPauseButtonsUpdateParentControl(object sender)
         {
             UpdateRemoteControl();
         }
@@ -86,16 +92,16 @@ namespace TuneRoboWPF.Views
 
         private void UpdateMusicState()
         {
-            switch (GlobalVariables.CurrentRobotState.CurrentMusicState)
+            switch (GlobalVariables.CurrentRobotState.MusicState)
             {
-                case RobotState.MusicState.MusicPlaying:
-                    PlayPauseButton.ViewModel.State = PlayPauseButtonModel.ButtonState.Pause;
+                case RobotState.MusicStates.MusicPlaying:
+                    PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Pause;
                     break;
-                case RobotState.MusicState.MusicPaused:
-                    PlayPauseButton.ViewModel.State = PlayPauseButtonModel.ButtonState.Play;
+                case RobotState.MusicStates.MusicPaused:
+                    PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Play;
                     break;
-                case RobotState.MusicState.MusicIdled:
-                    PlayPauseButton.ViewModel.State = PlayPauseButtonModel.ButtonState.InActive;
+                case RobotState.MusicStates.MusicIdled:
+                    PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.InActive;
                     SetControlButtonState(false);
                     break;
             }
@@ -103,7 +109,7 @@ namespace TuneRoboWPF.Views
 
         private void UpdateMotionPlay()
         {
-            //RemoteListBox.SelectedIndex = GlobalVariables.CurrentRobotState.CurrentMotionIndex;
+            //RemoteListBox.SelectedIndex = GlobalVariables.CurrentRobotState.MotionIndex;
         }
 
         private void SetControlButtonState(bool state)
@@ -117,9 +123,9 @@ namespace TuneRoboWPF.Views
 
         private void RemoteListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (viewModel.LastSelectedMotionItem != null)
+            if (viewModel.LastRemoteSelectedMotion != null)
             {
-                viewModel.LastSelectedMotionItem.ViewModel.RectangleFillColor = "Yellow";
+                viewModel.LastRemoteSelectedMotion.ViewModel.RectangleFillColor = "Yellow";
             }
             viewModel.RemoteSelectedMotion.ViewModel.RectangleFillColor = "Red";
         }
@@ -142,11 +148,11 @@ namespace TuneRoboWPF.Views
                     GetListMotion();
                     Cursor = Cursors.Arrow;
                 });
+                GlobalVariables.WIRELESS_CONNECTION = true;
             };
             helloRequest.ProcessError += (errorCode, msg) =>
             {
-                MessageBox.Show(msg, "Error", MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     Cursor = Cursors.Arrow;
@@ -163,15 +169,15 @@ namespace TuneRoboWPF.Views
             listAllMotionRequest.ProcessSuccessfully += (listMotionInfo) => Dispatcher.BeginInvoke((Action)delegate
             {
                 var listMotion = new ObservableCollection<MotionTitleItem>();
-                var listMotion2 = new ObservableCollection<MotionTitleItem>();
                 foreach (MotionInfo info in listMotionInfo)
                 {
+                    if (info.MType != MotionInfo.MotionType.Dance) continue;
                     var motionTitleItem = new MotionTitleItem();
                     motionTitleItem.ViewModel.Title = info.Title;
                     listMotion.Add(motionTitleItem);
                     viewModel.RemoteItemsList.Add(motionTitleItem);
                 }
-                
+
                 GlobalFunction.UpdateCurrentListMotion(listMotionInfo);
                 Dispatcher.BeginInvoke((Action)delegate
                                                     {
@@ -189,11 +195,62 @@ namespace TuneRoboWPF.Views
             GlobalVariables.RobotWorker.AddJob(listAllMotionRequest);
         }
 
-        private void TransferButton_Click(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var transferRequest = new TransferMotionToRobot(89);
-            var transferWindow = new TransferWindow(transferRequest, 89.ToString());
-            transferWindow.ShowDialog();
+            if (Visibility == Visibility.Visible)
+            {
+                LoadLibrary();
+            }
+        }
+
+
+        private void LoadLibrary()
+        {
+            var r = new Random();
+            GlobalVariables.StoreWorker.IsClearWorker = false;
+            int index = 0;
+            foreach (var file in Directory.GetFiles(GlobalFunction.GetSavedDir(), "*.mrb"))
+            {
+                var motionInfo = new MotionInfo(file);
+                var motionItem = new MotionFullInfoItem();
+                motionItem.SetMotionInfo(motionInfo);
+                motionItem.ViewModel.RatingValue = r.Next(1, 5) / 5.0;
+                motionItem.ViewModel.HitTestVisible = false;
+                motionItem.ViewModel.Index = ++index;
+                viewModel.LibraryItemsList.Add(motionItem);
+                DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
+            }
+            GlobalVariables.StoreWorker.IsClearWorker = true;
+        }
+        private void DownloadImage(ulong id, MotionFullInfoItemViewModel model)
+        {
+            var motionInfoRequest = new GetMotionFullInfoStoreRequest(id);
+            motionInfoRequest.ProcessSuccessfully += (data) =>
+                                                         {
+                                                             var imageDownload = new ImageDownload(id, data.motion_info.icon_url);
+                                                             imageDownload.DownloadCompleted += (img) => Dispatcher.
+                                                                                                             BeginInvoke((Action)delegate
+                                                                                                                                     {
+                                                                                                                                         model.CoverImage = img;
+                                                                                                                                     });
+                                                             GlobalVariables.ImageDownloadWorker.AddJob(imageDownload);
+                                                         };
+            motionInfoRequest.ProcessError += (data, msg) =>
+                                                  {
+                                                      Console.WriteLine("get info failed: {0}", msg);
+                                                  };
+
+            GlobalVariables.StoreWorker.AddJob(motionInfoRequest);
+        }
+        
+
+        private void LibraryListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (viewModel.LastLibrarySlectedMotion != null)
+            {
+                viewModel.LastLibrarySlectedMotion.ViewModel.Index =  LibraryListBox.Items.IndexOf(viewModel.LastLibrarySlectedMotion);
+            }
+            viewModel.LibrarySelectedMotion.ViewModel.Index = LibraryListBox.SelectedIndex;
         }
     }
 }

@@ -49,10 +49,10 @@ namespace TuneRoboWPF.RobotService
         }
     }
 
-    public class GetMotionInfoWithID:RobotRequest
+    public class GetMotionInfoWithIDRequest:RobotRequest
     {
         private ulong MotionID { get; set; }
-        public GetMotionInfoWithID(ulong motionID, RobotPacket.PacketID packetID)
+        public GetMotionInfoWithIDRequest(ulong motionID, RobotPacket.PacketID packetID)
         {
             RequestID = packetID;
             MotionID = motionID;
@@ -62,6 +62,19 @@ namespace TuneRoboWPF.RobotService
         {
             var packet = new RobotPacket(RequestID);
             packet.Parameters = GlobalFunction.DecToLE8(MotionID);
+            return packet.BuildPacket();
+        }
+    }
+
+    public class GetStateRequest:RobotRequest
+    {
+        public GetStateRequest()
+        {
+            RequestID = RobotPacket.PacketID.GetState;
+        }
+        public override byte[] BuildRequest()
+        {
+            var packet = new RobotPacket(RequestID);
             return packet.BuildPacket();
         }
     }

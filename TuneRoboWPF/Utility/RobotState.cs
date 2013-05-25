@@ -2,45 +2,45 @@
 {
     public class RobotState
     {
-        public enum TransformState
+        public enum TransformStates
         {
             Closed = 0,
             Openning = 1,
             Closing = 2,
             Opened = 3
         }
-        public enum MusicState
+        public enum MusicStates
         {
             MusicIdled = 0,
             MusicPlaying = 1,
             MusicPaused = 2,
             SystemHalt = 3
         }
-        public int CurrentVolume { get; set; }
-        public TransformState CurrentTransformState { get; set; }
-        public MusicState CurrentMusicState { get; set; }
-        public ulong CurrentMotionID { get; set; }
-        public int CurrentMotionIndex { get; set; }
+        public int Volume { get; set; }
+        public TransformStates TransformState { get; set; }
+        public MusicStates MusicState { get; set; }
+        public ulong MotionID { get; set; }
+        public int MotionIndex { get; set; }
 
         public void UpdateState(byte[] state)
         {
             if (state == null) return;
-            CurrentVolume = state[0];
-            CurrentTransformState = (TransformState)state[1];
-            CurrentMusicState = (MusicState)state[2];
-            CurrentMotionID = GlobalFunction.LE8ToDec(GlobalFunction.SplitByteArray(state, 3, 8));
+            Volume = state[0];
+            TransformState = (TransformStates)state[1];
+            MusicState = (MusicStates)state[2];
+            MotionID = GlobalFunction.LE8ToDec(GlobalFunction.SplitByteArray(state, 3, 8));
             FindCurrentMotionPlayingIndex();
         }
 
         public void FindCurrentMotionPlayingIndex()
         {
             if (GlobalVariables.CurrentListMotion == null) return;
-            CurrentMotionIndex = 0;
+            MotionIndex = 0;
             for (int i = 0; i < GlobalVariables.CurrentListMotion.Count; i++)
             {
-                if (CurrentMotionID == GlobalVariables.CurrentListMotion[i].MotionID)
+                if (MotionID == GlobalVariables.CurrentListMotion[i].MotionID)
                 {
-                    CurrentMotionIndex = i;
+                    MotionIndex = i;
                     break;
                 }
             }
@@ -48,11 +48,11 @@
 
         public RobotState()
         {
-            CurrentVolume = 5;
-            CurrentTransformState = TransformState.Closed;
-            CurrentMusicState = MusicState.SystemHalt;
-            CurrentMotionID = 0;
-            CurrentMotionIndex = 0;
+            Volume = 5;
+            TransformState = TransformStates.Closed;
+            MusicState = MusicStates.SystemHalt;
+            MotionID = 0;
+            MotionIndex = 0;
         }
     }
 }

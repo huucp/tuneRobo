@@ -12,6 +12,7 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
         public GetMotionFullInfoStoreRequest(ulong motionID)
         {
             MotionID = motionID;
+            RequestKey = GetType() + motionID.ToString();
         }
         public override void BuildPacket()
         {

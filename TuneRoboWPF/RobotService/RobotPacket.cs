@@ -11,6 +11,7 @@ namespace TuneRoboWPF.RobotService
         public enum PacketID
         {
             Hello = 0x0101,
+            GetState = 0x0102,
             Play = 0x0201,
             Pause = 0x0202,
             Forward = 0x0203,

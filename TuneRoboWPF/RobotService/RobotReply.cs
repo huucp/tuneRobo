@@ -60,6 +60,7 @@ namespace TuneRoboWPF.RobotService
                 case RobotPacket.PacketID.CloseTransform:
                 case RobotPacket.PacketID.SetVolumeLevel:
                 case RobotPacket.PacketID.SelectMotionToPlay:
+                case RobotPacket.PacketID.GetState:
                     GetCurrentState();
                     break;
                 case RobotPacket.PacketID.WriteMotionData:

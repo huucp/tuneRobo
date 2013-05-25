@@ -11,11 +11,8 @@
 namespace comm
 {
 
-
     public partial class Reply : global::ProtoBuf.IExtensible
     {
-
-
         private artist.CreateArtistReply _create_artist = null;
         [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name = @"create_artist", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
@@ -61,8 +58,15 @@ namespace comm
             set { _list_artist = value; }
         }
 
+        private artist.NumberAllArtistReply _number_all_artist = null;
+        [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name = @"number_all_artist", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::System.ComponentModel.DefaultValue(null)]
+        public artist.NumberAllArtistReply number_all_artist
+        {
+            get { return _number_all_artist; }
+            set { _number_all_artist = value; }
+        }
     }
-
 }
 // Generated from: artist.proto
 // Note: requires additional types generated from: comm.proto
@@ -415,6 +419,33 @@ namespace artist
         {
             get { return _avatar_url; }
             set { _avatar_url = value; }
+        }
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NumberAllArtistRequest")]
+    public partial class NumberAllArtistRequest : global::ProtoBuf.IExtensible
+    {
+        public NumberAllArtistRequest() { }
+
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NumberAllArtistReply")]
+    public partial class NumberAllArtistReply : global::ProtoBuf.IExtensible
+    {
+        public NumberAllArtistReply() { }
+
+        private uint _number_artist;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"number_artist", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public uint number_artist
+        {
+            get { return _number_artist; }
+            set { _number_artist = value; }
         }
         private global::ProtoBuf.IExtension extensionObject;
         global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

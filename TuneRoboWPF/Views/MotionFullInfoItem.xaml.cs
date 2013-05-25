@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using TuneRoboWPF.RobotService;
+using TuneRoboWPF.Utility;
+using TuneRoboWPF.ViewModels;
 
-namespace TuneRoboWPF
+namespace TuneRoboWPF.Views
 {
 	/// <summary>
 	/// Interaction logic for MotionFullInfoItem.xaml
@@ -21,6 +16,32 @@ namespace TuneRoboWPF
 		public MotionFullInfoItem()
 		{
 			this.InitializeComponent();
+		    DataContext = new MotionFullInfoItemViewModel();
+		    ViewModel = (MotionFullInfoItemViewModel) DataContext;
 		}
+        public MotionFullInfoItemViewModel ViewModel = new MotionFullInfoItemViewModel();
+        private ulong MotionID { get; set; }
+
+        public void SetMotionInfo(MotionInfo info)
+        {
+            ViewModel.MotionTitle = info.Title;
+            ViewModel.ArtistName = info.Artist;
+            ViewModel.RatingValue = 0.6;
+            MotionID = info.MotionID;
+        }
+
+        private void TransferButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (!GlobalVariables.WIRELESS_CONNECTION)
+            {
+                MessageBox.Show("Please connect to robot!", "", MessageBoxButton.OK);
+            }
+            else
+            {
+                var transferRequest = new TransferMotionToRobot(MotionID);
+                var transferWindow = new TransferWindow(transferRequest, MotionID.ToString());
+                transferWindow.ShowDialog();
+            }
+        }
 	}
 }

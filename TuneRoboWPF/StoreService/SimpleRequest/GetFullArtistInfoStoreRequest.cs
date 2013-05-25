@@ -12,6 +12,7 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
         public GetFullArtistInfoStoreRequest(ulong artistID)
         {
             ArtistID = artistID;
+            RequestKey = GetType() + artistID.ToString();
         }
 
         public override void BuildPacket()

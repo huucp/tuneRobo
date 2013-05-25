@@ -185,6 +185,17 @@ namespace TuneRoboWPF.Utility
             return dir_path;
         }
 
+        public static void GetTempDataFolder()
+        {            
+            string appdataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+                                 GlobalVariables.FOLDER_ROOT;
+            if (!Directory.Exists(appdataPath))
+            {
+                Directory.CreateDirectory(appdataPath);
+            }
+            GlobalVariables.AppDataFolder = appdataPath;            
+        }
+
         // Check exist of folder path if not then create new directory
         public static bool CheckExistAndCreateDirectory(string dir)
         {
@@ -278,6 +289,11 @@ namespace TuneRoboWPF.Utility
         {
             IStructuralEquatable eqa1 = a1;
             return eqa1.Equals(a2, StructuralComparisons.StructuralEqualityComparer);
+        }
+
+        public static string GetSavedDir()
+        {
+            return GlobalVariables.LOCAL_DIR + GlobalVariables.FOLDER_ROOT + GlobalVariables.FOLDER_PLAYLIST ;
         }
 
         #region RemoteViaWifi

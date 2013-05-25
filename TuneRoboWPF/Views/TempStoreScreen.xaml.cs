@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using TuneRoboWPF.StoreService.BigRequest;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
@@ -19,7 +21,7 @@ namespace TuneRoboWPF.Views
     /// </summary>
     public partial class TempStoreScreen : UserControl
     {
-        public TempStoreScreen()
+        public TempStoreScreen(DockPanel dock)
         {
             this.InitializeComponent();
             DataContext = new TempStoreScreenViewModel();
@@ -27,8 +29,10 @@ namespace TuneRoboWPF.Views
             viewModel.FeaturedItemsList.Clear();
             viewModel.HotItemsList.Clear();
             viewModel.ArtistItemsList.Clear();
+            MainDock = dock;
         }
         private TempStoreScreenViewModel viewModel = new TempStoreScreenViewModel();
+        private DockPanel MainDock { get; set; }
 
         private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -352,6 +356,28 @@ namespace TuneRoboWPF.Views
                                             Console.WriteLine("Search motion failed: {0:s}",msg);
                                         };
             GlobalVariables.StoreWorker.AddJob(request);
+        }
+
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            var img = new BitmapImage();
+            img.DownloadCompleted += (s, dcea) =>
+            {
+                motionFullInfoItem.ViewModel.CoverImage = img;
+                motionFullInfoItem.ViewModel.RatingValue = 0.4;
+                Console.WriteLine("Load completed");
+            };
+            img.BeginInit();
+            img.UriSource = new Uri("https://dl.dropboxusercontent.com/u/9116124/Sample%20images/motion_cover/cov3756.jpeg");
+            img.EndInit();
+        }
+
+        private void ChangeScreenButton_Click(object sender, RoutedEventArgs e)
+        {
+            var lastElement = MainDock.Children[MainDock.Children.Count - 1];
+            MainDock.Children.Remove(lastElement);
+            var remoteScreen = new RemoteControlScreen(MainDock);
+            MainDock.Children.Add(remoteScreen); 
         }
     }
 }

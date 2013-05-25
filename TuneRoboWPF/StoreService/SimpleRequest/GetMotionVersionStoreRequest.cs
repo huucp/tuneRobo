@@ -16,6 +16,11 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
         public GetMotionVersionStoreRequest(List<ulong> motionID)
         {
             MotionID.AddRange(motionID);
+            RequestKey = GetType().ToString();
+            foreach (var id in motionID)
+            {
+                RequestKey += id.ToString();
+            }
         }
         public override void BuildPacket()
         {
