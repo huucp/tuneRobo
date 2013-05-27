@@ -65,8 +65,9 @@ namespace TuneRoboWPF
                     MessageBoxImage.Error);
             }
             //var remoteScreen = new RemoteControlScreen(MainDock);
-            var remoteScreen = new TestRemoteScreen(MainDock);
-            MainDock.Children.Add(remoteScreen);
+            //var remoteScreen = new TestRemoteScreen(MainDock);
+            var storeScreen = new StoreScreen(MainDock);
+            MainDock.Children.Add(storeScreen);
         }
 
    
@@ -74,7 +75,7 @@ namespace TuneRoboWPF
         {
             var lastElement = MainDock.Children[MainDock.Children.Count - 1];
             MainDock.Children.Remove(lastElement);
-            var testStoreScreen = new TempStoreScreen(MainDock);
+            var testStoreScreen = new StoreScreen(MainDock);
             MainDock.Children.Add(testStoreScreen);
         }
 

@@ -142,12 +142,19 @@
                  SelectedItem="{Binding LibrarySelectedMotion}"
                  SelectionChanged="LibraryListBox_SelectionChanged"
                  ItemsSource="{Binding LibraryItemsList}"                 
-                 SelectedIndex="0">            
+                 SelectedIndex="0"
+                 BorderThickness="0">            
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Padding" Value="0"/>                    
-                </Style>
+                </Style>                
             </ListBox.ItemContainerStyle>
+            <!-- Disable hightlight -->
+            <ListBox.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+            </ListBox.Resources>
             
         </ListBox>
         <TextBlock x:Name="UnconnectedTextBox" 

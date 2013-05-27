@@ -13,6 +13,6 @@ namespace TuneRoboWPF.Models
         public string MotionTitle = "Motion title";
         public string ArtistName = "Artist name";
         public bool HitTestVisible = false;
-        public int Index = 0;
+        public int Index = 0;        
     }
 }

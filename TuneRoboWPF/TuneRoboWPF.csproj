@@ -83,6 +83,7 @@
     <Compile Include="Models\PlayPauseButtonModel.cs" />
     <Compile Include="Models\RemoteControlScreenModel.cs" />
     <Compile Include="Models\RobotTransformButtonModel.cs" />
+    <Compile Include="Models\StoreScreenModel.cs" />
     <Compile Include="Models\TempStoreScreenModel.cs" />
     <Compile Include="Models\TransferWindowModel.cs" />
     <Compile Include="RobotService\InformationRequest.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="TransferWindow.xaml.cs">
       <DependentUpon>TransferWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utility\Color.cs" />
     <Compile Include="Utility\CRCCCIT.cs" />
     <Compile Include="Utility\GlobalResource.cs" />
     <Compile Include="Utility\GlobalVariables.cs" />
@@ -148,10 +150,14 @@
     <Compile Include="ViewModels\PlayPauseButtonViewModel.cs" />
     <Compile Include="ViewModels\RemoteControlScreenViewModel.cs" />
     <Compile Include="ViewModels\RobotTransformButtonViewModel.cs" />
+    <Compile Include="ViewModels\StoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TempStoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TransferWindowViewModel.cs" />
     <Compile Include="Views\ControlButton.xaml.cs">
       <DependentUpon>ControlButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StoreScreen.xaml.cs">
+      <DependentUpon>StoreScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TempStoreScreen.xaml.cs">
       <DependentUpon>TempStoreScreen.xaml</DependentUpon>
@@ -215,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StoreScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
