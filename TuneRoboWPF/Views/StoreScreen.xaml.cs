@@ -48,10 +48,8 @@ namespace TuneRoboWPF.Views
                 {
                     foreach (var info in reply.list_motion.motion_short_info)
                     {
-                        var motionItem = new MotionFullInfoItem();
-                        motionItem.ViewModel.MotionTitle = info.title;
-                        motionItem.ViewModel.ArtistName = info.artist_name;
-                        motionItem.Width = 400;
+                        var motionItem = new MotionItemVertical();
+                        motionItem.SetInfo(info);
                         ViewModel.HotItemsList.Add(motionItem);
                     }
                 });
@@ -59,15 +57,7 @@ namespace TuneRoboWPF.Views
             };
             hotListRequest.ProcessError += (reply, msg) =>
             {
-                Console.WriteLine("Host list request failed " + msg);
-                //if (getFeaturedListDone && getArtistListDone)
-                //{
-                //    Dispatcher.BeginInvoke((Action)delegate
-                //    {
-                //        Cursor = Cursors.Arrow;
-                //    });
-                //}
-                //else getHotListDone = true;
+                Console.WriteLine("Host list request failed " + msg);                
             };
             GlobalVariables.StoreWorker.AddJob(hotListRequest);
         }

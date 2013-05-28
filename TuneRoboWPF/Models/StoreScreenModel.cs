@@ -9,6 +9,6 @@ namespace TuneRoboWPF.Models
 {
     public class StoreScreenModel
     {
-        public ObservableCollection<MotionFullInfoItem> HotItemsList = new ObservableCollection<MotionFullInfoItem>();
+        public ObservableCollection<MotionItemVertical> HotItemsList = new ObservableCollection<MotionItemVertical>();
     }
 }

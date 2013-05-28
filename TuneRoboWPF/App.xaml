@@ -4,11 +4,11 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         
-    	<!--<ResourceDictionary>
+    	<ResourceDictionary>
     		<ResourceDictionary.MergedDictionaries>
-    			<ResourceDictionary Source="Simple Styles.xaml"/>
+    			<ResourceDictionary Source="Utility\ConfigDictionary.xaml"/>
     		</ResourceDictionary.MergedDictionaries>
-    	</ResourceDictionary>-->
+    	</ResourceDictionary>
         
     </Application.Resources>
 </Application>

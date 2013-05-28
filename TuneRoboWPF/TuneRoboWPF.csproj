@@ -78,6 +78,7 @@
     <Compile Include="Converter\IndexToColorConverter.cs" />
     <Compile Include="Models\ControlButtonModel.cs" />
     <Compile Include="Models\MotionFullInfoItemModel.cs" />
+    <Compile Include="Models\MotionItemVerticalModel.cs" />
     <Compile Include="Models\MotionTitleItemModel.cs" />
     <Compile Include="Models\NavigationBarModel.cs" />
     <Compile Include="Models\PlayPauseButtonModel.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Utility\Worker.cs" />
     <Compile Include="ViewModels\ControlButtonViewModel.cs" />
     <Compile Include="ViewModels\MotionFullInfoItemViewModel.cs" />
+    <Compile Include="ViewModels\MotionItemVerticalViewModel.cs" />
     <Compile Include="ViewModels\MotionTitleItemViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -155,6 +157,9 @@
     <Compile Include="ViewModels\TransferWindowViewModel.cs" />
     <Compile Include="Views\ControlButton.xaml.cs">
       <DependentUpon>ControlButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MotionItemVertical.xaml.cs">
+      <DependentUpon>MotionItemVertical.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StoreScreen.xaml.cs">
       <DependentUpon>StoreScreen.xaml</DependentUpon>
@@ -221,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MotionItemVertical.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

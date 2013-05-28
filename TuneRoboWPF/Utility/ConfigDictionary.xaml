@@ -6,4 +6,5 @@
         <Setter Property="Height" Value="703"/>
         <Setter Property="Width" Value="1100"/>
     </Style>
+    <BitmapImage x:Key="DefaultImage" UriSource="/Resources/cov894.jpeg" />
 </ResourceDictionary>

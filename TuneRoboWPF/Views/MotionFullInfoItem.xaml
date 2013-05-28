@@ -8,7 +8,7 @@
 	x:Class="TuneRoboWPF.Views.MotionFullInfoItem"
 	x:Name="UserControl" Height="148" >
     <UserControl.Resources>
-        <BitmapImage x:Key="DefaultImage" UriSource="/Resources/cov894.jpeg" />
+        
         <converter:IndexToColorConverter x:Key="IndexToColorConverter"/>
     </UserControl.Resources>
 

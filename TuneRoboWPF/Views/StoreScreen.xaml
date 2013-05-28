@@ -3,25 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Custom="http://schemas.microsoft.com/wpf/2008/toolkit" x:Class="TuneRoboWPF.Views.StoreScreen" 
+             xmlns:Custom="http://schemas.microsoft.com/wpf/2008/toolkit" 
+             x:Class="TuneRoboWPF.Views.StoreScreen" 
              mc:Ignorable="d" 
              d:DesignHeight="703" d:DesignWidth="1100">
     <ScrollViewer Margin="0,0,0,0" CanContentScroll="True" VerticalScrollBarVisibility="Auto">
 		<Grid >
-			<ListBox x:Name="HotMotionListBox" Height="206" Margin="68,66,58,0" 
+			<ListBox x:Name="HotMotionListBox" Height="390" Margin="68,66,58,0" 
                      VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Auto" 
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      ItemsSource="{Binding HotItemsList}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                        <WrapPanel IsItemsHost="True" Orientation="Vertical"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
 			</ListBox>
 			<ListBox x:Name="ArtistLisBox" Height="122" Margin="68,0,58,29" 
                      VerticalAlignment="Bottom" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                      ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-			<Custom:DataGrid Margin="68,320,58,213"/>
 		</Grid>
 	</ScrollViewer>
 </UserControl>

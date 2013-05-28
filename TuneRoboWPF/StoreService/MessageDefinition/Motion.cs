@@ -13,8 +13,6 @@ namespace comm
 
     public partial class Reply : global::ProtoBuf.IExtensible
     {
-
-
         private motion.CreateMotionReply _create_motion = null;
         [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name = @"create_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
@@ -186,6 +184,15 @@ namespace comm
             set { _rating_info = value; }
         }
 
+        private motion.MyMotionRatingInfoReply _my_rating_info = null;
+        [global::ProtoBuf.ProtoMember(42, IsRequired = false, Name = @"my_rating_info", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::System.ComponentModel.DefaultValue(null)]
+        public motion.MyMotionRatingInfoReply my_rating_info
+        {
+            get { return _my_rating_info; }
+            set { _my_rating_info = value; }
+        }
+
         private motion.AddMotionToFeatureReply _add_motion_feature = null;
         [global::ProtoBuf.ProtoMember(35, IsRequired = false, Name = @"add_motion_feature", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
@@ -248,7 +255,9 @@ namespace comm
             get { return _number_rating_info; }
             set { _number_rating_info = value; }
         }
+
     }
+
 }
 // Generated from: motion.proto
 // Note: requires additional types generated from: comm.proto
@@ -1235,6 +1244,13 @@ namespace motion
             get { return _icon_url; }
             set { _icon_url = value; }
         }
+        private uint _avg_rating_artist;
+        [global::ProtoBuf.ProtoMember(21, IsRequired = true, Name = @"avg_rating_artist", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public uint avg_rating_artist
+        {
+            get { return _avg_rating_artist; }
+            set { _avg_rating_artist = value; }
+        }
         [global::ProtoBuf.ProtoContract(Name = @"Type")]
         public enum Type
         {
@@ -1709,53 +1725,11 @@ namespace motion
     {
         public RatingMotionInfoReply() { }
 
-        private ulong _motion_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong motion_id
+        private readonly global::System.Collections.Generic.List<motion.RatingInfo> _ratingInfoMotion = new global::System.Collections.Generic.List<motion.RatingInfo>();
+        [global::ProtoBuf.ProtoMember(1, Name = @"ratingInfoMotion", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        public global::System.Collections.Generic.List<motion.RatingInfo> ratingInfoMotion
         {
-            get { return _motion_id; }
-            set { _motion_id = value; }
-        }
-        private readonly global::System.Collections.Generic.List<string> _user_name = new global::System.Collections.Generic.List<string>();
-        [global::ProtoBuf.ProtoMember(2, Name = @"user_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public global::System.Collections.Generic.List<string> user_name
-        {
-            get { return _user_name; }
-        }
-
-        private readonly global::System.Collections.Generic.List<uint> _rating = new global::System.Collections.Generic.List<uint>();
-        [global::ProtoBuf.ProtoMember(3, Name = @"rating", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public global::System.Collections.Generic.List<uint> rating
-        {
-            get { return _rating; }
-        }
-
-        private readonly global::System.Collections.Generic.List<ulong> _rating_time = new global::System.Collections.Generic.List<ulong>();
-        [global::ProtoBuf.ProtoMember(4, Name = @"rating_time", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public global::System.Collections.Generic.List<ulong> rating_time
-        {
-            get { return _rating_time; }
-        }
-
-        private readonly global::System.Collections.Generic.List<string> _version_name = new global::System.Collections.Generic.List<string>();
-        [global::ProtoBuf.ProtoMember(5, Name = @"version_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public global::System.Collections.Generic.List<string> version_name
-        {
-            get { return _version_name; }
-        }
-
-        private readonly global::System.Collections.Generic.List<string> _comment_content = new global::System.Collections.Generic.List<string>();
-        [global::ProtoBuf.ProtoMember(6, Name = @"comment_content", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public global::System.Collections.Generic.List<string> comment_content
-        {
-            get { return _comment_content; }
-        }
-
-        private readonly global::System.Collections.Generic.List<string> _comment_title = new global::System.Collections.Generic.List<string>();
-        [global::ProtoBuf.ProtoMember(7, Name = @"comment_title", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public global::System.Collections.Generic.List<string> comment_title
-        {
-            get { return _comment_title; }
+            get { return _ratingInfoMotion; }
         }
 
         [global::ProtoBuf.ProtoContract(Name = @"Type")]
@@ -1769,6 +1743,130 @@ namespace motion
             INPUT_ERROR = 5
         }
 
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"MyMotionRatingInfoRequest")]
+    public partial class MyMotionRatingInfoRequest : global::ProtoBuf.IExtensible
+    {
+        public MyMotionRatingInfoRequest() { }
+
+        private ulong _user_id;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong user_id
+        {
+            get { return _user_id; }
+            set { _user_id = value; }
+        }
+        private ulong _motion_id;
+        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong motion_id
+        {
+            get { return _motion_id; }
+            set { _motion_id = value; }
+        }
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"MyMotionRatingInfoReply")]
+    public partial class MyMotionRatingInfoReply : global::ProtoBuf.IExtensible
+    {
+        public MyMotionRatingInfoReply() { }
+
+        private ulong _user_id;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong user_id
+        {
+            get { return _user_id; }
+            set { _user_id = value; }
+        }
+
+        private motion.RatingInfo _rating_info = null;
+        [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name = @"rating_info", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::System.ComponentModel.DefaultValue(null)]
+        public motion.RatingInfo rating_info
+        {
+            get { return _rating_info; }
+            set { _rating_info = value; }
+        }
+        [global::ProtoBuf.ProtoContract(Name = @"Type")]
+        public enum Type
+        {
+
+            [global::ProtoBuf.ProtoEnum(Name = @"USER_ERROR", Value = 4)]
+            USER_ERROR = 4,
+
+            [global::ProtoBuf.ProtoEnum(Name = @"NO_MOTION", Value = 5)]
+            NO_MOTION = 5
+        }
+
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"RatingInfo")]
+    public partial class RatingInfo : global::ProtoBuf.IExtensible
+    {
+        public RatingInfo() { }
+
+        private ulong _motion_id;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong motion_id
+        {
+            get { return _motion_id; }
+            set { _motion_id = value; }
+        }
+        private string _user_name;
+        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"user_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        public string user_name
+        {
+            get { return _user_name; }
+            set { _user_name = value; }
+        }
+        private uint _rating;
+        [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name = @"rating", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public uint rating
+        {
+            get { return _rating; }
+            set { _rating = value; }
+        }
+        private ulong _rating_time;
+        [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name = @"rating_time", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong rating_time
+        {
+            get { return _rating_time; }
+            set { _rating_time = value; }
+        }
+        private string _version_name;
+        [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name = @"version_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        public string version_name
+        {
+            get { return _version_name; }
+            set { _version_name = value; }
+        }
+
+        private string _comment_content = "";
+        [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name = @"comment_content", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::System.ComponentModel.DefaultValue("")]
+        public string comment_content
+        {
+            get { return _comment_content; }
+            set { _comment_content = value; }
+        }
+
+        private string _comment_title = "";
+        [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name = @"comment_title", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::System.ComponentModel.DefaultValue("")]
+        public string comment_title
+        {
+            get { return _comment_title; }
+            set { _comment_title = value; }
+        }
         private global::ProtoBuf.IExtension extensionObject;
         global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
         { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -1949,7 +2047,10 @@ namespace motion
             TOP_RATED = 2,
 
             [global::ProtoBuf.ProtoEnum(Name = @"FEATURE", Value = 3)]
-            FEATURE = 3
+            FEATURE = 3,
+
+            [global::ProtoBuf.ProtoEnum(Name = @"ALL", Value = 4)]
+            ALL = 4
         }
 
         private global::ProtoBuf.IExtension extensionObject;
@@ -1962,9 +2063,9 @@ namespace motion
     {
         public NumberMotionOfCategoryReply() { }
 
-        private uint _type;
+        private motion.NumberMotionOfCategoryReply.Type _type;
         [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public uint type
+        public motion.NumberMotionOfCategoryReply.Type type
         {
             get { return _type; }
             set { _type = value; }
@@ -1976,6 +2077,23 @@ namespace motion
             get { return _number_motion; }
             set { _number_motion = value; }
         }
+        [global::ProtoBuf.ProtoContract(Name = @"Type")]
+        public enum Type
+        {
+
+            [global::ProtoBuf.ProtoEnum(Name = @"TRENDING", Value = 1)]
+            TRENDING = 1,
+
+            [global::ProtoBuf.ProtoEnum(Name = @"TOP_RATED", Value = 2)]
+            TOP_RATED = 2,
+
+            [global::ProtoBuf.ProtoEnum(Name = @"FEATURE", Value = 3)]
+            FEATURE = 3,
+
+            [global::ProtoBuf.ProtoEnum(Name = @"ALL", Value = 4)]
+            ALL = 4
+        }
+
         private global::ProtoBuf.IExtension extensionObject;
         global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
         { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

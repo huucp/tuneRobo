@@ -297,17 +297,17 @@ namespace TuneRoboWPF.Views
             var request = new GetRatingMotionInfoStoreRequest(196, 0, 100);
             request.ProcessSuccessfully += (reply) =>
                                                {
-                                                   Console.WriteLine("==============");
-                                                   Console.WriteLine("Rating motion ID: {0:d}",reply.rating_info.motion_id);
                                                    
-                                                   for (int i = 0; i < reply.rating_info.version_name.Count;i++)
+                                                   for (int i = 0; i < reply.rating_info.ratingInfoMotion.Count;i++)
                                                    {
-                                                       Console.WriteLine("User rate: {0:s}", reply.rating_info.user_name[i]);
-                                                       Console.WriteLine("Rating: {0:d}", reply.rating_info.rating[i]);
-                                                       Console.WriteLine("Rating time: {0:d}", reply.rating_info.rating_time[i]);
-                                                       Console.WriteLine("Version rating: {0:s}", reply.rating_info.version_name[i]);
-                                                       Console.WriteLine("Comment title: {0:s}", reply.rating_info.comment_title[i]);
-                                                       Console.WriteLine("Comment content: {0:s}", reply.rating_info.comment_content[i]);
+                                                       Console.WriteLine("==============");
+                                                       Console.WriteLine("Motion ID: {0:d}",reply.rating_info.ratingInfoMotion[i].motion_id);
+                                                       Console.WriteLine("User rate: {0:s}", reply.rating_info.ratingInfoMotion[i].user_name);
+                                                       Console.WriteLine("Rating: {0:d}", reply.rating_info.ratingInfoMotion[i].rating);
+                                                       Console.WriteLine("Rating time: {0:d}", reply.rating_info.ratingInfoMotion[i].rating_time);
+                                                       Console.WriteLine("Version rating: {0:s}", reply.rating_info.ratingInfoMotion[i].version_name);
+                                                       Console.WriteLine("Comment title: {0:s}", reply.rating_info.ratingInfoMotion[i].comment_title);
+                                                       Console.WriteLine("Comment content: {0:s}", reply.rating_info.ratingInfoMotion[i].comment_content);
                                                        Console.WriteLine("=================");
                                                    }
                                                };
