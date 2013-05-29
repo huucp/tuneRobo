@@ -118,7 +118,7 @@ namespace TuneRoboWPF.Views
         private List<ArtistShortInfo> artistList = new List<ArtistShortInfo>();
         private void GetArtistList()
         {
-            var artistListRequest = new ListAllArtistRequest(0, 20);
+            var artistListRequest = new ListAllArtistStoreRequest(0, 20);
             artistListRequest.ProcessSuccessfully += (reply) =>
             {
                 artistList.AddRange(reply.list_artist.artist_short_info);

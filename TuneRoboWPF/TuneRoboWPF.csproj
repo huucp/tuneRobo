@@ -76,6 +76,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\IndexToColorConverter.cs" />
+    <Compile Include="Models\ArtistItemVerticalModel.cs" />
     <Compile Include="Models\ControlButtonModel.cs" />
     <Compile Include="Models\MotionFullInfoItemModel.cs" />
     <Compile Include="Models\MotionItemVerticalModel.cs" />
@@ -117,7 +118,7 @@
     <Compile Include="StoreService\SimpleRequest\GetRatingMotionInfoStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\GetUserArtistRelationStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\GetUserInfoStoreRequest.cs" />
-    <Compile Include="StoreService\SimpleRequest\ListAllArtistRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\ListAllArtistStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\ListCategoryMotionStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\ListUserFollowArtistStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\RatingMotionStoreRequest.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Utility\RobotState.cs" />
     <Compile Include="Utility\GlobalFunctions.cs" />
     <Compile Include="Utility\Worker.cs" />
+    <Compile Include="ViewModels\ArtistItemVerticalViewModel.cs" />
     <Compile Include="ViewModels\ControlButtonViewModel.cs" />
     <Compile Include="ViewModels\MotionFullInfoItemViewModel.cs" />
     <Compile Include="ViewModels\MotionItemVerticalViewModel.cs" />
@@ -155,6 +157,9 @@
     <Compile Include="ViewModels\StoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TempStoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TransferWindowViewModel.cs" />
+    <Compile Include="Views\ArtistItemVertical.xaml.cs">
+      <DependentUpon>ArtistItemVertical.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ControlButton.xaml.cs">
       <DependentUpon>ControlButton.xaml</DependentUpon>
     </Compile>
@@ -222,6 +227,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Utility\ConfigDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ArtistItemVertical.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

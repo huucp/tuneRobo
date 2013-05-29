@@ -3,25 +3,64 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Custom="http://schemas.microsoft.com/wpf/2008/toolkit" 
+             xmlns:Custom="http://schemas.microsoft.com/wpf/2008/toolkit" xmlns:Views="clr-namespace:TuneRoboWPF.Views"
              x:Class="TuneRoboWPF.Views.StoreScreen" 
              mc:Ignorable="d" 
              d:DesignHeight="703" d:DesignWidth="1100">
-    <ScrollViewer Margin="0,0,0,0" CanContentScroll="True" VerticalScrollBarVisibility="Auto">
-		<Grid >
-			<ListBox x:Name="HotMotionListBox" Height="390" Margin="68,66,58,0" 
-                     VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Auto" 
-                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                     ItemsSource="{Binding HotItemsList}">
+    <UserControl.Resources>
+        <Style x:Key="ListBoxVerticalStyle" TargetType="{x:Type ListBox}">
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <ItemsPanelTemplate x:Key="WrapPanelListBoxTemplate">
+            <WrapPanel IsItemsHost="True" Orientation="Vertical">
+                <WrapPanel.Resources>
+                    <Style TargetType="{x:Type Views:MotionItemVertical}">
+                        <Setter Property="Padding" Value="10,0"/>
+                    </Style>
+                </WrapPanel.Resources>
+            </WrapPanel>
+        </ItemsPanelTemplate>
+    </UserControl.Resources>
+    <ScrollViewer x:Name="MainScrollViewer" Margin="0,0,0,0" CanContentScroll="True" VerticalScrollBarVisibility="Auto">
+        <Grid Height ="1200">
+            <ListBox x:Name="HotMotionListBox" Height="390" Width="950"
+                     BorderThickness="1,0,1,0" Margin="68,48,0,0" 
+                     VerticalAlignment="Top" HorizontalAlignment="Left"
+                     ItemsSource="{Binding HotItemsList}"
+                     Background="Transparent" Style="{StaticResource ListBoxVerticalStyle}"
+                     ItemsPanel="{StaticResource WrapPanelListBoxTemplate}"
+                     PreviewMouseWheel="HotMotionListBox_PreviewMouseWheel"/>
+            <ListBox x:Name="FeaturedMotionListBox" Height="390" Width="950"
+                     BorderThickness ="1,0,1,0" Margin="68,475,0,0"
+                     VerticalAlignment="Top" HorizontalAlignment="Left"
+                     ItemsSource="{Binding FeaturedItemsList}"
+                     Background="Transparent" Style="{StaticResource ListBoxVerticalStyle}"
+                     ItemsPanel="{StaticResource WrapPanelListBoxTemplate}" 
+                     PreviewMouseWheel="FeaturedMotionListBox_PreviewMouseWheel"/>
+            <ListBox x:Name="ArtistLisBox" Height="190" Width="950"
+                     Margin="68,900,0,0"  BorderThickness="1,0,1,0"
+                     VerticalAlignment="Top" HorizontalAlignment="Left"
+                     Style="{StaticResource ListBoxVerticalStyle}"
+                     ItemsSource="{Binding ArtistList}"
+                     PreviewMouseWheel="ArtistLisBox_PreviewMouseWheel">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel IsItemsHost="True" Orientation="Vertical"/>
+                        <WrapPanel Orientation="Horizontal">
+                            <WrapPanel.Resources>
+                                <Style TargetType="{x:Type Views:ArtistItemVertical}">
+                                    <Setter Property="Padding" Value="10,0"/>
+                                </Style>
+                            </WrapPanel.Resources>
+                        </WrapPanel>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
-			</ListBox>
-			<ListBox x:Name="ArtistLisBox" Height="122" Margin="68,0,58,29" 
-                     VerticalAlignment="Bottom" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                     ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-		</Grid>
-	</ScrollViewer>
+            </ListBox>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

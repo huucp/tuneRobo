@@ -183,7 +183,7 @@ namespace TuneRoboWPF.Utility
                 IsBackground = true,
                 Name = "Worker thread"
             };
-
+            IsClearWorker = true;
             backgroundWorker.Start();
         }
 

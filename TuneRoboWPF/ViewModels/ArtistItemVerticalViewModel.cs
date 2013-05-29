@@ -9,29 +9,20 @@ using TuneRoboWPF.Models;
 
 namespace TuneRoboWPF.ViewModels
 {
-    public class MotionItemVerticalViewModel : ViewModelBase
+    public class ArtistItemVerticalViewModel:ViewModelBase
     {
-        private MotionItemVerticalModel model = new MotionItemVerticalModel();
-
-        public BitmapImage ArtworkImage
+        private ArtistItemVerticalModel model = new ArtistItemVerticalModel();
+        public BitmapImage ArtistIcon
         {
-            get { return model.ArtworkImage; }
+            get { return model.ArtistIcon; }
             set
             {
-                model.ArtworkImage = value;
-                NotifyPropertyChanged("ArtworkImage");
+                model.ArtistIcon = value;
+                NotifyPropertyChanged("ArtistIcon");
             }
         }
 
-        public string MotionTitle
-        {
-            get { return model.MotionTitle; }
-            set
-            {
-                model.MotionTitle = value;
-                NotifyPropertyChanged("MotionTitle");
-            }
-        }
+        
 
         public string ArtistName
         {

@@ -21,5 +21,23 @@ namespace TuneRoboWPF.ViewModels
                 NotifyPropertyChanged("HotItemsList");
             }
         }
+        public ObservableCollection<MotionItemVertical> FeaturedItemsList
+        {
+            get { return model.FeaturedItemsList; }
+            set
+            {
+                model.FeaturedItemsList = value;
+                NotifyPropertyChanged("FeaturedItemList");
+            }
+        }
+        public ObservableCollection<ArtistItemVertical> ArtistList
+        {
+            get { return model.ArtistList; }
+            set
+            {
+                model.ArtistList = value;
+                NotifyPropertyChanged("ArtistList");
+            }
+        }
     }
 }

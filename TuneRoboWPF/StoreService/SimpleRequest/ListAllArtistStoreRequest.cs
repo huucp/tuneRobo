@@ -6,12 +6,12 @@ using comm;
 
 namespace TuneRoboWPF.StoreService.SimpleRequest
 {
-    public class ListAllArtistRequest:StoreRequest
+    public class ListAllArtistStoreRequest:StoreRequest
     {
         private uint Start { get; set; }
         private uint End { get; set; }
 
-        public ListAllArtistRequest(uint start, uint end)
+        public ListAllArtistStoreRequest(uint start, uint end)
         {
             Start = start;
             End = end;
