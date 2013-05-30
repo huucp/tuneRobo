@@ -163,6 +163,9 @@
     <Compile Include="Views\ControlButton.xaml.cs">
       <DependentUpon>ControlButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MotionDetailScreen.xaml.cs">
+      <DependentUpon>MotionDetailScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MotionItemVertical.xaml.cs">
       <DependentUpon>MotionItemVertical.xaml</DependentUpon>
     </Compile>
@@ -235,6 +238,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MotionDetailScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

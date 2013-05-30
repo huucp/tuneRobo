@@ -13,6 +13,8 @@ namespace comm
 
     public partial class Reply : global::ProtoBuf.IExtensible
     {
+
+
         private motion.CreateMotionReply _create_motion = null;
         [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name = @"create_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
@@ -119,6 +121,15 @@ namespace comm
         {
             get { return _motion_info; }
             set { _motion_info = value; }
+        }
+
+        private motion.ListMotionInfoReply _list_motion_info = null;
+        [global::ProtoBuf.ProtoMember(43, IsRequired = false, Name = @"list_motion_info", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::System.ComponentModel.DefaultValue(null)]
+        public motion.ListMotionInfoReply list_motion_info
+        {
+            get { return _list_motion_info; }
+            set { _list_motion_info = value; }
         }
 
         private motion.ArtistMotionReply _artist_motion = null;
@@ -255,7 +266,6 @@ namespace comm
             get { return _number_rating_info; }
             set { _number_rating_info = value; }
         }
-
     }
 
 }
@@ -1100,6 +1110,31 @@ namespace motion
     {
         public MotionInfoReply() { }
 
+        private motion.MotionInfo _info;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"info", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        public motion.MotionInfo info
+        {
+            get { return _info; }
+            set { _info = value; }
+        }
+        [global::ProtoBuf.ProtoContract(Name = @"Type")]
+        public enum Type
+        {
+
+            [global::ProtoBuf.ProtoEnum(Name = @"NO_MOTION", Value = 4)]
+            NO_MOTION = 4
+        }
+
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"MotionInfo")]
+    public partial class MotionInfo : global::ProtoBuf.IExtensible
+    {
+        public MotionInfo() { }
+
         private ulong _motion_id;
         [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
         public ulong motion_id
@@ -1251,12 +1286,38 @@ namespace motion
             get { return _avg_rating_artist; }
             set { _avg_rating_artist = value; }
         }
-        [global::ProtoBuf.ProtoContract(Name = @"Type")]
-        public enum Type
-        {
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
 
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_MOTION", Value = 4)]
-            NO_MOTION = 4
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"ListMotionInfoRequest")]
+    public partial class ListMotionInfoRequest : global::ProtoBuf.IExtensible
+    {
+        public ListMotionInfoRequest() { }
+
+        private readonly global::System.Collections.Generic.List<ulong> _motion_id = new global::System.Collections.Generic.List<ulong>();
+        [global::ProtoBuf.ProtoMember(1, Name = @"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public global::System.Collections.Generic.List<ulong> motion_id
+        {
+            get { return _motion_id; }
+        }
+
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"ListMotionInfoReply")]
+    public partial class ListMotionInfoReply : global::ProtoBuf.IExtensible
+    {
+        public ListMotionInfoReply() { }
+
+        private readonly global::System.Collections.Generic.List<motion.MotionInfo> _info = new global::System.Collections.Generic.List<motion.MotionInfo>();
+        [global::ProtoBuf.ProtoMember(1, Name = @"info", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        public global::System.Collections.Generic.List<motion.MotionInfo> info
+        {
+            get { return _info; }
         }
 
         private global::ProtoBuf.IExtension extensionObject;

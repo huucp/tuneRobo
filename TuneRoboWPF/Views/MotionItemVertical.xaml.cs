@@ -39,7 +39,7 @@ namespace TuneRoboWPF.Views
             OnMotionClick(this);
         }
 
-        public void SetInfo(MotionInfo info)
+        public void SetInfo(Utility.MotionInfo info)
         {
             ViewModel.ArtistName = info.Artist;
             ViewModel.MotionTitle = info.Title;

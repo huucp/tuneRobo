@@ -166,25 +166,25 @@ namespace TuneRoboWPF.Views
             infoRequest.ProcessSuccessfully += (reply) =>
                                                    {
                                                        Console.WriteLine("==============");
-                                                       Console.WriteLine("Motion ID: " + reply.motion_info.motion_id);
-                                                       Console.WriteLine("Title: " + reply.motion_info.title);
-                                                       Console.WriteLine("Description: " + reply.motion_info.description);
-                                                       Console.WriteLine("Artist ID: " + reply.motion_info.artist_id);
-                                                       Console.WriteLine("Artist name: " + reply.motion_info.artist_name);
-                                                       Console.WriteLine("Publisher ID: " + reply.motion_info.publisher_id);
-                                                       Console.WriteLine("Version name: " + reply.motion_info.version_name);
-                                                       Console.WriteLine("Version ID: " + reply.motion_info.version_id);
-                                                       Console.WriteLine("Video url: " + reply.motion_info.video_url);
-                                                       Console.WriteLine("Screen shot url: " + reply.motion_info.screenshoot_ulrs[0]);
-                                                       Console.WriteLine("View: " + reply.motion_info.view);
-                                                       Console.WriteLine("Download count: " + reply.motion_info.download_count);
-                                                       Console.WriteLine("Rating: " + reply.motion_info.rating);
-                                                       Console.WriteLine("Rating count: " + reply.motion_info.rating_count);
-                                                       Console.WriteLine("Motion file size: " + reply.motion_info.motion_file_size);
-                                                       Console.WriteLine("Music file size: " + reply.motion_info.music_file_size);
-                                                       Console.WriteLine("Duration: " + reply.motion_info.duration);
-                                                       Console.WriteLine("Last modified: " + reply.motion_info.lastmodified);
-                                                       Console.WriteLine("Update ID: " + reply.motion_info.update_id);
+                                                       Console.WriteLine("Motion ID: " + reply.motion_info.info.motion_id);
+                                                       Console.WriteLine("Title: " + reply.motion_info.info.title);
+                                                       Console.WriteLine("Description: " + reply.motion_info.info.description);
+                                                       Console.WriteLine("Artist ID: " + reply.motion_info.info.artist_id);
+                                                       Console.WriteLine("Artist name: " + reply.motion_info.info.artist_name);
+                                                       Console.WriteLine("Publisher ID: " + reply.motion_info.info.publisher_id);
+                                                       Console.WriteLine("Version name: " + reply.motion_info.info.version_name);
+                                                       Console.WriteLine("Version ID: " + reply.motion_info.info.version_id);
+                                                       Console.WriteLine("Video url: " + reply.motion_info.info.video_url);
+                                                       Console.WriteLine("Screen shot url: " + reply.motion_info.info.screenshoot_ulrs[0]);
+                                                       Console.WriteLine("View: " + reply.motion_info.info.view);
+                                                       Console.WriteLine("Download count: " + reply.motion_info.info.download_count);
+                                                       Console.WriteLine("Rating: " + reply.motion_info.info.rating);
+                                                       Console.WriteLine("Rating count: " + reply.motion_info.info.rating_count);
+                                                       Console.WriteLine("Motion file size: " + reply.motion_info.info.motion_file_size);
+                                                       Console.WriteLine("Music file size: " + reply.motion_info.info.music_file_size);
+                                                       Console.WriteLine("Duration: " + reply.motion_info.info.duration);
+                                                       Console.WriteLine("Last modified: " + reply.motion_info.info.lastmodified);
+                                                       Console.WriteLine("Update ID: " + reply.motion_info.info.update_id);
                                                    };
             infoRequest.ProcessError += (reply, msg) =>
                                             {

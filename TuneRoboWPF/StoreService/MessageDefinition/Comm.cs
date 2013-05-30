@@ -146,7 +146,13 @@ namespace comm
       NUMBER_MOTION_DOWNLOAD = 141,
             
       [global::ProtoBuf.ProtoEnum(Name=@"NUMBER_MOTION_RATING_INFO", Value=142)]
-      NUMBER_MOTION_RATING_INFO = 142
+      NUMBER_MOTION_RATING_INFO = 142,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"RATING_INFO_USER", Value=143)]
+      RATING_INFO_USER = 143,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"LIST_INFO_MOTION", Value=144)]
+      LIST_INFO_MOTION = 144
     }
   
     private global::ProtoBuf.IExtension extensionObject;

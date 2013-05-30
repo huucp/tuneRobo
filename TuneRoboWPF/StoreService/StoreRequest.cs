@@ -34,7 +34,7 @@ namespace TuneRoboWPF.StoreService
 
         public object Process()
         {
-            if (RequestKey!=string.Empty)
+            if (!string.IsNullOrEmpty(RequestKey))
             {
                 if (GlobalVariables.RequestDictionary.ContainsKey(RequestKey))
                 {
@@ -88,7 +88,7 @@ namespace TuneRoboWPF.StoreService
                 //    return;
                 //}
                 OnProcessError(null, "Receive packet error");
-                return null;                
+                return null;
             }
             Debug.Assert(reply != null, "reply packet is null");
             Reply dataReply = reply.ProcessReply();
@@ -97,12 +97,12 @@ namespace TuneRoboWPF.StoreService
                 OnProcessError(null, "Reply is null");
                 return null;
             }
-            if (dataReply.type == (decimal) Reply.Type.OK)
+            if (dataReply.type == (decimal)Reply.Type.OK)
             {
                 OnProcessSuccessfully(dataReply);
-                if (RequestKey!= string.Empty)
+                if (!string.IsNullOrEmpty(RequestKey))
                 {
-                    GlobalVariables.RequestDictionary.Add(RequestKey,dataReply);
+                    GlobalVariables.RequestDictionary.Add(RequestKey, dataReply);
                 }
             }
             else

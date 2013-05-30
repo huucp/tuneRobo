@@ -123,8 +123,8 @@ namespace TuneRoboWPF.Views
         {
             var lastElement = MainWindowDockPanel.Children[MainWindowDockPanel.Children.Count - 1];
             MainWindowDockPanel.Children.Remove(lastElement);
-            var tempStoreScreen = new TempStoreScreen(MainWindowDockPanel);
-            MainWindowDockPanel.Children.Add(tempStoreScreen);
+            var detailScreen = new MotionDetailScreen(MainWindowDockPanel);
+            MainWindowDockPanel.Children.Add(detailScreen);
         }
 
         private void DownloadImage(ulong id, string url, object item)
