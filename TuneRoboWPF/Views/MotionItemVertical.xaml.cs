@@ -12,17 +12,18 @@ namespace TuneRoboWPF.Views
     /// </summary>
     public partial class MotionItemVertical : UserControl
     {
-        public delegate void MotionClickEventHandler(MotionItemVertical sender);
+        public delegate void MotionClickEventHandler(ulong motionID);
 
         public event MotionClickEventHandler MotionClicked;
 
-        public void OnMotionClick(MotionItemVertical sender)
+        public void OnMotionClick(ulong motionID)
         {
             MotionClickEventHandler handler = MotionClicked;
-            if (handler != null) handler(sender);
+            if (handler != null) handler(motionID);
         }
 
         private MotionItemVerticalViewModel ViewModel = new MotionItemVerticalViewModel();
+        private ulong MotionID { get; set; }
         public MotionItemVertical()
         {
             InitializeComponent();
@@ -36,19 +37,21 @@ namespace TuneRoboWPF.Views
 
         private void MotionClickHandler()
         {
-            OnMotionClick(this);
+            OnMotionClick(MotionID);
         }
 
         public void SetInfo(Utility.MotionInfo info)
         {
             ViewModel.ArtistName = info.Artist;
             ViewModel.MotionTitle = info.Title;
+            MotionID = info.MotionID;
         }
 
         public void SetInfo(MotionShortInfo info)
         {
             ViewModel.ArtistName = info.artist_name;
             ViewModel.MotionTitle = info.title;
+            MotionID = info.motion_id;
         }
 
         public void SetImage(BitmapImage image)

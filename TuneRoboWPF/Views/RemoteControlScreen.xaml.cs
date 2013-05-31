@@ -227,13 +227,13 @@ namespace TuneRoboWPF.Views
             var motionInfoRequest = new GetMotionFullInfoStoreRequest(id);
             motionInfoRequest.ProcessSuccessfully += (data) =>
                                                          {
-                                                             var imageDownload = new ImageDownload(id, data.motion_info.info.icon_url);
+                                                             var imageDownload = new ImageDownload(data.motion_info.info.icon_url);
                                                              imageDownload.DownloadCompleted += (img) => Dispatcher.
                                                                                                              BeginInvoke((Action)delegate
                                                                                                                                      {
                                                                                                                                          model.CoverImage = img;
                                                                                                                                      });
-                                                             GlobalVariables.ImageDownloadWorker.AddJob(imageDownload);
+                                                             GlobalVariables.ImageDownloadWorker.AddDownload(imageDownload);
                                                          };
             motionInfoRequest.ProcessError += (data, msg) =>
                                                   {

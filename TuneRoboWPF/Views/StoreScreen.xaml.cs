@@ -119,17 +119,17 @@ namespace TuneRoboWPF.Views
             GlobalVariables.StoreWorker.AddJob(featuredListRequest);
         }
 
-        private void motionItem_MotionClicked(MotionItemVertical sender)
+        private void motionItem_MotionClicked(ulong motionID)
         {
             var lastElement = MainWindowDockPanel.Children[MainWindowDockPanel.Children.Count - 1];
             MainWindowDockPanel.Children.Remove(lastElement);
-            var detailScreen = new MotionDetailScreen(MainWindowDockPanel);
+            var detailScreen = new MotionDetailScreen(MainWindowDockPanel,motionID);
             MainWindowDockPanel.Children.Add(detailScreen);
         }
 
         private void DownloadImage(ulong id, string url, object item)
         {
-            var imageDownload = new ImageDownload(id, url);
+            var imageDownload = new ImageDownload( url);
             if (item is MotionItemVertical)
             {
                 imageDownload.DownloadCompleted += ((MotionItemVertical)item).SetImage;
@@ -138,7 +138,7 @@ namespace TuneRoboWPF.Views
             {
                 imageDownload.DownloadCompleted += ((ArtistItemVertical)item).SetImage;
             }
-            GlobalVariables.ImageDownloadWorker.AddJob(imageDownload);
+            GlobalVariables.ImageDownloadWorker.AddDownload(imageDownload);
         }
 
 
@@ -160,6 +160,10 @@ namespace TuneRoboWPF.Views
         private void MainScrollViewer_DoMouseWheel(MouseWheelEventArgs e)
         {
             MainScrollViewer.ScrollToVerticalOffset(MainScrollViewer.VerticalOffset - e.Delta);
+        }
+
+        private void HotMotionListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
         }
     }
 }

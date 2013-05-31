@@ -31,33 +31,32 @@ namespace TuneRoboWPF.Utility
             if (handler != null) handler(sender, msg);
         }
 
-        private ulong ImageID { get; set; }
         private string ImageUrl { get; set; }
 
-        public ImageDownload(ulong id, string url)
+        public ImageDownload( string url)
         {
-            ImageID = id;
             ImageUrl = url;
         }
         public void Process()
         {
-            DownloadRemoteImageFile(ImageUrl, ImageID, ImageID + ".jpg");
+            string filename = GlobalFunction.CalculateMD5Hash(ImageUrl);
+            DownloadRemoteImageFile(ImageUrl, filename + ".jpg");
         }
 
-        private string FindImageInStorage(ulong id)
+        private string FindImageInStorage(string filename)
         {
-            string filename = Path.Combine(GlobalVariables.AppDataFolder, id.ToString() + ".jpg");
-            return File.Exists(filename) ? filename : null;
+            string filePath = Path.Combine(GlobalVariables.AppDataFolder, filename);
+            return File.Exists(filePath) ? filePath : null;
         }
 
-        private void DownloadRemoteImageFile(string url, ulong id, string filename)
+        private void DownloadRemoteImageFile(string url, string filename)
         {
             if(GlobalVariables.ImageDictionary.ContainsKey(url))
             {
                 OnDownloadCompleted(GlobalVariables.ImageDictionary[url]);
                 return;                
             }
-            var cachedImagePath = FindImageInStorage(id);
+            var cachedImagePath = FindImageInStorage(filename);
             if(cachedImagePath!=null)
             {
                 using (var memory = new MemoryStream(File.ReadAllBytes(cachedImagePath)))
@@ -140,7 +139,7 @@ namespace TuneRoboWPF.Utility
             backgroundWorker.Start();
         }
 
-        public void AddJob(ImageDownload request)
+        public void AddDownload(ImageDownload request)
         {
             ListsJobs.Enqueue(request);
         }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -294,6 +295,22 @@ namespace TuneRoboWPF.Utility
         public static string GetSavedDir()
         {
             return GlobalVariables.LOCAL_DIR + GlobalVariables.FOLDER_ROOT + GlobalVariables.FOLDER_PLAYLIST ;
+        }
+
+        public static string CalculateMD5Hash(string input)
+        {
+            // step 1, calculate MD5 hash from input
+            var md5 = MD5.Create();
+            byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+            byte[] hash = md5.ComputeHash(inputBytes);
+
+            // step 2, convert byte array to hex string
+            var sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("X2"));
+            }
+            return sb.ToString();
         }
 
         #region RemoteViaWifi

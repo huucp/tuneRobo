@@ -38,6 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Drawing" />
     <Reference Include="protobuf-net">
       <HintPath>..\..\tuneRobo\tuneRobo\bin\Debug\protobuf-net.dll</HintPath>
     </Reference>
@@ -78,6 +79,7 @@
     <Compile Include="Converter\IndexToColorConverter.cs" />
     <Compile Include="Models\ArtistItemVerticalModel.cs" />
     <Compile Include="Models\ControlButtonModel.cs" />
+    <Compile Include="Models\MotionDetailScreenModel.cs" />
     <Compile Include="Models\MotionFullInfoItemModel.cs" />
     <Compile Include="Models\MotionItemVerticalModel.cs" />
     <Compile Include="Models\MotionTitleItemModel.cs" />
@@ -143,6 +145,7 @@
     <Compile Include="Utility\Worker.cs" />
     <Compile Include="ViewModels\ArtistItemVerticalViewModel.cs" />
     <Compile Include="ViewModels\ControlButtonViewModel.cs" />
+    <Compile Include="ViewModels\MotionDetailScreenViewModel.cs" />
     <Compile Include="ViewModels\MotionFullInfoItemViewModel.cs" />
     <Compile Include="ViewModels\MotionItemVerticalViewModel.cs" />
     <Compile Include="ViewModels\MotionTitleItemViewModel.cs">
@@ -230,6 +233,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Utility\ConfigDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utility\StyleAndTemplateDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

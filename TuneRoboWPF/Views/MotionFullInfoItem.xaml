@@ -6,7 +6,8 @@
 	xmlns:System_Windows_Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
 	xmlns:converter="clr-namespace:TuneRoboWPF.Converter" mc:Ignorable="d"
 	x:Class="TuneRoboWPF.Views.MotionFullInfoItem"
-	x:Name="UserControl" Height="148" >
+	x:Name="UserControl" Height="148"
+	d:DesignWidth="500" >
     <UserControl.Resources>
         
         <converter:IndexToColorConverter x:Key="IndexToColorConverter"/>
@@ -34,8 +35,7 @@
                                         Height="20" Width="100" HorizontalAlignment="Left" 
                                         VerticalAlignment="Top" 
                                         d:LayoutOverrides="HorizontalAlignment, VerticalAlignment, GridBox"
-                                        Value="{Binding RatingValue}"
-                                        Visibility="Hidden">
+                                        Value="{Binding RatingValue}" Visibility="Hidden">
             <System_Windows_Controls:Rating.LayoutTransform>
                 <ScaleTransform ScaleX="0.75" ScaleY="0.75" />
             </System_Windows_Controls:Rating.LayoutTransform>
