@@ -8,15 +8,22 @@
                 <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
             </Trigger>
         </Style.Triggers>
+        <Style.Resources>
+            <!-- Disable listbox highlight-->
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+        </Style.Resources>
     </Style>
     <ItemsPanelTemplate x:Key="WrapPanelListBoxTemplate">
         <WrapPanel IsItemsHost="True" Orientation="Vertical">
             <WrapPanel.Resources>
                 <Style TargetType="ListBoxItem">
-                    <Setter Property="Padding" Value="10,0,10,0"/>                    
+                    <Setter Property="Padding" Value="0,0,20,0"/>                    
                 </Style>
             </WrapPanel.Resources>
         </WrapPanel>
     </ItemsPanelTemplate>
+    
 
 </ResourceDictionary>

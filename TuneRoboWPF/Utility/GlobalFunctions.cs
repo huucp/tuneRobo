@@ -313,6 +313,12 @@ namespace TuneRoboWPF.Utility
             return sb.ToString();
         }
 
+        public static DateTime ConvertFromServerTimestamp(double timestamp)
+        {
+            var serverOriginTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return serverOriginTime.AddSeconds(timestamp);
+        }
+
         #region RemoteViaWifi
         // Convert a decimal number to a hexadecimal number in 2 byte little endian format
         public static byte[] DecToLE2(int num)

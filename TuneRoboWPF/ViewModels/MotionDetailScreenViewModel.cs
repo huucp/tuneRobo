@@ -61,15 +61,15 @@ namespace TuneRoboWPF.ViewModels
                 NotifyPropertyChanged("ScreenshotsList");
             }
         }
-        
-        //public BitmapImage ImageSource
-        //{
-        //    get { return model.ImageSource; }
-        //    set
-        //    {
-        //        model.ImageSource = value;
-        //        NotifyPropertyChanged("ImageSource");
-        //    }
-        //}
+
+        public string MotionDescription
+        {
+            get { return model.MotionDescription; }
+            set
+            {
+                model.MotionDescription = value;
+                NotifyPropertyChanged("MotionDescription");
+            }
+        }
     }
 }

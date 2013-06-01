@@ -15,6 +15,8 @@ namespace TuneRoboWPF.Models
         public class ScreenshotImage
         {
             public BitmapImage ImageSource { get; set; }
-        }        
+        }
+
+        public string MotionDescription = string.Empty;
     }
 }

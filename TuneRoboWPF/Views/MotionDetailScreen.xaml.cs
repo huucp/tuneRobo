@@ -10,6 +10,7 @@ using TuneRoboWPF.StoreService.BigRequest;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
+using comm;
 using motion;
 
 namespace TuneRoboWPF.Views
@@ -22,6 +23,7 @@ namespace TuneRoboWPF.Views
         private DockPanel MainWindowDockPanel { get; set; }
         private MotionDetailScreenViewModel ViewModel { get; set; }
         private ulong MotionID { get; set; }
+        private motion.MotionInfo Info { get; set; }
         public MotionDetailScreen(DockPanel dockPanel, ulong motionID)
         {
             InitializeComponent();
@@ -46,7 +48,11 @@ namespace TuneRoboWPF.Views
         private void GetMotionInfo(ulong motionID)
         {
             var infoRequest = new GetMotionFullInfoStoreRequest(motionID);
-            infoRequest.ProcessSuccessfully += (reply) => UpdateContent(reply.motion_info.info);
+            infoRequest.ProcessSuccessfully += delegate(Reply reply)
+                                                   {
+                                                       UpdateContent(reply.motion_info.info);
+                                                       Info = reply.motion_info.info;
+                                                   };
             infoRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
             GlobalVariables.StoreWorker.AddJob(infoRequest);
         }
@@ -63,12 +69,38 @@ namespace TuneRoboWPF.Views
             }
             UpdateArtwork(info.icon_url);
             UpdateScreenshots(info.screenshoot_ulrs);
+            UpdateComment();
+        }
+
+        private void UpdateComment()
+        {
+            var commentRequest = new GetRatingMotionInfoStoreRequest(MotionID,0,20);
+            commentRequest.ProcessSuccessfully += (reply) =>
+            {
+                foreach (var comment in reply.rating_info.ratingInfoMotion)
+                {
+                    RatingInfo comment1 = comment;
+                    Dispatcher.BeginInvoke((Action) delegate
+                    {
+                        var item = new CommentItem(comment1);
+                        ReviewStackPanel.Children.Add(item); 
+                        //for (int i = 0; i < 20; i++)
+                        //{
+                        //    var item = new CommentItem(comment1);
+                        //    ReviewStackPanel.Children.Add(item);
+                        //}
+                    });
+                }
+            };
+            commentRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
+            GlobalVariables.StoreWorker.AddJob(commentRequest);
         }
 
         private void UpdateContentValue(motion.MotionInfo info)
         {
             ViewModel.RatingValue = info.rating / 10.0;
             ViewModel.ArtistName = info.artist_name;
+            ViewModel.MotionDescription = info.description;
         }
 
         private void UpdateArtwork(string url)
@@ -87,6 +119,9 @@ namespace TuneRoboWPF.Views
 
         private void UpdateScreenshots(List<string> urls)
         {
+            var youtubeImage = new MotionDetailScreenModel.ScreenshotImage
+                                   {ImageSource = (BitmapImage) FindResource("YoutubeImage")};
+            Dispatcher.BeginInvoke((Action)(() => ViewModel.ScreenshotsList.Add(youtubeImage)));
             foreach (string t in urls)
             {
                 var downloadImageRequest = new ImageDownload(t);
@@ -95,7 +130,6 @@ namespace TuneRoboWPF.Views
                         {
                             var image = new MotionDetailScreenModel.ScreenshotImage { ImageSource = imageSource };
                             ViewModel.ScreenshotsList.Add(image);
-
                         });
 
                 GlobalVariables.ImageDownloadWorker.AddDownload(downloadImageRequest);
@@ -135,6 +169,19 @@ namespace TuneRoboWPF.Views
             {
                 ViewModel.DownloadButtonContent = "Installed";
                 DownloadButton.IsEnabled = false;
+            }
+        }
+
+        private void ScreenshotsListbox_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            MainScrollViewer.ScrollToVerticalOffset(MainScrollViewer.VerticalOffset - e.Delta);
+        }
+
+        private void ScreenshotsListbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ScreenshotsListbox.SelectedIndex == 0)
+            {
+                Process.Start(Info.video_url);
             }
         }
     }

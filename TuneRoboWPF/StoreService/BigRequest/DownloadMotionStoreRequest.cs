@@ -81,7 +81,7 @@ namespace TuneRoboWPF.StoreService.BigRequest
             var motionDownloadReply = (Reply)motionDownloadRequest.Process();
             if (motionDownloadReply.type != (decimal)Reply.Type.OK)
             {
-                OnProcessError((Reply.Type)motionDownloadReply.type, "Get motion info download failed");
+                OnProcessError((Reply.Type)motionDownloadReply.type, "Get motion info download failed: " + motionDownloadReply.type);
                 return motionDownloadReply;
             }
             ulong motionSize = motionDownloadReply.motion_download.motion_file_size;
