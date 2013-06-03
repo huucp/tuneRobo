@@ -319,6 +319,19 @@ namespace TuneRoboWPF.Utility
             return serverOriginTime.AddSeconds(timestamp);
         }
 
+        public static string GetLocalMotionPath(ulong motionID)
+        {
+            return
+                Path.Combine(GlobalVariables.LOCAL_DIR + GlobalVariables.FOLDER_ROOT + GlobalVariables.FOLDER_PLAYLIST,
+                             motionID.ToString() + ".mrb");
+        }
+
+        public static Utility.MotionInfo GetLocalMotionInfo(ulong motionID)
+        {
+            string motionPath = GetLocalMotionPath(motionID);
+            return new Utility.MotionInfo(motionPath);
+        }
+
         #region RemoteViaWifi
         // Convert a decimal number to a hexadecimal number in 2 byte little endian format
         public static byte[] DecToLE2(int num)

@@ -5,30 +5,42 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:System_Windows_Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit" x:Class="TuneRoboWPF.Views.CommentItem" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
+             d:DesignHeight="300" d:DesignWidth="300" >
     <Grid HorizontalAlignment="Stretch">
     	<Grid.RowDefinitions>
-    		<RowDefinition Height="Auto"/>    		
-    	</Grid.RowDefinitions>
-    	<System_Windows_Controls:Rating x:Name="RatingControl" Height="20" Width="100" 
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <System_Windows_Controls:Rating x:Name="RatingControl" Height="20" Width="100" 
                                         HorizontalAlignment="Left" VerticalAlignment="Top" 
                                         Value="{Binding RatingValue}" d:LayoutOverrides="VerticalAlignment" 
-                                        Margin="77.669,46,0,0" Grid.Row="0" RenderTransformOrigin="0.503,0.683">
-    		<System_Windows_Controls:Rating.LayoutTransform>
-    			<TransformGroup>
-    				<ScaleTransform ScaleX="0.6" ScaleY="0.6"/>    				
-    			</TransformGroup>
-    		</System_Windows_Controls:Rating.LayoutTransform>
-			<System_Windows_Controls:RatingItem Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
-			<System_Windows_Controls:RatingItem Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
-			<System_Windows_Controls:RatingItem Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
-			<System_Windows_Controls:RatingItem Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
-			<System_Windows_Controls:RatingItem Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
-			</System_Windows_Controls:Rating>
-    	<TextBlock x:Name="TitleTextBlock" Margin="0,40,0,0" TextWrapping="Wrap" 
+                                        Margin="10,46,0,0"  RenderTransformOrigin="0.503,0.683"
+                                        Grid.Column="1" Grid.Row="0">
+                <System_Windows_Controls:Rating.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="0.6" ScaleY="0.6"/>
+                    </TransformGroup>
+                </System_Windows_Controls:Rating.LayoutTransform>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+            </System_Windows_Controls:Rating>
+            <TextBlock x:Name="TitleTextBlock" Margin="0,40,0,0" TextWrapping="Wrap" 
                    VerticalAlignment="Top" HorizontalAlignment="Left" 
                    FontSize="16" FontWeight="ExtraBold"
-                   Text="{Binding CommentTitle}" />
+                   Text="{Binding CommentTitle}"
+                   Grid.Column="0" Grid.Row="0" />
+        </Grid>
+    	
         <TextBlock x:Name="UserTextBlock" TextWrapping="Wrap" Text="{Binding UserReview}" 
                    HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,61.299,0,0"/>
         <TextBlock x:Name="ContentTextBlock" Margin="0,82.04,0,0" 

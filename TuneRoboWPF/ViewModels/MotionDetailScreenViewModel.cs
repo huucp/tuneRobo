@@ -6,6 +6,8 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using TuneRoboWPF.Models;
 using System.Collections.ObjectModel;
+using TuneRoboWPF.Views;
+
 namespace TuneRoboWPF.ViewModels
 {
     public class MotionDetailScreenViewModel : ViewModelBase
@@ -69,6 +71,36 @@ namespace TuneRoboWPF.ViewModels
             {
                 model.MotionDescription = value;
                 NotifyPropertyChanged("MotionDescription");
+            }
+        }
+
+        public ObservableCollection<MotionItemVertical> RelatedMotionsList
+        {
+            get { return model.RelatedMotionsList; }
+            set
+            {
+                model.RelatedMotionsList = value;
+                NotifyPropertyChanged("RelatedMotionsList");
+            }
+        }
+
+        public string MoreByTextBlock
+        {
+            get { return model.MoreByTextBlock; }
+            set
+            {
+                model.MoreByTextBlock = value;
+                NotifyPropertyChanged("MoreByTextBlock");
+            }
+        }
+
+        public string MotionTitle
+        {
+            get { return model.MotionTitle; }
+            set
+            {
+                model.MotionTitle = value;
+                NotifyPropertyChanged("MotionTitle");
             }
         }
     }

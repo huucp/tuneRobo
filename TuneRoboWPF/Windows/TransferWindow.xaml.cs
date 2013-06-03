@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.Windows;
 using TuneRoboWPF.RobotService;
+using TuneRoboWPF.StoreService.BigRequest;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
-using TuneRoboWPF.StoreService.BigRequest;
 using comm;
 
-namespace TuneRoboWPF
+namespace TuneRoboWPF.Windows
 {
 	/// <summary>
 	/// Interaction logic for TransferWindow.xaml

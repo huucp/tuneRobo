@@ -1,6 +1,6 @@
-﻿using System.Windows.Controls;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
+using TuneRoboWPF.Views;
 
 namespace TuneRoboWPF.Models
 {
@@ -18,5 +18,8 @@ namespace TuneRoboWPF.Models
         }
 
         public string MotionDescription = string.Empty;
+        public ObservableCollection<MotionItemVertical> RelatedMotionsList = new ObservableCollection<MotionItemVertical>();
+        public string MoreByTextBlock = "Related motion";
+        public string MotionTitle = string.Empty;
     }
 }

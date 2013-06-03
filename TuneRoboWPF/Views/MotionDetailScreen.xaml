@@ -49,12 +49,12 @@
     		</Grid>
     	</DataTemplate>        
     </UserControl.Resources>
-    <ScrollViewer Margin="0" x:Name="MainScrollViewer">
+    <ScrollViewer Margin="0" x:Name="MainScrollViewer" ScrollChanged="MainScrollViewer_ScrollChanged" VerticalScrollBarVisibility="Auto" >
 		<Grid>
-			<TabControl   Margin="263.5,162,8,0" 
+			<TabControl Margin="263.5,162,8,0" 
 				        x:Name="ContentTabControl"
-				        Style="{StaticResource TabControlStyle}" Height="Auto" VerticalAlignment="Top"
-                        d:DesignHeight="600">
+				        Style="{StaticResource TabControlStyle}" 
+                        Height="Auto" VerticalAlignment="Top">
 				<TabItem Header="Details" x:Name="DetailsTab">
 					<Grid>
                         <Grid.RowDefinitions>
@@ -94,21 +94,40 @@
 							<System_Windows_Controls:Rating.LayoutTransform>
 								<ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
 							</System_Windows_Controls:Rating.LayoutTransform>
-							<System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
-							<System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
-							<System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
-							<System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
-							<System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
+							<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+							<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+							<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+							<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+							<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
 						</System_Windows_Controls:Rating>
-						<Button x:Name="ReviewButton" Grid.Row="0" Content="Write a Review" Margin="314.5,23,380,0" Height="21.96" VerticalAlignment="Top"/>
-                        <StackPanel x:Name="ReviewStackPanel" HorizontalAlignment="Stretch" Grid.Row="1">
-                            
-                        </StackPanel>
+						<Button x:Name="ReviewButton" Grid.Row="0" Content="Write a Review" Margin="314.5,23,380,0" Height="21.96" VerticalAlignment="Top"
+                                Click="ReviewButton_Click"/>
+                        <StackPanel x:Name="ReviewStackPanel" HorizontalAlignment="Stretch" Grid.Row="1" />
 					</Grid>
 				</TabItem>
 				<TabItem Header="Related" x:Name="RelatedTab">
-					<Grid />
-				</TabItem>             
+                    <Grid>
+                        <TextBlock Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16" FontWeight="ExtraBold"
+                                   Text="{Binding MoreByTextBlock}"/>
+                        <ItemsControl VerticalAlignment="Top" Margin="0,40,0,0" FontSize="13.333" FontWeight="SemiBold" Width="820.5" 
+                                      ItemsSource="{Binding RelatedMotionsList}">                    
+                        	<ItemsControl.ItemsPanel>                    
+                        		<ItemsPanelTemplate>                    
+                        			<WrapPanel                    
+                        				Orientation="Horizontal" HorizontalAlignment="Stretch">                    
+                        				<WrapPanel.Resources>                    
+                        					<Style                    
+                        						TargetType="{x:Type Views:MotionItemVertical}">                    
+                        						<Setter Property="Margin" Value="0,10,20,0"/>
+                        					</Style>
+                        				</WrapPanel.Resources>
+                        			</WrapPanel>
+                        		</ItemsPanelTemplate>
+                        	</ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Grid>
+                                      
+                </TabItem>             
 			</TabControl>
 			<Rectangle x:Name="Artwork" HorizontalAlignment="Left" Height="220" Margin="43.5,49.5,0,0" 
                        Stroke="Gray" VerticalAlignment="Top" Width="220" RadiusY="40" RadiusX="40"
@@ -131,12 +150,14 @@
 				<System_Windows_Controls:Rating.LayoutTransform>
 					<ScaleTransform ScaleX="1" ScaleY="1"/>
 				</System_Windows_Controls:Rating.LayoutTransform>
-				<System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
-                <System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
-                <System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
-                <System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
-                <System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="False"/>
+				<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
 			</System_Windows_Controls:Rating>
+			<TextBlock HorizontalAlignment="Left" Margin="302,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
+                       FontSize="21.333" FontWeight="ExtraBold" Text="{Binding MotionTitle}"/>
         </Grid>
 	</ScrollViewer>
 </UserControl>

@@ -42,18 +42,6 @@ namespace TuneRoboWPF.Views
         {
             DateTime reviewDate = GlobalFunction.ConvertFromServerTimestamp(time);
             return string.Format("by {0} - {1:MMM dd,yyyy}", username, reviewDate);
-        }
-
-        private void UpdateRatingPosition()
-        {
-            Thickness margin = RatingControl.Margin;
-            margin.Left = TitleTextBlock.ActualWidth + 10;
-            RatingControl.Margin = margin;
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            UpdateRatingPosition();
-        }
+        }             
     }
 }

@@ -39,11 +39,11 @@
             <System_Windows_Controls:Rating.LayoutTransform>
                 <ScaleTransform ScaleX="0.75" ScaleY="0.75" />
             </System_Windows_Controls:Rating.LayoutTransform>
-        	<System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="{Binding HitTestVisible}"/>
-        	<System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="{Binding HitTestVisible}"/>
-        	<System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="{Binding HitTestVisible}"/>
-        	<System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="{Binding HitTestVisible}"/>
-        	<System_Windows_Controls:RatingItem Content="" Foreground="Yellow" Background="Transparent" IsHitTestVisible="{Binding HitTestVisible}"/>
+        	<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="{Binding HitTestVisible}"/>
+        	<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="{Binding HitTestVisible}"/>
+        	<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="{Binding HitTestVisible}"/>
+        	<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="{Binding HitTestVisible}"/>
+        	<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="{Binding HitTestVisible}"/>
         </System_Windows_Controls:Rating>
         <Button x:Name="TransferButton"  Content="Copy" RenderTransformOrigin="1.884,2.247" 
                 Margin="0,49,29.465,0" Click="TransferButton_Click"

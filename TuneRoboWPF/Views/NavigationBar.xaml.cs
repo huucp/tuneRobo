@@ -76,7 +76,7 @@ namespace TuneRoboWPF
 
         private void SignInButton_Click(object sender, RoutedEventArgs e)
         {
-            var loginWindow = new LoginWindow();
+            var loginWindow = new Windows.LoginWindow();
             loginWindow.ShowDialog();
             if (loginWindow.DialogResult == true)
             {

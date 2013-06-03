@@ -19,7 +19,7 @@ namespace TuneRoboWPF.Utility
         public uint Duration { get; set; }
         public string Title { get; set; }
         public string Artist { get; set; }
-        public string VersionName { get; set; }
+        public ulong VersionCode { get; set; }
 
         private Dictionary<string, int> FirstIndex = new Dictionary<string, int>();
         public MotionInfo(byte[] infoData)
@@ -51,7 +51,7 @@ namespace TuneRoboWPF.Utility
             Artist = Encoding.UTF8.GetString(artistBytes);
 
             byte[] versionBytes = GlobalFunction.SplitByteArray(infoData, secondCRPos, infoData.Length - secondCRPos - 1);
-            VersionName = Encoding.UTF8.GetString(versionBytes);
+            VersionCode = ulong.Parse(Encoding.UTF8.GetString(versionBytes));
         }
 
         private int FindCRPosition(int CRIndex, byte[] data)
@@ -86,7 +86,7 @@ namespace TuneRoboWPF.Utility
             MotionID = GetContentUlong(lines[1]);
             Title = GetContentString(lines[2]);
             Artist = GetContentString(lines[3]);
-            VersionName = GetContentString(lines[4]);
+            VersionCode = GetContentUlong(lines[4]);
             Duration = GetContentUint(lines[5]);
         }
 

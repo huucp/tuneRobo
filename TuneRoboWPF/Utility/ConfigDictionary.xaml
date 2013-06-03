@@ -8,4 +8,5 @@
     </Style>
     <BitmapImage x:Key="DefaultImage" UriSource="/Resources/cov894.jpeg" />
     <BitmapImage x:Key="YoutubeImage" UriSource="/Resources/youtube.jpg"/>
+    <SolidColorBrush x:Key="RatingRateColor" Color="Yellow"/>
 </ResourceDictionary>

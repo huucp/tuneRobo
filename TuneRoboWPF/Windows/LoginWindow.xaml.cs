@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Windows;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using user;
 
-namespace TuneRoboWPF
+namespace TuneRoboWPF.Windows
 {
 	/// <summary>
 	/// Interaction logic for SigninWindow.xaml

@@ -39,7 +39,7 @@ namespace TuneRoboWPF.Views
             else
             {
                 var transferRequest = new TransferMotionToRobot(MotionID);
-                var transferWindow = new TransferWindow(transferRequest, MotionID.ToString());
+                var transferWindow = new Windows.TransferWindow(transferRequest, MotionID.ToString());
                 transferWindow.ShowDialog();
             }
         }

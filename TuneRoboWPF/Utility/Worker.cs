@@ -191,6 +191,13 @@ namespace TuneRoboWPF.Utility
             ListsJobs.Enqueue(request);
         }
 
+        public void ForceAddJob(IRequest request)
+        {
+            IsClearWorker = false;
+            ListsJobs.Enqueue(request);
+            IsClearWorker = true;
+        }
+
         private static void MainProcess()
         {
             while (true)
