@@ -210,13 +210,14 @@ namespace TuneRoboWPF.Views
 
         private void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!GlobalVariables.USER_ONLINE)
+            if (!GlobalVariables.UserOnline)
             {
-                var signinWindow = new Windows.LoginWindow();
+                var signinWindow = new LoginWindow();
                 if (signinWindow.ShowDialog() == false) return;
             }
+            StaticMainWindow.Window.UpdateLoginSuccessfully();
             var request = new DownloadMotionStoreRequest(MotionID);
-            var transferWindow = new Windows.TransferWindow(request, MotionID.ToString());
+            var transferWindow = new TransferWindow(request, MotionID.ToString());
             if (transferWindow.ShowDialog() == true)
             {
                 ViewModel.DownloadButtonContent = "Installed";
@@ -250,12 +251,14 @@ namespace TuneRoboWPF.Views
 
         private void ReviewButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!GlobalVariables.USER_ONLINE)
+            if (!GlobalVariables.UserOnline)
             {
                 var loginWindow = new LoginWindow();
                 if (loginWindow.ShowDialog() == false) return;
             }
+            StaticMainWindow.Window.UpdateLoginSuccessfully();
             var ratingWindow = new RatingWindow();
+            ratingWindow.SetInfo(Info.motion_id,Info.version_id);
             if (ratingWindow.ShowDialog() == true)
             {
 

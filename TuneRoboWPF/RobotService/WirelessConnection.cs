@@ -24,22 +24,22 @@ namespace TuneRoboWPF.RobotService
         /// <returns>1 if success, 0 if failed</returns>
         public int ConfigAndConnectSocket()
         {
-            Connection.SendTimeout = GlobalVariables.TIMEOUT;
-            Connection.ReceiveTimeout = GlobalVariables.TIMEOUT;
+            Connection.SendTimeout = GlobalVariables.Timeout;
+            Connection.ReceiveTimeout = GlobalVariables.Timeout;
 
-            if (GlobalVariables.IP_WIRELESS == null)
+            if (GlobalVariables.WirelessIP == null)
             {
                 MessageBox.Show("IP address is invalid", "IP error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return 0;
             }
-            if (GlobalVariables.PORT_WIRELESS == -1)
+            if (GlobalVariables.WirelessPort == -1)
             {
                 MessageBox.Show("Port number is invalid", "Port number error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return 0;
             }
 
-            var clientIpAddress = IPAddress.Parse(GlobalVariables.IP_WIRELESS);
-            var remoteEndPoint = new IPEndPoint(clientIpAddress, GlobalVariables.PORT_WIRELESS);
+            var clientIpAddress = IPAddress.Parse(GlobalVariables.WirelessIP);
+            var remoteEndPoint = new IPEndPoint(clientIpAddress, GlobalVariables.WirelessPort);
             try
             {
                 Connection.Connect(remoteEndPoint);

@@ -67,22 +67,18 @@ namespace TuneRoboWPF
         public NavigationBar()
         {
             InitializeComponent();
-            var viewModels = new NavigationBarViewModel();
-            DataContext = viewModels;
-            viewModel = (NavigationBarViewModel)DataContext;
+            DataContext = new NavigationBarViewModel();            
+            ViewModel = (NavigationBarViewModel)DataContext;
         }
 
-        private NavigationBarViewModel viewModel = new NavigationBarViewModel();
+        public NavigationBarViewModel ViewModel = new NavigationBarViewModel();
 
         private void SignInButton_Click(object sender, RoutedEventArgs e)
         {
             var loginWindow = new Windows.LoginWindow();
             loginWindow.ShowDialog();
             if (loginWindow.DialogResult == true)
-            {
-                UserMenu.Visibility = Visibility.Visible;
-                SignInButton.Visibility = Visibility.Hidden;
-                viewModel.Username = GlobalVariables.CurrentUser;
+            {                
                 OnLoginSuccessfully(null);
             }
         }

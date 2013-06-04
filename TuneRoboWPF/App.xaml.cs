@@ -19,7 +19,15 @@ namespace TuneRoboWPF
     {
         public App()
         {
-            GlobalFunction.ReadConfig();            
+            GlobalFunction.ReadConfig(); 
+            
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            StaticMainWindow.Window = new MainWindow();
+            StaticMainWindow.Window.Show();
         }
     }
 }

@@ -214,19 +214,19 @@ namespace TuneRoboWPF.Utility
         //public static ServerConnection serverConnection = ServerConnection.Instance;
 
         // Server IP Address
-        public static string IP_SERVER { get; set; }
+        public static string ServerIP { get; set; }
 
         // Server PORT number
-        public static int PORT_SERVER { get; set; }
+        public static int ServerPort { get; set; }
 
-        public static string USER_NAME { get; set; }
+        //public static string Username { get; set; }
 
         // Wireless connection IP Address
-        public static string IP_WIRELESS { get; set; }
+        public static string WirelessIP { get; set; }
 
         // Server PORT number
-        public static int PORT_WIRELESS { get; set; }
-        public static int TIMEOUT
+        public static int WirelessPort { get; set; }
+        public static int Timeout
         {
             get { return 500; }
         }
@@ -234,13 +234,13 @@ namespace TuneRoboWPF.Utility
         #endregion
 
         // Wireless connection
-        public static bool WIRELESS_CONNECTION { get; set; }
+        public static bool RoboOnline { get; set; }
 
         // USB connection
         public static bool USB_CONNECTION { get; set; }
 
         // Online user
-        public static bool USER_ONLINE { get; set; }
+        public static bool UserOnline { get; set; }
         public static ulong CurrentUserID { get; set; }
         public static string CurrentUser { get; set; }
         // Maximum of packet size
@@ -270,10 +270,10 @@ namespace TuneRoboWPF.Utility
         static GlobalVariables()
         {
             USB_CONNECTION = false;
-            WIRELESS_CONNECTION = false;
-            IP_SERVER = null;
-            PORT_SERVER = -1;
-            USER_ONLINE = false;
+            RoboOnline = false;
+            ServerIP = null;
+            ServerPort = -1;
+            UserOnline = false;
             HIDE_HOME_SCREEN = null;
             DEV_DIR = null;
             LOCAL_DIR = null;

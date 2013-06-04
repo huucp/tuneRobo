@@ -19,7 +19,15 @@ namespace TuneRoboWPF
 
         private void navigationBar_LoginProcessSuccessfully(object sender)
         {
+            UpdateLoginSuccessfully();
             GetNotificationFromStore();
+        }
+
+        public void UpdateLoginSuccessfully()
+        {
+            navigationBar.UserMenu.Visibility = Visibility.Visible;
+            navigationBar.SignInButton.Visibility = Visibility.Hidden;
+            navigationBar.ViewModel.Username = GlobalVariables.CurrentUser;
         }
 
         private void GetNotificationFromStore()

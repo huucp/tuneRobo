@@ -26,6 +26,7 @@ namespace TuneRoboWPF.Windows
                                                      {
                                                          GlobalVariables.CurrentUser = s.signin.display_name;
                                                          GlobalVariables.CurrentUserID = s.signin.user_id;
+                                                         GlobalVariables.UserOnline = true;
                                                          Dispatcher.BeginInvoke((Action) delegate
                                                                                              {
                                                                                                  DialogResult = true;

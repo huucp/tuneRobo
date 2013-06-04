@@ -61,6 +61,15 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls, Version=2013.1.403.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7">
+      <HintPath>C:\Program Files (x86)\Telerik\RadControls for WPF Q1 2013\Binaries\WPF40\Telerik.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Navigation, Version=2013.1.403.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7">
+      <HintPath>C:\Program Files (x86)\Telerik\RadControls for WPF Q1 2013\Binaries\WPF40\Telerik.Windows.Controls.Navigation.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data, Version=2013.1.403.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7">
+      <HintPath>C:\Program Files (x86)\Telerik\RadControls for WPF Q1 2013\Binaries\WPF40\Telerik.Windows.Data.dll</HintPath>
+    </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
@@ -100,6 +109,7 @@
     <Compile Include="RobotService\RobotRequest.cs" />
     <Compile Include="RobotService\TransferMotionToRobot.cs" />
     <Compile Include="RobotService\WirelessConnection.cs" />
+    <Compile Include="StaticMainWindow.cs" />
     <Compile Include="StoreService\BigRequest\DownloadMotionStoreRequest.cs" />
     <Compile Include="StoreService\MessageDefinition\Artist.cs" />
     <Compile Include="StoreService\MessageDefinition\Comm.cs" />
@@ -119,6 +129,7 @@
     <Compile Include="StoreService\SimpleRequest\GetRatingMotionInfoStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\GetUserArtistRelationStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\GetUserInfoStoreRequest.cs" />
+    <Compile Include="StoreService\SimpleRequest\GetUserRatingStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\ListAllArtistStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\ListCategoryMotionStoreRequest.cs" />
     <Compile Include="StoreService\SimpleRequest\ListUserFollowArtistStoreRequest.cs" />
@@ -158,6 +169,9 @@
     <Compile Include="ViewModels\StoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TempStoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TransferWindowViewModel.cs" />
+    <Compile Include="Views\ArtistDetailScreen.xaml.cs">
+      <DependentUpon>ArtistDetailScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ArtistItemVertical.xaml.cs">
       <DependentUpon>ArtistItemVertical.xaml</DependentUpon>
     </Compile>
@@ -239,6 +253,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Utility\StyleAndTemplateDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ArtistDetailScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

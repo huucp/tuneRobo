@@ -32,7 +32,7 @@ namespace TuneRoboWPF.Views
 
         private void TransferButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (!GlobalVariables.WIRELESS_CONNECTION)
+            if (!GlobalVariables.RoboOnline)
             {
                 MessageBox.Show("Please connect to robot!", "", MessageBoxButton.OK);
             }

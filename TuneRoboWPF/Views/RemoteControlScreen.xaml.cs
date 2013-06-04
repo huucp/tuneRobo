@@ -148,7 +148,7 @@ namespace TuneRoboWPF.Views
                     GetListMotion();
                     Cursor = Cursors.Arrow;
                 });
-                GlobalVariables.WIRELESS_CONNECTION = true;
+                GlobalVariables.RoboOnline = true;
             };
             helloRequest.ProcessError += (errorCode, msg) =>
             {

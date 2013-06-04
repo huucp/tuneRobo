@@ -154,10 +154,10 @@ namespace TuneRoboWPF.Utility
                 {
                     if (dic["HOMESCREEN"] != null) GlobalVariables.HIDE_HOME_SCREEN = dic["HOMESCREEN"];
                     if (dic["DIRECTORY"] != null) GlobalVariables.LOCAL_DIR = dic["DIRECTORY"];
-                    if (dic["IPSERVER"] != null) GlobalVariables.IP_SERVER = dic["IPSERVER"].Replace(" ", "");
-                    if (dic["PORTSERVER"] != null) GlobalVariables.PORT_SERVER = int.Parse(dic["PORTSERVER"].Replace(" ", ""));
-                    if (dic["IPWIRELESS"] != null) GlobalVariables.IP_WIRELESS = dic["IPWIRELESS"].Replace(" ", "");
-                    if (dic["PORTWIRELESS"] != null) GlobalVariables.PORT_WIRELESS = int.Parse(dic["PORTWIRELESS"].Replace(" ", ""));
+                    if (dic["IPSERVER"] != null) GlobalVariables.ServerIP = dic["IPSERVER"].Replace(" ", "");
+                    if (dic["PORTSERVER"] != null) GlobalVariables.ServerPort = int.Parse(dic["PORTSERVER"].Replace(" ", ""));
+                    if (dic["IPWIRELESS"] != null) GlobalVariables.WirelessIP = dic["IPWIRELESS"].Replace(" ", "");
+                    if (dic["PORTWIRELESS"] != null) GlobalVariables.WirelessPort = int.Parse(dic["PORTWIRELESS"].Replace(" ", ""));
                 }
             }
         }
