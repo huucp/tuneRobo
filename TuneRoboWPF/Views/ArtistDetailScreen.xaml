@@ -3,38 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" x:Class="TuneRoboWPF.Views.ArtistDetailScreen" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+             xmlns:Views="clr-namespace:TuneRoboWPF.Views" x:Class="TuneRoboWPF.Views.ArtistDetailScreen" 
              mc:Ignorable="d" 
              d:DesignHeight="702" d:DesignWidth="1100">
-	<UserControl.Resources>		
-		<SolidColorBrush x:Key="TabControlNormalBorderBrush" Color="#8C8E94"/>
-		<Style x:Key="TabControlStyle1" TargetType="{x:Type TabControl}">
-			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-			<Setter Property="Padding" Value="4,4,4,4"/>
-			<Setter Property="BorderThickness" Value="1"/>
-			<Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}"/>
-			<Setter Property="Background" Value="#F9F9F9"/>
-			<Setter Property="HorizontalContentAlignment" Value="Center"/>
-			<Setter Property="VerticalContentAlignment" Value="Center"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type TabControl}">
-						<Grid ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition x:Name="ColumnDefinition0"/>
-								<ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition x:Name="RowDefinition0" Height="Auto"/>
-								<RowDefinition x:Name="RowDefinition1" Height="*"/>
-							</Grid.RowDefinitions>
-							<TabPanel x:Name="HeaderPanel" Grid.Column="0" IsItemsHost="true" Margin="2,2,2,0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1" HorizontalAlignment="Right"/>
-							<Border x:Name="ContentPanel" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
-								<ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-							</Border>
-						</Grid>
-						<ControlTemplate.Triggers>
-							<Trigger Property="TabStripPlacement" Value="Bottom">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="TabControlNormalBorderBrush" Color="#8C8E94"/>
+        <LinearGradientBrush x:Key="TabControlGradientBorderBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#FFFFFF" Offset="0"/>
+            <GradientStop Color="#EBEBEB" Offset="0.33"/>
+            <GradientStop Color="#DDDDDD" Offset="0.66"/>
+            <GradientStop Color="#CDCDCD" Offset="1"/>
+        </LinearGradientBrush>
+        <Style x:Key="TabControlStyle1" TargetType="{x:Type TabControl}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="Padding" Value="4,4,4,4"/>
+            <Setter Property="BorderThickness" Value="0,0,0,0"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}"/>
+            <Setter Property="Background" Value="#E6E6E6"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="ColumnDefinition0"/>
+                                <ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
+                                <RowDefinition x:Name="RowDefinition1" Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TabPanel x:Name="HeaderPanel" Grid.Column="0" IsItemsHost="true" Margin="2,2,2,0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1" HorizontalAlignment="Right"/>
+                            <Border x:Name="ContentPanel" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local" Margin="0,3,0,0" d:IsHidden="True">
+                                <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                            <Rectangle x:Name="TopBorder1" Fill="White" Height="1" Margin="0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="Auto" StrokeThickness="0"/>
+                            <Rectangle x:Name="TopBorder2" Fill="#FFCCCCCC" Height="1" Margin="0,1,0,0" Grid.Row="1" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="Auto"/>
+                            <Rectangle x:Name="TopBorder3" Fill="#FFDEDEDE" HorizontalAlignment="Stretch" Height="1" Margin="0,2,0,0" Grid.Row="1" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="Auto"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!--<Trigger Property="TabStripPlacement" Value="Bottom">
 								<Setter Property="Grid.Row" TargetName="HeaderPanel" Value="1"/>
 								<Setter Property="Grid.Row" TargetName="ContentPanel" Value="0"/>
 								<Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
@@ -62,74 +72,90 @@
 								<Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
 								<Setter Property="Height" TargetName="RowDefinition1" Value="0"/>
 								<Setter Property="Margin" TargetName="HeaderPanel" Value="0,2,2,2"/>
-							</Trigger>
-							<Trigger Property="IsEnabled" Value="false">
-								<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-		<Style x:Key="TabItemFocusVisual">
-			<Setter Property="Control.Template">
-				<Setter.Value>
-					<ControlTemplate>
-						<Rectangle Margin="3,3,3,1" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-		<LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
-			<GradientStop Color="#F3F3F3" Offset="0"/>
-			<GradientStop Color="#EBEBEB" Offset="0.5"/>
-			<GradientStop Color="#DDDDDD" Offset="0.5"/>
-			<GradientStop Color="#CDCDCD" Offset="1"/>
-		</LinearGradientBrush>
-		<LinearGradientBrush x:Key="TabItemHotBackground" EndPoint="0,1" StartPoint="0,0">
-			<GradientStop Color="#EAF6FD" Offset="0.15"/>
-			<GradientStop Color="#D9F0FC" Offset=".5"/>
-			<GradientStop Color="#BEE6FD" Offset=".5"/>
-			<GradientStop Color="#A7D9F5" Offset="1"/>
-		</LinearGradientBrush>
-		<SolidColorBrush x:Key="TabItemSelectedBackground" Color="#F9F9F9"/>
-		<SolidColorBrush x:Key="TabItemHotBorderBrush" Color="#3C7FB1"/>
-		<SolidColorBrush x:Key="TabItemDisabledBackground" Color="#F4F4F4"/>
-		<SolidColorBrush x:Key="TabItemDisabledBorderBrush" Color="#FFC9C7BA"/>
-		<Style TargetType="{x:Type TabItem}">
-			<Setter Property="FocusVisualStyle" Value="{StaticResource TabItemFocusVisual}"/>
-			<Setter Property="Foreground" Value="Black"/>
-			<Setter Property="Padding" Value="6,1,6,1"/>
-			<Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}"/>
-			<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
-			<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-			<Setter Property="VerticalContentAlignment" Value="Stretch"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type TabItem}">
-						<Grid SnapsToDevicePixels="true">
-							<Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
-								<ContentPresenter x:Name="Content" ContentSource="Header" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-							</Border>
-							<Rectangle Fill="#FFF4F4F5" Stroke="Black" RadiusY="17" RadiusX="17"/>
-							<ContentPresenter x:Name="Content_Copy" ContentSource="Header" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Margin="13.012,2,11.988,1"/>
-						</Grid>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsMouseOver" Value="true">
-								<Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemHotBackground}"/>
-							</Trigger>
-							<Trigger Property="IsSelected" Value="true">
-								<Setter Property="Panel.ZIndex" Value="1"/>
-								<Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemSelectedBackground}"/>
-							</Trigger>
-							<MultiTrigger>
+							</Trigger>-->
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TabItemFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="3,3,3,1" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#F3F3F3" Offset="0"/>
+            <GradientStop Color="#EBEBEB" Offset="0.5"/>
+            <GradientStop Color="#DDDDDD" Offset="0.5"/>
+            <GradientStop Color="#CDCDCD" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="TabItemHotBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#EAF6FD" Offset="0.15"/>
+            <GradientStop Color="#D9F0FC" Offset=".5"/>
+            <GradientStop Color="#BEE6FD" Offset=".5"/>
+            <GradientStop Color="#A7D9F5" Offset="1"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="TabItemSelectedBackground" Color="#DCDCDC"/>
+        <SolidColorBrush x:Key="TabItemHotBorderBrush" Color="#3C7FB1"/>
+        <SolidColorBrush x:Key="TabItemDisabledBackground" Color="#F4F4F4"/>
+        <SolidColorBrush x:Key="TabItemDisabledBorderBrush" Color="#FFC9C7BA"/>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource TabItemFocusVisual}"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Padding" Value="6,1,6,1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}"/>
+            <Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid SnapsToDevicePixels="true" Height="35">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="22"/>
+                                <RowDefinition Height="13"/>
+                            </Grid.RowDefinitions>
+                            <Border x:Name="Bd" Grid.Row="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="Transparent" Padding="{TemplateBinding Padding}" Visibility="Visible" CornerRadius="10" Cursor="Hand" Margin="5,0">
+                                <ContentPresenter x:Name="Content" ContentSource="Header" 
+                                                  HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
+                                                  RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                  VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                                  TextBlock.FontWeight="ExtraBold" TextBlock.Foreground="#888888"/>
+                            </Border>
+                            <ed:RegularPolygon x:Name="Triangle" Fill="#E6E6E6" HorizontalAlignment="Center" Height="11" 
+                                               InnerRadius="1" Margin="0,0,0,-3" PointCount="3" 
+                                               Grid.Row="1" Grid.RowSpan="1" Stretch="Fill" 
+                                               Stroke="Black" VerticalAlignment="Bottom" Width="22" 
+                                               StrokeThickness="0" Visibility="Hidden">
+                            </ed:RegularPolygon>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <!--<Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemHotBackground}"/>-->
+                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="Black"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="TextBlock.Foreground" TargetName="Content" Value="Black"/>
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemSelectedBackground}"/>
+                                <Setter Property="BorderThickness" TargetName="Bd" Value="1"/>
+                                <Setter Property="Visibility" TargetName ="Triangle" Value="Visible"/>
+                            </Trigger>
+                            <!--<MultiTrigger>
 								<MultiTrigger.Conditions>
 									<Condition Property="IsSelected" Value="false"/>
 									<Condition Property="IsMouseOver" Value="true"/>
 								</MultiTrigger.Conditions>
 								<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemHotBorderBrush}"/>
-							</MultiTrigger>
-							<Trigger Property="TabStripPlacement" Value="Bottom">
+							</MultiTrigger>-->
+                            <!--<Trigger Property="TabStripPlacement" Value="Bottom">
 								<Setter Property="BorderThickness" TargetName="Bd" Value="1,0,1,1"/>
 							</Trigger>
 							<Trigger Property="TabStripPlacement" Value="Left">
@@ -137,8 +163,8 @@
 							</Trigger>
 							<Trigger Property="TabStripPlacement" Value="Right">
 								<Setter Property="BorderThickness" TargetName="Bd" Value="0,1,1,1"/>
-							</Trigger>
-							<MultiTrigger>
+							</Trigger>-->
+                            <!--<MultiTrigger>
 								<MultiTrigger.Conditions>
 									<Condition Property="IsSelected" Value="true"/>
 									<Condition Property="TabStripPlacement" Value="Top"/>
@@ -169,26 +195,58 @@
 								</MultiTrigger.Conditions>
 								<Setter Property="Margin" Value="-1,-2,-2,-2"/>
 								<Setter Property="Margin" TargetName="Content" Value="1,0,0,0"/>
-							</MultiTrigger>
-							<Trigger Property="IsEnabled" Value="false">
-								<Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemDisabledBackground}"/>
-								<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemDisabledBorderBrush}"/>
-								<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-	</UserControl.Resources>
-    <Grid>
-    	<TabControl Margin="0,99,0,0" ItemsPanel="{DynamicResource ItemsPanelTemplate1}" Style="{DynamicResource TabControlStyle1}">
-    		<TabItem Header="Motion">
-    			<Grid Background="#FFE5E5E5"/>
-    		</TabItem>
-    		<TabItem Header="Biography">
-    			<Grid Background="#FFE5E5E5"/>
-    		</TabItem>
-    	</TabControl>
-    </Grid>
+							</MultiTrigger>-->
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemDisabledBackground}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemDisabledBorderBrush}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer Margin="0" x:Name="MainScrollViewer" VerticalScrollBarVisibility="Auto" >
+        <Grid Background="#F5F5F5">
+            <TabControl x:Name="TabContent" Margin="0,85,0,0" Style="{DynamicResource TabControlStyle1}" HorizontalContentAlignment="Center">
+                <TabItem x:Name="MotionTab" Header="Motion">
+                    <Grid >
+                        <!--<WrapPanel Margin="28,40,28,0" VerticalAlignment="Top"/>-->
+                        <ItemsControl VerticalAlignment="Top" Margin="28,40,28,0" 
+                                      ItemsSource="{Binding ArtistMotionsList}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel                    
+                        				Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                        <WrapPanel.Resources>
+                                            <Style                    
+                        						TargetType="{x:Type Views:MotionItemVertical}">
+                                                <Setter Property="Margin" Value="0,10,20,0"/>
+                                            </Style>
+                                        </WrapPanel.Resources>
+                                    </WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="BiographyTab" Header="Biography">
+                    <Grid />
+                </TabItem>
+            </TabControl>
+            <Border x:Name="Avatar" BorderBrush="#B7B7B7" BorderThickness="1" Height="102" Width="102" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,50,0,0"
+                Background="White">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="2" Color="LightGray" Direction="330"/>
+                </Border.Effect>
+                <Image Margin="5" Source="{Binding ArtistAvatar}">
+                    <Image.Effect>
+                        <DropShadowEffect ShadowDepth="1" Color="LightGray" Direction="270"/>
+                    </Image.Effect>
+                </Image>
+            </Border>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

@@ -11,16 +11,17 @@ namespace TuneRoboWPF.Views
     /// </summary>
     public partial class ArtistItemVertical : UserControl
     {
-        public delegate void ArtistItemClickEventHandler(ArtistItemVertical sender);
+        public delegate void ArtistItemClickEventHandler(ulong artistID);
 
         public event ArtistItemClickEventHandler ArtistItemClicked;
 
-        public void OnArtistItemClick(ArtistItemVertical sender)
+        public void OnArtistItemClick(ulong artistID)
         {
             ArtistItemClickEventHandler handler = ArtistItemClicked;
-            if (handler != null) handler(sender);
+            if (handler != null) handler(artistID);
         }
         private ArtistItemVerticalViewModel ViewModel = new ArtistItemVerticalViewModel();
+        private ulong ArtistID { get; set; }
         public ArtistItemVertical()
         {
             InitializeComponent();
@@ -34,7 +35,7 @@ namespace TuneRoboWPF.Views
 
         private void ItemClickHandler()
         {
-            OnArtistItemClick(this);
+            OnArtistItemClick(ArtistID);
         }
 
         public void SetInfo(ArtistShortInfo info)
@@ -42,13 +43,14 @@ namespace TuneRoboWPF.Views
             if (Dispatcher.CheckAccess())
             {
                 ViewModel.ArtistName = info.artist_name;
-
+                ArtistID = info.artist_id;
             }
             else
             {
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     ViewModel.ArtistName = info.artist_name;
+                    ArtistID = info.artist_id;
                 });
             }
         }
@@ -56,7 +58,7 @@ namespace TuneRoboWPF.Views
         {
             if (Dispatcher.CheckAccess())
             {
-                ViewModel.ArtistIcon = image;
+                ViewModel.ArtistIcon = image;                
             }
             else
             {

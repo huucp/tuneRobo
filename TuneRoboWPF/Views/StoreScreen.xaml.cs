@@ -63,11 +63,12 @@ namespace TuneRoboWPF.Views
 
         }
 
-        private void artistItem_ArtistItemClicked(ArtistItemVertical sender)
+        private void artistItem_ArtistItemClicked(ulong artistID)
         {
             var lastElement = MainWindowDockPanel.Children[MainWindowDockPanel.Children.Count - 1];
             MainWindowDockPanel.Children.Remove(lastElement);
             var detailScreen = new ArtistDetailScreen();
+            detailScreen.SetInfo(artistID);
             MainWindowDockPanel.Children.Add(detailScreen);
         }
 

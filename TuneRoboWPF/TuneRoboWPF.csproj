@@ -86,6 +86,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\IndexToColorConverter.cs" />
+    <Compile Include="Models\ArtistDetailScreenModel.cs" />
     <Compile Include="Models\ArtistItemVerticalModel.cs" />
     <Compile Include="Models\CommentItemModel.cs" />
     <Compile Include="Models\ControlButtonModel.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Utility\RobotState.cs" />
     <Compile Include="Utility\GlobalFunctions.cs" />
     <Compile Include="Utility\Worker.cs" />
+    <Compile Include="ViewModels\ArtistDetailScreenViewModel.cs" />
     <Compile Include="ViewModels\ArtistItemVerticalViewModel.cs" />
     <Compile Include="ViewModels\CommentItemViewModel.cs" />
     <Compile Include="ViewModels\ControlButtonViewModel.cs" />

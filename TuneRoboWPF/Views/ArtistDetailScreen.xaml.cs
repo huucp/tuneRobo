@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+using System.Diagnostics;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using TuneRoboWPF.Utility;
+using TuneRoboWPF.ViewModels;
+using artist;
+using TuneRoboWPF.StoreService.SimpleRequest;
 
 namespace TuneRoboWPF.Views
 {
@@ -19,9 +13,74 @@ namespace TuneRoboWPF.Views
     /// </summary>
     public partial class ArtistDetailScreen : UserControl
     {
+        private ArtistDetailScreenViewModel ViewModel = new ArtistDetailScreenViewModel();
+        private ulong ArtistID { get; set; }
+        private ArtistInfoReply Info { get; set; }
         public ArtistDetailScreen()
         {
             InitializeComponent();
+
+            DataContext = new ArtistDetailScreenViewModel();
+            ViewModel = (ArtistDetailScreenViewModel) DataContext;
+        }
+
+        public void SetInfo(ulong id)
+        {
+            ArtistID = id;
+            GetArtistInfo();
+            GetMotionOfArtist();
+        }
+
+        private void GetArtistInfo()
+        {
+            var artistInfoRequest = new GetFullArtistInfoStoreRequest(ArtistID);
+            artistInfoRequest.ProcessSuccessfully += (reply) =>
+                                                         {
+                                                             Info = reply.artist_info;
+                                                             UpdateArtistAvatar(Info.avatar_url);
+                                                         };
+            artistInfoRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
+            GlobalVariables.StoreWorker.ForceAddJob(artistInfoRequest);
+        }
+        private void UpdateArtistAvatar(string url)
+        {
+            var avatarRequest = new ImageDownload(url);
+            avatarRequest.DownloadCompleted += (image) =>
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    ViewModel.ArtistAvatar = image;
+                });
+            GlobalVariables.ImageDownloadWorker.AddDownload(avatarRequest);
+        }
+
+        private void GetMotionOfArtist()
+        {
+            var countRequest = new GetNumberMotionOfArtistStoreRequest(ArtistID);
+            countRequest.ProcessSuccessfully += (countReply) =>
+            {
+                var motionRequest = new GetMotionOfArtistStoreRequest(ArtistID, 0, countReply.number_motion_artist.number_motion);
+                motionRequest.ProcessSuccessfully += (motionReply) =>
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        foreach (var motionInfo in motionReply.artist_motion.motion_short_info)
+                        {
+                            var motionItemVertical = new MotionItemVertical();
+                            motionItemVertical.SetInfo(motionInfo);
+                            ViewModel.ArtistMotionsList.Add(motionItemVertical);
+                            //for (int i = 0; i < 20; i++)
+                            //{
+                            //    var motionItemVertical = new MotionItemVertical();
+                            //    motionItemVertical.SetInfo(motionInfo);
+                            //    ViewModel.ArtistMotionsList.Add(motionItemVertical);
+                            //}
+                        }
+                    });
+                motionRequest.ProcessError +=
+                    (motionReply, msg) => Debug.Assert(false, msg + motionReply.type.ToString());
+                GlobalVariables.StoreWorker.ForceAddJob(motionRequest);
+            };
+            countRequest.ProcessError += (countReply, msg) => Debug.Assert(false, msg + countReply.type.ToString());
+            GlobalVariables.StoreWorker.ForceAddJob(countRequest);
         }
     }
 }
