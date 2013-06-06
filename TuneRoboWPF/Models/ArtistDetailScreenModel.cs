@@ -8,5 +8,9 @@ namespace TuneRoboWPF.Models
     {
         public BitmapImage ArtistAvatar = null;
         public ObservableCollection<MotionItemVertical> ArtistMotionsList = new ObservableCollection<MotionItemVertical>();
+        public string ArtistName = string.Empty;
+        public uint NumberMotion = 0;
+        public double RatingValue = 0;
+        public string Biography = string.Empty;
     }
 }

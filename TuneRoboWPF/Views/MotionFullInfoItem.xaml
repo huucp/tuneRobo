@@ -28,14 +28,15 @@
                    Text="{Binding MotionTitle}" HorizontalAlignment="Left" 
                    FontWeight="Bold"  VerticalAlignment="Top"/>
         <TextBlock x:Name="Artist" Margin="148,73,0,0" TextWrapping="NoWrap" 
-                   Text="{Binding ArtistName}" Foreground="#888888"
+                   Text="{Binding ArtistName}" Foreground="{StaticResource GrayFont}"
                    HorizontalAlignment="Left" VerticalAlignment="Top" 
                    d:LayoutOverrides="VerticalAlignment"/>
         <System_Windows_Controls:Rating x:Name="RatingControl" Margin="148,97,0,0" 
                                         Height="20" Width="100" HorizontalAlignment="Left" 
                                         VerticalAlignment="Top" 
                                         d:LayoutOverrides="HorizontalAlignment, VerticalAlignment, GridBox"
-                                        Value="{Binding RatingValue}" Visibility="Hidden">
+                                        Value="{Binding RatingValue}" Visibility="Hidden"
+                                        Background="Transparent">
             <System_Windows_Controls:Rating.LayoutTransform>
                 <ScaleTransform ScaleX="0.75" ScaleY="0.75" />
             </System_Windows_Controls:Rating.LayoutTransform>

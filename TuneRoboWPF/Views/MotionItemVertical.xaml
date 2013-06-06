@@ -25,13 +25,13 @@
             </Image.Style>
         </Image>
         <TextBlock x:Name="Description" VerticalAlignment="Bottom" Height="53"
-                   TextWrapping="Wrap" Margin="0,0,15,0" >
+                   TextWrapping="Wrap" Margin="0,0,15,0" FontSize="11" >
             <TextBlock.InputBindings>
                 <MouseBinding Command="{Binding DescriptionClick}" MouseAction="LeftClick"/>
             </TextBlock.InputBindings>
-            <Run Text="{Binding MotionTitle}" FontWeight ="SemiBold" />
+            <Run Text="{Binding MotionTitle}" FontWeight ="UltraBold" />
             <LineBreak/>
-            <Run Text="{Binding ArtistName}" />
+            <Run Text="{Binding ArtistName}" Foreground="{StaticResource GrayFont}"/>
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
                     <Style.Triggers>

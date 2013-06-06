@@ -21,7 +21,7 @@ namespace TuneRoboWPF.Views
             InitializeComponent();
 
             DataContext = new ArtistDetailScreenViewModel();
-            ViewModel = (ArtistDetailScreenViewModel) DataContext;
+            ViewModel = (ArtistDetailScreenViewModel)DataContext;
         }
 
         public void SetInfo(ulong id)
@@ -35,10 +35,16 @@ namespace TuneRoboWPF.Views
         {
             var artistInfoRequest = new GetFullArtistInfoStoreRequest(ArtistID);
             artistInfoRequest.ProcessSuccessfully += (reply) =>
-                                                         {
-                                                             Info = reply.artist_info;
-                                                             UpdateArtistAvatar(Info.avatar_url);
-                                                         };
+            {
+                Info = reply.artist_info;
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    ViewModel.ArtistName = Info.artist_name;
+                    ViewModel.RatingValue = Info.avg_rating/10.0;
+                    ViewModel.Biography = Info.description;
+                });
+                UpdateArtistAvatar(Info.avatar_url);
+            };
             artistInfoRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
             GlobalVariables.StoreWorker.ForceAddJob(artistInfoRequest);
         }
@@ -53,11 +59,19 @@ namespace TuneRoboWPF.Views
             GlobalVariables.ImageDownloadWorker.AddDownload(avatarRequest);
         }
 
+        private void DownloadMotionImage(string url, MotionItemVertical motion)
+        {
+            var download = new ImageDownload(url);
+            download.DownloadCompleted += (image) => Dispatcher.BeginInvoke((Action) (() => motion.SetImage(image)));
+            GlobalVariables.ImageDownloadWorker.AddDownload(download);
+        }
+
         private void GetMotionOfArtist()
         {
             var countRequest = new GetNumberMotionOfArtistStoreRequest(ArtistID);
             countRequest.ProcessSuccessfully += (countReply) =>
             {
+                Dispatcher.BeginInvoke((Action)delegate { ViewModel.NumberMotion = countReply.number_motion_artist.number_motion; });
                 var motionRequest = new GetMotionOfArtistStoreRequest(ArtistID, 0, countReply.number_motion_artist.number_motion);
                 motionRequest.ProcessSuccessfully += (motionReply) =>
                     Dispatcher.BeginInvoke((Action)delegate
@@ -67,6 +81,7 @@ namespace TuneRoboWPF.Views
                             var motionItemVertical = new MotionItemVertical();
                             motionItemVertical.SetInfo(motionInfo);
                             ViewModel.ArtistMotionsList.Add(motionItemVertical);
+                            DownloadMotionImage(motionInfo.icon_url,motionItemVertical);
                             //for (int i = 0; i < 20; i++)
                             //{
                             //    var motionItemVertical = new MotionItemVertical();
