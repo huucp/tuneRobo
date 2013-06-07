@@ -103,5 +103,15 @@ namespace TuneRoboWPF.ViewModels
                 NotifyPropertyChanged("MotionTitle");
             }
         }
+
+        public string NumberRating
+        {
+            get { return model.NumberRating; }
+            set
+            {
+                model.NumberRating = value;
+                NotifyPropertyChanged("NumberRating");
+            }
+        }
     }
 }

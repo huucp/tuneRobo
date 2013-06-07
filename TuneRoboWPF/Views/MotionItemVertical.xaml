@@ -9,7 +9,7 @@
         <Image x:Name="Artwork" Height="125" Margin="0" Width="125" VerticalAlignment="Top"
                Source="{Binding ArtworkImage, TargetNullValue={StaticResource DefaultImage}}">
             <Image.Effect>
-                <DropShadowEffect BlurRadius="3" ShadowDepth="1" Color="LightGray"/>
+                <DropShadowEffect BlurRadius="3" ShadowDepth="2" Color="LightGray"/>
             </Image.Effect>
             <Image.InputBindings>
                 <MouseBinding Command="{Binding ImageClick}" MouseAction="LeftClick"/>
@@ -29,7 +29,7 @@
             <TextBlock.InputBindings>
                 <MouseBinding Command="{Binding DescriptionClick}" MouseAction="LeftClick"/>
             </TextBlock.InputBindings>
-            <Run Text="{Binding MotionTitle}" FontWeight ="UltraBold" />
+            <Run Text="{Binding MotionTitle}" FontWeight ="UltraBold" Foreground="{StaticResource BlackFont}"/>
             <LineBreak/>
             <Run Text="{Binding ArtistName}" Foreground="{StaticResource GrayFont}"/>
             <TextBlock.Style>

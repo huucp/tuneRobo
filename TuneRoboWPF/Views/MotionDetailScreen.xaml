@@ -8,18 +8,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="703" d:DesignWidth="1100">
     <UserControl.Resources>
-    	<Style x:Key="TabControlStyle" TargetType="{x:Type TabControl}">
-    		<Setter Property="Template">
-    			<Setter.Value>
+        <Style x:Key="TabControlStyle" TargetType="{x:Type TabControl}">
+            <Setter Property="Template">
+                <Setter.Value>
 
-    				<ControlTemplate TargetType="{x:Type TabControl}">
-    					<Grid KeyboardNavigation.TabNavigation="Local">
-    						<Grid.RowDefinitions>
-    							<RowDefinition Height="Auto" />
-    							<RowDefinition Height="*" />
-    						</Grid.RowDefinitions>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid KeyboardNavigation.TabNavigation="Local">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
 
-    						<TabPanel x:Name="HeaderPanel"
+                            <TabPanel x:Name="HeaderPanel"
     							Grid.Row="0"
     							Panel.ZIndex="1"
     							Margin="0,0,4,-1"
@@ -27,36 +27,36 @@
     							KeyboardNavigation.TabIndex="1"
     							Background="Transparent" />
 
-    						<Border x:Name="Border"
+                            <Border x:Name="Border"
     							Grid.Row="1"
     							BorderThickness="0,1,0,0"
     							KeyboardNavigation.TabNavigation="Local"
     							KeyboardNavigation.DirectionalNavigation="Contained"
     							KeyboardNavigation.TabIndex="2" Background="Transparent" BorderBrush="LightGray">
 
-    							<ContentPresenter x:Name="PART_SelectedContentHost"
+                                <ContentPresenter x:Name="PART_SelectedContentHost"
     								Margin="4"
     								ContentSource="SelectedContent" />
-    						</Border>
-    					</Grid>
-    				</ControlTemplate>
-    			</Setter.Value>
-    		</Setter>
-    	</Style>
-    	<DataTemplate x:Key="ImageDataTemplate">
-    		<Grid Width="320" Height="180">
-    			<Image HorizontalAlignment="Stretch" Margin="0" Width="Auto" Source="{Binding ImageSource}"/>
-    		</Grid>
-    	</DataTemplate>        
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <DataTemplate x:Key="ImageDataTemplate">
+            <Grid Width="320" Height="180">
+                <Image HorizontalAlignment="Stretch" Margin="0" Width="Auto" Source="{Binding ImageSource}"/>
+            </Grid>
+        </DataTemplate>
     </UserControl.Resources>
     <ScrollViewer Margin="0" x:Name="MainScrollViewer" ScrollChanged="MainScrollViewer_ScrollChanged" VerticalScrollBarVisibility="Auto" >
-		<Grid>
-			<TabControl Margin="263.5,162,8,0" 
+        <Grid Background="#F5F5F5">
+            <TabControl Margin="263.5,162,8,0" 
 				        x:Name="ContentTabControl"
 				        Style="{StaticResource TabControlStyle}" 
                         Height="Auto" VerticalAlignment="Top">
-				<TabItem Header="Details" x:Name="DetailsTab">
-					<Grid>
+                <TabItem Header="Details" x:Name="DetailsTab">
+                    <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
@@ -69,8 +69,8 @@
                                  ItemTemplate="{DynamicResource ImageDataTemplate}"
                                  ItemsSource="{Binding ScreenshotsList}" Cursor="Hand"
                                  PreviewMouseWheel="ScreenshotsListbox_PreviewMouseWheel"
-                                 SelectionChanged="ScreenshotsListbox_SelectionChanged">                            
-						</ListBox>
+                                 SelectionChanged="ScreenshotsListbox_SelectionChanged">
+                        </ListBox>
                         <TextBlock Grid.Row="0"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 
                                    VerticalAlignment="Top"  Text="Screen shots" FontWeight="Bold" FontSize="20"/>
                         <TextBlock Grid.Row="1"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 
@@ -78,58 +78,58 @@
 
                         <TextBlock Grid.Row="1"  x:Name="DescriptionTextBlock" Margin="27.5,46,0,0" TextWrapping="Wrap" 
                                    Text="{Binding MotionDescription}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="751"/>
-						                       
-					</Grid>
-				</TabItem>
-				<TabItem Header="Rating and Reviews" x:Name="ReviewsTab">
-					<Grid >
-						<Grid.RowDefinitions>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Rating and Reviews" x:Name="ReviewsTab">
+                    <Grid >
+                        <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-						<TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="41,25,0,0" Text="AVERAGE RATING" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="13.333"/>
-						<System_Windows_Controls:Rating x:Name="ReviewsRatingControl" Width="100" HorizontalAlignment="Left"
+                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="41,25,0,0" Text="AVERAGE RATING" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="13.333"/>
+                        <System_Windows_Controls:Rating x:Name="ReviewsRatingControl" Width="100" HorizontalAlignment="Left"
 							Value="{Binding RatingValue}" Margin="176,25,0,0" d:LayoutOverrides="HorizontalAlignment" RenderTransformOrigin="1.035,0.465" Height="20.018" VerticalAlignment="Top"
 							Grid.Row="0">
-							<System_Windows_Controls:Rating.LayoutTransform>
-								<ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
-							</System_Windows_Controls:Rating.LayoutTransform>
-							<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-							<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-							<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-							<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-							<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-						</System_Windows_Controls:Rating>
-						<Button x:Name="ReviewButton" Grid.Row="0" Content="Write a Review" Margin="314.5,23,380,0" Height="21.96" VerticalAlignment="Top"
+                            <System_Windows_Controls:Rating.LayoutTransform>
+                                <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
+                            </System_Windows_Controls:Rating.LayoutTransform>
+                            <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                            <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                            <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                            <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                            <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                        </System_Windows_Controls:Rating>
+                        <Button x:Name="ReviewButton" Grid.Row="0" Content="Write a Review" Margin="314.5,23,380,0" Height="21.96" VerticalAlignment="Top"
                                 Click="ReviewButton_Click"/>
                         <StackPanel x:Name="ReviewStackPanel" HorizontalAlignment="Stretch" Grid.Row="1" />
-					</Grid>
-				</TabItem>
-				<TabItem Header="Related" x:Name="RelatedTab">
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Related" x:Name="RelatedTab">
                     <Grid>
                         <TextBlock Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16" FontWeight="ExtraBold"
                                    Text="{Binding MoreByTextBlock}"/>
                         <ItemsControl VerticalAlignment="Top" Margin="0,40,0,0" FontSize="13.333" Width="820.5" 
-                                      ItemsSource="{Binding RelatedMotionsList}">                    
-                        	<ItemsControl.ItemsPanel>                    
-                        		<ItemsPanelTemplate>                    
-                        			<WrapPanel                    
-                        				Orientation="Horizontal" HorizontalAlignment="Stretch">                    
-                        				<WrapPanel.Resources>                    
-                        					<Style                    
-                        						TargetType="{x:Type Views:MotionItemVertical}">                    
-                        						<Setter Property="Margin" Value="0,10,20,0"/>
-                        					</Style>
-                        				</WrapPanel.Resources>
-                        			</WrapPanel>
-                        		</ItemsPanelTemplate>
-                        	</ItemsControl.ItemsPanel>
+                                      ItemsSource="{Binding RelatedMotionsList}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel                    
+                        				Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                        <WrapPanel.Resources>
+                                            <Style                    
+                        						TargetType="{x:Type Views:MotionItemVertical}">
+                                                <Setter Property="Margin" Value="0,10,20,0"/>
+                                            </Style>
+                                        </WrapPanel.Resources>
+                                    </WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
                         </ItemsControl>
                     </Grid>
-                                      
-                </TabItem>             
-			</TabControl>
-			<Rectangle x:Name="Artwork" HorizontalAlignment="Left" Height="220" Margin="43.5,49.5,0,0" 
+
+                </TabItem>
+            </TabControl>
+            <Rectangle x:Name="Artwork" HorizontalAlignment="Left" Height="220" Margin="43.5,49.5,0,0" 
                        Stroke="Gray" VerticalAlignment="Top" Width="220" RadiusY="40" RadiusX="40"
                        StrokeThickness ="1">
                 <Rectangle.Fill>
@@ -140,24 +140,39 @@
                     <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="LightGray"/>
                 </Rectangle.Effect>
             </Rectangle>
-		    <Button x:Name="DownloadButton" Content="{Binding DownloadButtonContent}" HorizontalAlignment="Left" Height="29" 
+            <Button x:Name="DownloadButton" Content="{Binding DownloadButtonContent}" HorizontalAlignment="Left" Height="29" 
                     Margin="66,285,0,0" VerticalAlignment="Top" Width="156" Click="DownloadButton_Click"/>
-			<TextBlock x:Name="ArtistTextBlock" HorizontalAlignment="Left" Margin="66,358,0,0" TextWrapping="Wrap" Text="{Binding ArtistName}" Width="156" Height="54" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="14.667"/>
-			<System_Windows_Controls:Rating x:Name="RatingControl" 
+            <TextBlock x:Name="ArtistTextBlock" HorizontalAlignment="Left" Margin="66,358,0,0" 
+                       TextWrapping="Wrap" Text="{Binding ArtistName}" Width="156" Height="54" 
+                       VerticalAlignment="Top" FontWeight="UltraBold" FontSize="21.333" MouseDown="ArtistTextBlock_MouseDown">
+                <TextBlock.Style>
+                   <Style TargetType="TextBlock" >
+                       <Setter Property="Foreground" Value="{StaticResource BlackFont}"/>
+                       <Style.Triggers>
+                           <Trigger Property ="IsMouseOver" Value="True">
+                                <Setter Property= "Foreground" Value="Red"/>
+                           </Trigger>
+                       </Style.Triggers>
+                    </Style>
+               </TextBlock.Style>
+            </TextBlock>
+            <System_Windows_Controls:Rating x:Name="RatingControl" 
 				Height="20" Width="100" HorizontalAlignment="Left" 
 				VerticalAlignment="Top"
-				Value="{Binding RatingValue}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" Margin="90,328,0,0">
-				<System_Windows_Controls:Rating.LayoutTransform>
-					<ScaleTransform ScaleX="1" ScaleY="1"/>
-				</System_Windows_Controls:Rating.LayoutTransform>
-				<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+				Value="{Binding RatingValue}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" Margin="81,328,0,0">
+                <System_Windows_Controls:Rating.LayoutTransform>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </System_Windows_Controls:Rating.LayoutTransform>
                 <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
                 <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
                 <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
                 <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-			</System_Windows_Controls:Rating>
-			<TextBlock HorizontalAlignment="Left" Margin="302,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
+                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+            </System_Windows_Controls:Rating>
+            <TextBlock HorizontalAlignment="Left" Margin="302,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
                        FontSize="21.333" FontWeight="ExtraBold" Text="{Binding MotionTitle}"/>
+            <TextBlock HorizontalAlignment="Left" Margin="185,328,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15"
+				Text="{Binding NumberRating}" Foreground="{StaticResource BlackFont}"/>
         </Grid>
-	</ScrollViewer>
+    </ScrollViewer>
 </UserControl>

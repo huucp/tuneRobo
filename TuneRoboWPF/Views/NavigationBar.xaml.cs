@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
@@ -97,7 +98,7 @@ namespace TuneRoboWPF
             {
 
             };
-            GlobalVariables.StoreWorker.AddJob(getUserInfoRequest);
+            GlobalVariables.StoreWorker.AddRequest(getUserInfoRequest);
         }
 
         private void SignOutMenu_Click(object sender, RoutedEventArgs e)
@@ -112,7 +113,7 @@ namespace TuneRoboWPF
                                                {
                                                    Console.WriteLine("signout failed");
                                                };
-            GlobalVariables.StoreWorker.AddJob(signoutRequest);
+            GlobalVariables.StoreWorker.AddRequest(signoutRequest);
         }
 
         private void StoreButton_Click(object sender, RoutedEventArgs e)
@@ -123,6 +124,20 @@ namespace TuneRoboWPF
         {
             //RemoteButton.Style = (Style)FindResource("ButtonFlatStyle");
             OnRemoteButtonClickEvent();
+        }
+
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && !string.IsNullOrEmpty(SearchTextBox.Text))
+            {
+                var searchScreen = new SearchResultScreen();
+                StaticMainWindow.Window.ChangeScreen(searchScreen);
+                SearchTextBox.Text = string.Empty;
+            }
+            if (e.Key == Key.Escape)
+            {
+                SearchTextBox.Text = string.Empty;
+            }
         }
 
     }

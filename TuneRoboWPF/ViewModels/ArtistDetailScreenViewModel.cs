@@ -68,5 +68,33 @@ namespace TuneRoboWPF.ViewModels
                 NotifyPropertyChanged("Biography");
             }
         }
+        public bool FollowButtonVisibility
+        {
+            get { return model.FollowButtonVisibility; }
+            set
+            {
+                model.FollowButtonVisibility = value;
+                NotifyPropertyChanged("FollowButtonVisibility");
+            }
+        }
+
+        public bool FollowState
+        {
+            get { return model.FollowState; }
+            set
+            {
+                model.FollowState = value;
+                NotifyPropertyChanged("FollowState");
+            }
+        }
+        public string NumberRate
+        {
+            get { return model.NumberRate; }
+            set
+            {
+                model.NumberRate = value;
+                NotifyPropertyChanged("NumberRate");
+            }
+        }
     }
 }

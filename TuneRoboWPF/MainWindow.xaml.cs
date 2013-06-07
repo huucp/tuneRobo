@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.Views;
@@ -28,7 +29,16 @@ namespace TuneRoboWPF
             navigationBar.UserMenu.Visibility = Visibility.Visible;
             navigationBar.SignInButton.Visibility = Visibility.Hidden;
             navigationBar.ViewModel.Username = GlobalVariables.CurrentUser;
+
+            var lastElement = MainDock.Children[MainDock.Children.Count - 1];
+            if (lastElement is ArtistDetailScreen)
+            {                
+                ((ArtistDetailScreen)lastElement).CheckFollowState();
+            }
+
         }
+
+        
 
         private void GetNotificationFromStore()
         {
@@ -52,7 +62,7 @@ namespace TuneRoboWPF
                     //remoteScreen.Visibility = Visibility.Collapsed;
                 });
             };
-            GlobalVariables.StoreWorker.AddJob(notificationRequest);
+            GlobalVariables.StoreWorker.AddRequest(notificationRequest);
         }
 
         private void MainScreen_ContentRendered(object sender, EventArgs e)
@@ -80,19 +90,22 @@ namespace TuneRoboWPF
 
    
         private void navigationBar_StoreButtonClick(object sender, RoutedEventArgs e)
-        {
-            var lastElement = MainDock.Children[MainDock.Children.Count - 1];
-            MainDock.Children.Remove(lastElement);
+        {           
             var testStoreScreen = new StoreScreen(MainDock);
-            MainDock.Children.Add(testStoreScreen);
+            ChangeScreen(testStoreScreen);
         }
 
         private void navigationBar_RemoteButtonClick(object sender, RoutedEventArgs e)
         {
+            var remoteScreen = new RemoteControlScreen(MainDock);
+            ChangeScreen(remoteScreen);
+        }               
+
+        public void ChangeScreen(UserControl screen)
+        {
             var lastElement = MainDock.Children[MainDock.Children.Count - 1];
             MainDock.Children.Remove(lastElement);
-            var remoteScreen = new RemoteControlScreen(MainDock);
-            MainDock.Children.Add(remoteScreen);
-        }               
+            MainDock.Children.Add(screen);
+        }
     }
 }

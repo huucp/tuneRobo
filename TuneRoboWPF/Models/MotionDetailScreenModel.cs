@@ -21,5 +21,6 @@ namespace TuneRoboWPF.Models
         public ObservableCollection<MotionItemVertical> RelatedMotionsList = new ObservableCollection<MotionItemVertical>();
         public string MoreByTextBlock = "Related motion";
         public string MotionTitle = string.Empty;
+        public string NumberRating = string.Empty;
     }
 }

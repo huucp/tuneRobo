@@ -52,7 +52,7 @@ namespace TuneRoboWPF.Windows
                 }
             };
             commentRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
-            GlobalVariables.StoreWorker.ForceAddJob(commentRequest);
+            GlobalVariables.StoreWorker.ForceAddRequest(commentRequest);
         }
 
         public void SetInfo(ulong motionID, ulong versionID)
@@ -92,7 +92,7 @@ namespace TuneRoboWPF.Windows
                     Close();
                 });
             ratingRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
-            GlobalVariables.StoreWorker.AddJob(ratingRequest);
+            GlobalVariables.StoreWorker.AddRequest(ratingRequest);
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

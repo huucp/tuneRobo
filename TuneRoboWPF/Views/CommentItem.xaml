@@ -36,16 +36,18 @@
             </System_Windows_Controls:Rating>
             <TextBlock x:Name="TitleTextBlock" Margin="0,40,0,0" TextWrapping="Wrap" 
                    VerticalAlignment="Top" HorizontalAlignment="Left" 
-                   FontSize="16" FontWeight="ExtraBold"
+                   FontSize="13" FontWeight="ExtraBold"
                    Text="{Binding CommentTitle}"
-                   Grid.Column="0" Grid.Row="0" />
+                   Grid.Column="0" Grid.Row="0"/>
         </Grid>
     	
         <TextBlock x:Name="UserTextBlock" TextWrapping="Wrap" Text="{Binding UserReview}" 
-                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,61.299,0,0"/>
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,61.299,0,0"
+                   FontSize="13"/>
         <TextBlock x:Name="ContentTextBlock" Margin="0,82.04,0,0" 
                    HorizontalAlignment="Left" VerticalAlignment="Top" 
-                   TextWrapping="Wrap" Text="{Binding CommentContent}"/>
+                   TextWrapping="Wrap" Text="{Binding CommentContent}"
+                   FontSize="12"/>
             
     </Grid>
 </UserControl>

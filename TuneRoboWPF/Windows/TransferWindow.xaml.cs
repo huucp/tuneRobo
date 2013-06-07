@@ -94,7 +94,7 @@ namespace TuneRoboWPF.Windows
             if (RobotRequest!=null) GlobalVariables.RobotWorker.AddJob(RobotRequest);
             else
             {
-                GlobalVariables.StoreWorker.AddJob(StoreRequest);
+                GlobalVariables.StoreWorker.AddRequest(StoreRequest);
             }
         }        
 

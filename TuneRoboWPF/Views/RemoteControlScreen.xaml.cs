@@ -240,7 +240,7 @@ namespace TuneRoboWPF.Views
                                                       Console.WriteLine("get info failed: {0}", msg);
                                                   };
 
-            GlobalVariables.StoreWorker.AddJob(motionInfoRequest);
+            GlobalVariables.StoreWorker.AddRequest(motionInfoRequest);
         }
         
 

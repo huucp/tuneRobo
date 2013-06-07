@@ -47,7 +47,7 @@ namespace TuneRoboWPF.Views
                                                        UpdateContent(reply.motion_info.info);
                                                    };
             infoRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
-            GlobalVariables.StoreWorker.AddJob(infoRequest);
+            GlobalVariables.StoreWorker.AddRequest(infoRequest);
         }
 
         private void UpdateContent(motion.MotionInfo info)
@@ -66,7 +66,7 @@ namespace TuneRoboWPF.Views
                                                     }));
             }
 
-
+            UpdateNumberRating();
             UpdateArtwork(info.icon_url);
             UpdateScreenshots(info.screenshoot_ulrs);
 
@@ -98,7 +98,7 @@ namespace TuneRoboWPF.Views
                 }
             };
             commentRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
-            GlobalVariables.StoreWorker.ForceAddJob(commentRequest);
+            GlobalVariables.StoreWorker.ForceAddRequest(commentRequest);
         }
 
         private void UpdateContentValue(motion.MotionInfo info)
@@ -156,7 +156,7 @@ namespace TuneRoboWPF.Views
                     }
                 });
             relatedRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
-            GlobalVariables.StoreWorker.ForceAddJob(relatedRequest);
+            GlobalVariables.StoreWorker.ForceAddRequest(relatedRequest);
         }
 
         private void UpdateRelatedMotionCover(string url, MotionItemVertical item)
@@ -188,7 +188,17 @@ namespace TuneRoboWPF.Views
             }
         }
 
-
+        private void UpdateNumberRating()
+        {
+            var numberRatingRequest = new GetNumberRatingInfoStoreRquest(MotionID);
+            numberRatingRequest.ProcessSuccessfully += (reply) =>
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    ViewModel.NumberRating = string.Format("({0})", reply.number_rating_info.number);
+                });
+            numberRatingRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg + reply.type);
+            GlobalVariables.StoreWorker.ForceAddRequest(numberRatingRequest);
+        }
 
         private bool IsOnLocal()
         {
@@ -263,6 +273,16 @@ namespace TuneRoboWPF.Views
             {
 
             }
+        }
+
+        private void ArtistTextBlock_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var window = StaticMainWindow.Window;
+            var lastElement = window.MainDock.Children[window.MainDock.Children.Count - 1];
+            window.MainDock.Children.Remove(lastElement);
+            var artistDetailScreen = new ArtistDetailScreen();
+            artistDetailScreen.SetInfo(Info.artist_id);
+            window.MainDock.Children.Add(artistDetailScreen);
         }
     }
 }

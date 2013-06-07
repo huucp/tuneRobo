@@ -186,12 +186,12 @@ namespace TuneRoboWPF.Utility
             backgroundWorker.Start();
         }
 
-        public void AddJob(IRequest request)
+        public void AddRequest(IRequest request)
         {
             ListsJobs.Enqueue(request);
         }
 
-        public void ForceAddJob(IRequest request)
+        public void ForceAddRequest(IRequest request)
         {
             IsClearWorker = false;
             ListsJobs.Enqueue(request);
@@ -251,7 +251,7 @@ namespace TuneRoboWPF.Utility
 
     public class BlockingQueue<T>
     {
-        private const int MaxWaitingCount = 2;
+        private const int MaxWaitingCount = 1;
         private Queue<T> q = new Queue<T>();
         public bool ClearQueue { get; set; }
 
@@ -264,7 +264,7 @@ namespace TuneRoboWPF.Utility
         {
             lock (q)
             {
-                if (q.Count >= MaxWaitingCount && ClearQueue)
+                if (q.Count > MaxWaitingCount && ClearQueue)
                 {
                     Console.WriteLine("clear queue");
                     q.Clear();

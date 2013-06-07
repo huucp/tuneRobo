@@ -79,7 +79,7 @@ namespace TuneRoboWPF.Views
                                                    }
                                                    else getHotListDone = true;
                                                };
-            GlobalVariables.StoreWorker.AddJob(hotListRequest);
+            GlobalVariables.StoreWorker.AddRequest(hotListRequest);
         }
 
         private void GetFeaturedList()
@@ -112,7 +112,7 @@ namespace TuneRoboWPF.Views
                 }
                 else getFeaturedListDone = true;
             };
-            GlobalVariables.StoreWorker.AddJob(featuredListRequest);
+            GlobalVariables.StoreWorker.AddRequest(featuredListRequest);
         }
 
         private List<ArtistShortInfo> artistList = new List<ArtistShortInfo>();
@@ -147,7 +147,7 @@ namespace TuneRoboWPF.Views
                 }
                 else getArtistListDone = true;
             };
-            GlobalVariables.StoreWorker.AddJob(artistListRequest);
+            GlobalVariables.StoreWorker.AddRequest(artistListRequest);
         }
 
         private void DownloadButton_Click(object sender, RoutedEventArgs e)
@@ -191,7 +191,7 @@ namespace TuneRoboWPF.Views
                                                 Console.WriteLine("==============");
                                                 Console.WriteLine("Get motion info failed: " + msg);
                                             };
-            GlobalVariables.StoreWorker.AddJob(infoRequest);
+            GlobalVariables.StoreWorker.AddRequest(infoRequest);
         }
 
         private void FollowButton_Click(object sender, RoutedEventArgs e)
@@ -221,7 +221,7 @@ namespace TuneRoboWPF.Views
                                                   Console.WriteLine("==============");
                                                   Console.WriteLine("Follow failed: " + msg);
                                               };
-            GlobalVariables.StoreWorker.AddJob(followRequest);
+            GlobalVariables.StoreWorker.AddRequest(followRequest);
         }
 
         private void GetVersionButton_Click(object sender, RoutedEventArgs e)
@@ -245,7 +245,7 @@ namespace TuneRoboWPF.Views
                                                    Console.WriteLine("==============");
                                                    Console.WriteLine("Ger motion version failed: " + msg);
                                                };
-            GlobalVariables.StoreWorker.AddJob(versionRequest);
+            GlobalVariables.StoreWorker.AddRequest(versionRequest);
         }
 
         private void GetMotionDownloadByUserButton_Click(object sender, RoutedEventArgs e)
@@ -264,7 +264,7 @@ namespace TuneRoboWPF.Views
                                             Console.WriteLine("==============");
                                             Console.WriteLine("Get motion download by user failed" + msg);
                                         };
-            GlobalVariables.StoreWorker.AddJob(request);
+            GlobalVariables.StoreWorker.AddRequest(request);
         }
 
         private void RatingButton_Click(object sender, RoutedEventArgs e)
@@ -289,7 +289,7 @@ namespace TuneRoboWPF.Views
                                                   Console.WriteLine("==============");
                                                   Console.WriteLine("Rating failed: " + msg);
                                               };
-            GlobalVariables.StoreWorker.AddJob(ratingRequest);
+            GlobalVariables.StoreWorker.AddRequest(ratingRequest);
         }
 
         private void RatingInfoButton_Click(object sender, RoutedEventArgs e)
@@ -316,7 +316,7 @@ namespace TuneRoboWPF.Views
                                             Console.WriteLine("==============");
                                             Console.WriteLine("Get rating info failed: " + msg);
                                         };
-            GlobalVariables.StoreWorker.AddJob(request);
+            GlobalVariables.StoreWorker.AddRequest(request);
         }
 
         private void ListArtistFollowUser_Click(object sender, RoutedEventArgs e)
@@ -335,7 +335,7 @@ namespace TuneRoboWPF.Views
                                             Console.WriteLine("==============");
                                             Console.WriteLine("List artist follow by current failed: {0:s}",msg);
                                         };
-            GlobalVariables.StoreWorker.AddJob(request);
+            GlobalVariables.StoreWorker.AddRequest(request);
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -355,7 +355,7 @@ namespace TuneRoboWPF.Views
                                             Console.WriteLine("==============");
                                             Console.WriteLine("Search motion failed: {0:s}",msg);
                                         };
-            GlobalVariables.StoreWorker.AddJob(request);
+            GlobalVariables.StoreWorker.AddRequest(request);
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)

@@ -113,7 +113,7 @@
     <Style  TargetType="{x:Type TextBlock}">
         <Setter Property="TextBlock.Effect">
             <Setter.Value>
-                <DropShadowEffect ShadowDepth="1" Direction="270" Color="White" BlurRadius="1"/>
+                <DropShadowEffect ShadowDepth="1" Direction="270" Color="White"/>
             </Setter.Value>
         </Setter>
     </Style>

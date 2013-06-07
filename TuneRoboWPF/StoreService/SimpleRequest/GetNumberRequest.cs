@@ -59,10 +59,10 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
     public class GetNumberMotionOfArtistStoreRequest : StoreRequest
     {
         private ulong ArtistID { get; set; }
-        public GetNumberMotionOfArtistStoreRequest(ulong id)
+        public GetNumberMotionOfArtistStoreRequest(ulong artistID)
         {
-            ArtistID = id;
-            RequestKey = GetType() + id.ToString();
+            ArtistID = artistID;
+            RequestKey = GetType() + artistID.ToString();
         }
         public override void BuildPacket()
         {
@@ -113,10 +113,10 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
     public class GetNumberMotionDownloadStoreRequest : StoreRequest
     {
         private ulong UserID { get; set; }
-        public GetNumberMotionDownloadStoreRequest(ulong id)
+        public GetNumberMotionDownloadStoreRequest(ulong userID)
         {
-            UserID = id;
-            RequestKey = GetType() + id.ToString();
+            UserID = userID;
+            RequestKey = GetType() + userID.ToString();
         }
         public override void BuildPacket()
         {
@@ -140,10 +140,10 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
     public class GetNumberRatingInfoStoreRquest : StoreRequest
     {
         private ulong MotionID { get; set; }
-        public GetNumberRatingInfoStoreRquest(ulong id)
+        public GetNumberRatingInfoStoreRquest(ulong motionID)
         {
-            MotionID = id;
-            RequestKey = GetType() + id.ToString();
+            MotionID = motionID;
+            RequestKey = GetType() + motionID.ToString();
         }
         public override void BuildPacket()
         {

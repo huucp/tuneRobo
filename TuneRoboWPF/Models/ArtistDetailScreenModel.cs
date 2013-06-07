@@ -12,5 +12,8 @@ namespace TuneRoboWPF.Models
         public uint NumberMotion = 0;
         public double RatingValue = 0;
         public string Biography = string.Empty;
+        public bool FollowButtonVisibility = false;
+        public bool FollowState = false;
+        public string NumberRate = string.Empty;
     }
 }

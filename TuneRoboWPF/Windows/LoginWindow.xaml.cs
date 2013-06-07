@@ -36,7 +36,7 @@ namespace TuneRoboWPF.Windows
                                               {
                                                   Console.WriteLine("Login failed: " + msg);
                                               };
-            GlobalVariables.StoreWorker.AddJob(signinRequest);
+            GlobalVariables.StoreWorker.AddRequest(signinRequest);
         }        
 	}
 }

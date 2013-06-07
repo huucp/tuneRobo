@@ -56,10 +56,10 @@ namespace TuneRoboWPF.Views
                     });
                 };
                 listArtistRequest.ProcessError += (listReply, msg) => Debug.Assert(false, msg);
-                GlobalVariables.StoreWorker.AddJob(listArtistRequest);
+                GlobalVariables.StoreWorker.AddRequest(listArtistRequest);
             };
             artistCountRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
-            GlobalVariables.StoreWorker.AddJob(artistCountRequest);
+            GlobalVariables.StoreWorker.AddRequest(artistCountRequest);
 
         }
 
@@ -97,7 +97,7 @@ namespace TuneRoboWPF.Views
             {
                 Console.WriteLine("Host list request failed " + msg);
             };
-            GlobalVariables.StoreWorker.AddJob(hotListRequest);
+            GlobalVariables.StoreWorker.AddRequest(hotListRequest);
         }
 
         private List<MotionShortInfo> featuredList = new List<MotionShortInfo>();
@@ -120,7 +120,7 @@ namespace TuneRoboWPF.Views
                 });
             };
             featuredListRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
-            GlobalVariables.StoreWorker.AddJob(featuredListRequest);
+            GlobalVariables.StoreWorker.AddRequest(featuredListRequest);
         }
 
         private void motionItem_MotionClicked(ulong motionID)
