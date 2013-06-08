@@ -8,7 +8,7 @@
     </Style>
     <BitmapImage x:Key="DefaultImage" UriSource="/Resources/cov894.jpeg" />
     <BitmapImage x:Key="YoutubeImage" UriSource="/Resources/youtube.jpg"/>
-	<BitmapImage x:Key="SearchIcon" UriSource="/Resources/search icon.png"/>
+	
     <SolidColorBrush x:Key="RatingRateColor" Color="Yellow"/>
     <SolidColorBrush x:Key="GrayFont" Color="#888888"/>
     <SolidColorBrush x:Key="BlackFont" Color ="#3b3b3b"/>

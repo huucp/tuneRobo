@@ -9,10 +9,12 @@
     		<GradientStop Color="#E2E3EA" Offset="0.07"/>
     		<GradientStop Color="#E3E9EF" Offset="1"/>
     	</LinearGradientBrush>
+		<SolidColorBrush x:Key="BlackBorderBrush" Color="#888888"/>
+		<BitmapImage x:Key="SearchIcon" UriSource="/Resources/search icon.png"/>
     	<Style x:Key="TextBoxStyle1" BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
     		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
     		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-    		<Setter Property="BorderBrush" Value="{StaticResource BlackFont}"/>
+    		<Setter Property="BorderBrush" Value="{StaticResource BlackBorderBrush}"/>
     		<Setter Property="BorderThickness" Value="1"/>
     		<Setter Property="Padding" Value="1"/>
     		<Setter Property="AllowDrop" Value="true"/>

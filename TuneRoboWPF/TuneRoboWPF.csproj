@@ -103,6 +103,7 @@
     <Compile Include="Models\RatingWindowModel.cs" />
     <Compile Include="Models\RemoteControlScreenModel.cs" />
     <Compile Include="Models\RobotTransformButtonModel.cs" />
+    <Compile Include="Models\SearchResultScreenModel.cs" />
     <Compile Include="Models\StoreScreenModel.cs" />
     <Compile Include="Models\TempStoreScreenModel.cs" />
     <Compile Include="Models\TransferWindowModel.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="ViewModels\RatingWindowViewModel.cs" />
     <Compile Include="ViewModels\RemoteControlScreenViewModel.cs" />
     <Compile Include="ViewModels\RobotTransformButtonViewModel.cs" />
+    <Compile Include="ViewModels\SearchResultScreenViewModel.cs" />
     <Compile Include="ViewModels\StoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TempStoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TransferWindowViewModel.cs" />

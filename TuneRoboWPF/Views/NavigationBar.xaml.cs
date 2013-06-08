@@ -5,6 +5,7 @@ using System.Windows.Input;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
+using TuneRoboWPF.Views;
 
 namespace TuneRoboWPF
 {
@@ -131,6 +132,7 @@ namespace TuneRoboWPF
             if (e.Key == Key.Enter && !string.IsNullOrEmpty(SearchTextBox.Text))
             {
                 var searchScreen = new SearchResultScreen();
+                searchScreen.SetQuery(SearchTextBox.Text);
                 StaticMainWindow.Window.ChangeScreen(searchScreen);
                 SearchTextBox.Text = string.Empty;
             }
