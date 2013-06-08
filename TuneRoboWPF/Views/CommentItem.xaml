@@ -22,7 +22,7 @@
                                         HorizontalAlignment="Left" VerticalAlignment="Top" 
                                         Value="{Binding RatingValue}" d:LayoutOverrides="VerticalAlignment" 
                                         Margin="10,46,0,0"  RenderTransformOrigin="0.503,0.683"
-                                        Grid.Column="1" Grid.Row="0">
+                                        Grid.Column="1" Grid.Row="0" Background="Transparent">
                 <System_Windows_Controls:Rating.LayoutTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="0.6" ScaleY="0.6"/>

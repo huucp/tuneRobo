@@ -76,7 +76,7 @@
                                                   HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
                                                   RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                                   VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
-                                                  TextBlock.FontWeight="ExtraBold" TextBlock.Foreground="{StaticResource GrayFont}" TextBlock.FontSize="15" Margin="5,-2,5,2"/>
+                                                  TextBlock.FontWeight="Bold" TextBlock.Foreground="{StaticResource GrayFont}" TextBlock.FontSize="15" Margin="5,-2,5,2"/>
                         </Border>
                         <ed:RegularPolygon x:Name="Triangle" Fill="#E6E6E6" HorizontalAlignment="Center" Height="11" 
                                                InnerRadius="1" Margin="0,0,0,-3" PointCount="3" 

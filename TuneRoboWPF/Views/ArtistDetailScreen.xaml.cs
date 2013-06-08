@@ -104,11 +104,9 @@ namespace TuneRoboWPF.Views
         }
 
         private void motionItemVertical_MotionClicked(ulong motionID)
-        {
-            var lastElement = StaticMainWindow.Window.MainDock.Children[StaticMainWindow.Window.MainDock.Children.Count - 1];
-            StaticMainWindow.Window.MainDock.Children.Remove(lastElement);
-            var detailScreen = new MotionDetailScreen(StaticMainWindow.Window.MainDock, motionID);
-            StaticMainWindow.Window.MainDock.Children.Add(detailScreen);
+        {            
+            var detailScreen = new MotionDetailScreen(motionID);
+            StaticMainWindow.Window.ChangeScreen(detailScreen);
         }
 
         private void FollowButton_Click(object sender, System.Windows.RoutedEventArgs e)

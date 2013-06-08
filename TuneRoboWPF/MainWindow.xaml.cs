@@ -82,16 +82,15 @@ namespace TuneRoboWPF
                 MessageBox.Show("Cannot connect to server!", "Connection error", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
-            //var remoteScreen = new RemoteControlScreen(MainDock);
-            //var remoteScreen = new TestRemoteScreen(MainDock);
-            var storeScreen = new StoreScreen(MainDock);
+            
+            var storeScreen = new StoreScreen();
             MainDock.Children.Add(storeScreen);
         }
 
    
         private void navigationBar_StoreButtonClick(object sender, RoutedEventArgs e)
         {           
-            var testStoreScreen = new StoreScreen(MainDock);
+            var testStoreScreen = new StoreScreen();
             ChangeScreen(testStoreScreen);
         }
 

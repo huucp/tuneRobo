@@ -16,13 +16,11 @@ namespace TuneRoboWPF.Views
     /// </summary>
     public partial class StoreScreen : UserControl
     {
-        private DockPanel MainWindowDockPanel { get; set; }
         private StoreScreenViewModel ViewModel { get; set; }
-        public StoreScreen(DockPanel dock)
+        public StoreScreen()
         {
             InitializeComponent();
-
-            MainWindowDockPanel = dock;
+            
             DataContext = new StoreScreenViewModel();
             ViewModel = (StoreScreenViewModel)DataContext;
 
@@ -64,12 +62,10 @@ namespace TuneRoboWPF.Views
         }
 
         private void artistItem_ArtistItemClicked(ulong artistID)
-        {
-            var lastElement = MainWindowDockPanel.Children[MainWindowDockPanel.Children.Count - 1];
-            MainWindowDockPanel.Children.Remove(lastElement);
+        {            
             var detailScreen = new ArtistDetailScreen();
             detailScreen.SetInfo(artistID);
-            MainWindowDockPanel.Children.Add(detailScreen);
+            StaticMainWindow.Window.ChangeScreen(detailScreen);
         }
 
 
@@ -124,11 +120,9 @@ namespace TuneRoboWPF.Views
         }
 
         private void motionItem_MotionClicked(ulong motionID)
-        {
-            var lastElement = MainWindowDockPanel.Children[MainWindowDockPanel.Children.Count - 1];
-            MainWindowDockPanel.Children.Remove(lastElement);
-            var detailScreen = new MotionDetailScreen(MainWindowDockPanel,motionID);
-            MainWindowDockPanel.Children.Add(detailScreen);
+        {            
+            var detailScreen = new MotionDetailScreen(motionID);
+            StaticMainWindow.Window.ChangeScreen(detailScreen);
         }
 
         private void DownloadImage(ulong id, string url, object item)

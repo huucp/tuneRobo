@@ -8,37 +8,39 @@
              mc:Ignorable="d" 
              d:DesignHeight="703" d:DesignWidth="1100">
     <UserControl.Resources>
-        <Style x:Key="TabControlStyle" TargetType="{x:Type TabControl}">
+        <Style x:Key="TabControlStyle1" TargetType="{x:Type TabControl}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="Padding" Value="4,4,4,4"/>
+            <Setter Property="BorderThickness" Value="0,0,0,0"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}"/>
+            <Setter Property="Background" Value="#E6E6E6"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Template">
                 <Setter.Value>
-
                     <ControlTemplate TargetType="{x:Type TabControl}">
-                        <Grid KeyboardNavigation.TabNavigation="Local">
+                        <Grid ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="ColumnDefinition0"/>
+                                <ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
+                                <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
+                                <RowDefinition x:Name="RowDefinition1" Height="*"/>
                             </Grid.RowDefinitions>
-
-                            <TabPanel x:Name="HeaderPanel"
-    							Grid.Row="0"
-    							Panel.ZIndex="1"
-    							Margin="0,0,4,-1"
-    							IsItemsHost="True"
-    							KeyboardNavigation.TabIndex="1"
-    							Background="Transparent" />
-
-                            <Border x:Name="Border"
-    							Grid.Row="1"
-    							BorderThickness="0,1,0,0"
-    							KeyboardNavigation.TabNavigation="Local"
-    							KeyboardNavigation.DirectionalNavigation="Contained"
-    							KeyboardNavigation.TabIndex="2" Background="Transparent" BorderBrush="LightGray">
-
-                                <ContentPresenter x:Name="PART_SelectedContentHost"
-    								Margin="4"
-    								ContentSource="SelectedContent" />
+                            <TabPanel x:Name="HeaderPanel" Grid.Column="0" IsItemsHost="true" Margin="2,2,2,0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"/>
+                            <Border x:Name="ContentPanel" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local" Margin="0,3,0,0" d:IsHidden="True">
+                                <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                             </Border>
+                            <Rectangle x:Name="TopBorder1" Fill="White" Height="1" Margin="0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="Auto" StrokeThickness="0"/>
+                            <Rectangle x:Name="TopBorder2" Fill="#FFCCCCCC" Height="1" Margin="0,1,0,0" Grid.Row="1" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="Auto"/>
+                            <Rectangle x:Name="TopBorder3" Fill="#FFDEDEDE" HorizontalAlignment="Stretch" Height="1" Margin="0,2,0,0" Grid.Row="1" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="Auto"/>
                         </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -50,16 +52,18 @@
         </DataTemplate>
     </UserControl.Resources>
     <ScrollViewer Margin="0" x:Name="MainScrollViewer" ScrollChanged="MainScrollViewer_ScrollChanged" VerticalScrollBarVisibility="Auto" >
-        <Grid Background="#F5F5F5">
-            <TabControl Margin="263.5,162,8,0" 
+        <Grid>
+            <Rectangle Margin="0,200,0,0" Stroke="Black" VerticalAlignment="Top" Fill="Red"/>
+            <TabControl Margin="263.5,162,0,0" 
 				        x:Name="ContentTabControl"
-				        Style="{StaticResource TabControlStyle}" 
-                        Height="Auto" VerticalAlignment="Top">
+				        Style="{StaticResource TabControlStyle1}" 
+                        Height="Auto" VerticalAlignment="Top"
+                        Background="#e6e6e6">
                 <TabItem Header="Details" x:Name="DetailsTab">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
+                        	<RowDefinition Height="Auto"/>
+                        	<RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <ListBox Grid.Row="0" x:Name="ScreenshotsListbox" Height="200" Margin="27.5,40,0,0" 
                                  VerticalAlignment="Top" HorizontalAlignment="Left" Width="751"
@@ -69,8 +73,7 @@
                                  ItemTemplate="{DynamicResource ImageDataTemplate}"
                                  ItemsSource="{Binding ScreenshotsList}" Cursor="Hand"
                                  PreviewMouseWheel="ScreenshotsListbox_PreviewMouseWheel"
-                                 SelectionChanged="ScreenshotsListbox_SelectionChanged">
-                        </ListBox>
+                                 SelectionChanged="ScreenshotsListbox_SelectionChanged"/>
                         <TextBlock Grid.Row="0"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 
                                    VerticalAlignment="Top"  Text="Screen shots" FontWeight="Bold" FontSize="20"/>
                         <TextBlock Grid.Row="1"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 
@@ -84,13 +87,13 @@
                 <TabItem Header="Rating and Reviews" x:Name="ReviewsTab">
                     <Grid >
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
+                        	<RowDefinition Height="Auto"/>
+                        	<RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="41,25,0,0" Text="AVERAGE RATING" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="13.333"/>
                         <System_Windows_Controls:Rating x:Name="ReviewsRatingControl" Width="100" HorizontalAlignment="Left"
 							Value="{Binding RatingValue}" Margin="176,25,0,0" d:LayoutOverrides="HorizontalAlignment" RenderTransformOrigin="1.035,0.465" Height="20.018" VerticalAlignment="Top"
-							Grid.Row="0">
+							Grid.Row="0" Background="Transparent">
                             <System_Windows_Controls:Rating.LayoutTransform>
                                 <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
                             </System_Windows_Controls:Rating.LayoutTransform>
@@ -116,10 +119,10 @@
                                     <WrapPanel                    
                         				Orientation="Horizontal" HorizontalAlignment="Stretch">
                                         <WrapPanel.Resources>
-                                            <Style                    
-                        						TargetType="{x:Type Views:MotionItemVertical}">
-                                                <Setter Property="Margin" Value="0,10,20,0"/>
-                                            </Style>
+                                        	<Style                    
+                                        		TargetType="{x:Type Views:MotionItemVertical}">
+                                        		<Setter Property="Margin" Value="0,10,20,0"/>
+                                        	</Style>
                                         </WrapPanel.Resources>
                                     </WrapPanel>
                                 </ItemsPanelTemplate>
@@ -146,12 +149,12 @@
                        TextWrapping="Wrap" Text="{Binding ArtistName}" Width="156" Height="54" 
                        VerticalAlignment="Top" FontWeight="UltraBold" FontSize="21.333" MouseDown="ArtistTextBlock_MouseDown">
                 <TextBlock.Style>
-                   <Style TargetType="TextBlock" >
+                   <Style TargetType="{x:Type TextBlock}" >
                        <Setter Property="Foreground" Value="{StaticResource BlackFont}"/>
                        <Style.Triggers>
-                           <Trigger Property ="IsMouseOver" Value="True">
-                                <Setter Property= "Foreground" Value="Red"/>
-                           </Trigger>
+                       	<Trigger Property ="IsMouseOver" Value="True">
+                       		<Setter Property= "Foreground" Value="Red"/>
+                       	</Trigger>
                        </Style.Triggers>
                     </Style>
                </TextBlock.Style>

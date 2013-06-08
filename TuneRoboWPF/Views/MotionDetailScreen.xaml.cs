@@ -21,17 +21,15 @@ namespace TuneRoboWPF.Views
     /// </summary>
     public partial class MotionDetailScreen : UserControl
     {
-        private DockPanel MainWindowDockPanel { get; set; }
         private MotionDetailScreenViewModel ViewModel { get; set; }
         private ulong MotionID { get; set; }
         private motion.MotionInfo Info { get; set; }
         private uint numberOfComment = 0;
         private uint numberOfRelatedMotions = 0;
-        public MotionDetailScreen(DockPanel dockPanel, ulong motionID)
+        public MotionDetailScreen(ulong motionID)
         {
             InitializeComponent();
 
-            MainWindowDockPanel = dockPanel;
             MotionID = motionID;
             DataContext = new MotionDetailScreenViewModel();
             ViewModel = (MotionDetailScreenViewModel)DataContext;
@@ -250,12 +248,16 @@ namespace TuneRoboWPF.Views
 
         private void MainScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            if (MainScrollViewer.VerticalOffset + 10 > MainScrollViewer.ScrollableHeight)
+            if (IsLoaded)
             {
-                if (ContentTabControl.SelectedIndex == 1)
+                if (MainScrollViewer.VerticalOffset + 10 > MainScrollViewer.ScrollableHeight)
                 {
-                    UpdateComment(numberOfComment, numberOfComment + 20);
+                    if (ContentTabControl.SelectedIndex == 1)
+                    {
+                        UpdateComment(numberOfComment, numberOfComment + 20);
+                    }
                 }
+                
             }
         }
 
