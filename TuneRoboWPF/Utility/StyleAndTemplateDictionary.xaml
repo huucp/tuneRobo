@@ -14,7 +14,7 @@
             <!-- Disable listbox highlight-->
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />            
         </Style.Resources>
     </Style>
     <ItemsPanelTemplate x:Key="WrapPanelListBoxTemplate">
@@ -72,26 +72,26 @@
                             <RowDefinition Height="13"/>
                         </Grid.RowDefinitions>
                         <Border x:Name="Bd" Grid.Row="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="#00C43B3B" Padding="{TemplateBinding Padding}" Visibility="Visible" CornerRadius="11" Cursor="Hand" Margin="5,0">
-                            <ContentPresenter x:Name="Content" ContentSource="Header" 
+                            <ContentPresenter x:Name="Content" ContentSource="Header"
                                                   HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
                                                   RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                                   VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
-                                                  TextBlock.FontWeight="Bold" TextBlock.Foreground="{StaticResource GrayFont}" TextBlock.FontSize="15" Margin="5,-2,5,2"/>
+                                                  TextBlock.FontWeight="UltraBlack" TextBlock.Foreground="{StaticResource GrayFont}" TextBlock.FontSize="16" Margin="5,-2,5,2" />
                         </Border>
                         <ed:RegularPolygon x:Name="Triangle" Fill="#E6E6E6" HorizontalAlignment="Center" Height="11" 
                                                InnerRadius="1" Margin="0,0,0,-3" PointCount="3" 
                                                Grid.Row="1" Grid.RowSpan="1" Stretch="Fill" 
-                                               Stroke="Black" VerticalAlignment="Bottom" Width="22" 
+                                               VerticalAlignment="Bottom" Width="22" 
                                                StrokeThickness="0" Visibility="Hidden">
                         </ed:RegularPolygon>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="TextBlock.Foreground" TargetName="Content" Value="Black"/>
+                            <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource BlackFont}"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
                             <Setter Property="Panel.ZIndex" Value="1"/>
-                            <Setter Property="TextBlock.Foreground" TargetName="Content" Value="Black"/>
+                            <Setter Property="TextBlock.Foreground" TargetName="Content" Value="{StaticResource BlackFont}"/>
                             <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemSelectedBackground}"/>
                             <Setter Property="BorderThickness" TargetName="Bd" Value="1"/>
                             <Setter Property="Visibility" TargetName ="Triangle" Value="Visible"/>
@@ -113,7 +113,7 @@
     <Style  TargetType="{x:Type TextBlock}">
         <Setter Property="TextBlock.Effect">
             <Setter.Value>
-                <DropShadowEffect ShadowDepth="1" Direction="270" Color="White"/>
+                <DropShadowEffect ShadowDepth="1" BlurRadius="1"  Direction="270" Color="White"/>
             </Setter.Value>
         </Setter>
     </Style>

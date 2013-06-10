@@ -9,5 +9,6 @@ namespace TuneRoboWPF.Models
         public ObservableCollection<MotionFullInfoItem> LibraryItemsList = new ObservableCollection<MotionFullInfoItem>();
         public MotionTitleItem RemoteSelectedMotion;
         public MotionFullInfoItem LibrarySelectedMotion;
+        public double Volume = 0;
     }
 }

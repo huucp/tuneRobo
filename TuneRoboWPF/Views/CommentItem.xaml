@@ -48,6 +48,5 @@
                    HorizontalAlignment="Left" VerticalAlignment="Top" 
                    TextWrapping="Wrap" Text="{Binding CommentContent}"
                    FontSize="12"/>
-            
     </Grid>
 </UserControl>

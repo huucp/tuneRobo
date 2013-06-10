@@ -242,15 +242,31 @@ namespace TuneRoboWPF.Views
 
             GlobalVariables.StoreWorker.AddRequest(motionInfoRequest);
         }
-        
 
-        private void LibraryListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private bool mouseCaptured = false;
+        
+        private void VolumeBar_MouseMove(object sender, MouseEventArgs e)
         {
-            if (viewModel.LastLibrarySlectedMotion != null)
+            if (Mouse.LeftButton == MouseButtonState.Pressed && mouseCaptured)
             {
-                viewModel.LastLibrarySlectedMotion.ViewModel.Index =  LibraryListBox.Items.IndexOf(viewModel.LastLibrarySlectedMotion);
+                var x = e.GetPosition(volumeBar).X;
+                var ratio = x / volumeBar.ActualWidth;
+                viewModel.Volume = ratio * volumeBar.Maximum;
+                Console.WriteLine(viewModel.Volume);
             }
-            viewModel.LibrarySelectedMotion.ViewModel.Index = LibraryListBox.SelectedIndex;
+        }
+
+        private void VolumeBar_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            mouseCaptured = false;
+        }
+
+        private void VolumeBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            mouseCaptured = true;
+            var x = e.GetPosition(volumeBar).X;
+            var ratio = x / volumeBar.ActualWidth;
+            viewModel.Volume = ratio * volumeBar.Maximum;
         }
     }
 }

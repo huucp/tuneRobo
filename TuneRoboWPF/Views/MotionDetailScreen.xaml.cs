@@ -149,12 +149,19 @@ namespace TuneRoboWPF.Views
                         if (MotionID == motionInfo.motion_id) continue;
                         var verticalMotionItem = new MotionItemVertical();
                         verticalMotionItem.SetInfo(motionInfo);
+                        verticalMotionItem.MotionClicked+=RelatedMotions_MotionClicked;
                         ViewModel.RelatedMotionsList.Add(verticalMotionItem);
                         UpdateRelatedMotionCover(motionInfo.icon_url, verticalMotionItem);
                     }
                 });
             relatedRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
             GlobalVariables.StoreWorker.ForceAddRequest(relatedRequest);
+        }
+
+        private void RelatedMotions_MotionClicked(ulong motionid)
+        {
+            var motionDetailScreen = new MotionDetailScreen(motionid);
+            StaticMainWindow.Window.ChangeScreen(motionDetailScreen);
         }
 
         private void UpdateRelatedMotionCover(string url, MotionItemVertical item)

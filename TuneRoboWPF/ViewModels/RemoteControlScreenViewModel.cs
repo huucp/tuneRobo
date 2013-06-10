@@ -53,5 +53,14 @@ namespace TuneRoboWPF.ViewModels
                 NotifyPropertyChanged("LibrarySelectedMotion");
             }
         }
+        public double Volume
+        {
+            get { return model.Volume; }
+            set
+            {
+                model.Volume = value;
+                NotifyPropertyChanged("Volume");
+            }
+        }
     }
 }

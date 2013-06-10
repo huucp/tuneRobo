@@ -32,9 +32,9 @@
                             <Border x:Name="ContentPanel" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local" Margin="0,3,0,0" d:IsHidden="True">
                                 <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                             </Border>
-                            <Rectangle x:Name="TopBorder1" Fill="White" Height="1" Margin="0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="Auto" StrokeThickness="0"/>
-                            <Rectangle x:Name="TopBorder2" Fill="#FFCCCCCC" Height="1" Margin="0,1,0,0" Grid.Row="1" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="Auto"/>
-                            <Rectangle x:Name="TopBorder3" Fill="#FFDEDEDE" HorizontalAlignment="Stretch" Height="1" Margin="0,2,0,0" Grid.Row="1" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="Auto"/>
+                            <Rectangle x:Name="TopBorder1" Fill="White" Height="1" Margin="0" Grid.Row="1"  VerticalAlignment="Top" Width="Auto" StrokeThickness="0"/>
+                            <Rectangle x:Name="TopBorder2" Fill="#FFCCCCCC" Height="1" Margin="0,1,0,0" Grid.Row="1"  StrokeThickness="0" VerticalAlignment="Top" Width="Auto"/>
+                            <Rectangle x:Name="TopBorder3" Fill="#FFDEDEDE" HorizontalAlignment="Stretch" Height="1" Margin="0,2,0,0" Grid.Row="1"  StrokeThickness="0" VerticalAlignment="Top" Width="Auto"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsEnabled" Value="false">
@@ -52,9 +52,22 @@
         </DataTemplate>
     </UserControl.Resources>
     <ScrollViewer Margin="0" x:Name="MainScrollViewer" ScrollChanged="MainScrollViewer_ScrollChanged" VerticalScrollBarVisibility="Auto" >
-        <Grid>
-            <Rectangle Margin="0,200,0,0" Stroke="Black" VerticalAlignment="Top" Fill="Red"/>
-            <TabControl Margin="263.5,162,0,0" 
+        <Grid Background="#f2f2f2">
+        	<!--<Grid.Background>
+                <VisualBrush TileMode="Tile" Viewport="0,0,0.01,0.01">
+                    <VisualBrush.Visual>
+                        <Image Source="../Resources/Background1.png"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+        	</Grid.Background>-->
+            <Border Margin="0,200,0,0" VerticalAlignment="Stretch" Background="#E6E6E6">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Rectangle x:Name="TopBorder1" Fill="White" Height="1" Margin="0" Grid.Row="1"  VerticalAlignment="Top" Width="Auto" StrokeThickness="0"/>
+                    <Rectangle x:Name="TopBorder2" Fill="#FFCCCCCC" Height="1" Margin="0,1,0,0" Grid.Row="1"  StrokeThickness="0" VerticalAlignment="Top" Width="Auto"/>
+                    <Rectangle x:Name="TopBorder3" Fill="#FFDEDEDE" HorizontalAlignment="Stretch" Height="1" Margin="0,2,0,0" Grid.Row="1"  StrokeThickness="0" VerticalAlignment="Top" Width="Auto"/>
+                </Grid>
+            </Border>
+            <TabControl Margin="263,162,0,0" 
 				        x:Name="ContentTabControl"
 				        Style="{StaticResource TabControlStyle1}" 
                         Height="Auto" VerticalAlignment="Top"
@@ -62,8 +75,8 @@
                 <TabItem Header="Details" x:Name="DetailsTab">
                     <Grid>
                         <Grid.RowDefinitions>
-                        	<RowDefinition Height="Auto"/>
-                        	<RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <ListBox Grid.Row="0" x:Name="ScreenshotsListbox" Height="200" Margin="27.5,40,0,0" 
                                  VerticalAlignment="Top" HorizontalAlignment="Left" Width="751"
@@ -87,8 +100,8 @@
                 <TabItem Header="Rating and Reviews" x:Name="ReviewsTab">
                     <Grid >
                         <Grid.RowDefinitions>
-                        	<RowDefinition Height="Auto"/>
-                        	<RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="41,25,0,0" Text="AVERAGE RATING" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="13.333"/>
                         <System_Windows_Controls:Rating x:Name="ReviewsRatingControl" Width="100" HorizontalAlignment="Left"
@@ -104,7 +117,16 @@
                             <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
                         </System_Windows_Controls:Rating>
                         <Button x:Name="ReviewButton" Grid.Row="0" Content="Write a Review" Margin="314.5,23,380,0" Height="21.96" VerticalAlignment="Top"
-                                Click="ReviewButton_Click"/>
+                                Click="ReviewButton_Click">
+                        	<Button.Background>
+                        		<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        			<GradientStop Color="#FFE8E8E8"/>
+                        			<GradientStop Color="#FFDFDFDF" Offset="0.5"/>
+                        			<GradientStop Color="#FFDFDFDF" Offset="0.5"/>
+                        			<GradientStop Color="#FFD6D6D6" Offset="1"/>
+                        		</LinearGradientBrush>
+                        	</Button.Background>
+                        </Button>
                         <StackPanel x:Name="ReviewStackPanel" HorizontalAlignment="Stretch" Grid.Row="1" />
                     </Grid>
                 </TabItem>
@@ -119,10 +141,10 @@
                                     <WrapPanel                    
                         				Orientation="Horizontal" HorizontalAlignment="Stretch">
                                         <WrapPanel.Resources>
-                                        	<Style                    
+                                            <Style                    
                                         		TargetType="{x:Type Views:MotionItemVertical}">
-                                        		<Setter Property="Margin" Value="0,10,20,0"/>
-                                        	</Style>
+                                                <Setter Property="Margin" Value="0,10,20,0"/>
+                                            </Style>
                                         </WrapPanel.Resources>
                                     </WrapPanel>
                                 </ItemsPanelTemplate>
@@ -132,7 +154,7 @@
 
                 </TabItem>
             </TabControl>
-            <Rectangle x:Name="Artwork" HorizontalAlignment="Left" Height="220" Margin="43.5,49.5,0,0" 
+            <Rectangle x:Name="Artwork" HorizontalAlignment="Left" Height="220" Margin="30,48,0,0" 
                        Stroke="Gray" VerticalAlignment="Top" Width="220" RadiusY="40" RadiusX="40"
                        StrokeThickness ="1">
                 <Rectangle.Fill>
@@ -143,26 +165,39 @@
                     <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="LightGray"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Button x:Name="DownloadButton" Content="{Binding DownloadButtonContent}" HorizontalAlignment="Left" Height="29" 
-                    Margin="66,285,0,0" VerticalAlignment="Top" Width="156" Click="DownloadButton_Click"/>
-            <TextBlock x:Name="ArtistTextBlock" HorizontalAlignment="Left" Margin="66,358,0,0" 
-                       TextWrapping="Wrap" Text="{Binding ArtistName}" Width="156" Height="54" 
-                       VerticalAlignment="Top" FontWeight="UltraBold" FontSize="21.333" MouseDown="ArtistTextBlock_MouseDown">
+            <Button x:Name="DownloadButton" Content="{Binding DownloadButtonContent}" HorizontalAlignment="Left" Height="27" 
+                    Margin="57,281,0,0" VerticalAlignment="Top" Width="166" Click="DownloadButton_Click">
+            	<Button.Background>
+            		<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+            			<GradientStop Color="#FFD8D8D8" Offset="1"/>            			
+            			<GradientStop Color="#FFCDCDCD" Offset="0.619"/>
+            			<GradientStop Color="#FFE8E8E8"/>
+            		</LinearGradientBrush>
+            	</Button.Background>
+            </Button>
+            <TextBlock x:Name="ArtistTextBlock" HorizontalAlignment="Left" Margin="30,354,0,0" 
+                       TextWrapping="Wrap" Text="{Binding ArtistName}" 
+                       VerticalAlignment="Top" FontWeight="UltraBold" FontSize="21.333" MouseDown="ArtistTextBlock_MouseDown" TextAlignment="Center" Width="220">
                 <TextBlock.Style>
                    <Style TargetType="{x:Type TextBlock}" >
                        <Setter Property="Foreground" Value="{StaticResource BlackFont}"/>
+                       <Setter Property="TextBlock.Effect">
+                            <Setter.Value>
+                                <DropShadowEffect ShadowDepth="1" BlurRadius="1"  Direction="270" Color="White"/>
+                            </Setter.Value>
+                        </Setter>
                        <Style.Triggers>
                        	<Trigger Property ="IsMouseOver" Value="True">
-                       		<Setter Property= "Foreground" Value="Red"/>
+                       		<Setter Property= "Foreground" Value="#FF1a6ab9"/>
                        	</Trigger>
                        </Style.Triggers>
                     </Style>
                </TextBlock.Style>
             </TextBlock>
             <System_Windows_Controls:Rating x:Name="RatingControl" 
-				Height="20" Width="100" HorizontalAlignment="Left" 
-				VerticalAlignment="Top"
-				Value="{Binding RatingValue}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" Margin="81,328,0,0">
+				Height="20" Width="100" Background="Transparent"
+				VerticalAlignment="Top" HorizontalAlignment="Left" 
+				Value="{Binding RatingValue}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" Margin="81,321,0,0">
                 <System_Windows_Controls:Rating.LayoutTransform>
                     <ScaleTransform ScaleX="1" ScaleY="1"/>
                 </System_Windows_Controls:Rating.LayoutTransform>
@@ -172,9 +207,16 @@
                 <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
                 <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
             </System_Windows_Controls:Rating>
-            <TextBlock HorizontalAlignment="Left" Margin="302,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
-                       FontSize="21.333" FontWeight="ExtraBold" Text="{Binding MotionTitle}"/>
-            <TextBlock HorizontalAlignment="Left" Margin="185,328,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15"
+            <TextBlock x:Name="MotionTitle" HorizontalAlignment="Left" Margin="278,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
+                       FontSize="24" FontWeight="Bold" Text="{Binding MotionTitle}">
+            	<TextBlock.Foreground>
+            		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            			<GradientStop Color="#FF5F5F5F" Offset="1"/>
+            			<GradientStop Color="#FF2F2F2F"/>
+            		</LinearGradientBrush>
+            	</TextBlock.Foreground>
+            </TextBlock>
+            <TextBlock x:Name="RatingNumber" HorizontalAlignment="Left" Margin="185,321,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15"
 				Text="{Binding NumberRating}" Foreground="{StaticResource BlackFont}"/>
         </Grid>
     </ScrollViewer>
