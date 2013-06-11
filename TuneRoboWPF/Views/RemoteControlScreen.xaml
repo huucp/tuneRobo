@@ -9,118 +9,81 @@
     Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
-        <SolidColorBrush x:Key="ScrollBarDisabledBackground" Color="#F4F4F4"/>
-        <Style x:Key="VerticalScrollBarPageButton" TargetType="{x:Type RepeatButton}">
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Focusable" Value="false"/>
-            <Setter Property="IsTabStop" Value="false"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type RepeatButton}">
-                        <Rectangle Fill="{TemplateBinding Background}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="IsTabStop" Value="false"/>
+       
+        <Style x:Key="CustomThumbForSlider" TargetType="{x:Type Thumb}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Thumb}">
-                        <Border Background="#FF868686" BorderThickness="0,0,1,0" Height="Auto" CornerRadius="4" />
+                        <Ellipse Fill="#FFf5f5f5" Stroke="#FFc3c3c3" Height="15" Width="15">
+                            <Ellipse.Effect>
+                                <DropShadowEffect Direction="270" BlurRadius="2" ShadowDepth="1" Color="#dddddd"/>
+                            </Ellipse.Effect>
+                        </Ellipse>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="HorizontalScrollStyle" TargetType="{x:Type ScrollBar}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ScrollBar}">
-                        <Grid x:Name="Bg" Background="{TemplateBinding Background}" Height="10" SnapsToDevicePixels="true">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}">
-                                <Track.DecreaseRepeatButton>
-                                    <RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Style="{StaticResource VerticalScrollBarPageButton}"/>
-                                </Track.DecreaseRepeatButton>
-                                <Track.IncreaseRepeatButton>
-                                    <RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource VerticalScrollBarPageButton}"/>
-                                </Track.IncreaseRepeatButton>
-                                <Track.Thumb>
-                                    <Thumb Style="{StaticResource ScrollBarThumb}" Cursor="Hand"/>
-                                </Track.Thumb>
-                            </Track>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="Bg" Value="{StaticResource ScrollBarDisabledBackground}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="AppleStyleVerticalScrollBarStyle" TargetType="{x:Type ScrollBar}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ScrollBar}">
-                        <Grid x:Name="Bg" SnapsToDevicePixels="true" Width="10" HorizontalAlignment="Right" Margin="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}">
-                                <Track.DecreaseRepeatButton>
-                                    <RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Style="{StaticResource VerticalScrollBarPageButton}" />
-                                </Track.DecreaseRepeatButton>
-                                <Track.IncreaseRepeatButton>
-                                    <RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource VerticalScrollBarPageButton}"/>
-                                </Track.IncreaseRepeatButton>
-                                <Track.Thumb>
-                                    <Thumb Style="{DynamicResource ScrollBarThumb}" Cursor="Hand"/>
-                                </Track.Thumb>
-                            </Track>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <ControlTemplate x:Key="AppleStyleScrollBarStyle" TargetType="{x:Type ScrollViewer}">
-            <Grid x:Name="Grid" Background="{TemplateBinding Background}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Rectangle x:Name="Corner" Grid.Column="1" Fill="{x:Null}" Grid.Row="1"/>
-                <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}"   
-                      CanHorizontallyScroll="False" CanVerticallyScroll="False"   
-                      ContentTemplate="{TemplateBinding ContentTemplate}"   
-                      Content="{TemplateBinding Content}" Grid.Column="0"   
-                      Margin="{TemplateBinding Padding}" Grid.Row="0"/>
-                <ScrollBar x:Name="PART_VerticalScrollBar" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"   
-              AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Grid.Column="1"   
-              Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Grid.Row="0"   
-              Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"   
-              ViewportSize="{TemplateBinding ViewportHeight}" Style="{DynamicResource AppleStyleVerticalScrollBarStyle}"   
-                Background="{x:Null}" Width="Auto" Margin="0"/>
-                <ScrollBar x:Name="PART_HorizontalScrollBar" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"   
-              AutomationProperties.AutomationId="HorizontalScrollBar" Cursor="Arrow" Grid.Column="0"   
-              Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Orientation="Horizontal" Grid.Row="1"   
-              Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"   
-              ViewportSize="{TemplateBinding ViewportWidth}" Style="{DynamicResource HorizontalScrollStyle}"/>
-            </Grid>
-        </ControlTemplate>
 
+        <Style x:Key="SliderRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="IsTabStop" Value="false"/>
+            <Setter Property="Focusable" Value="false"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RepeatButton}">
+                        <Rectangle Fill="Transparent"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>        
+
+        <Style x:Key="VolumeSliderStyle" TargetType="{x:Type Slider}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Slider}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TickBar x:Name="TopTick" Visibility="Collapsed" Fill="{TemplateBinding Foreground}" Placement="Top" Height="4" Grid.Row="0"/>
+                                <TickBar x:Name="BottomTick" Visibility="Collapsed" Fill="{TemplateBinding Foreground}" Placement="Bottom" Height="4" Grid.Row="0"/>
+                                <Border x:Name="TrackBackground" Background="Transparent"
+                                        BorderBrush="Transparent"   
+                                        BorderThickness="1" CornerRadius="1"
+                                        Margin="5,0" VerticalAlignment="Center" Height="4.0" Grid.Row="1" >
+                                    <Canvas Margin="-6,-1">
+                                        <Rectangle Visibility="Hidden" x:Name="PART_SelectionRange" Height="4.0"
+                                                   Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
+                                                   Stroke="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
+                                                   StrokeThickness="0.0"/>
+                                        
+                                    </Canvas>
+                                </Border>
+                                <Track x:Name="PART_Track" Grid.Row="1">
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}"/>
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}"/>
+                                    </Track.IncreaseRepeatButton>
+                                    <Track.Thumb>
+                                        <Thumb x:Name="Thumb" Style="{StaticResource CustomThumbForSlider}" Background="Transparent"/>
+                                    </Track.Thumb>
+                                </Track>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <Style x:Key="VolumeStyle" TargetType="{x:Type ProgressBar}">
-            <Setter Property="Foreground" Value="#FFB00606"/>
+            <Setter Property="Foreground" Value="#FFf5f5f5"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -128,10 +91,11 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ProgressBar}">
                         <Grid x:Name="TemplateRoot">
-                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"/>
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"
+                                    CornerRadius="4"/>
                             <Rectangle x:Name="PART_Track"/>
                             <Grid x:Name="PART_Indicator" ClipToBounds="True" HorizontalAlignment="Left">
-                                <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}" RadiusX="5" RadiusY="3"/>
+                                <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}" RadiusX="4" RadiusY="4"/>
                             </Grid>
                         </Grid>
                     </ControlTemplate>
@@ -141,23 +105,23 @@
 
     </UserControl.Resources>
     <Grid x:Name="LayoutRoot">
-                
+
         <ListBox x:Name="RemoteListBox" HorizontalAlignment="Right" Margin="0,90,8,0" 
                  Width="382.5" 
                  HorizontalContentAlignment="Stretch"
                  SelectedItem ="{Binding RemoteSelectedMotion}"
                  ItemsSource ="{Binding RemoteItemsList}"				 
                  SelectionChanged="RemoteListBox_SelectionChanged" 
-                 SelectedIndex="0">            
+                 SelectedIndex="0">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Padding" Value="0"/>
                 </Style>
-            </ListBox.ItemContainerStyle>            
+            </ListBox.ItemContainerStyle>
         </ListBox>
-        
-        
-        
+
+
+
         <TextBlock x:Name="UnconnectedTextBox" 
                    HorizontalAlignment="Left" 
                    MouseDown="UnconnectedTextBox_MouseDown"  
@@ -188,16 +152,21 @@
         <ScrollViewer Margin="20,90,434,0" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ScrollViewer.Resources>
                 <Style TargetType="ScrollViewer">
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>                    
                 </Style>
+                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource FullAppleScrollBar}"/>
             </ScrollViewer.Resources>
             <ItemsControl ItemsSource="{Binding LibraryItemsList}" HorizontalContentAlignment="Stretch"/>
         </ScrollViewer>
-        <ProgressBar x:Name="volumeBar"  Height="10" 
-                    Value="{Binding Volume}" 
-                    Width="100"
-                    MouseMove="VolumeBar_MouseMove" 
-                    MouseDown="VolumeBar_MouseDown"
-                    MouseUp="VolumeBar_MouseUp" Style="{DynamicResource VolumeStyle}" HorizontalAlignment="Right" Margin="0,55,407.5,0" VerticalAlignment="Top" d:LayoutOverrides="Width, Height" Background="#00100A0A" BorderBrush="#FF121010" BorderThickness="1"/>
+        <ProgressBar x:Name="volumeBar"  Height="9" Width="100"
+                    Value="{Binding Volume}" Maximum="10"
+                    Style="{DynamicResource VolumeStyle}" HorizontalAlignment="Right" Margin="0,55,400,0" VerticalAlignment="Top" d:LayoutOverrides="Width" 
+                     Background="#cdced5" BorderBrush="#FFb6b6ba" BorderThickness="1">
+            <ProgressBar.Effect>
+                <DropShadowEffect ShadowDepth="1" BlurRadius="1" Color="White"/>
+            </ProgressBar.Effect>
+        </ProgressBar>
+        <Slider x:Name="VolumeSlider" HorizontalAlignment="Right" Height="43" Margin="0,52,400,0" VerticalAlignment="Top" Width="100" Value="{Binding Volume}"
+                IsSnapToTickEnabled="True" TickFrequency="1" IsMoveToPointEnabled="true" Style="{StaticResource VolumeSliderStyle}"/>
     </Grid>
 </UserControl>

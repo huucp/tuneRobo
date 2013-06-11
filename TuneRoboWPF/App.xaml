@@ -5,8 +5,9 @@
         
     	<ResourceDictionary>
     		<ResourceDictionary.MergedDictionaries>
-    			<ResourceDictionary Source="Utility\ConfigDictionary.xaml"/>
+    			<ResourceDictionary Source="Utility/ConfigDictionary.xaml"/>
     			<ResourceDictionary Source="Utility/StyleAndTemplateDictionary.xaml"/>
+                <ResourceDictionary Source="Themes/ScrollBar.xaml"/>
     		</ResourceDictionary.MergedDictionaries>
     	</ResourceDictionary>
         

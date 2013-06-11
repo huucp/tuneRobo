@@ -243,30 +243,6 @@ namespace TuneRoboWPF.Views
             GlobalVariables.StoreWorker.AddRequest(motionInfoRequest);
         }
 
-        private bool mouseCaptured = false;
         
-        private void VolumeBar_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (Mouse.LeftButton == MouseButtonState.Pressed && mouseCaptured)
-            {
-                var x = e.GetPosition(volumeBar).X;
-                var ratio = x / volumeBar.ActualWidth;
-                viewModel.Volume = ratio * volumeBar.Maximum;
-                Console.WriteLine(viewModel.Volume);
-            }
-        }
-
-        private void VolumeBar_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            mouseCaptured = false;
-        }
-
-        private void VolumeBar_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            mouseCaptured = true;
-            var x = e.GetPosition(volumeBar).X;
-            var ratio = x / volumeBar.ActualWidth;
-            viewModel.Volume = ratio * volumeBar.Maximum;
-        }
     }
 }
