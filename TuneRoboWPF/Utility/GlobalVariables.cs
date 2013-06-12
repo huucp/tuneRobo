@@ -246,7 +246,7 @@ namespace TuneRoboWPF.Utility
         // Maximum of packet size
         public const int WirelessPacketMtu = 512;
 
-        public static byte[] MRoboSessionID = new byte[] { 0, 0 };
+        public static byte[] RobotSessionID = new byte[] { 0, 0 };
 
         public static RobotState CurrentRobotState = new RobotState();
         public static List<MotionInfo> CurrentListMotion = new List<MotionInfo>();

@@ -1,4 +1,5 @@
-﻿using TuneRoboWPF.Utility;
+﻿using System.Diagnostics;
+using TuneRoboWPF.Utility;
 
 namespace TuneRoboWPF.RobotService
 {
@@ -34,17 +35,24 @@ namespace TuneRoboWPF.RobotService
             var tmp = GlobalFunction.SplitByteArray(ReplyPacket, 10, 2);
             if (RequestID == RobotPacket.PacketID.Hello)
             {
-                GlobalVariables.MRoboSessionID = tmp;
+                GlobalVariables.RobotSessionID = tmp;
                 return true;
             }
-            return GlobalFunction.CompareByteArray(tmp, GlobalVariables.MRoboSessionID);
+            if (GlobalFunction.CompareByteArray(tmp, GlobalVariables.RobotSessionID))
+            {
+                return true;
+            }            
+            Debug.Fail("Wrong sesson ID",string.Format("{0:d} vs {1:d}",GlobalFunction.LE2ToDec(tmp),GlobalFunction.LE2ToDec(GlobalVariables.RobotSessionID)));
+            return false ;
         }
 
         private bool CheckReplyID()
         {
             byte[] tmp = GlobalFunction.SplitByteArray(ReplyPacket, 8, 2);
             int id = GlobalFunction.LE2ToDec(tmp);
-            return (id == GlobalVariables.ID_ACK);
+            if (id == GlobalVariables.ID_ACK) return true;
+            Debug.Fail("ID error",id.ToString());
+            return false;
         }
         private RobotReplyData ProcessACKPacket()
         {

@@ -66,7 +66,7 @@ namespace TuneRoboWPF.RobotService
             }
             else
             {
-                data.AddRange(GlobalVariables.MRoboSessionID);
+                data.AddRange(GlobalVariables.RobotSessionID);
             }
 
             if (Parameters != null)

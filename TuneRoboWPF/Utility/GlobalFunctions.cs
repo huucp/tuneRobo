@@ -345,6 +345,7 @@ namespace TuneRoboWPF.Utility
         // Convert a hexadecimal number in 2 byte big endian format to a decimal number
         public static int LE2ToDec(byte[] data)
         {
+            Debug.Assert(data.Length!=0,"Byte array cannot be null!");
             return (data[1] << 8) | data[0];
         }
 

@@ -44,7 +44,21 @@ namespace TuneRoboWPF.Views
             RatingControl.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void TransferButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        // Create a custom routed event by first registering a RoutedEventID 
+        // This event uses the bubbling routing strategy 
+        public static readonly RoutedEvent CopyMotionEvent = EventManager.RegisterRoutedEvent(
+            "CopyMotion", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MotionTitleItem));
+
+        // Provide CLR accessors for the event 
+        public event RoutedEventHandler CopyMotion
+        {
+            add { AddHandler(CopyMotionEvent, value); }
+            remove { RemoveHandler(CopyMotionEvent, value); }
+        }
+
+        // This method raises the CopyMotion event
+
+        private void TransferButton_Click(object sender, RoutedEventArgs e)
         {
             if (!GlobalVariables.RoboOnline)
             {
@@ -54,7 +68,12 @@ namespace TuneRoboWPF.Views
             {
                 var transferRequest = new TransferMotionToRobot(MotionID);
                 var transferWindow = new Windows.TransferWindow(transferRequest, MotionID.ToString());
-                transferWindow.ShowDialog();
+                if(transferWindow.ShowDialog() ==true)
+                {
+                    var newEventArgs = new RoutedEventArgs(CopyMotionEvent);
+                    RaiseEvent(newEventArgs);
+                }
+
             }
         }
     }
