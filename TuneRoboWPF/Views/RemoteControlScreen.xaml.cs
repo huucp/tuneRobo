@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,8 +20,7 @@ namespace TuneRoboWPF.Views
     /// </summary>
     public partial class RemoteControlScreen : UserControl
     {
-        private DockPanel MainWindowDock { get; set; }
-        public RemoteControlScreen(DockPanel dock)
+        public RemoteControlScreen()
         {
             this.InitializeComponent();
 
@@ -28,12 +28,16 @@ namespace TuneRoboWPF.Views
             var remoteViewModel = new RemoteControlScreenViewModel();
             DataContext = remoteViewModel;
             viewModel = (RemoteControlScreenViewModel)DataContext;
-            MainWindowDock = dock;
 
             PlayPauseButtons.UpdateParentControl += PlayPauseButtonsUpdateParentControl;
             NextButton.UpdateParentControl += NextButton_UpdateParentControl;
             PreviousButton.UpdateParentControl += PreviousButton_UpdateParentControl;
             TransformButton.UpdateParentControl += TransformButton_UpdateParentControl;
+            if (GlobalVariables.RoboOnline)
+            {
+                UnconnectedTextBox.Visibility = Visibility.Hidden;
+                GetListMotion();
+            }
         }
 
         private void PreviousButton_UpdateParentControl(object sender)
@@ -123,11 +127,6 @@ namespace TuneRoboWPF.Views
 
         private void RemoteListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (viewModel.LastRemoteSelectedMotion != null)
-            {
-                viewModel.LastRemoteSelectedMotion.ViewModel.RectangleFillColor = "Yellow";
-            }
-            viewModel.RemoteSelectedMotion.ViewModel.RectangleFillColor = "Red";
         }
 
         private void UnconnectedTextBox_MouseDown(object sender, MouseButtonEventArgs e)
@@ -161,20 +160,27 @@ namespace TuneRoboWPF.Views
 
             GlobalVariables.RobotWorker.AddJob(helloRequest);
         }
+        private List<MotionInfo> RobotListMotion = new List<MotionInfo>();
 
         private void GetListMotion()
         {
-            var listAllMotionRequest = new ListAllMotionRequest();
-            if (viewModel.RemoteItemsList.Count > 0) viewModel.RemoteItemsList.Clear();
+            var listAllMotionRequest = new ListAllMotionRobotRequest();
+            if (viewModel.RemoteItemsList.Count > 0)
+            {
+                viewModel.RemoteItemsList.Clear();
+                RobotListMotion.Clear();
+            }
             listAllMotionRequest.ProcessSuccessfully += (listMotionInfo) => Dispatcher.BeginInvoke((Action)delegate
             {
-                var listMotion = new ObservableCollection<MotionTitleItem>();
+                RobotListMotion.AddRange(listMotionInfo);
                 foreach (MotionInfo info in listMotionInfo)
                 {
                     if (info.MType != MotionInfo.MotionType.Dance) continue;
                     var motionTitleItem = new MotionTitleItem();
+                    motionTitleItem.MotionID = info.MotionID;
                     motionTitleItem.ViewModel.Title = info.Title;
-                    listMotion.Add(motionTitleItem);
+                    motionTitleItem.ViewModel.Duration = info.Duration;
+                    motionTitleItem.DeleteMotion += MotionTitleItem_DeleteMotion;
                     viewModel.RemoteItemsList.Add(motionTitleItem);
                 }
 
@@ -193,6 +199,38 @@ namespace TuneRoboWPF.Views
                 Console.WriteLine(msg);
             };
             GlobalVariables.RobotWorker.AddJob(listAllMotionRequest);
+        }
+
+        private void MotionTitleItem_DeleteMotion(ulong motionID)
+        {
+            var delRequest = new RemoteRequest(RobotPacket.PacketID.DeleteMotion, -1, motionID);
+            delRequest.ProcessSuccessfully += (reply) =>
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    GetListMotion();
+                    RemoteListBox.SelectedIndex = 0;
+                });
+
+            delRequest.ProcessError += (errorCode, msg) => Debug.Fail(errorCode.ToString(), msg);
+            GlobalVariables.RobotWorker.AddJob(delRequest);
+        }
+
+        private void MotionTitleItem_DeleteMotion1(object sender, RoutedEventArgs e)
+        {
+            var motionID = RobotListMotion[RemoteListBox.SelectedIndex].MotionID;
+            Console.WriteLine(motionID);
+            return;
+
+            var delRequest = new RemoteRequest(RobotPacket.PacketID.DeleteMotion, -1, motionID);
+            delRequest.ProcessSuccessfully += (reply) =>
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    GetListMotion();
+                    RemoteListBox.SelectedIndex = 0;
+                });
+
+            delRequest.ProcessError += (errorCode, msg) => Debug.Fail(errorCode.ToString(), msg);
+            GlobalVariables.RobotWorker.AddJob(delRequest);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -214,14 +252,20 @@ namespace TuneRoboWPF.Views
                 var motionInfo = new MotionInfo(file);
                 var motionItem = new MotionFullInfoItem();
                 motionItem.SetMotionInfo(motionInfo);
-                motionItem.ViewModel.RatingValue = r.Next(1, 5) / 5.0;
                 motionItem.ViewModel.HitTestVisible = false;
                 motionItem.ViewModel.Index = ++index;
+                motionItem.CopyMotion+=Library_CopyMotion;
                 viewModel.LibraryItemsList.Add(motionItem);
                 DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
             }
             GlobalVariables.StoreWorker.IsClearWorker = true;
         }
+
+        private void Library_CopyMotion(object sender, RoutedEventArgs e)
+        {
+            GetListMotion();
+        }
+
         private void DownloadImage(ulong id, MotionFullInfoItemViewModel model)
         {
             var motionInfoRequest = new GetMotionFullInfoStoreRequest(id);
@@ -235,14 +279,11 @@ namespace TuneRoboWPF.Views
                                                                                                                                      });
                                                              GlobalVariables.ImageDownloadWorker.AddDownload(imageDownload);
                                                          };
-            motionInfoRequest.ProcessError += (data, msg) =>
-                                                  {
-                                                      Console.WriteLine("get info failed: {0}", msg);
-                                                  };
+            motionInfoRequest.ProcessError += (data, msg) => Debug.Fail(data.type.ToString(), msg);
 
             GlobalVariables.StoreWorker.AddRequest(motionInfoRequest);
         }
 
-        
+
     }
 }

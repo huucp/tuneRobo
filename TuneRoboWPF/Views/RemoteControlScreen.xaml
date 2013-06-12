@@ -104,15 +104,28 @@
         </Style>
 
     </UserControl.Resources>
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
 
-        <ListBox x:Name="RemoteListBox" HorizontalAlignment="Right" Margin="0,90,8,0" 
-                 Width="382.5" 
+        <ListBox x:Name="RemoteListBox" Grid.Column="1"
+                 HorizontalAlignment="Stretch" Margin="20,90,0,0" 
                  HorizontalContentAlignment="Stretch"
                  SelectedItem ="{Binding RemoteSelectedMotion}"
                  ItemsSource ="{Binding RemoteItemsList}"				 
                  SelectionChanged="RemoteListBox_SelectionChanged" 
                  SelectedIndex="0">
+            <ListBox.Style>
+                <Style TargetType="{x:Type ListBox}">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#3c3c3c" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                    </Style.Resources>
+                </Style>
+            </ListBox.Style>
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Padding" Value="0"/>
@@ -122,34 +135,34 @@
 
 
 
-        <TextBlock x:Name="UnconnectedTextBox" 
-                   HorizontalAlignment="Left" 
+        <TextBlock x:Name="UnconnectedTextBox" Grid.Column="1"
+                   HorizontalAlignment="Center" 
                    MouseDown="UnconnectedTextBox_MouseDown"  
-                   TextWrapping="Wrap" Margin="806.167,354,0,0" 
+                   TextWrapping="Wrap" Margin="20,90,0,0" 
                    Width="205.413" 
                    Panel.ZIndex="1" 
                    TextAlignment="Center" 
                    TextDecorations="Underline" 
                    RenderTransformOrigin="0.165,0.33" 
                    Height="27.627" 
-                   VerticalAlignment="Top" 
+                   VerticalAlignment="Center" 
                    Cursor="Hand">
             <Run Text="Please connect to robot"/>
         </TextBlock>
-        <local:PreviousTrackButton x:Name="PreviousButton" HorizontalAlignment="Left" 
-                                   Margin="832,55,0,0" VerticalAlignment="Top" Width="35" 
-                                   Height="35" />
-        <local:PlayPauseButton x:Name="PlayPauseButtons" HorizontalAlignment="Left" 
-                               Height="35" Margin="868,55,0,0" VerticalAlignment="Top" Width="35"/>
-        <local:NextTrackButton x:Name="NextButton" Margin="904,55,0,0" VerticalAlignment="Top" 
-                               Width="35" Height="35" HorizontalAlignment="Left" 
-                               d:LayoutOverrides="Width"/>
-        <local:VolumeButton x:Name="VolumeButton" HorizontalAlignment="Left" Margin="940,55,0,0" 
-                            VerticalAlignment="Top" Width="35" Height="35"/>
-        <local:RobotTransformButton x:Name="TransformButton" HorizontalAlignment="Left" 
-                                    Margin="752,55,0,0" Width="35" Height="35" 
-                                    VerticalAlignment="Top"/>
-        <ScrollViewer Margin="20,90,434,0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <local:PreviousTrackButton x:Name="PreviousButton" 
+                                   Margin="144.5,55,233,0" VerticalAlignment="Top" Width="Auto" 
+                                   Height="35" Grid.Column="1" d:LayoutOverrides="GridBox" />
+        <local:PlayPauseButton x:Name="PlayPauseButtons" 
+                               Height="35" Margin="180.5,55,197,0" VerticalAlignment="Top" Width="Auto" Grid.Column="1" d:LayoutOverrides="GridBox"/>
+        <local:NextTrackButton x:Name="NextButton" Margin="216.5,55,161,0" VerticalAlignment="Top" 
+                               Width="35" Height="35" 
+                               d:LayoutOverrides="GridBox" Grid.Column="1"/>
+        <local:VolumeButton x:Name="VolumeButton" Margin="252.5,55,125,0" 
+                            VerticalAlignment="Top" Width="Auto" Height="35" Grid.Column="1" d:LayoutOverrides="GridBox"/>
+        <local:RobotTransformButton x:Name="TransformButton" 
+                                    Margin="64.5,55,313,0" Width="Auto" Height="35" 
+                                    VerticalAlignment="Top" Grid.Column="1" d:LayoutOverrides="GridBox"/>
+        <ScrollViewer Margin="20,90,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Column="0">
             <ScrollViewer.Resources>
                 <Style TargetType="ScrollViewer">
                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>                    
@@ -160,13 +173,13 @@
         </ScrollViewer>
         <ProgressBar x:Name="volumeBar"  Height="9" Width="100"
                     Value="{Binding Volume}" Maximum="10"
-                    Style="{DynamicResource VolumeStyle}" HorizontalAlignment="Right" Margin="0,55,400,0" VerticalAlignment="Top" d:LayoutOverrides="Width" 
-                     Background="#cdced5" BorderBrush="#FFb6b6ba" BorderThickness="1">
+                    Style="{DynamicResource VolumeStyle}" HorizontalAlignment="Right" Margin="0,69.815,8,0" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment, Width" 
+                     Background="#cdced5" BorderBrush="#FFb6b6ba" BorderThickness="1" Grid.Column="1">
             <ProgressBar.Effect>
                 <DropShadowEffect ShadowDepth="1" BlurRadius="1" Color="White"/>
             </ProgressBar.Effect>
         </ProgressBar>
-        <Slider x:Name="VolumeSlider" HorizontalAlignment="Right" Height="43" Margin="0,52,400,0" VerticalAlignment="Top" Width="100" Value="{Binding Volume}"
-                IsSnapToTickEnabled="True" TickFrequency="1" IsMoveToPointEnabled="true" Style="{StaticResource VolumeSliderStyle}"/>
+        <Slider x:Name="VolumeSlider" HorizontalAlignment="Right" Margin="0,66.815,8,0" VerticalAlignment="Top" Width="100" Value="{Binding Volume}"
+                IsSnapToTickEnabled="True" TickFrequency="1" IsMoveToPointEnabled="true" Style="{StaticResource VolumeSliderStyle}" Grid.Column="1" d:LayoutOverrides="HorizontalAlignment"/>
     </Grid>
 </UserControl>

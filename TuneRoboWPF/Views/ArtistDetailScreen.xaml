@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <converter:NumberMotionToStringConverter x:Key="NumberMotionToStringConverter"/>
         <converter:BoolToFollowButtonContentConverter x:Key="BoolToFollowButtonContentConverter"/>
-        <converter:BoolToFollowButtonVisibilityConverter x:Key="BoolToFollowButtonVisibilityConverter"/>
+        <converter:BoolToVisibilityConverter x:Key="BoolToFollowButtonVisibilityConverter"/>
         <LinearGradientBrush x:Key="TabControlGradientBorderBrush" StartPoint="0,0" EndPoint="0,1">
             <GradientStop Color="#FFFFFF" Offset="0"/>
             <GradientStop Color="#EBEBEB" Offset="0.33"/>

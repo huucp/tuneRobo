@@ -4,16 +4,17 @@ using System.Windows.Data;
 
 namespace TuneRoboWPF.Converter
 {
-    public class BoolToFollowButtonVisibilityConverter:IValueConverter
+    public class BoolToVisibilityConverter:IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool state = value is bool && (bool)value;
+            string visibility = parameter is string ? (string) parameter : "Collapsed";
             if (state)
             {
                 return "Visible";
             }
-            return "Collapsed";
+            return visibility;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

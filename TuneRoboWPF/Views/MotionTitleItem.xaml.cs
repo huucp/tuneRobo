@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
 using TuneRoboWPF.RobotService;
 using TuneRoboWPF.ViewModels;
 
@@ -18,5 +21,24 @@ namespace TuneRoboWPF.Views
 		    ViewModel = (MotionTitleItemViewModel) (DataContext);
 		}               
 	    public MotionTitleItemViewModel ViewModel;
+        public ulong MotionID { get; set; }
+
+        public delegate void DeleteMotionEventHandler(ulong motionID);
+
+        public event DeleteMotionEventHandler DeleteMotion;
+
+        private void OnDeleteMotion(ulong motionID)
+        {
+            DeleteMotionEventHandler handler = DeleteMotion;
+            if (handler != null) handler(motionID);
+        }
+
+
+        // This method raises the DeleteMotion event         
+        private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Debug.Assert(MotionID!=0, "Must set motion ID when create motion item");
+            OnDeleteMotion(MotionID);
+        }
 	}
 }

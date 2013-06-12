@@ -83,8 +83,8 @@ namespace TuneRoboWPF
                     MessageBoxImage.Error);
             }
             
-            var storeScreen = new StoreScreen();
-            MainDock.Children.Add(storeScreen);
+            var firstScreen = new RemoteControlScreen();
+            MainDock.Children.Add(firstScreen);
         }
 
    
@@ -96,13 +96,17 @@ namespace TuneRoboWPF
 
         private void navigationBar_RemoteButtonClick(object sender, RoutedEventArgs e)
         {
-            var remoteScreen = new RemoteControlScreen(MainDock);
+            var remoteScreen = new RemoteControlScreen();
             ChangeScreen(remoteScreen);
         }               
 
         public void ChangeScreen(UserControl screen)
         {
             var lastElement = MainDock.Children[MainDock.Children.Count - 1];
+            if (lastElement.GetType() == screen.GetType())
+            {
+                return;                
+            }
             MainDock.Children.Remove(lastElement);
             MainDock.Children.Add(screen);
         }

@@ -3,12 +3,40 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	mc:Ignorable="d" x:Class="TuneRoboWPF.Views.MotionTitleItem">
-	
+	mc:Ignorable="d" x:Class="TuneRoboWPF.Views.MotionTitleItem"
+    xmlns:converter="clr-namespace:TuneRoboWPF.Converter">
+    <UserControl.Resources>
+        <converter:SecondsToTimeSpanConverter x:Key="SecondsToTimeSpanConverter"/>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </UserControl.Resources>
 
-	<Grid x:Name="LayoutRoot"  Height="27">
-		<Rectangle Fill="{Binding RectangleFillColor}" Stroke="Black" StrokeThickness="0"/>
-        <TextBlock x:Name="MotionTitle"  HorizontalAlignment="Left" Height="15" Margin="32,6,0,0" 
-                   TextWrapping="Wrap" Text="{Binding Title}" VerticalAlignment="Top" Width="211"/>
-	</Grid>
+    <Grid x:Name="LayoutRoot"  Height="30">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="15"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="MotionTitle"  HorizontalAlignment="Left"
+                   TextWrapping="NoWrap" Text="{Binding Title}" VerticalAlignment="Center"
+                   Grid.Column="1"
+                   TextTrimming="CharacterEllipsis"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment ="Center" 
+                   Grid.Column="2" Text="{Binding Duration, Converter={StaticResource SecondsToTimeSpanConverter}}"/>
+        <Image Source="{StaticResource TrashIcon}" Grid.Column="3" 
+               VerticalAlignment="Center" Visibility="{Binding TrashVisibility, Converter={StaticResource BoolToVisibilityConverter},ConverterParameter='Hidden'}"
+               MouseDown="Image_MouseDown" HorizontalAlignment="Stretch">
+            <Image.Style>
+                <Style TargetType="{x:Type Image}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>                
+            </Image.Style>
+        </Image>
+        <Image Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+               Source="{StaticResource PlayMotionHeader}" Visibility="{Binding HeaderVisibility}"/>
+    </Grid>
 </UserControl>

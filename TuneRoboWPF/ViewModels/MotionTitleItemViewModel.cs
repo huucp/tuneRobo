@@ -5,7 +5,7 @@ namespace TuneRoboWPF.ViewModels
     public class MotionTitleItemViewModel : ViewModelBase
     {
         private MotionTitleItemModel model = new MotionTitleItemModel();
-        
+
         public string Title
         {
             get { return model.MotionTitle; }
@@ -16,14 +16,33 @@ namespace TuneRoboWPF.ViewModels
             }
         }
 
-        
-        public string RectangleFillColor
+
+        public uint Duration
         {
-            get { return model.RectangleFillColor; }
+            get { return model.Duration; }
             set
             {
-                model.RectangleFillColor = value;
-                NotifyPropertyChanged("RectangleFillColor");
+                model.Duration = value;
+                NotifyPropertyChanged("Duration");
+            }
+        }
+
+        public bool TrashVisibility
+        {
+            get { return model.TrashVisibility; }
+            set
+            {
+                model.TrashVisibility = value;
+                NotifyPropertyChanged("TrashVisibility");
+            }
+        }
+        public string HeaderVisibility
+        {
+            get { return model.HeaderVisibility; }
+            set
+            {
+                model.HeaderVisibility = value;
+                NotifyPropertyChanged("HeaderVisibility");
             }
         }
     }

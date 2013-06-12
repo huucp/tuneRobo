@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TuneRoboWPF.Models
+﻿namespace TuneRoboWPF.Models
 {
     public class MotionTitleItemModel
     {
-        public string MotionTitle = "Motion title";
-        public string RectangleFillColor = "Yellow";
+        public string MotionTitle = string.Empty;
+        public uint Duration = 0;
+        public bool TrashVisibility = true;       
+        public string HeaderVisibility = "Hidden";       
     }
 }

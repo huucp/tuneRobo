@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Size x:Key="ScreenSize" Width="1100" Height="703"/>
     <Style x:Key="ScreenSizeStyle" TargetType="{x:Type UserControl}">
         <Setter Property="Height" Value="703"/>
@@ -8,6 +7,8 @@
     </Style>
     <BitmapImage x:Key="DefaultImage" UriSource="/Resources/cov894.jpeg" />
     <BitmapImage x:Key="YoutubeImage" UriSource="/Resources/youtube.jpg"/>
+    <BitmapImage x:Key="TrashIcon" UriSource="/Resources/trash.png"/>
+    <BitmapImage x:Key="PlayMotionHeader" UriSource="/Resources/play Gray.png"/>
 	
     <SolidColorBrush x:Key="RatingRateColor" Color="Yellow"/>
     <SolidColorBrush x:Key="GrayFont" Color="#888888"/>

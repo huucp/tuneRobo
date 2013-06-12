@@ -87,9 +87,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToFollowButtonContentConverter.cs" />
-    <Compile Include="Converter\BoolToFollowButtonVisibilityConverter.cs" />
+    <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Converter\IndexToColorConverter.cs" />
     <Compile Include="Converter\NumberMotionToStringConverter.cs" />
+    <Compile Include="Converter\SecondsToTimeSpanConverter.cs" />
     <Compile Include="Models\ArtistDetailScreenModel.cs" />
     <Compile Include="Models\ArtistItemVerticalModel.cs" />
     <Compile Include="Models\CommentItemModel.cs" />
@@ -108,7 +109,7 @@
     <Compile Include="Models\TempStoreScreenModel.cs" />
     <Compile Include="Models\TransferWindowModel.cs" />
     <Compile Include="RobotService\InformationRequest.cs" />
-    <Compile Include="RobotService\ListAllMotionRequest.cs" />
+    <Compile Include="RobotService\ListAllMotionRobotRequest.cs" />
     <Compile Include="RobotService\RemoteRequest.cs" />
     <Compile Include="RobotService\RobotPacket.cs" />
     <Compile Include="RobotService\RobotReply.cs" />
@@ -412,6 +413,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Background1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\trash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\play Gray.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />

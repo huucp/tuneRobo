@@ -376,7 +376,7 @@ namespace TuneRoboWPF.Views
         {
             var lastElement = MainDock.Children[MainDock.Children.Count - 1];
             MainDock.Children.Remove(lastElement);
-            var remoteScreen = new RemoteControlScreen(MainDock);
+            var remoteScreen = new RemoteControlScreen();
             MainDock.Children.Add(remoteScreen); 
         }
     }

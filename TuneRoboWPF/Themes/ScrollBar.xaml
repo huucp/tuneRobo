@@ -1,16 +1,17 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
-	<!-- Resource dictionary entries should be defined here. -->
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing">
+    <!-- Resource dictionary entries should be defined here. -->
 
     <SolidColorBrush x:Key="StandardBorderBrush" Color="DarkGray"></SolidColorBrush>
     <SolidColorBrush x:Key="StandardBrush" Color="LightGray"></SolidColorBrush>
     <SolidColorBrush x:Key="PressedBrush" Color="Gray"></SolidColorBrush>
     <SolidColorBrush x:Key="HoverBrush" Color="#fefefe"></SolidColorBrush>
     <SolidColorBrush x:Key="GlyphBrush" Color="#333333"></SolidColorBrush>
-    <SolidColorBrush x:Key="ScrollBarPageBorderBrush" Color ="#C8C8C8"/>
+    <SolidColorBrush x:Key="ScrollBarPageBorderBrush" Color ="DarkGray"/>
     <SolidColorBrush x:Key="LineButtonBrush" Color="#474747"/>
-    
+
     <Style x:Key="VerticalScrollBarThumbStyle" TargetType="{x:Type Thumb}">
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Focusable" Value="False"/>
@@ -19,17 +20,28 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
-                    <Rectangle Width="13" Name="ellipse"  Stroke="{StaticResource StandardBorderBrush}"
+                    <Border Width="13">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Offset="0" Color="#e1e1e1"/>
+                                <GradientStop Offset="0.5" Color="#fafafa"/>
+                                <GradientStop Offset="0.8" Color="#fafafa"/>
+                                <GradientStop Offset="1" Color="#eaeaea"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Rectangle Width="13" Name="ellipse"  Stroke="{StaticResource StandardBorderBrush}"
                         Fill="{StaticResource StandardBrush}"
                                RadiusX="6" RadiusY="6"></Rectangle>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="ellipse" Property="Fill" Value="{StaticResource HoverBrush}"></Setter>
                         </Trigger>
-                <Trigger Property="IsDragging" Value="True">
+                        <Trigger Property="IsDragging" Value="True">
                             <Setter TargetName="ellipse" Property="Fill" Value="{StaticResource PressedBrush}"></Setter>
                         </Trigger>
-                        
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -43,9 +55,19 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
-                    <Rectangle Height="13" Name="ellipse"  Stroke="{StaticResource StandardBorderBrush}"
+                    <Border Height="13">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Offset="0" Color="#e1e1e1"/>
+                                <GradientStop Offset="0.5" Color="#fafafa"/>
+                                <GradientStop Offset="0.8" Color="#fafafa"/>
+                                <GradientStop Offset="1" Color="#eaeaea"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Rectangle Height="13" Name="ellipse"  Stroke="{StaticResource StandardBorderBrush}"
                         Fill="{StaticResource StandardBrush}"
                                RadiusX="6" RadiusY="6"></Rectangle>
+                    </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="ellipse" Property="Fill" Value="{StaticResource HoverBrush}"></Setter>
@@ -65,11 +87,13 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Grid Margin="1" Height="15" >
-                        <Path Stretch="None" HorizontalAlignment="Center"
-                              VerticalAlignment="Center" Name="Path"  Fill="{StaticResource LineButtonBrush}"
-                                    Data="M 0 5 L 6 5 L 3 0 Z"></Path>
+                        <ed:RegularPolygon x:Name="Path" Fill="{StaticResource LineButtonBrush}" HorizontalAlignment="Center" Height="6" 
+                                               InnerRadius="1" Margin="0,0,0,3" PointCount="3"                                                
+                                               VerticalAlignment="Center" Width="7" 
+                                               StrokeThickness="0">
+                        </ed:RegularPolygon>
                     </Grid>
-                    <ControlTemplate.Triggers>                        
+                    <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="Path" Property="Fill"
                                     Value="{StaticResource HoverBrush}" />
@@ -89,9 +113,14 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Grid Margin="1" Height="15" >
-                        <Path Stretch="None" HorizontalAlignment="Center"
-                              VerticalAlignment="Center" Name="Path"  Fill="{StaticResource LineButtonBrush}"
-                                    Data="M 0 0 L 6 0 L 3 5 Z"></Path>
+                        <ed:RegularPolygon x:Name="Path" Fill="{StaticResource LineButtonBrush}" HorizontalAlignment="Center" Height="6" 
+                                               InnerRadius="1" Margin="0,0,0,5" PointCount="3"                                                
+                                               VerticalAlignment="Center" Width="7" 
+                                               StrokeThickness="0" >
+                            <ed:RegularPolygon.LayoutTransform>
+                                <RotateTransform Angle="-180"/>
+                            </ed:RegularPolygon.LayoutTransform>
+                        </ed:RegularPolygon>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
@@ -113,9 +142,14 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Grid Margin="1" Width="15" >
-                        <Path Stretch="None" HorizontalAlignment="Center"
-                              VerticalAlignment="Center" Name="Path"  Fill="{StaticResource LineButtonBrush}"
-                                    Data="M 0 0 L 0 6 L -5 3 Z"></Path>
+                        <ed:RegularPolygon x:Name="Path" Fill="{StaticResource LineButtonBrush}" HorizontalAlignment="Center" Height="6" 
+                                               InnerRadius="1" Margin="0,0,3,0" PointCount="3"                                                
+                                               VerticalAlignment="Center" Width="7" 
+                                               StrokeThickness="0" >
+                            <ed:RegularPolygon.RenderTransform>
+                                <RotateTransform Angle="180"/>
+                            </ed:RegularPolygon.RenderTransform>
+                        </ed:RegularPolygon>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
@@ -161,13 +195,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border  BorderThickness="0,1,0,0" BorderBrush="{StaticResource ScrollBarPageBorderBrush}" CornerRadius="6">
+                    <Border MinHeight="12"  BorderThickness="0,1,0,0"  BorderBrush="{StaticResource ScrollBarPageBorderBrush}" CornerRadius="6">
                         <Border.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" MappingMode="Absolute">
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                 <GradientStop Offset="0" Color="#e1e1e1"/>
                                 <GradientStop Offset="0.5" Color="#fafafa"/>
                                 <GradientStop Offset="0.8" Color="#fafafa"/>
-                                <GradientStop Offset="1" Color="#eaeaea"/>                                
+                                <GradientStop Offset="1" Color="#eaeaea"/>
                             </LinearGradientBrush>
                         </Border.Background>
                     </Border>
@@ -181,9 +215,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border  BorderThickness="0,0,0,1" BorderBrush="{StaticResource ScrollBarPageBorderBrush}" CornerRadius="6">
+                    <Border MinHeight="12"  BorderThickness="0,0,0,1" BorderBrush="{StaticResource ScrollBarPageBorderBrush}" CornerRadius="6">
                         <Border.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" MappingMode="Absolute">
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" >
                                 <GradientStop Offset="0" Color="#e1e1e1"/>
                                 <GradientStop Offset="0.5" Color="#fafafa"/>
                                 <GradientStop Offset="0.8" Color="#fafafa"/>
@@ -203,7 +237,7 @@
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Border  BorderThickness="1,0,0,0" BorderBrush="{StaticResource ScrollBarPageBorderBrush}" CornerRadius="6">
                         <Border.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" MappingMode="Absolute">
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                 <GradientStop Offset="0" Color="#e1e1e1"/>
                                 <GradientStop Offset="0.5" Color="#fafafa"/>
                                 <GradientStop Offset="0.8" Color="#fafafa"/>
@@ -223,7 +257,7 @@
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Border BorderThickness="0,0,1,0" BorderBrush="{StaticResource ScrollBarPageBorderBrush}" CornerRadius="6">
                         <Border.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" MappingMode="Absolute">
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                 <GradientStop Offset="0" Color="#e1e1e1"/>
                                 <GradientStop Offset="0.5" Color="#fafafa"/>
                                 <GradientStop Offset="0.8" Color="#fafafa"/>
@@ -251,12 +285,12 @@
                     <GradientStop Offset="1" Color="#e7e7e7"></GradientStop>
                 </LinearGradientBrush>
             </Grid.Background>
-            <RepeatButton Grid.Row="0" Height="13"
+            <RepeatButton Grid.Row="0" Height="13" 
                 Style="{StaticResource LineButtonUpStyle}"
                 Command="ScrollBar.LineUpCommand" >
-                
+
             </RepeatButton>
-            
+
             <Track Name="PART_Track" Grid.Row="1" IsDirectionReversed="True" >
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Command="ScrollBar.PageUpCommand"
@@ -273,7 +307,7 @@
                     </RepeatButton>
                 </Track.IncreaseRepeatButton>
             </Track>
-            
+
             <RepeatButton Grid.Row="2" Height="13"
                 Style="{StaticResource LineButtonDownStyle}"
                 Command="ScrollBar.LineDownCommand">

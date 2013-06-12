@@ -6,7 +6,7 @@ using TuneRoboWPF.Utility;
 
 namespace TuneRoboWPF.RobotService
 {
-    class ListAllMotionRequest : IRequest
+    class ListAllMotionRobotRequest : IRequest
     {
         public delegate void SuccessfullyEventHandler(List<MotionInfo> listMotionInfo);
 
