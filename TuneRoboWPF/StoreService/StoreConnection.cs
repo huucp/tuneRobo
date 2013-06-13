@@ -188,6 +188,12 @@ namespace TuneRoboWPF.StoreService
 
         /// <summary>
         /// Check socket alive
+        /// s.Poll returns true if
+        ///     connection is closed, reset, terminated or pending (meaning no active connection)
+        ///     connection is active and there is data available for reading
+        /// s.Available returns number of bytes available for reading
+        ///     if both are true:
+        ///     there is no data available to read so connection is not active
         /// </summary>
         /// <param name="s">socket</param>
         /// <returns>true if alive and against</returns>
@@ -195,7 +201,7 @@ namespace TuneRoboWPF.StoreService
         {
             bool part1 = s.Poll(1000, SelectMode.SelectRead);
             bool part2 = (s.Available == 0);
-            if (part1 & part2)
+            if ((part1 & part2) || !s.Connected)
                 return false;
             else
                 return true;
@@ -204,7 +210,7 @@ namespace TuneRoboWPF.StoreService
         /// <summary>
         /// Get connection state
         /// </summary>
-        public bool Connected
+        public bool SocketAlive
         {
             get
             {

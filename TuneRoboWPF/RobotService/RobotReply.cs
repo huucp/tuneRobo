@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using TuneRoboWPF.Utility;
 
 namespace TuneRoboWPF.RobotService
@@ -15,19 +16,27 @@ namespace TuneRoboWPF.RobotService
         public RobotReplyData Process()
         {
             var replyData = new RobotReplyData();
-            if (!GetSessionID())
+            int packetID = GetReplyID();
+
+            if (packetID == ID_CRC_ERROR)
             {
-                replyData.Type = RobotReplyData.ReplyType.Failed;
+                replyData.Type =RobotReplyData.ReplyType.CRC;
                 return replyData;
-            }
-            if (CheckReplyID())
-            {
-                return ProcessACKPacket();
             }
             else
             {
-                return ProcessErrorPacket();
+                if (!GetSessionID())
+                {
+                    replyData.Type = RobotReplyData.ReplyType.WrongID;
+                    return replyData;
+                }
+                if (packetID == ID_ACK) return ProcessACKPacket();
+                else
+                {
+                    return ProcessErrorPacket();
+                }
             }
+
         }
 
         private bool GetSessionID()
@@ -41,18 +50,21 @@ namespace TuneRoboWPF.RobotService
             if (GlobalFunction.CompareByteArray(tmp, GlobalVariables.RobotSessionID))
             {
                 return true;
-            }            
-            Debug.Fail("Wrong sesson ID",string.Format("{0:d} vs {1:d}",GlobalFunction.LE2ToDec(tmp),GlobalFunction.LE2ToDec(GlobalVariables.RobotSessionID)));
-            return false ;
+            }
+            Debug.Fail("Wrong sesson ID", String.Format("{0:d} vs {1:d}", GlobalFunction.LE2ToDec(tmp), GlobalFunction.LE2ToDec(GlobalVariables.RobotSessionID)));
+            return false;
         }
 
-        private bool CheckReplyID()
+
+
+        public const int ID_ACK = 0x0001;
+        public const int ID_ERROR = 0x0002;
+        public const int ID_CRC_ERROR = 0x0003;
+
+        private int GetReplyID()
         {
             byte[] tmp = GlobalFunction.SplitByteArray(ReplyPacket, 8, 2);
-            int id = GlobalFunction.LE2ToDec(tmp);
-            if (id == GlobalVariables.ID_ACK) return true;
-            Debug.Fail("ID error",id.ToString());
-            return false;
+            return GlobalFunction.LE2ToDec(tmp);
         }
         private RobotReplyData ProcessACKPacket()
         {
@@ -103,8 +115,10 @@ namespace TuneRoboWPF.RobotService
     {
         public enum ReplyType
         {
-            Failed = 0,
-            Success
+            Success = 1,
+            Failed,
+            CRC,
+            WrongID
         };
 
         public ReplyType Type { get; set; }

@@ -12,6 +12,7 @@ namespace TuneRoboWPF.RobotService
     public class WirelessConnection
     {        
         private Socket Connection;
+        public const int MaxCrcRetry =3 ;
         public WirelessConnection()
         {
             Connection= new Socket(AddressFamily.InterNetwork,SocketType.Stream, ProtocolType.IP);

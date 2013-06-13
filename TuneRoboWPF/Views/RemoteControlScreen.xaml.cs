@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using TuneRoboWPF.Models;
 using TuneRoboWPF.RobotService;
 using TuneRoboWPF.StoreService.SimpleRequest;
@@ -113,7 +111,8 @@ namespace TuneRoboWPF.Views
 
         private void UpdateMotionPlay()
         {
-            //RemoteListBox.SelectedIndex = GlobalVariables.CurrentRobotState.MotionIndex;
+            RemoteListBox.SelectedIndex = GlobalVariables.CurrentRobotState.MotionIndex;
+
         }
 
         private void SetControlButtonState(bool state)
@@ -214,24 +213,7 @@ namespace TuneRoboWPF.Views
             delRequest.ProcessError += (errorCode, msg) => Debug.Fail(errorCode.ToString(), msg);
             GlobalVariables.RobotWorker.AddJob(delRequest);
         }
-
-        private void MotionTitleItem_DeleteMotion1(object sender, RoutedEventArgs e)
-        {
-            var motionID = RobotListMotion[RemoteListBox.SelectedIndex].MotionID;
-            Console.WriteLine(motionID);
-            return;
-
-            var delRequest = new RemoteRequest(RobotPacket.PacketID.DeleteMotion, -1, motionID);
-            delRequest.ProcessSuccessfully += (reply) =>
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    GetListMotion();
-                    RemoteListBox.SelectedIndex = 0;
-                });
-
-            delRequest.ProcessError += (errorCode, msg) => Debug.Fail(errorCode.ToString(), msg);
-            GlobalVariables.RobotWorker.AddJob(delRequest);
-        }
+        
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -256,7 +238,7 @@ namespace TuneRoboWPF.Views
                 motionItem.ViewModel.Index = ++index;
                 motionItem.CopyMotion+=Library_CopyMotion;
                 viewModel.LibraryItemsList.Add(motionItem);
-                DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
+                if (GlobalVariables.ServerConnection.SocketAlive) DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
             }
             GlobalVariables.StoreWorker.IsClearWorker = true;
         }
@@ -283,7 +265,5 @@ namespace TuneRoboWPF.Views
 
             GlobalVariables.StoreWorker.AddRequest(motionInfoRequest);
         }
-
-
     }
 }

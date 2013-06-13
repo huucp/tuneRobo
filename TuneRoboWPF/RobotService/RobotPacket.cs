@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TuneRoboWPF.Utility;
 
 namespace TuneRoboWPF.RobotService
@@ -79,6 +80,11 @@ namespace TuneRoboWPF.RobotService
             packet.Add(IdentificationByte);
             packet.AddRange(GlobalFunction.DecToLE2(dataLength));
             packet.AddRange(GlobalFunction.GenerateCrc(data.ToArray()));
+            if (Parameters.Length == 2910)
+            {
+                byte[] crc = GlobalFunction.GenerateCrc(data.ToArray());
+                Console.WriteLine("{0} {0}",crc[0],crc[1]);
+            }
             packet.AddRange(ReserveBytes);
             packet.AddRange(data);
 

@@ -43,7 +43,7 @@ namespace TuneRoboWPF.RobotService
             CreatePairError,
             WriteDataError,
             CloseMotionFileError,
-            ClosePairError            
+            ClosePairError
         }
         private ulong MotionID { get; set; }
         private object cancelLock = new object();
@@ -84,7 +84,7 @@ namespace TuneRoboWPF.RobotService
 
         public object Process()
         {
-            const int trunkDataSize = 4096;
+            const int trunkDataSize = 2048;
             string musicPath =
                 Path.Combine(GlobalVariables.LOCAL_DIR + GlobalVariables.FOLDER_ROOT + GlobalVariables.FOLDER_PLAYLIST,
                              MotionID.ToString() + ".mp3");
@@ -130,7 +130,7 @@ namespace TuneRoboWPF.RobotService
                     return 0;
                 }
                 count++;
-                tempPercentage = count*100/totalPackets;
+                tempPercentage = count * 100 / totalPackets;
                 if (tempPercentage > currentPercentage)
                 {
                     currentPercentage = tempPercentage;
@@ -164,7 +164,7 @@ namespace TuneRoboWPF.RobotService
             }
 
             // Transfer music file
-            
+
             int remainderMusicTrunkSize = musicData.Length % trunkDataSize;
             for (int i = 0; i < numberOfMusicTrunk; i++)
             {
@@ -214,46 +214,118 @@ namespace TuneRoboWPF.RobotService
 
         private int CreatePair()
         {
+            crcCount++;
             var createPairRequest = new CreatePairRequest(MotionID);
+            if (crcCount == WirelessConnection.MaxCrcRetry)
+            {
+                crcCount = 0;
+                return 0;
+            }
             var reply = createPairRequest.Process() as RobotReplyData;
-            return reply != null && reply.Type == RobotReplyData.ReplyType.Success ? 1 : 0;
+            if (reply == null) return 0;
+            if (reply.Type == RobotReplyData.ReplyType.CRC)
+            {
+                return CloseMotionFile();
+            }
+            else if (reply.Type != RobotReplyData.ReplyType.Success) return 0;
+
+            crcCount = 0;
+            return 1;
         }
+
+        private int crcCount = 0;
 
         private int WriteData(byte[] data, RobotPacket.PacketID packetID)
         {
+            crcCount++;
             if (CancelProcess)
             {
                 SendCancel();
                 return 0;
             }
             var writeMotionDataRequest = new WriteDataRequest(data, packetID);
+            if (crcCount == WirelessConnection.MaxCrcRetry)
+            {
+                crcCount = 0;
+                return 0;
+            }
             var reply = writeMotionDataRequest.Process() as RobotReplyData;
             if (reply == null) return 0;
-            if (reply.Type == RobotReplyData.ReplyType.Failed) return 0;
+
+            // Check reply error
+            if (reply.Type == RobotReplyData.ReplyType.CRC)
+            {
+                return WriteData(data, packetID);
+            }            
+            else if (reply.Type != RobotReplyData.ReplyType.Success) return 0;
+
             if (GlobalFunction.LE4ToDec(reply.Data) != data.Length) return 0;
+            crcCount = 0;
             return 1;
         }
 
         private int CloseMotionFile()
         {
+            crcCount++;
             var closeMotionFileRequest = new CloseMotionFileRequest();
+            if (crcCount == WirelessConnection.MaxCrcRetry)
+            {
+                crcCount = 0;
+                return 0;
+            }
             var reply = closeMotionFileRequest.Process() as RobotReplyData;
-            return reply != null && reply.Type == RobotReplyData.ReplyType.Success ? 1 : 0;
+            if (reply == null) return 0;
+            if (reply.Type == RobotReplyData.ReplyType.CRC)
+            {
+                return CloseMotionFile();
+            }
+            else if (reply.Type != RobotReplyData.ReplyType.Success) return 0;
+
+            crcCount = 0;
+            return 1;
         }
 
         private int ClosePair()
         {
+            crcCount++;
             var closePairRequest = new ClosePairRequest();
 
+            if (crcCount == WirelessConnection.MaxCrcRetry)
+            {
+                crcCount = 0;
+                return 0;
+            }
             var reply = closePairRequest.Process() as RobotReplyData;
-            return reply != null && reply.Type == RobotReplyData.ReplyType.Success ? 1 : 0;
+            if (reply == null) return 0;
+            if (reply.Type == RobotReplyData.ReplyType.CRC)
+            {
+                return ClosePair();
+            }
+            else if (reply.Type != RobotReplyData.ReplyType.Success) return 0;
+
+            crcCount = 0;
+            return 1;
         }
 
         private int SendCancel()
         {
+            crcCount++;
             var cancelRequest = new CancelRequest();
+            if (crcCount == WirelessConnection.MaxCrcRetry)
+            {
+                crcCount = 0;
+                return 0;
+            }
             var reply = cancelRequest.Process() as RobotReplyData;
-            return reply != null && reply.Type == RobotReplyData.ReplyType.Success ? 1 : 0;
+            if (reply == null) return 0;
+            if (reply.Type == RobotReplyData.ReplyType.CRC)
+            {
+                return SendCancel();
+            }
+            else if (reply.Type != RobotReplyData.ReplyType.Success) return 0;
+
+            crcCount = 0;
+            return 1;
         }
 
         private class CreatePairRequest : RobotRequest

@@ -33,7 +33,8 @@ namespace TuneRoboWPF.RobotService
         {
             SetupConnection = 0,
             SocketException = 1,
-            ReplyNull = 2
+            ReplyNull = 2,
+            ReplyFailed
         }
 
         public WirelessConnection Conn;
@@ -70,37 +71,56 @@ namespace TuneRoboWPF.RobotService
                 return replyData;
             }
             byte[] packet = BuildRequest();
-
-            try
-            {
-                Conn.SendPacket(packet);
-            }
-            catch (SocketException se)
-            {
-                OnProcessError(ErrorCode.SocketException, se.Message);
-                return replyData;
-            }
-
             RobotReply reply = null;
-            try
+            int crcCount = 0;
+            bool crcError = false;
+
+            do
             {
-                reply = Conn.ReceiveReply();
-            }
-            catch (SocketException se)
-            {
-                OnProcessError(ErrorCode.SocketException, se.Message);
-                return replyData;
-            }
-            if (reply != null)
-            {
-                reply.RequestID = RequestID;
-                replyData = reply.Process();
-                OnProcessSuccessfully(replyData);
-            }
-            else
-            {
-                OnProcessError(ErrorCode.ReplyNull,"Reply cannot be null");
-            }
+                crcCount++;
+                try
+                {
+                    Conn.SendPacket(packet);
+                }
+                catch (SocketException se)
+                {
+                    OnProcessError(ErrorCode.SocketException, se.Message);
+                    return replyData;
+                }
+
+                try
+                {
+                    reply = Conn.ReceiveReply();
+                }
+                catch (SocketException se)
+                {
+                    OnProcessError(ErrorCode.SocketException, se.Message);
+                    return replyData;
+                }
+                if (reply != null)
+                {
+                    reply.RequestID = RequestID;
+                    replyData = reply.Process();
+                    if (replyData.Type == RobotReplyData.ReplyType.Success)
+                    {
+                        OnProcessSuccessfully(replyData);
+                    }
+                    else if (replyData.Type == RobotReplyData.ReplyType.Failed ||
+                             replyData.Type == RobotReplyData.ReplyType.WrongID)
+                    {
+                        OnProcessError(ErrorCode.ReplyFailed, "Reply error");
+                    }
+                    else if (replyData.Type == RobotReplyData.ReplyType.CRC)
+                    {
+                        crcError = true;                        
+                    }
+                }
+                else
+                {
+                    OnProcessError(ErrorCode.ReplyNull, "Reply cannot be null");
+                }
+            } while (crcCount < WirelessConnection.MaxCrcRetry && crcError);
+            
             ReleaseConenction();
             return replyData;
         }

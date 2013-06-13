@@ -260,9 +260,7 @@ namespace TuneRoboWPF.Utility
 
         
         public const int PACKET_HEADER = 0x0080;
-        public const int ID_ACK = 0x0001;
-        public const int ID_ERROR = 0x0002;
-        public const int ID_CRC_ERROR = 0x0003;
+
 
         public static Dictionary<string,BitmapImage> ImageDictionary = new Dictionary<string, BitmapImage>();
         public static Dictionary<string, Reply> RequestDictionary = new Dictionary<string, Reply>();

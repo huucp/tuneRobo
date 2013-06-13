@@ -274,15 +274,15 @@ namespace TuneRoboWPF.Views
             {
                 var loginWindow = new LoginWindow();
                 if (loginWindow.ShowDialog() == false) return;
-            }
-            StaticMainWindow.Window.UpdateLoginSuccessfully();
+                StaticMainWindow.Window.UpdateLoginSuccessfully();
+            }            
             var ratingWindow = new RatingWindow();
             ratingWindow.SetInfo(Info.motion_id,Info.version_id);
             if (ratingWindow.ShowDialog() == true)
             {
 
             }
-        }
+        }        
 
         private void ArtistTextBlock_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

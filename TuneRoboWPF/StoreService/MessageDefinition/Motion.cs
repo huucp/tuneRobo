@@ -266,6 +266,7 @@ namespace comm
             get { return _number_rating_info; }
             set { _number_rating_info = value; }
         }
+
     }
 
 }
@@ -1742,7 +1743,10 @@ namespace motion
             NO_VERSION = 5,
 
             [global::ProtoBuf.ProtoEnum(Name = @"INPUT_ERROR", Value = 6)]
-            INPUT_ERROR = 6
+            INPUT_ERROR = 6,
+
+            [global::ProtoBuf.ProtoEnum(Name = @"NO_DOWNLOAD", Value = 7)]
+            NO_DOWNLOAD = 7
         }
 
         private global::ProtoBuf.IExtension extensionObject;

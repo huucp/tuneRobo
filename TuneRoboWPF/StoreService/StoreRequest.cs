@@ -47,7 +47,7 @@ namespace TuneRoboWPF.StoreService
             do
             {
                 connection = GlobalVariables.ServerConnection;
-                if (connection.Connected)
+                if (connection.SocketAlive)
                 {
                     break;
                 }

@@ -108,6 +108,7 @@
     <Compile Include="Models\StoreScreenModel.cs" />
     <Compile Include="Models\TempStoreScreenModel.cs" />
     <Compile Include="Models\TransferWindowModel.cs" />
+    <Compile Include="Models\UserDetailScreenModel.cs" />
     <Compile Include="RobotService\InformationRequest.cs" />
     <Compile Include="RobotService\ListAllMotionRobotRequest.cs" />
     <Compile Include="RobotService\RemoteRequest.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="ViewModels\StoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TempStoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TransferWindowViewModel.cs" />
+    <Compile Include="ViewModels\UserDetailScreenViewModel.cs" />
     <Compile Include="Views\ArtistDetailScreen.xaml.cs">
       <DependentUpon>ArtistDetailScreen.xaml</DependentUpon>
     </Compile>
@@ -233,6 +235,9 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\TestRemoteScreen.xaml.cs">
       <DependentUpon>TestRemoteScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserDetailScreen.xaml.cs">
+      <DependentUpon>UserDetailScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VolumeButton.cs" />
     <Compile Include="Windows\LoginWindow.xaml.cs">
@@ -340,6 +345,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserDetailScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Windows\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -385,12 +394,6 @@
     <Resource Include="Resources\Next-Track.png" />
     <Resource Include="Resources\Pause.png" />
     <Resource Include="Resources\Previous-Track.png" />
-    <Resource Include="Resources\search icon.png">
-      <Link>Resources\search icon.png</Link>
-    </Resource>
-    <Resource Include="Resources\search-icon-th.png">
-      <Link>Resources\search-icon-th.png</Link>
-    </Resource>
     <Resource Include="Resources\Volume-Down.png" />
     <Resource Include="Resources\Volume-Mute.png" />
     <Resource Include="Resources\Volume-Up.png" />
@@ -419,6 +422,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\play Gray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\search icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\search-icon-th.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\edit_query.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\5_content_edit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />

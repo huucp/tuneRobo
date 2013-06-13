@@ -58,14 +58,14 @@ namespace TuneRoboWPF.Views
         {
             var playRequest = new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay,-1,GlobalVariables.CurrentListMotion[1].MotionID);
             playRequest.ProcessSuccessfully += (data) =>
-                                                   {
-                                                       ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Pause;
-                                                       Dispatcher.BeginInvoke((Action)delegate
-                                                       {
-                                                           Cursor = Cursors.Arrow;
-                                                           OnUpdateParentControl(null);
-                                                       });
-                                                   };
+            {
+                ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Pause;
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Cursor = Cursors.Arrow;
+                    OnUpdateParentControl(null);
+                });
+            };
             playRequest.ProcessError += (errorCode, msg) =>
                                             {
                                                 Dispatcher.BeginInvoke((Action)delegate

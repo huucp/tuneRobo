@@ -87,19 +87,22 @@ namespace TuneRoboWPF
 
         private void AccountMenu_Click(object sender, RoutedEventArgs e)
         {
-            var getUserInfoRequest = new GetUserInfoStoreRequest();
-            getUserInfoRequest.ProcessSuccessfully += (reply) =>
-            {
-                Dispatcher.BeginInvoke((Action)delegate
-                                                   {
-                                                       MessageBox.Show(reply.profile.email, reply.profile.display_name);
-                                                   });
-            };
-            getUserInfoRequest.ProcessError += (reply, msg) =>
-            {
+            //var getUserInfoRequest = new GetUserInfoStoreRequest();
+            //getUserInfoRequest.ProcessSuccessfully += (reply) =>
+            //{
+            //    Dispatcher.BeginInvoke((Action)delegate
+            //                                       {
+            //                                           MessageBox.Show(reply.profile.email, reply.profile.display_name);
+            //                                       });
+            //};
+            //getUserInfoRequest.ProcessError += (reply, msg) =>
+            //{
 
-            };
-            GlobalVariables.StoreWorker.AddRequest(getUserInfoRequest);
+            //};
+            //GlobalVariables.StoreWorker.AddRequest(getUserInfoRequest);
+
+            var profileScreen = new UserDetailScreen();
+            StaticMainWindow.Window.ChangeScreen(profileScreen);
         }
 
         private void SignOutMenu_Click(object sender, RoutedEventArgs e)
