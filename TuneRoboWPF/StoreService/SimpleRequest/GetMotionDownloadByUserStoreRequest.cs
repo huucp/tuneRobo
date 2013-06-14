@@ -25,7 +25,7 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
             base.BuildPacket();
             var request = new UserMotionRequest()
                               {
-                                  user_id = GlobalVariables.CurrentUserID,
+                                  user_id = GlobalVariables.CurrentUser.UserID,
                                   end = End,
                                   start = Start
                               };

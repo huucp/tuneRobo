@@ -116,7 +116,7 @@ namespace TuneRoboWPF.Views
                 {
                     ViewModel.CoverImage = image;
                 });
-
+            downloadImageRequest.DownloadFailed += (s, msg) => Debug.Fail(msg);
             GlobalVariables.ImageDownloadWorker.AddDownload(downloadImageRequest);
         }
 
@@ -133,7 +133,7 @@ namespace TuneRoboWPF.Views
                             var image = new MotionDetailScreenModel.ScreenshotImage { ImageSource = imageSource };
                             ViewModel.ScreenshotsList.Add(image);
                         });
-
+                downloadImageRequest.DownloadFailed += (s, msg) => Debug.Fail(msg);
                 GlobalVariables.ImageDownloadWorker.AddDownload(downloadImageRequest);
             }
         }
@@ -169,6 +169,7 @@ namespace TuneRoboWPF.Views
             var coverImage = new ImageDownload(url);
             coverImage.DownloadCompleted += (image) =>
                 Dispatcher.BeginInvoke((Action)(() => item.SetImage(image)));
+            coverImage.DownloadFailed += (s, msg) => Debug.Fail(msg);
             GlobalVariables.ImageDownloadWorker.AddDownload(coverImage);
         }
 

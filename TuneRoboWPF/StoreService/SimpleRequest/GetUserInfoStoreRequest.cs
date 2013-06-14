@@ -12,16 +12,17 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
 {
     public class GetUserInfoStoreRequest:StoreRequest
     {
-        public GetUserInfoStoreRequest()
+        public ulong MotionID { get; set; }
+        public GetUserInfoStoreRequest(ulong motionID)
         {
-            RequestKey = GetType().ToString();
+            MotionID = motionID;
         }
         public override void BuildPacket()
         {
             base.BuildPacket();
             var getUserInfoRequest = new ProfileRequest()
             {
-                user_id = GlobalVariables.CurrentUserID
+                user_id = MotionID
             };
             byte[] packetData;
             using (var stream = new MemoryStream())

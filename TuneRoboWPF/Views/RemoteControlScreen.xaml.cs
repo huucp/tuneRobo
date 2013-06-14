@@ -227,7 +227,6 @@ namespace TuneRoboWPF.Views
         private void LoadLibrary()
         {
             var r = new Random();
-            GlobalVariables.StoreWorker.IsClearWorker = false;
             int index = 0;
             foreach (var file in Directory.GetFiles(GlobalFunction.GetSavedDir(), "*.mrb"))
             {
@@ -240,7 +239,6 @@ namespace TuneRoboWPF.Views
                 viewModel.LibraryItemsList.Add(motionItem);
                 if (GlobalVariables.ServerConnection.SocketAlive) DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
             }
-            GlobalVariables.StoreWorker.IsClearWorker = true;
         }
 
         private void Library_CopyMotion(object sender, RoutedEventArgs e)
@@ -263,7 +261,7 @@ namespace TuneRoboWPF.Views
                                                          };
             motionInfoRequest.ProcessError += (data, msg) => Debug.Fail(data.type.ToString(), msg);
 
-            GlobalVariables.StoreWorker.AddRequest(motionInfoRequest);
+            GlobalVariables.StoreWorker.ForceAddRequest(motionInfoRequest);
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Media.Imaging;
 using TuneRoboWPF.Models;
+using TuneRoboWPF.Views;
 
 namespace TuneRoboWPF.ViewModels
 {
@@ -27,6 +29,12 @@ namespace TuneRoboWPF.ViewModels
                 model.Avatar = value;
                 NotifyPropertyChanged("Avatar");
             }
+        }
+        public ObservableCollection<MotionItemVertical> PurchasedMotionList
+        {
+            get { return model.PurchasedMotionList; }
+            set { model.PurchasedMotionList = value;
+            NotifyPropertyChanged("PurchasedMotionList");}
         }
     }
 }

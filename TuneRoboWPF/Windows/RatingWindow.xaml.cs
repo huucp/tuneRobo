@@ -95,16 +95,10 @@ namespace TuneRoboWPF.Windows
             GlobalVariables.StoreWorker.AddRequest(ratingRequest);
         }
 
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(ViewModel.Title))
-            {
-                SubmitButton.IsEnabled = true;
-            }
-            else
-            {
-                SubmitButton.IsEnabled = false;
-            }
+            SubmitButton.IsEnabled = !string.IsNullOrEmpty(ViewModel.Title);
         }
     }
 }

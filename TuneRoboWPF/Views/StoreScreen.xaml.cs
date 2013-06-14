@@ -24,11 +24,9 @@ namespace TuneRoboWPF.Views
             DataContext = new StoreScreenViewModel();
             ViewModel = (StoreScreenViewModel)DataContext;
 
-            GlobalVariables.StoreWorker.IsClearWorker = false;
             GetHotList();
             GetFeaturedList();
             GetArtistList();
-            GlobalVariables.StoreWorker.IsClearWorker = true;
         }
 
         private List<ArtistShortInfo> artistList = new List<ArtistShortInfo>();
@@ -54,10 +52,10 @@ namespace TuneRoboWPF.Views
                     });
                 };
                 listArtistRequest.ProcessError += (listReply, msg) => Debug.Assert(false, msg);
-                GlobalVariables.StoreWorker.AddRequest(listArtistRequest);
+                GlobalVariables.StoreWorker.ForceAddRequest(listArtistRequest);
             };
             artistCountRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
-            GlobalVariables.StoreWorker.AddRequest(artistCountRequest);
+            GlobalVariables.StoreWorker.ForceAddRequest(artistCountRequest);
 
         }
 
@@ -93,7 +91,7 @@ namespace TuneRoboWPF.Views
             {
                 Console.WriteLine("Host list request failed " + msg);
             };
-            GlobalVariables.StoreWorker.AddRequest(hotListRequest);
+            GlobalVariables.StoreWorker.ForceAddRequest(hotListRequest);
         }
 
         private List<MotionShortInfo> featuredList = new List<MotionShortInfo>();
@@ -116,7 +114,7 @@ namespace TuneRoboWPF.Views
                 });
             };
             featuredListRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
-            GlobalVariables.StoreWorker.AddRequest(featuredListRequest);
+            GlobalVariables.StoreWorker.ForceAddRequest(featuredListRequest);
         }
 
         private void motionItem_MotionClicked(ulong motionID)

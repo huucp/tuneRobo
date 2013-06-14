@@ -21,7 +21,7 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
             var followRequest = new FollowRequest()
             {
                 type = FollowType,
-                user_id = GlobalVariables.CurrentUserID,
+                user_id = GlobalVariables.CurrentUser.UserID,
                 artist_id = ArtistID
             };
             byte[] packetData;

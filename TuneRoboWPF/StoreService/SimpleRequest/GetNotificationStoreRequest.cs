@@ -13,7 +13,7 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
             base.BuildPacket();
             var notificationRequest = new NotificationRequest()
             {
-                user_id = GlobalVariables.CurrentUserID
+                user_id = GlobalVariables.CurrentUser.UserID
             };
             byte[] packetData;
             using (var stream = new MemoryStream())

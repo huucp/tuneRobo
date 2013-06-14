@@ -18,12 +18,14 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
         public override void BuildPacket()
         {
             base.BuildPacket();
+            
             var setUserInfoRequest = new UpdateProfileRequest
                                          {
-                                             user_id = GlobalVariables.CurrentUserID,
+                                             user_id = GlobalVariables.CurrentUser.UserID,
                                              avatar_url = AvatarUrl,
                                              display_name = Name
                                          };
+            
             byte[] packetData;
             using (var stream = new MemoryStream())
             {

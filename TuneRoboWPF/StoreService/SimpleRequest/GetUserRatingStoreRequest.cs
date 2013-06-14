@@ -16,14 +16,14 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
         public GetUserRatingStoreRequest(ulong motionID)
         {
             MotionID = motionID;
-            RequestKey = GetType().ToString() + GlobalVariables.CurrentUserID + motionID;
+            RequestKey = GetType().ToString() + GlobalVariables.CurrentUser.UserID + motionID;
         }
         public override void BuildPacket()
         {
             base.BuildPacket();
             var request = new MyMotionRatingInfoRequest()
             {
-                user_id = GlobalVariables.CurrentUserID,
+                user_id = GlobalVariables.CurrentUser.UserID,
                 motion_id = MotionID
             };
             byte[] packetData;

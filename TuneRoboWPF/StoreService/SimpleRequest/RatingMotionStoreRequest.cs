@@ -30,7 +30,7 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
             base.BuildPacket();
             var request = new RatingRequest()
                               {
-                                  user_id = GlobalVariables.CurrentUserID,
+                                  user_id = GlobalVariables.CurrentUser.UserID,
                                   motion_id = MotionID,
                                   rating = Rating,
                                   version_id = VersionID,

@@ -24,7 +24,7 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
             base.BuildPacket();
             var changePassRequest = new ChangePassRequest
                                         {
-                                            user_id = GlobalVariables.CurrentUserID,
+                                            user_id = GlobalVariables.CurrentUser.UserID,
                                             new_pass = NewPassword,
                                             old_pass = OldPassword
                                         };

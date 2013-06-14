@@ -60,6 +60,7 @@ namespace TuneRoboWPF.Views
                 {
                     ViewModel.ArtistAvatar = image;
                 });
+            avatarRequest.DownloadFailed += (s, msg) => Debug.Fail(msg);
             GlobalVariables.ImageDownloadWorker.AddDownload(avatarRequest);
         }
 
@@ -67,6 +68,7 @@ namespace TuneRoboWPF.Views
         {
             var download = new ImageDownload(url);
             download.DownloadCompleted += (image) => Dispatcher.BeginInvoke((Action)(() => motion.SetImage(image)));
+            download.DownloadFailed += (s, msg) => Debug.Fail(msg);
             GlobalVariables.ImageDownloadWorker.AddDownload(download);
         }
 

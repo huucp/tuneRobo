@@ -205,13 +205,13 @@ namespace TuneRoboWPF.Views
                                                          Console.WriteLine("==============");
                                                          if ((bool)reply)
                                                          {
-                                                             Console.WriteLine("User " + GlobalVariables.CurrentUser +
+                                                             Console.WriteLine("User " + GlobalVariables.CurrentUser.DisplayName +
                                                                                " followed artist " + artistName);
                                                              Console.WriteLine("Now relationship is no follow");
                                                          }
                                                          else
                                                          {
-                                                             Console.WriteLine("User " + GlobalVariables.CurrentUser +
+                                                             Console.WriteLine("User " + GlobalVariables.CurrentUser.DisplayName +
                                                                                " didn't follow artist " + artistName);
                                                              Console.WriteLine("Now relationship is follow");
                                                          }
@@ -327,7 +327,7 @@ namespace TuneRoboWPF.Views
                                                    Console.WriteLine("==============");
                                                    foreach(var artist in reply.user_artist.artist_short_info)
                                                    {
-                                                       Console.WriteLine("User {0:s} followed artist {1:s}", GlobalVariables.CurrentUser,artist.artist_name);
+                                                       Console.WriteLine("User {0:s} followed artist {1:s}", GlobalVariables.CurrentUser.DisplayName,artist.artist_name);
                                                    }
                                                };
             request.ProcessError += (reply, msg) =>

@@ -21,7 +21,7 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
             base.BuildPacket();
             var request = new UserArtistRequest()
                               {
-                                  user_id = GlobalVariables.CurrentUserID
+                                  user_id = GlobalVariables.CurrentUser.UserID
                               };
             byte[] packetData;
             using (var stream = new MemoryStream())

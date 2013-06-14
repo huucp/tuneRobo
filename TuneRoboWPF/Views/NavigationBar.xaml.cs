@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -86,21 +87,7 @@ namespace TuneRoboWPF
         }
 
         private void AccountMenu_Click(object sender, RoutedEventArgs e)
-        {
-            //var getUserInfoRequest = new GetUserInfoStoreRequest();
-            //getUserInfoRequest.ProcessSuccessfully += (reply) =>
-            //{
-            //    Dispatcher.BeginInvoke((Action)delegate
-            //                                       {
-            //                                           MessageBox.Show(reply.profile.email, reply.profile.display_name);
-            //                                       });
-            //};
-            //getUserInfoRequest.ProcessError += (reply, msg) =>
-            //{
-
-            //};
-            //GlobalVariables.StoreWorker.AddRequest(getUserInfoRequest);
-
+        {           
             var profileScreen = new UserDetailScreen();
             StaticMainWindow.Window.ChangeScreen(profileScreen);
         }
@@ -108,15 +95,8 @@ namespace TuneRoboWPF
         private void SignOutMenu_Click(object sender, RoutedEventArgs e)
         {
             var signoutRequest = new SignoutStoreRequest();
-            signoutRequest.ProcessSuccessfully += (reply) =>
-                                                      {
-                                                          Console.WriteLine("signout successfully");
-                                                          OnLogoutSuccessfully(null);
-                                                      };
-            signoutRequest.ProcessError += (reply, msg) =>
-                                               {
-                                                   Console.WriteLine("signout failed");
-                                               };
+            signoutRequest.ProcessSuccessfully += (reply) => OnLogoutSuccessfully(null);
+            signoutRequest.ProcessError += (reply, msg) => Debug.Fail(reply.type.ToString(),msg);
             GlobalVariables.StoreWorker.AddRequest(signoutRequest);
         }
 

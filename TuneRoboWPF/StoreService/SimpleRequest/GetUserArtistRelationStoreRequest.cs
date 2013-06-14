@@ -19,7 +19,7 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
             base.BuildPacket();
             var relationRequest = new UserRelationRequest()
                                       {
-                                          user_id = GlobalVariables.CurrentUserID,
+                                          user_id = GlobalVariables.CurrentUser.UserID,
                                           artist_id = ArtistID
                                       };
             byte[] packetData;

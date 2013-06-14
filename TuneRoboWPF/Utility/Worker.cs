@@ -51,6 +51,11 @@ namespace TuneRoboWPF.Utility
 
         private void DownloadRemoteImageFile(string url, string filename)
         {
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                OnDownloadFailed(null,"URL invalid");
+                return;
+            }
             if(GlobalVariables.ImageDictionary.ContainsKey(url))
             {
                 OnDownloadCompleted(GlobalVariables.ImageDictionary[url]);
@@ -77,7 +82,16 @@ namespace TuneRoboWPF.Utility
                 }
             }
 
-            var urlUri = new Uri(url);
+            Uri urlUri = null;
+            try
+            {
+                urlUri = new Uri(url);
+            }
+            catch (Exception e)
+            {
+                OnDownloadFailed(null,e.Message);
+                return;
+            }
             var request = WebRequest.CreateDefault(urlUri);
 
             var buffer = new byte[4096];
@@ -165,7 +179,8 @@ namespace TuneRoboWPF.Utility
         private Thread backgroundWorker;
 
         private bool _isClearWorker;
-        public bool IsClearWorker
+
+        private bool IsClearWorker
         {
             get { return _isClearWorker; }
             set

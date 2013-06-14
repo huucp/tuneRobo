@@ -15,7 +15,20 @@ namespace TuneRoboWPF
         public MainWindow()
         {
             InitializeComponent();
-            navigationBar.LoginProcessSuccessfully += navigationBar_LoginProcessSuccessfully;            
+            navigationBar.LoginProcessSuccessfully += navigationBar_LoginProcessSuccessfully;
+            navigationBar.LogoutSuccessfully += navigationBar_LogoutSuccessfully;
+        }
+
+        private void navigationBar_LogoutSuccessfully(object sender)
+        {
+            GlobalVariables.CurrentUser = null;
+            GlobalVariables.UserOnline = false;
+
+            Dispatcher.BeginInvoke((Action) delegate
+            {
+                navigationBar.UserMenu.Visibility = Visibility.Hidden;
+                navigationBar.SignInButton.Visibility = Visibility.Visible;
+            });            
         }
 
         private void navigationBar_LoginProcessSuccessfully(object sender)
@@ -28,7 +41,7 @@ namespace TuneRoboWPF
         {
             navigationBar.UserMenu.Visibility = Visibility.Visible;
             navigationBar.SignInButton.Visibility = Visibility.Hidden;
-            navigationBar.ViewModel.Username = GlobalVariables.CurrentUser;
+            navigationBar.ViewModel.Username = GlobalVariables.CurrentUser.DisplayName;
 
             var lastElement = MainDock.Children[MainDock.Children.Count - 1];
             if (lastElement is ArtistDetailScreen)

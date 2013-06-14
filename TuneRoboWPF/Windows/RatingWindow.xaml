@@ -3,25 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:System_Windows_Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="TuneRoboWPF.Windows.RatingWindow"
         Title="RatingWindow" Height="260" Width="600" ResizeMode="NoResize" 
-        ShowInTaskbar="False" WindowStartupLocation="CenterOwner" WindowStyle="None"
+        ShowInTaskbar="False" WindowStartupLocation="CenterScreen" WindowStyle="None"
         MouseDown="Window_MouseDown">
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}">           
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Setter Property="BorderBrush" Value="#93ACC4"/>
-                    <Setter Property="BorderThickness" Value="2 " />                    
+                    <Setter Property="BorderThickness" Value="2" />                    
                 </Trigger>
             </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         </Style>
     </Window.Resources>
     <Grid Background="WhiteSmoke">
         <TextBox x:Name="TitleTextBlock"  HorizontalAlignment="Left" Height="28" Margin="20,40,0,0" 
-                 TextWrapping="Wrap" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 TextWrapping="NoWrap" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  VerticalAlignment="Top" Width="330" TextChanged="TextBox_TextChanged">
             
         </TextBox>
-        <TextBox Height="100" Margin="20,105,0,0" TextWrapping="Wrap" 
+        <TextBox Height="100" Margin="20,105,0,0" TextWrapping="NoWrap" 
                  Text="{Binding Review, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" 
                  HorizontalAlignment="Left" Width="560"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -30,14 +33,14 @@
                 Click="CancelButton_Click" Height="27" VerticalAlignment="Top"/>
         <Button x:Name="SubmitButton" Content="Submit" HorizontalAlignment="Left" Height="27" Margin="510,215,0,0" 
                 VerticalAlignment="Top" Width="70" FontWeight="Bold" IsEnabled="False" 
-                IsDefault="True" Background="WhiteSmoke"
-                Click="SubmitButton_Click"/>
+                IsDefault="True" Click="SubmitButton_Click">
+        </Button>
         <TextBlock HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" Text="TITLE:" VerticalAlignment="Top" FontWeight="ExtraBold" />
         <TextBlock HorizontalAlignment="Left" Margin="20,80,0,0" TextWrapping="Wrap" Text="REVIEW:" VerticalAlignment="Top" FontWeight="ExtraBold"/>
         <TextBlock Margin="365,24,0,0" TextWrapping="Wrap" Text="CLICK TO RATE" VerticalAlignment="Top" FontWeight="ExtraBold" HorizontalAlignment="Left"/>
         <System_Windows_Controls:Rating x:Name="RatingControl" Margin="367,47,0,0" 
     		Height="20" Width="100" HorizontalAlignment="Left" 
-    		VerticalAlignment="Top"
+    		VerticalAlignment="Top" Background="Transparent"
     		Value="{Binding RatingValue,Mode=TwoWay}" d:LayoutOverrides="VerticalAlignment, GridBox">
             <System_Windows_Controls:Rating.LayoutTransform>
                 <ScaleTransform ScaleX="0.75" ScaleY="0.75" />

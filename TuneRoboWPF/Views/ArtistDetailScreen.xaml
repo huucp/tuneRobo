@@ -65,8 +65,7 @@
                                       ItemsSource="{Binding ArtistMotionsList}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel                    
-                        				Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                                         <WrapPanel.Resources>
                                             <Style                    
                                         		TargetType="{x:Type Views:MotionItemVertical}">

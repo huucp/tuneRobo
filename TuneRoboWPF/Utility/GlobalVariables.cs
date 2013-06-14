@@ -241,8 +241,7 @@ namespace TuneRoboWPF.Utility
 
         // Online user
         public static bool UserOnline { get; set; }
-        public static ulong CurrentUserID { get; set; }
-        public static string CurrentUser { get; set; }
+        public static UserProfile CurrentUser { get; set; }
         // Maximum of packet size
         public const int WirelessPacketMtu = 512;
 

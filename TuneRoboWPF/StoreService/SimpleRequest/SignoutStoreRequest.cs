@@ -13,7 +13,7 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
             base.BuildPacket();
             var signoutRequest = new SignoutRequest()
             {
-                user_id = GlobalVariables.CurrentUserID
+                user_id = GlobalVariables.CurrentUser.UserID
             };
 
             byte[] packetData;
