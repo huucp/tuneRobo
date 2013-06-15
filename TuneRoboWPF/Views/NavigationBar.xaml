@@ -58,6 +58,7 @@
                     <TextBlock Text="{Binding Username}"  VerticalAlignment="Center"/>
                 </MenuItem.Header>
                 <MenuItem x:Name="AccountMenu" Header="Account" Click="AccountMenu_Click"/>
+                <MenuItem x:Name="ChangePassMenu" Header="Change Password" Click="ChangePassMenu_Click"/>
                 <MenuItem x:Name="SignOutMenu" Header="Sign Out" Click ="SignOutMenu_Click"/>
             </MenuItem>
         </Menu>

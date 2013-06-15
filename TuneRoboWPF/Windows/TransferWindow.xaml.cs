@@ -102,6 +102,12 @@ namespace TuneRoboWPF.Windows
         {
             if (RobotRequest != null) RobotRequest.CancelProcess = true;
             else StoreRequest.CancelProcess = true;
-        }        
+        }
+
+        public bool? ShowDialog(Window owner)
+        {
+            Owner = owner;
+            return ShowDialog();
+        }
 	}
 }

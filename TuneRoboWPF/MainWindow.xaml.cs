@@ -122,6 +122,6 @@ namespace TuneRoboWPF
             }
             MainDock.Children.Remove(lastElement);
             MainDock.Children.Add(screen);
-        }
+        }                        
     }
 }

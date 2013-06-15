@@ -78,9 +78,14 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="30"/>
-                    </Grid.ColumnDefinitions>                    
+                    </Grid.ColumnDefinitions>         
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
                     <TextBlock HorizontalAlignment="Right"  TextWrapping="Wrap" VerticalAlignment="Top"
-                               Text="{Binding Username}" FontSize="27" FontWeight="UltraBold" Grid.Column="0">
+                               Text="{Binding Username}" FontSize="27" FontWeight="UltraBold" 
+                               Grid.Column="0" Grid.Row="0">
                         <TextBlock.Foreground>
             		    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             			    <GradientStop Color="#FF8A8A8A" Offset="1"/>
@@ -88,11 +93,11 @@
             		    </LinearGradientBrush>
             	        </TextBlock.Foreground>
                     </TextBlock>
-                    <Image x:Name="EditUsernameIcon" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                    <Image x:Name="EditUsernameIcon" Grid.Column="1" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                            Source="{StaticResource EditIcon}" MouseDown="EditUsername_MouseDown" Margin="7,4,7,0">
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Setter Property="Visibility" Value="Hidden"/>
                                 <Style.Triggers>                                    
                                     <DataTrigger Binding="{Binding ElementName=UsernameGrid,Path=IsMouseOver}" Value="True">
                                         <Setter Property="Visibility" Value="Visible"/>
@@ -104,6 +109,33 @@
                             </Style>
                         </Image.Style>
                     </Image>
+                    
+                    <Label Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                           FontStyle="Italic" MouseDown="ChangePassword_Click">
+                        <TextBlock>Change password</TextBlock>
+                        <Label.Style>
+                            <Style TargetType="{x:Type Label}">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=UsernameGrid,Path=IsMouseOver}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                                <Style.Resources>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Label}, Path=IsMouseOver}" Value="True">
+                                                <Setter Property="TextDecorations" Value="Underline"/>
+                                            </DataTrigger>                                            
+                                        </Style.Triggers>
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </Label.Style>
+                    </Label>                    
                 </Grid>
                 <Image HorizontalAlignment="Right" Height="32" Margin="0,40,40,0" VerticalAlignment="Top" Width="32" 
                         Source="{StaticResource EditIcon}" MouseDown="AvatarEdit_MouseDown">

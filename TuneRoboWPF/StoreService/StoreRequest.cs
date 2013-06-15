@@ -51,6 +51,7 @@ namespace TuneRoboWPF.StoreService
                 {
                     break;
                 }
+                GlobalVariables.ServerConnection.ConfigAndConnectSocket();
                 count++;
             } while (count < StoreConnection.RetryTime);
             if (count == StoreConnection.RetryTime)

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:System_Windows_Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="TuneRoboWPF.Windows.RatingWindow"
         Title="RatingWindow" Height="260" Width="600" ResizeMode="NoResize" 
-        ShowInTaskbar="False" WindowStartupLocation="CenterScreen" WindowStyle="None"
+        ShowInTaskbar="False" WindowStartupLocation="CenterOwner" WindowStyle="None"
         MouseDown="Window_MouseDown">
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}">           
@@ -21,7 +21,7 @@
     <Grid Background="WhiteSmoke">
         <TextBox x:Name="TitleTextBlock"  HorizontalAlignment="Left" Height="28" Margin="20,40,0,0" 
                  TextWrapping="NoWrap" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 VerticalAlignment="Top" Width="330" TextChanged="TextBox_TextChanged">
+                 VerticalAlignment="Top" Width="330" TextChanged="TextBox_TextChanged" FontWeight="Medium">
             
         </TextBox>
         <TextBox Height="100" Margin="20,105,0,0" TextWrapping="NoWrap" 

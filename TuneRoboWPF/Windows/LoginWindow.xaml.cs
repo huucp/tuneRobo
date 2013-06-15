@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Input;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using user;
@@ -38,6 +39,23 @@ namespace TuneRoboWPF.Windows
                                               };
             GlobalVariables.StoreWorker.AddRequest(signinRequest);
         }
+        public bool? ShowDialog(Window owner)
+        {
+            Owner = owner;
+            return ShowDialog();
+        }
 
+        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if(e.ChangedButton==MouseButton.Left)
+            {
+                DragMove();
+            }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

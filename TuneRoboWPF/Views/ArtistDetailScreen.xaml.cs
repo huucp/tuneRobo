@@ -24,12 +24,12 @@ namespace TuneRoboWPF.Views
             DataContext = new ArtistDetailScreenViewModel();
             ViewModel = (ArtistDetailScreenViewModel)DataContext;
 
-            CheckFollowState();
         }
 
         public void SetInfo(ulong id)
         {
             ArtistID = id;
+            CheckFollowState();
             GetArtistInfo();
             GetMotionOfArtist();
         }

@@ -100,5 +100,11 @@ namespace TuneRoboWPF.Windows
         {
             SubmitButton.IsEnabled = !string.IsNullOrEmpty(ViewModel.Title);
         }
+
+        public bool? ShowDialog(Window owner)
+        {
+            Owner = owner;
+            return ShowDialog();
+        }
     }
 }

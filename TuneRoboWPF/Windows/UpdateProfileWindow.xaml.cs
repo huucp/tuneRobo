@@ -74,5 +74,11 @@ namespace TuneRoboWPF.Windows
         {
             UpdateButton.IsEnabled = !string.IsNullOrEmpty(ViewModel.DisplayName) | !string.IsNullOrEmpty(ViewModel.AvatarUrl);
         }
+
+        public bool? ShowDialog(Window owner)
+        {
+            Owner = owner;
+            return ShowDialog();
+        }
 	}
 }

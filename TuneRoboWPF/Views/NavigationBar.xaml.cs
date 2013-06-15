@@ -7,6 +7,7 @@ using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
 using TuneRoboWPF.Views;
+using TuneRoboWPF.Windows;
 
 namespace TuneRoboWPF
 {
@@ -78,8 +79,8 @@ namespace TuneRoboWPF
 
         private void SignInButton_Click(object sender, RoutedEventArgs e)
         {
-            var loginWindow = new Windows.LoginWindow();
-            loginWindow.ShowDialog();
+            var loginWindow = new LoginWindow();
+            loginWindow.ShowDialog(StaticMainWindow.Window);
             if (loginWindow.DialogResult == true)
             {                
                 OnLoginSuccessfully(null);
@@ -123,6 +124,12 @@ namespace TuneRoboWPF
             {
                 SearchTextBox.Text = string.Empty;
             }
+        }
+
+        private void ChangePassMenu_Click(object sender, RoutedEventArgs e)
+        {
+            var changePassWindow = new ChangePasswordWindow();
+            changePassWindow.ShowDialog();
         }
 
     }

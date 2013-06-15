@@ -68,7 +68,7 @@ namespace TuneRoboWPF.Views
             {
                 var transferRequest = new TransferMotionToRobot(MotionID);
                 var transferWindow = new Windows.TransferWindow(transferRequest, MotionID.ToString());
-                if(transferWindow.ShowDialog() ==true)
+                if (transferWindow.ShowDialog(StaticMainWindow.Window) == true)
                 {
                     var newEventArgs = new RoutedEventArgs(CopyMotionEvent);
                     RaiseEvent(newEventArgs);

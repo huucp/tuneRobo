@@ -1,16 +1,39 @@
-<Window
+﻿<Window
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
 	x:Class="TuneRoboWPF.Windows.LoginWindow"
 	x:Name="Window"
 	Title="Login"
-	Width="376" Height="230" WindowStartupLocation="CenterOwner">
+	Width="337" Height="151" WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+    WindowStyle="None" ResizeMode="NoResize" MouseDown="Window_MouseDown">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#93ACC4"/>
+                    <Setter Property="BorderThickness" Value="2" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type PasswordBox}">
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#93ACC4"/>
+                    <Setter Property="BorderThickness" Value="2" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
-    <Grid x:Name="LayoutRoot">
-        <TextBlock HorizontalAlignment="Left" Height="24" Margin="23,46,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="74"/>
-        <TextBlock HorizontalAlignment="Left" Height="24" Margin="21,0,0,72" TextWrapping="Wrap" Text="Password" VerticalAlignment="Bottom" Width="66"/>
-        <TextBox x:Name="UsernameTextBox" Text="tiennd@tosy.com"  Height="21" Margin="112,50,41,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="PasswordBox" Password ="1" Height="24" Margin="112,0,41,72" VerticalAlignment="Bottom"/>
-        <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Right" Height="28" Margin="0,0,28,17" VerticalAlignment="Bottom" Width="82" Click ="LoginButton_Click" IsDefault="True" />
+    <Grid x:Name="LayoutRoot" Background="WhiteSmoke">
+        <TextBlock HorizontalAlignment="Left" Margin="20,26,0,0" TextWrapping="Wrap" Text="Username" 
+                   VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Margin="23,74,0,0" TextWrapping="Wrap" Text="Password" 
+                   VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="UsernameTextBox" Text="huupc@tosy.com"  Height="28" Margin="87,20,0,0" VerticalAlignment="Top" Width="230" HorizontalAlignment="Left" FontWeight="Medium"/>
+        <PasswordBox x:Name="PasswordBox" Password ="1" Margin="87,68,0,0" Width="230" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top"/>
+        <Button x:Name="LoginButton" Content="Login" Margin="247,106,0,0" Click ="LoginButton_Click" IsDefault="True" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70" FontWeight="Bold" />
+        <Button x:Name="CancelButton" Content="Cancel" Margin="167,106,0,0" Click ="CancelButton_Click" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70" FontWeight="Bold" IsCancel="True" />
     </Grid>
 </Window>

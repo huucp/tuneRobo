@@ -71,7 +71,7 @@ namespace TuneRoboWPF
         private void UpdateProfileCall()
         {
             var window = new UpdateProfileWindow();
-            if(window.ShowDialog() == true)
+            if(window.ShowDialog(StaticMainWindow.Window) == true)
             {
                 UpdateUserProfile();
             }
@@ -122,5 +122,11 @@ namespace TuneRoboWPF
             download.DownloadFailed += (s, msg) => Debug.Fail(msg);
             GlobalVariables.ImageDownloadWorker.AddDownload(download);
         }
+
+	    private void ChangePassword_Click(object sender, MouseButtonEventArgs e)
+	    {
+	        var changePassWindow = new ChangePasswordWindow();
+	        changePassWindow.ShowDialog();
+	    }
 	}
 }

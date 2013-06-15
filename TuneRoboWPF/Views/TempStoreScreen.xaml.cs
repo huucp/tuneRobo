@@ -155,7 +155,7 @@ namespace TuneRoboWPF.Views
             ulong motionID = hotList[HotListBox.SelectedIndex].motion_id;
             var request = new DownloadMotionStoreRequest(motionID);
             var transferWindow = new Windows.TransferWindow(request, motionID.ToString());
-            transferWindow.ShowDialog();
+            transferWindow.ShowDialog(StaticMainWindow.Window);
 
         }
 

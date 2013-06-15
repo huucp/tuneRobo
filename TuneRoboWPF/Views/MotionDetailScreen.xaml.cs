@@ -229,12 +229,12 @@ namespace TuneRoboWPF.Views
             if (!GlobalVariables.UserOnline)
             {
                 var signinWindow = new LoginWindow();
-                if (signinWindow.ShowDialog() == false) return;
+                if (signinWindow.ShowDialog(StaticMainWindow.Window) == false) return;
             }
             StaticMainWindow.Window.UpdateLoginSuccessfully();
             var request = new DownloadMotionStoreRequest(MotionID);
             var transferWindow = new TransferWindow(request, MotionID.ToString());
-            if (transferWindow.ShowDialog() == true)
+            if (transferWindow.ShowDialog(StaticMainWindow.Window) == true)
             {
                 ViewModel.DownloadButtonContent = "Installed";
                 DownloadButton.IsEnabled = false;
@@ -274,12 +274,12 @@ namespace TuneRoboWPF.Views
             if (!GlobalVariables.UserOnline)
             {
                 var loginWindow = new LoginWindow();
-                if (loginWindow.ShowDialog() == false) return;
+                if (loginWindow.ShowDialog(StaticMainWindow.Window) == false) return;
                 StaticMainWindow.Window.UpdateLoginSuccessfully();
             }            
             var ratingWindow = new RatingWindow();
             ratingWindow.SetInfo(Info.motion_id,Info.version_id);
-            if (ratingWindow.ShowDialog() == true)
+            if (ratingWindow.ShowDialog(StaticMainWindow.Window) == true)
             {
 
             }

@@ -18,7 +18,7 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
         {
             Start = start;
             End = end;
-            RequestKey = GetType() + start.ToString() + end.ToString();
+            //RequestKey = GetType() + start.ToString() + end.ToString();
         }
         public override void BuildPacket()
         {

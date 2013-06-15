@@ -9,8 +9,8 @@ namespace TuneRoboWPF.StoreService
 {
     public class StoreConnection
     {
-        //private const string IPServer = "183.91.7.159";
-        private const string IPServer = "192.168.1.51";
+        private const string IPServer = "183.91.7.159";
+        //private const string IPServer = "192.168.1.51";
         private const int PortServer = 8769;
         private const int MagicByte = 0xEE;
         private const int HeaderSize = 8;

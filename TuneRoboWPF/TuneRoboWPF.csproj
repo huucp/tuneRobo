@@ -243,6 +243,9 @@
       <DependentUpon>UserDetailScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VolumeButton.cs" />
+    <Compile Include="Windows\ChangePasswordWindow.xaml.cs">
+      <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -354,6 +357,10 @@
     <Page Include="Views\UserDetailScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ChangePasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
