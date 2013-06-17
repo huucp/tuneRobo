@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using TuneRoboWPF.StoreService.SimpleRequest;
@@ -92,8 +93,9 @@ namespace TuneRoboWPF
             GlobalFunction.GetTempDataFolder();            
             if (GlobalVariables.ServerConnection.ConfigAndConnectSocket() == 0)
             {
-                MessageBox.Show("Cannot connect to server!", "Connection error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                //MessageBox.Show("Cannot connect to server!", "Connection error", MessageBoxButton.OK,
+                //    MessageBoxImage.Error);
+                Debug.Fail("Cannot connect to server");
             }
             
             var firstScreen = new RemoteControlScreen();

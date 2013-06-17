@@ -373,4 +373,92 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
+    <!--apple scroll bar no line button-->
+    <ControlTemplate x:Key="HorizontalScrollBarNoLineButton" TargetType="{x:Type ScrollBar}">
+        <Grid Height="11">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0" Color="#d5d5d5"></GradientStop>
+                    <GradientStop Offset="0.07" Color="#d5d5d5"></GradientStop>
+                    <GradientStop Offset="0.15" Color="#fafafa"></GradientStop>
+                    <GradientStop Offset="0.3" Color="#fafafa"></GradientStop>
+                    <GradientStop Offset="1" Color="#e7e7e7"></GradientStop>
+                </LinearGradientBrush>
+            </Grid.Background>            
+
+            <Track Name="PART_Track" Grid.Column="1" IsDirectionReversed="False" IsEnabled="{TemplateBinding IsMouseOver}">
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageLeftCommand"
+                        Style="{StaticResource ScrollBarPageLeftButtonStyle}">
+                    </RepeatButton>
+                </Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb Style="{StaticResource HorizontalScrollBarThumbStyle}">
+                    </Thumb>
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageRightCommand"
+                        Style="{StaticResource ScrollBarPageRightButtonStyle}">
+                    </RepeatButton>
+                </Track.IncreaseRepeatButton>
+            </Track>            
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="VerticalScrollBarNoLineButton" TargetType="{x:Type ScrollBar}">
+        <Grid Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border CornerRadius="6">
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Offset="0" Color="#d5d5d5"></GradientStop>
+                        <GradientStop Offset="0.07" Color="#d5d5d5"></GradientStop>
+                        <GradientStop Offset="0.15" Color="#fafafa"></GradientStop>
+                        <GradientStop Offset="0.3" Color="#fafafa"></GradientStop>
+                        <GradientStop Offset="1" Color="#e7e7e7"></GradientStop>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Track Name="PART_Track" Grid.Row="1" IsDirectionReversed="True" IsEnabled="{TemplateBinding IsMouseOver}" >
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Command="ScrollBar.PageUpCommand"
+                        Style="{StaticResource ScrollBarPageUpButtonStyle}">
+                        </RepeatButton>
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource VerticalScrollBarThumbStyle}">
+                        </Thumb>
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Command="ScrollBar.PageDownCommand"
+                        Style="{StaticResource ScrollBarPageDownButtonStyle}">
+                        </RepeatButton>
+                    </Track.IncreaseRepeatButton>
+                </Track>
+            </Border>
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Key="AppleScrollBarNoLineButton" TargetType="{x:Type ScrollBar}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Width" Value="13"/>
+                <Setter Property="Height" Value="Auto" />
+                <Setter Property="Template" Value="{StaticResource VerticalScrollBarNoLineButton}" />
+            </Trigger>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Width" Value="Auto"/>
+                <Setter Property="Height" Value="13" />
+                <Setter Property="Template" Value="{StaticResource HorizontalScrollBarNoLineButton}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

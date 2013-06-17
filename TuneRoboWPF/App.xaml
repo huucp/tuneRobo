@@ -8,6 +8,7 @@
     			<ResourceDictionary Source="Utility/ConfigDictionary.xaml"/>
     			<ResourceDictionary Source="Utility/StyleAndTemplateDictionary.xaml"/>
                 <ResourceDictionary Source="Themes/ScrollBar.xaml"/>
+                <ResourceDictionary Source="Themes/ListBox.xaml"/>
     		</ResourceDictionary.MergedDictionaries>
     	</ResourceDictionary>
         

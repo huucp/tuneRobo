@@ -25,7 +25,7 @@ namespace TuneRoboWPF.Views
         private ulong MotionID { get; set; }
         private motion.MotionInfo Info { get; set; }
         private uint numberOfComment = 0;
-        private uint numberOfRelatedMotions = 0;
+        private uint numberOfRelatedMotions = 0;        
         public MotionDetailScreen(ulong motionID)
         {
             InitializeComponent();
@@ -149,7 +149,7 @@ namespace TuneRoboWPF.Views
                         if (MotionID == motionInfo.motion_id) continue;
                         var verticalMotionItem = new MotionItemVertical();
                         verticalMotionItem.SetInfo(motionInfo);
-                        verticalMotionItem.MotionClicked+=RelatedMotions_MotionClicked;
+                        verticalMotionItem.MotionClicked += RelatedMotions_MotionClicked;
                         ViewModel.RelatedMotionsList.Add(verticalMotionItem);
                         UpdateRelatedMotionCover(motionInfo.icon_url, verticalMotionItem);
                     }
@@ -189,7 +189,6 @@ namespace TuneRoboWPF.Views
                 else
                 {
                     ViewModel.DownloadButtonContent = "Installed";
-                    DownloadButton.IsEnabled = false;
                 }
             }
         }
@@ -237,7 +236,6 @@ namespace TuneRoboWPF.Views
             if (transferWindow.ShowDialog(StaticMainWindow.Window) == true)
             {
                 ViewModel.DownloadButtonContent = "Installed";
-                DownloadButton.IsEnabled = false;
             }
         }
 
@@ -265,8 +263,32 @@ namespace TuneRoboWPF.Views
                         UpdateComment(numberOfComment, numberOfComment + 20);
                     }
                 }
-                
             }
+        }
+
+        private void CheckUserOwnMotionRelation()
+        {
+            var relationRequest = new UserOwnMotionStoreRequest(MotionID);
+            relationRequest.ProcessSuccessfully += (reply) =>
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    switch (reply.user_own_motion.rel)
+                    {
+                        case UserOwnMotionReply.Rel.OWNED:
+                            var ratingWindow = new RatingWindow();
+                            ratingWindow.SetInfo(Info.motion_id, Info.version_id);
+                            if (ratingWindow.ShowDialog(StaticMainWindow.Window) == true)
+                            {
+
+                            }
+                            break;
+                        case UserOwnMotionReply.Rel.NOT_OWNED:
+                            MessageBox.Show("You must own this motion to review");
+                            break;
+                    }
+                });
+            relationRequest.ProcessError += (reply, msg) => Debug.Fail(reply.type.ToString(), msg);
+            GlobalVariables.StoreWorker.AddRequest(relationRequest);
         }
 
         private void ReviewButton_Click(object sender, RoutedEventArgs e)
@@ -276,14 +298,9 @@ namespace TuneRoboWPF.Views
                 var loginWindow = new LoginWindow();
                 if (loginWindow.ShowDialog(StaticMainWindow.Window) == false) return;
                 StaticMainWindow.Window.UpdateLoginSuccessfully();
-            }            
-            var ratingWindow = new RatingWindow();
-            ratingWindow.SetInfo(Info.motion_id,Info.version_id);
-            if (ratingWindow.ShowDialog(StaticMainWindow.Window) == true)
-            {
-
             }
-        }        
+            CheckUserOwnMotionRelation();
+        }
 
         private void ArtistTextBlock_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

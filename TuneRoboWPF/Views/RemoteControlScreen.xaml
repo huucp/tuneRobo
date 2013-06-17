@@ -163,12 +163,18 @@
         <local:RobotTransformButton x:Name="TransformButton" 
                                     Margin="64.5,55,313,0" Width="Auto" Height="35" 
                                     VerticalAlignment="Top" Grid.Column="1" d:LayoutOverrides="GridBox"/>
-        <ScrollViewer Margin="20,90,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Column="0">
+        <ScrollViewer Margin="20,90,0,0"  Grid.Column="0">
             <ScrollViewer.Resources>
-                <Style TargetType="ScrollViewer">
+                <Style TargetType="ScrollViewer">                    
                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>                    
+                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
-                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource FullAppleScrollBar}"/>
+                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource AppleScrollBarNoLineButton}"/>
             </ScrollViewer.Resources>
             <ItemsControl ItemsSource="{Binding LibraryItemsList}" HorizontalContentAlignment="Stretch"/>
         </ScrollViewer>

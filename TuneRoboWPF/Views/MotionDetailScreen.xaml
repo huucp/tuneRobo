@@ -86,7 +86,8 @@
                                  ItemTemplate="{DynamicResource ImageDataTemplate}"
                                  ItemsSource="{Binding ScreenshotsList}" Cursor="Hand"
                                  PreviewMouseWheel="ScreenshotsListbox_PreviewMouseWheel"
-                                 SelectionChanged="ScreenshotsListbox_SelectionChanged"/>
+                                 SelectionChanged="ScreenshotsListbox_SelectionChanged"
+                                 Template="{StaticResource AppleListBoxControlTemplate}"/>
                         <TextBlock Grid.Row="0"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 
                                    VerticalAlignment="Top"  Text="Screen shots" FontWeight="Bold" FontSize="20"/>
                         <TextBlock Grid.Row="1"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 

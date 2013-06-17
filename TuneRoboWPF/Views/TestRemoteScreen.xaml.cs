@@ -25,21 +25,7 @@ namespace TuneRoboWPF.Views
         public TestRemoteScreen(DockPanel dock)
         {
             InitializeComponent();
-            MainWindowDock = dock;
-
-            var r = new Random();
-            int index = 0;
-            foreach (var file in Directory.GetFiles(GlobalFunction.GetSavedDir(), "*.mrb"))
-            {
-                var motionInfo = new MotionInfo(file);
-                var motionItem = new MotionFullInfoItem();
-                motionItem.SetMotionInfo(motionInfo);
-                motionItem.ViewModel.RatingValue = r.Next(1, 5) / 5.0;
-                motionItem.ViewModel.HitTestVisible = false;
-                motionItem.ViewModel.Index = ++index;
-                Library.Children.Add(motionItem);
-
-            }
+            MainWindowDock = dock;            
         }
     }
 }

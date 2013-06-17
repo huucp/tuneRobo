@@ -10,11 +10,8 @@
 // Generated from: comm.proto
 namespace comm
 {
-
     public partial class Reply : global::ProtoBuf.IExtensible
     {
-
-
         private motion.CreateMotionReply _create_motion = null;
         [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name = @"create_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
         [global::System.ComponentModel.DefaultValue(null)]
@@ -267,6 +264,14 @@ namespace comm
             set { _number_rating_info = value; }
         }
 
+        private motion.UserOwnMotionReply _user_own_motion = null;
+        [global::ProtoBuf.ProtoMember(44, IsRequired = false, Name = @"user_own_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
+        [global::System.ComponentModel.DefaultValue(null)]
+        public motion.UserOwnMotionReply user_own_motion
+        {
+            get { return _user_own_motion; }
+            set { _user_own_motion = value; }
+        }
     }
 
 }
@@ -2356,6 +2361,80 @@ namespace motion
 
             [global::ProtoBuf.ProtoEnum(Name = @"NO_MOTION", Value = 4)]
             NO_MOTION = 4
+        }
+
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"UserOwnMotionRequest")]
+    public partial class UserOwnMotionRequest : global::ProtoBuf.IExtensible
+    {
+        public UserOwnMotionRequest() { }
+
+        private ulong _user_id;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong user_id
+        {
+            get { return _user_id; }
+            set { _user_id = value; }
+        }
+        private ulong _motion_id;
+        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong motion_id
+        {
+            get { return _motion_id; }
+            set { _motion_id = value; }
+        }
+        private global::ProtoBuf.IExtension extensionObject;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+    }
+
+    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"UserOwnMotionReply")]
+    public partial class UserOwnMotionReply : global::ProtoBuf.IExtensible
+    {
+        public UserOwnMotionReply() { }
+
+        private ulong _user_id;
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong user_id
+        {
+            get { return _user_id; }
+            set { _user_id = value; }
+        }
+        private ulong _motion_id;
+        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public ulong motion_id
+        {
+            get { return _motion_id; }
+            set { _motion_id = value; }
+        }
+        private motion.UserOwnMotionReply.Rel _rel;
+        [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name = @"rel", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+        public motion.UserOwnMotionReply.Rel rel
+        {
+            get { return _rel; }
+            set { _rel = value; }
+        }
+        [global::ProtoBuf.ProtoContract(Name = @"Type")]
+        public enum Type
+        {
+
+            [global::ProtoBuf.ProtoEnum(Name = @"NO_MOTION", Value = 4)]
+            NO_MOTION = 4
+        }
+
+        [global::ProtoBuf.ProtoContract(Name = @"Rel")]
+        public enum Rel
+        {
+
+            [global::ProtoBuf.ProtoEnum(Name = @"OWNED", Value = 1)]
+            OWNED = 1,
+
+            [global::ProtoBuf.ProtoEnum(Name = @"NOT_OWNED", Value = 2)]
+            NOT_OWNED = 2
         }
 
         private global::ProtoBuf.IExtension extensionObject;

@@ -91,7 +91,7 @@ namespace TuneRoboWPF.Windows
                     DialogResult = true;
                     Close();
                 });
-            ratingRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
+            ratingRequest.ProcessError += (reply, msg) => Debug.Fail(msg,reply.type.ToString());
             GlobalVariables.StoreWorker.AddRequest(ratingRequest);
         }
 

@@ -303,14 +303,18 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Width="497" Margin="8,30,0,0" 
-                      HorizontalAlignment="Left" Height="608"
-                      OverridesDefaultStyle="True"
-                      Style="{StaticResource FavsScrollViewer}"
-                      HorizontalContentAlignment="Stretch">
-            <StackPanel x:Name="Library" CanVerticallyScroll="True" Margin="30,0,0,0"/>
-        </ScrollViewer>
-
+    <Grid Height="600" Margin="0" d:LayoutOverrides="HorizontalMargin"
+          Grid.ColumnSpan="3" Grid.RowSpan="5">
+        <Rectangle Stroke="#87757575" StrokeDashCap="Square" StrokeEndLineCap="Flat" StrokeLineJoin="Miter" StrokeThickness="0.5" RadiusX="3" RadiusY="3" x:Name="icnBase" Margin="2,2,2,0" HorizontalAlignment="Stretch" Width="32" Height="32" Grid.Column="0" Grid.ColumnSpan="1" Clip="M3.2499998,0.25 L28.75,0.25 C29.164213,0.25 29.558821,0.33394662 29.917736,0.48575503 30.276651,0.63756311 30.599874,0.85723305 30.871321,1.1286795 31.142767,1.4001262 31.362436,1.7233496 31.514244,2.0822647 31.666054,2.4411798 31.75,2.8357863 31.75,3.2499998 L31.75,28.75 C31.75,29.164213 31.666054,29.558821 31.514244,29.917736 31.362436,30.276651 31.142767,30.599874 30.871321,30.871321 30.599874,31.142767 30.276651,31.362436 29.917736,31.514244 29.558821,31.666054 29.164213,31.75 28.75,31.75 L3.2499998,31.75 C2.8357863,31.75 2.4411798,31.666054 2.0822647,31.514244 1.7233496,31.362436 1.4001262,31.142767 1.1286795,30.871321 0.85723305,30.599874 0.63756311,30.276651 0.48575503,29.917736 0.33394662,29.558821 0.25,29.164213 0.25,28.75 L0.25,3.2499998 C0.25,2.8357863 0.33394662,2.4411798 0.48575503,2.0822647 0.63756311,1.7233496 0.85723305,1.4001262 1.1286795,1.1286795 1.4001262,0.85723305 1.7233496,0.63756311 2.0822647,0.48575503 2.4411798,0.33394662 2.8357863,0.25 3.2499998,0.25 z">
+            <Rectangle.BitmapEffect>
+                <DropShadowBitmapEffect Opacity="0.835" ShadowDepth="1" Softness="0.305"/>
+            </Rectangle.BitmapEffect>
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0.538462,0.98077" EndPoint="0.538462,-0.576924">
+                    <GradientStop Color="#FF232323" Offset="0"/>
+                    <GradientStop Color="#FF5D5B5B" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
     </Grid>
 </UserControl>

@@ -152,7 +152,10 @@ namespace comm
       RATING_INFO_USER = 143,
             
       [global::ProtoBuf.ProtoEnum(Name=@"LIST_INFO_MOTION", Value=144)]
-      LIST_INFO_MOTION = 144
+      LIST_INFO_MOTION = 144,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"CHECK_USER_OWNED_MOTION", Value=145)]
+      CHECK_USER_OWNED_MOTION = 145
     }
   
     private global::ProtoBuf.IExtension extensionObject;

@@ -6,36 +6,41 @@
              xmlns:Custom="http://schemas.microsoft.com/wpf/2008/toolkit" xmlns:Views="clr-namespace:TuneRoboWPF.Views"
              x:Class="TuneRoboWPF.Views.StoreScreen" 
              mc:Ignorable="d" 
-             d:DesignHeight="703" d:DesignWidth="1100">
-    <UserControl.Resources>
-        
-    </UserControl.Resources>
+             d:DesignHeight="703" d:DesignWidth="1100">    
     <ScrollViewer x:Name="MainScrollViewer" Margin="0,0,0,0" CanContentScroll="True" VerticalScrollBarVisibility="Auto">
-        <Grid Height ="1200">
+        <ScrollViewer.Resources>
+            <Style TargetType="ScrollViewer">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>                
+            </Style>
+            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource FullAppleScrollBar}"/>
+        </ScrollViewer.Resources>
+        <Grid Height ="1200" Background="WhiteSmoke">
             <ListBox x:Name="HotMotionListBox" Height="390" Width="950"
-                     BorderThickness="1,0,1,0" Margin="68,48,0,0" 
+                     BorderThickness="1,0" BorderBrush="White"
+                     Margin="68,48,0,0" 
                      VerticalAlignment="Top" HorizontalAlignment="Left"
                      ItemsSource="{Binding HotItemsList}"
                      Background="Transparent" Style="{StaticResource ListBoxVerticalStyle}"
                      ItemsPanel="{StaticResource WrapPanelListBoxTemplate}"
                      PreviewMouseWheel="HotMotionListBox_PreviewMouseWheel"
-                     SelectionChanged="HotMotionListBox_SelectionChanged"/>
+                     SelectionChanged="HotMotionListBox_SelectionChanged"
+                     Template="{StaticResource AppleListBoxControlTemplate}" />            
             <ListBox x:Name="FeaturedMotionListBox" Height="390" Width="950"
                      BorderThickness ="1,0,1,0" Margin="68,475,0,0"
                      VerticalAlignment="Top" HorizontalAlignment="Left"
                      ItemsSource="{Binding FeaturedItemsList}"
                      Background="Transparent" Style="{StaticResource ListBoxVerticalStyle}"
                      ItemsPanel="{StaticResource WrapPanelListBoxTemplate}" 
-                     PreviewMouseWheel="FeaturedMotionListBox_PreviewMouseWheel"/>
+                     PreviewMouseWheel="FeaturedMotionListBox_PreviewMouseWheel"
+                     Template="{StaticResource AppleListBoxControlTemplate}"/>
             <ListBox x:Name="ArtistLisBox" Height="200" Width="950"
                      Margin="68,900,0,0"  BorderThickness="1,0,1,0"
                      VerticalAlignment="Top" HorizontalAlignment="Left"
                      Style="{StaticResource ListBoxVerticalStyle}"
                      ItemsPanel="{StaticResource WrapPanelListBoxTemplate}"
                      ItemsSource="{Binding ArtistList}"
-                     PreviewMouseWheel="ArtistLisBox_PreviewMouseWheel">
-                
-            </ListBox>
+                     PreviewMouseWheel="ArtistLisBox_PreviewMouseWheel"
+                     Template="{StaticResource AppleListBoxControlTemplate}" />
         </Grid>
     </ScrollViewer>
 </UserControl>
