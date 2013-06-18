@@ -47,7 +47,7 @@ namespace TuneRoboWPF
             remove { RemoveHandler(StoreButtonClickEvent, value); }
         }
 
-        void OnStoreButtonClickEvent()
+        private void OnStoreButtonClickEvent()
         {
             var newEventArgs = new RoutedEventArgs(StoreButtonClickEvent);
             RaiseEvent(newEventArgs);
@@ -62,7 +62,7 @@ namespace TuneRoboWPF
             remove { RemoveHandler(RemoteButtonClickEvent, value); }
         }
 
-        void OnRemoteButtonClickEvent()
+        private void OnRemoteButtonClickEvent()
         {
             var newEventArgs = new RoutedEventArgs(RemoteButtonClickEvent);
             RaiseEvent(newEventArgs);
@@ -73,6 +73,7 @@ namespace TuneRoboWPF
             InitializeComponent();
             DataContext = new NavigationBarViewModel();            
             ViewModel = (NavigationBarViewModel)DataContext;
+            RemoteToggleButton.IsChecked = true;
         }
 
         public NavigationBarViewModel ViewModel = new NavigationBarViewModel();
@@ -99,17 +100,7 @@ namespace TuneRoboWPF
             signoutRequest.ProcessSuccessfully += (reply) => OnLogoutSuccessfully(null);
             signoutRequest.ProcessError += (reply, msg) => Debug.Fail(reply.type.ToString(),msg);
             GlobalVariables.StoreWorker.AddRequest(signoutRequest);
-        }
-
-        private void StoreButton_Click(object sender, RoutedEventArgs e)
-        {
-            OnStoreButtonClickEvent();
-        }
-        private void RemoteButton_Click(object sender, RoutedEventArgs e)
-        {
-            //RemoteButton.Style = (Style)FindResource("ButtonFlatStyle");
-            OnRemoteButtonClickEvent();
-        }
+        }        
 
         private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -130,6 +121,18 @@ namespace TuneRoboWPF
         {
             var changePassWindow = new ChangePasswordWindow();
             changePassWindow.ShowDialog();
+        }
+
+        private void StoreToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            OnStoreButtonClickEvent();
+            RemoteToggleButton.IsChecked = false;
+        }
+
+        private void RemoteToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            OnRemoteButtonClickEvent();
+            StoreToggleButton.IsChecked = false;
         }
 
     }

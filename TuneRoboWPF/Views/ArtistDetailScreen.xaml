@@ -56,6 +56,12 @@
 
     </UserControl.Resources>
     <ScrollViewer Margin="0" x:Name="MainScrollViewer" VerticalScrollBarVisibility="Auto" >
+        <ScrollViewer.Resources>
+            <Style TargetType="ScrollViewer">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            </Style>
+            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource FullAppleScrollBar}"/>
+        </ScrollViewer.Resources>
         <Grid Background="#F5F5F5">
             <TabControl x:Name="TabContent" Margin="0,85,0,0" Style="{DynamicResource TabControlStyle1}" HorizontalContentAlignment="Center">
                 <TabItem x:Name="MotionTab" Header="Motion">

@@ -52,8 +52,14 @@
         </DataTemplate>
     </UserControl.Resources>
     <ScrollViewer Margin="0" x:Name="MainScrollViewer" ScrollChanged="MainScrollViewer_ScrollChanged" VerticalScrollBarVisibility="Auto" >
+        <ScrollViewer.Resources>
+            <Style TargetType="ScrollViewer">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            </Style>
+            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource FullAppleScrollBar}"/>
+        </ScrollViewer.Resources>
         <Grid Background="#f2f2f2">
-        	<!--<Grid.Background>
+            <!--<Grid.Background>
                 <VisualBrush TileMode="Tile" Viewport="0,0,0.01,0.01">
                     <VisualBrush.Visual>
                         <Image Source="../Resources/Background1.png"/>
@@ -80,10 +86,10 @@
                         </Grid.RowDefinitions>
                         <ListBox Grid.Row="0" x:Name="ScreenshotsListbox" Height="200" Margin="27.5,40,0,0" 
                                  VerticalAlignment="Top" HorizontalAlignment="Left" Width="751"
+                                 VerticalContentAlignment="Top"
                                  BorderThickness="1,0,1,0" Background="Transparent"
                                  ItemsPanel="{StaticResource WrapPanelListBoxTemplate}"
-                                 Style="{StaticResource ListBoxVerticalStyle}"
-                                 ItemTemplate="{DynamicResource ImageDataTemplate}"
+                                 Style="{StaticResource ListBoxVerticalStyle}"                                 
                                  ItemsSource="{Binding ScreenshotsList}" Cursor="Hand"
                                  PreviewMouseWheel="ScreenshotsListbox_PreviewMouseWheel"
                                  SelectionChanged="ScreenshotsListbox_SelectionChanged"
@@ -119,14 +125,14 @@
                         </System_Windows_Controls:Rating>
                         <Button x:Name="ReviewButton" Grid.Row="0" Content="Write a Review" Margin="314.5,23,380,0" Height="21.96" VerticalAlignment="Top"
                                 Click="ReviewButton_Click">
-                        	<Button.Background>
-                        		<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        			<GradientStop Color="#FFE8E8E8"/>
-                        			<GradientStop Color="#FFDFDFDF" Offset="0.5"/>
-                        			<GradientStop Color="#FFDFDFDF" Offset="0.5"/>
-                        			<GradientStop Color="#FFD6D6D6" Offset="1"/>
-                        		</LinearGradientBrush>
-                        	</Button.Background>
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                    <GradientStop Color="#FFE8E8E8"/>
+                                    <GradientStop Color="#FFDFDFDF" Offset="0.5"/>
+                                    <GradientStop Color="#FFDFDFDF" Offset="0.5"/>
+                                    <GradientStop Color="#FFD6D6D6" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
                         </Button>
                         <StackPanel x:Name="ReviewStackPanel" HorizontalAlignment="Stretch" Grid.Row="1" />
                     </Grid>
@@ -168,13 +174,13 @@
             </Rectangle>
             <Button x:Name="DownloadButton" Content="{Binding DownloadButtonContent}" HorizontalAlignment="Left" Height="27" 
                     Margin="57,281,0,0" VerticalAlignment="Top" Width="166" Click="DownloadButton_Click">
-            	<Button.Background>
-            		<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-            			<GradientStop Color="#FFD8D8D8" Offset="1"/>            			
-            			<GradientStop Color="#FFCDCDCD" Offset="0.619"/>
-            			<GradientStop Color="#FFE8E8E8"/>
-            		</LinearGradientBrush>
-            	</Button.Background>
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFD8D8D8" Offset="1"/>
+                        <GradientStop Color="#FFCDCDCD" Offset="0.619"/>
+                        <GradientStop Color="#FFE8E8E8"/>
+                    </LinearGradientBrush>
+                </Button.Background>
             </Button>
             <TextBlock x:Name="ArtistTextBlock" HorizontalAlignment="Left" Margin="30,354,0,0" 
                        TextWrapping="Wrap" Text="{Binding ArtistName}" 

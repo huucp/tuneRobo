@@ -11,11 +11,7 @@ namespace TuneRoboWPF.Models
         public double RatingValue = 0;
         public string ArtistName = "Tosy";
         public ObservableCollection<ScreenshotImage> ScreenshotsList = new ObservableCollection<ScreenshotImage>();
-        public BitmapImage ImageSource = null;
-        public class ScreenshotImage
-        {
-            public BitmapImage ImageSource { get; set; }
-        }
+        public BitmapImage ImageSource = null;        
 
         public string MotionDescription = string.Empty;
         public ObservableCollection<MotionItemVertical> RelatedMotionsList = new ObservableCollection<MotionItemVertical>();

@@ -9,6 +9,7 @@
     			<ResourceDictionary Source="Utility/StyleAndTemplateDictionary.xaml"/>
                 <ResourceDictionary Source="Themes/ScrollBar.xaml"/>
                 <ResourceDictionary Source="Themes/ListBox.xaml"/>
+                <ResourceDictionary Source="Themes/ToggleButton.xaml"/>
     		</ResourceDictionary.MergedDictionaries>
     	</ResourceDictionary>
         

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -25,7 +26,7 @@ namespace TuneRoboWPF.Views
         private ulong MotionID { get; set; }
         private motion.MotionInfo Info { get; set; }
         private uint numberOfComment = 0;
-        private uint numberOfRelatedMotions = 0;        
+        private uint numberOfRelatedMotions = 0;
         public MotionDetailScreen(ulong motionID)
         {
             InitializeComponent();
@@ -120,17 +121,51 @@ namespace TuneRoboWPF.Views
             GlobalVariables.ImageDownloadWorker.AddDownload(downloadImageRequest);
         }
 
+        private string GetYoutubeVideoID(string url)
+        {
+            string id = Regex.Match(url,
+                        @"(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^""&?\/ ]{11})").
+                Groups[1].Value;
+            return id;
+        }
+
+        private void LoadYoutubeThumnail(string url)
+        {
+            string videoID = GetYoutubeVideoID(url);
+            string thumnailUrl = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
+            var thumnailDownload = new ImageDownload(thumnailUrl);
+            thumnailDownload.DownloadCompleted += (image) =>
+                Dispatcher.BeginInvoke((Action)(delegate
+                {
+                    var youtubeImage = new ScreenshotImage();
+                    youtubeImage.ViewModel.ScreenshotSource = image;
+                    youtubeImage.ViewModel.IsYoutubeThumbnail = true;
+                    ViewModel.ScreenshotsList[0] = youtubeImage;
+                }));
+            thumnailDownload.DownloadFailed += (s, msg) => Debug.Fail(msg);
+            GlobalVariables.ImageDownloadWorker.AddDownload(thumnailDownload);
+        }
+
         private void UpdateScreenshots(List<string> urls)
         {
-            var youtubeImage = new MotionDetailScreenModel.ScreenshotImage { ImageSource = (BitmapImage)FindResource("YoutubeImage") };
-            Dispatcher.BeginInvoke((Action)(() => ViewModel.ScreenshotsList.Add(youtubeImage)));
+            //var youtubeImage = new MotionDetailScreenModel.ScreenshotImage { ImageSource = (BitmapImage)FindResource("YoutubeImage") };
+            Dispatcher.BeginInvoke((Action)(delegate
+            {
+                var defaultYoutubeImage = new ScreenshotImage();
+                defaultYoutubeImage.ViewModel.ScreenshotSource = (BitmapImage)FindResource("YoutubeImage");
+                defaultYoutubeImage.ViewModel.IsYoutubeThumbnail = true;
+                ViewModel.ScreenshotsList.Add(defaultYoutubeImage);
+            }));
+            LoadYoutubeThumnail(Info.video_url);
             foreach (string t in urls)
             {
                 var downloadImageRequest = new ImageDownload(t);
                 downloadImageRequest.DownloadCompleted += (imageSource) =>
                         Dispatcher.BeginInvoke((Action)delegate
                         {
-                            var image = new MotionDetailScreenModel.ScreenshotImage { ImageSource = imageSource };
+                            var image = new ScreenshotImage();
+                            image.ViewModel.ScreenshotSource = imageSource;
+                            image.ViewModel.IsYoutubeThumbnail = false;
                             ViewModel.ScreenshotsList.Add(image);
                         });
                 downloadImageRequest.DownloadFailed += (s, msg) => Debug.Fail(msg);

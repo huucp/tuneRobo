@@ -54,7 +54,7 @@ namespace TuneRoboWPF.ViewModels
             }
         }
 
-        public ObservableCollection<MotionDetailScreenModel.ScreenshotImage> ScreenshotsList
+        public ObservableCollection<ScreenshotImage> ScreenshotsList
         {
             get { return model.ScreenshotsList; }
             set

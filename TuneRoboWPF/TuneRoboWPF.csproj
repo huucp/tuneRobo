@@ -178,6 +178,7 @@
     <Compile Include="ViewModels\RatingWindowViewModel.cs" />
     <Compile Include="ViewModels\RemoteControlScreenViewModel.cs" />
     <Compile Include="ViewModels\RobotTransformButtonViewModel.cs" />
+    <Compile Include="ViewModels\ScreenshotImageViewModel.cs" />
     <Compile Include="ViewModels\SearchResultScreenViewModel.cs" />
     <Compile Include="ViewModels\StoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TempStoreScreenViewModel.cs" />
@@ -201,6 +202,9 @@
     </Compile>
     <Compile Include="Views\MotionItemVertical.xaml.cs">
       <DependentUpon>MotionItemVertical.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ScreenshotImage.xaml.cs">
+      <DependentUpon>ScreenshotImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SearchResultScreen.xaml.cs">
       <DependentUpon>SearchResultScreen.xaml</DependentUpon>
@@ -288,6 +292,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\ToggleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Utility\ConfigDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -317,6 +325,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MotionItemVertical.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ScreenshotImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -461,6 +473,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\5_content_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\9_av_play_over_video.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />

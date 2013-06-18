@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -8,6 +9,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using TuneRoboWPF.RobotService;
 
@@ -326,11 +328,11 @@ namespace TuneRoboWPF.Utility
                              motionID.ToString() + ".mrb");
         }
 
-        public static Utility.MotionInfo GetLocalMotionInfo(ulong motionID)
+        public static MotionInfo GetLocalMotionInfo(ulong motionID)
         {
             string motionPath = GetLocalMotionPath(motionID);
-            return new Utility.MotionInfo(motionPath);
-        }
+            return new MotionInfo(motionPath);
+        }        
 
         #region RemoteViaWifi
         // Convert a decimal number to a hexadecimal number in 2 byte little endian format
