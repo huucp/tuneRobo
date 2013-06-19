@@ -5,7 +5,7 @@
 	x:Class="TuneRoboWPF.Windows.LoginWindow"
 	x:Name="Window"
 	Title="Login"
-	Width="337" Height="151" WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+	Width="337" Height="226" WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
     WindowStyle="None" ResizeMode="NoResize" MouseDown="Window_MouseDown">
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}">
@@ -33,7 +33,24 @@
                    VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBox x:Name="UsernameTextBox" Text="huupc@tosy.com"  Height="28" Margin="87,20,0,0" VerticalAlignment="Top" Width="230" HorizontalAlignment="Left" FontWeight="Medium"/>
         <PasswordBox x:Name="PasswordBox" Password ="1" Margin="87,68,0,0" Width="230" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top"/>
-        <Button x:Name="LoginButton" Content="Login" Margin="247,106,0,0" Click ="LoginButton_Click" IsDefault="True" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70" FontWeight="Bold" />
-        <Button x:Name="CancelButton" Content="Cancel" Margin="167,106,0,0" Click ="CancelButton_Click" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70" FontWeight="Bold" IsCancel="True" />
+        <Button x:Name="LoginButton" Content="Login" Margin="247,0,0,18" Click ="LoginButton_Click" IsDefault="True" HorizontalAlignment="Left" Width="70" FontWeight="Bold" Height="27" VerticalAlignment="Bottom" />
+        <Button x:Name="CancelButton" Content="Cancel" Margin="167,0,0,18" Click ="CancelButton_Click" Height="27" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="70" FontWeight="Bold" IsCancel="True" />
+        <Label HorizontalAlignment="Right" Margin="0,100,20,102" Foreground="#FF0A226A" Padding="5,3,5,0" Cursor="Hand">
+            <TextBlock>Forgot password</TextBlock>
+            <Label.Style>
+                <Style TargetType="{x:Type Label}">
+                    <Style.Resources>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Label}, Path=IsMouseOver}" Value="True">
+                                    <Setter Property="TextDecorations" Value="Underline"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </Label.Style>
+        </Label>
     </Grid>
 </Window>
