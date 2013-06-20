@@ -2,11 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Custom="http://schemas.microsoft.com/wpf/2008/toolkit" xmlns:Views="clr-namespace:TuneRoboWPF.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Views="clr-namespace:TuneRoboWPF.Views"
              x:Class="TuneRoboWPF.Views.StoreScreen" 
              mc:Ignorable="d" 
-             d:DesignHeight="703" d:DesignWidth="1100">    
+             d:DesignHeight="703" d:DesignWidth="1100"
+             Loaded="UserControl_Loaded">    
     <ScrollViewer x:Name="MainScrollViewer" Margin="0,0,0,0" CanContentScroll="True" VerticalScrollBarVisibility="Auto">
         <ScrollViewer.Resources>
             <Style TargetType="ScrollViewer">
@@ -23,7 +23,6 @@
                      Background="Transparent" Style="{StaticResource ListBoxVerticalStyle}"
                      ItemsPanel="{StaticResource WrapPanelListBoxTemplate}"
                      PreviewMouseWheel="HotMotionListBox_PreviewMouseWheel"
-                     SelectionChanged="HotMotionListBox_SelectionChanged"
                      Template="{StaticResource AppleListBoxControlTemplate}" />            
             <ListBox x:Name="FeaturedMotionListBox" Height="390" Width="950"
                      BorderThickness ="1,0,1,0" Margin="68,475,0,0"

@@ -6,10 +6,12 @@
     	<ResourceDictionary>
     		<ResourceDictionary.MergedDictionaries>
     			<ResourceDictionary Source="Utility/ConfigDictionary.xaml"/>
-    			<ResourceDictionary Source="Utility/StyleAndTemplateDictionary.xaml"/>
+    			<ResourceDictionary Source="Themes\StyleAndTemplateDictionary.xaml"/>
                 <ResourceDictionary Source="Themes/ScrollBar.xaml"/>
                 <ResourceDictionary Source="Themes/ListBox.xaml"/>
                 <ResourceDictionary Source="Themes/ToggleButton.xaml"/>
+                <ResourceDictionary Source="Utility/String.xaml"/>
+                <ResourceDictionary Source="Themes/StyleAndTemplateDictionary.xaml"/>
     		</ResourceDictionary.MergedDictionaries>
     	</ResourceDictionary>
         

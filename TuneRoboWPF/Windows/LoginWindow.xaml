@@ -5,7 +5,7 @@
 	x:Class="TuneRoboWPF.Windows.LoginWindow"
 	x:Name="Window"
 	Title="Login"
-	Width="337" Height="226" WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+	Width="340" Height="193" WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
     WindowStyle="None" ResizeMode="NoResize" MouseDown="Window_MouseDown">
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}">
@@ -24,33 +24,44 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style  TargetType="{x:Type TextBlock}">
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="1" BlurRadius="1"  Direction="270" Color="White"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type Label}">
+            <Style.Resources>
+                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="FontSize" Value="10"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Label}}}" Value="True">
+                            <Setter Property="TextDecorations" Value="Underline"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Style.Resources>
+        </Style>
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot" Background="WhiteSmoke">
-        <TextBlock HorizontalAlignment="Left" Margin="20,26,0,0" TextWrapping="Wrap" Text="Username" 
+        <TextBlock HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" Text="{DynamicResource UsernameText}" 
                    VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Margin="23,74,0,0" TextWrapping="Wrap" Text="Password" 
-                   VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox x:Name="UsernameTextBox" Text="huupc@tosy.com"  Height="28" Margin="87,20,0,0" VerticalAlignment="Top" Width="230" HorizontalAlignment="Left" FontWeight="Medium"/>
-        <PasswordBox x:Name="PasswordBox" Password ="1" Margin="87,68,0,0" Width="230" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top"/>
-        <Button x:Name="LoginButton" Content="Login" Margin="247,0,0,18" Click ="LoginButton_Click" IsDefault="True" HorizontalAlignment="Left" Width="70" FontWeight="Bold" Height="27" VerticalAlignment="Bottom" />
-        <Button x:Name="CancelButton" Content="Cancel" Margin="167,0,0,18" Click ="CancelButton_Click" Height="27" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="70" FontWeight="Bold" IsCancel="True" />
-        <Label HorizontalAlignment="Right" Margin="0,100,20,102" Foreground="#FF0A226A" Padding="5,3,5,0" Cursor="Hand">
-            <TextBlock>Forgot password</TextBlock>
-            <Label.Style>
-                <Style TargetType="{x:Type Label}">
-                    <Style.Resources>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Setter Property="FontWeight" Value="Bold"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Label}, Path=IsMouseOver}" Value="True">
-                                    <Setter Property="TextDecorations" Value="Underline"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Style.Resources>
-                </Style>
-            </Label.Style>
+        <TextBlock HorizontalAlignment="Left" Margin="20,84,0,0" TextWrapping="Wrap" Text="{DynamicResource PasswordText}" FontWeight="Bold" VerticalAlignment="Top"/>
+        <TextBox x:Name="UsernameTextBox" Text="huupc@tosy.com"  Height="28" Margin="20,46,0,0" VerticalAlignment="Top" FontWeight="Medium" HorizontalAlignment="Left" Width="300"/>
+        <PasswordBox x:Name="PasswordBox" Password ="1" Margin="20,110,0,0" Width="300" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top"/>
+        <Button x:Name="LoginButton" Content="{DynamicResource LoginText}" Margin="250,0,0,18" Click ="LoginButton_Click" IsDefault="True" HorizontalAlignment="Left" Width="70" FontWeight="Bold" Height="27" VerticalAlignment="Bottom" Cursor="Hand" />
+        <Button x:Name="CancelButton" Content="{DynamicResource CancelText}" Margin="170,0,0,18" Click ="CancelButton_Click" Height="27" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="70" FontWeight="Bold" IsCancel="True" Cursor="Hand" />
+        <Label Margin="226.736,83.16,0,0" Foreground="#FF0A226A" Padding="5,3,5,0" Cursor="Hand" 
+               VerticalAlignment="Top" HorizontalAlignment="Left" MouseDown="Forgot_Click">
+            <TextBlock><Run Text="{DynamicResource ForgotPasswordText}"/></TextBlock>            
+        </Label>
+        <Label Margin="222.656,19.16,0,0" Foreground="#FF0A226A" Padding="5,3,5,0" Cursor="Hand" 
+               VerticalAlignment="Top" HorizontalAlignment="Left" MouseDown="Signup_Click">
+            <TextBlock><Run Text="{DynamicResource CreateAnAccountText}"/></TextBlock>
         </Label>
     </Grid>
 </Window>

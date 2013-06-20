@@ -1,0 +1,17 @@
+﻿<Window x:Class="TuneRoboWPF.Windows.ForgotWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ForgotWindow" Height="129" Width="340" WindowStyle="None" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+    <Grid>
+    	<TextBlock HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap"
+    		VerticalAlignment="Top" FontWeight="Bold"><Run Text="{DynamicResource ForgotEmailText}"/>
+        </TextBlock>
+    	<TextBox x:Name="EmailTextBox"  Height="28" Margin="20,46,0,0" VerticalAlignment="Top" FontWeight="Medium" HorizontalAlignment="Left" Width="300"
+                 Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+    	<Button Content="{DynamicResource ResetPasswordText}" Height="27" Margin="250,84,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" HorizontalAlignment="Left"
+    		FontWeight="Bold" Click="Reset_Click"/>
+    	<Button Content="{DynamicResource CancelText}" HorizontalAlignment="Left" Height="27" Margin="170,84,0,0" 
+    		VerticalAlignment="Top" Width="70" IsCancel="True" FontWeight="Bold" Click="Cancel_Click"/>        
+    </Grid>
+</Window>

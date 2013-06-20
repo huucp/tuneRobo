@@ -3,6 +3,7 @@
     public class TransferWindowModel
     {
         public string Title = "Title";
-        public string WindowTitle = "Transfer motion";
+        public int Percentage = 0;
+        public string TransferText = string.Empty;
     }
 }

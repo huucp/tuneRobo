@@ -560,9 +560,11 @@
         </Menu>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
             <ToggleButton x:Name="StoreToggleButton" Content="Store" Height="20" Margin="68,0,0,0" VerticalAlignment="Top"
-                      Checked="StoreToggleButton_Checked" Style="{StaticResource NavigationBarToggleButtonStyle}" HorizontalAlignment="Left"/>
+                          Checked="StoreToggleButton_Checked" Click="StoreToggleButton_Click"
+                          Style="{StaticResource NavigationBarToggleButtonStyle}" HorizontalAlignment="Left"/>
             <ToggleButton x:Name="RemoteToggleButton" Content="Remote" Height="20" Margin="0"
-                      Checked="RemoteToggleButton_Checked" Style="{StaticResource NavigationBarToggleButtonStyle}" HorizontalAlignment="Left"/>
+                          Checked="RemoteToggleButton_Checked" Click="RemoteToggleButton_Click"
+                          Style="{StaticResource NavigationBarToggleButtonStyle}" HorizontalAlignment="Left"/>
         </Grid>
 
         <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" 

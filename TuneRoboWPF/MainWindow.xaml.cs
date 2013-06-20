@@ -29,6 +29,8 @@ namespace TuneRoboWPF
             {
                 navigationBar.UserMenu.Visibility = Visibility.Hidden;
                 navigationBar.SignInButton.Visibility = Visibility.Visible;
+                var storeScreen = new StoreScreen();
+                ChangeScreen(storeScreen);
             });            
         }
 
@@ -69,7 +71,7 @@ namespace TuneRoboWPF
             };
             notificationRequest.ProcessError += (reply, msg) =>
             {
-                Console.WriteLine("GetNotificationFromStore failed: " + msg);
+                Console.WriteLine("GetNotificationFromStore failed: {0} - {1}",reply.type.ToString(), msg);
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     //testStoreScreen.Visibility = Visibility.Visible;

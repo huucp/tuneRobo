@@ -31,6 +31,7 @@ namespace TuneRoboWPF.Windows
             DataContext = viewModel;
             ViewModel = (TransferWindowViewModel)DataContext;
             ViewModel.Title = motionTitle;
+            ViewModel.TransferText = (string)FindResource("TransferringText");
 		}
 
         public TransferWindow(DownloadMotionStoreRequest request, string motionTitle)
@@ -48,6 +49,7 @@ namespace TuneRoboWPF.Windows
             DataContext = viewModel;
             ViewModel = (TransferWindowViewModel)DataContext;
             ViewModel.Title = motionTitle;
+            ViewModel.TransferText = (string) FindResource("DownloadingText");
         }
 
 	    private void Request_ProgressReport(int progressValue)
@@ -55,7 +57,7 @@ namespace TuneRoboWPF.Windows
             Dispatcher.BeginInvoke((Action) delegate
                                                 {
                                                     ProgressBar.Value = progressValue;
-                                                    ViewModel.WindowTitle = "Transferring..." + progressValue + "%";
+                                                    ViewModel.Percentage = progressValue;
                                                 });
         }
 
@@ -108,6 +110,6 @@ namespace TuneRoboWPF.Windows
         {
             Owner = owner;
             return ShowDialog();
-        }
+        }        
 	}
 }

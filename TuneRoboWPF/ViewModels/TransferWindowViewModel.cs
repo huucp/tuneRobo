@@ -14,13 +14,22 @@ namespace TuneRoboWPF.ViewModels
                 NotifyPropertyChanged("Title");
             }
         }
-        public string WindowTitle
+        public int Percentage
         {
-            get { return model.WindowTitle; }
+            get { return model.Percentage; }
             set
             {
-                model.WindowTitle = value;
-                NotifyPropertyChanged("WindowTitle");
+                model.Percentage = value;
+                NotifyPropertyChanged("Percentage");
+            }
+        }
+        public string TransferText
+        {
+            get { return model.TransferText; }
+            set
+            {
+                model.TransferText = value;
+                NotifyPropertyChanged("TransferText");
             }
         }
     }

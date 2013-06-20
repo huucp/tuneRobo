@@ -95,6 +95,7 @@
     <Compile Include="Models\ArtistItemVerticalModel.cs" />
     <Compile Include="Models\CommentItemModel.cs" />
     <Compile Include="Models\ControlButtonModel.cs" />
+    <Compile Include="Models\ForgotWindowModel.cs" />
     <Compile Include="Models\MotionDetailScreenModel.cs" />
     <Compile Include="Models\MotionFullInfoItemModel.cs" />
     <Compile Include="Models\MotionItemVerticalModel.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Models\RemoteControlScreenModel.cs" />
     <Compile Include="Models\RobotTransformButtonModel.cs" />
     <Compile Include="Models\SearchResultScreenModel.cs" />
+    <Compile Include="Models\SignupWindowModel.cs" />
     <Compile Include="Models\StoreScreenModel.cs" />
     <Compile Include="Models\TempStoreScreenModel.cs" />
     <Compile Include="Models\TransferWindowModel.cs" />
@@ -165,6 +167,7 @@
     <Compile Include="ViewModels\ArtistItemVerticalViewModel.cs" />
     <Compile Include="ViewModels\CommentItemViewModel.cs" />
     <Compile Include="ViewModels\ControlButtonViewModel.cs" />
+    <Compile Include="ViewModels\ForgotWindowViewModel.cs" />
     <Compile Include="ViewModels\MotionDetailScreenViewModel.cs" />
     <Compile Include="ViewModels\MotionFullInfoItemViewModel.cs" />
     <Compile Include="ViewModels\MotionItemVerticalViewModel.cs" />
@@ -180,6 +183,7 @@
     <Compile Include="ViewModels\RobotTransformButtonViewModel.cs" />
     <Compile Include="ViewModels\ScreenshotImageViewModel.cs" />
     <Compile Include="ViewModels\SearchResultScreenViewModel.cs" />
+    <Compile Include="ViewModels\SignupWindowViewModel.cs" />
     <Compile Include="ViewModels\StoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TempStoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TransferWindowViewModel.cs" />
@@ -196,6 +200,9 @@
     </Compile>
     <Compile Include="Views\ControlButton.xaml.cs">
       <DependentUpon>ControlButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoadingScreen.xaml.cs">
+      <DependentUpon>LoadingScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MotionDetailScreen.xaml.cs">
       <DependentUpon>MotionDetailScreen.xaml</DependentUpon>
@@ -251,11 +258,17 @@
     <Compile Include="Windows\ChangePasswordWindow.xaml.cs">
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ForgotWindow.xaml.cs">
+      <DependentUpon>ForgotWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\RatingWindow.xaml.cs">
       <DependentUpon>RatingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SignupWindow.xaml.cs">
+      <DependentUpon>SignupWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\TransferWindow.xaml.cs">
       <DependentUpon>TransferWindow.xaml</DependentUpon>
@@ -292,6 +305,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\StyleAndTemplateDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\ToggleButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -300,7 +317,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Utility\StyleAndTemplateDictionary.xaml">
+    <Page Include="Utility\String.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -317,6 +334,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoadingScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -384,11 +405,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\ForgotWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\RatingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SignupWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

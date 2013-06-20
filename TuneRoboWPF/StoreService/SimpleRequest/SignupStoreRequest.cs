@@ -14,10 +14,12 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
     {
         private string Email { get; set; }
         private string Name { get; set; }
-        public SignupStoreRequest(string email, string name)
+        private string Avatar { get; set; }
+        public SignupStoreRequest(string email, string name,string avatar)
         {
             Email = email;
             Name = name;
+            Avatar = avatar;
         }
         public override void BuildPacket()
         {
@@ -25,7 +27,8 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
             var request = new SignupRequest()
                               {
                                   email = Email,
-                                  display_name = Name
+                                  display_name = Name,
+                                  avatar_url = Avatar
                               };
             byte[] packetData;
             using (var stream = new MemoryStream())

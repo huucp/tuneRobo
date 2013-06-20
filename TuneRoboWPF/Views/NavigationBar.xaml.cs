@@ -135,5 +135,21 @@ namespace TuneRoboWPF
             StoreToggleButton.IsChecked = false;
         }
 
+        private void StoreToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (StoreToggleButton.IsChecked==false)
+            {
+                StoreToggleButton.IsChecked = true;
+            }
+        }
+
+        private void RemoteToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (RemoteToggleButton.IsChecked == false)
+            {
+                RemoteToggleButton.IsChecked = true;
+            }
+        }
+
     }
 }

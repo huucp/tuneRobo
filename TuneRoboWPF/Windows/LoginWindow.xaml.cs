@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using TuneRoboWPF.StoreService.SimpleRequest;
@@ -47,7 +46,7 @@ namespace TuneRoboWPF.Windows
 
         private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if(e.ChangedButton==MouseButton.Left)
+            if (e.ChangedButton == MouseButton.Left)
             {
                 DragMove();
             }
@@ -57,5 +56,19 @@ namespace TuneRoboWPF.Windows
         {
             Close();
         }
+
+        private void Signup_Click(object sender, MouseButtonEventArgs e)
+        {
+            Close();
+            var signupWindow = new SignupWindow();
+            signupWindow.ShowDialog(StaticMainWindow.Window);
+        }
+
+        private void Forgot_Click(object sender, MouseButtonEventArgs e)
+        {  
+            Close();
+            var forgotWindow = new ForgotWindow();
+            forgotWindow.ShowDialog(StaticMainWindow.Window);
+        }        
     }
 }

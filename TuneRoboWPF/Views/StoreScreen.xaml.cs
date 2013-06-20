@@ -23,10 +23,7 @@ namespace TuneRoboWPF.Views
             
             DataContext = new StoreScreenViewModel();
             ViewModel = (StoreScreenViewModel)DataContext;
-
-            GetHotList();
-            GetFeaturedList();
-            GetArtistList();
+                       
         }
 
         private List<ArtistShortInfo> artistList = new List<ArtistShortInfo>();
@@ -49,6 +46,8 @@ namespace TuneRoboWPF.Views
                             ViewModel.ArtistList.Add(artistItem);
                             DownloadImage(info.artist_id, info.avatar_url, artistItem);
                         }
+                        //Console.WriteLine("load finish");
+                        //StaticMainWindow.Window.ChangeScreen(this);
                     });
                 };
                 listArtistRequest.ProcessError += (listReply, msg) => Debug.Assert(false, msg);
@@ -156,10 +155,15 @@ namespace TuneRoboWPF.Views
         private void MainScrollViewer_DoMouseWheel(MouseWheelEventArgs e)
         {
             MainScrollViewer.ScrollToVerticalOffset(MainScrollViewer.VerticalOffset - e.Delta);
-        }
+        }        
 
-        private void HotMotionListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            //var loadingScreen = new LoadingScreen();
+            //StaticMainWindow.Window.ChangeScreen(loadingScreen);
+            GetHotList();
+            GetFeaturedList();
+            GetArtistList();
         }
     }
 }

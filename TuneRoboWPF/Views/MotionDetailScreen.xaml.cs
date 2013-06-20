@@ -267,7 +267,7 @@ namespace TuneRoboWPF.Views
             }
             StaticMainWindow.Window.UpdateLoginSuccessfully();
             var request = new DownloadMotionStoreRequest(MotionID);
-            var transferWindow = new TransferWindow(request, MotionID.ToString());
+            var transferWindow = new TransferWindow(request, Info.title);
             if (transferWindow.ShowDialog(StaticMainWindow.Window) == true)
             {
                 ViewModel.DownloadButtonContent = "Installed";
