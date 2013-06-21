@@ -237,7 +237,7 @@ namespace TuneRoboWPF.Views
                 motionItem.ViewModel.Index = ++index;
                 motionItem.CopyMotion+=Library_CopyMotion;
                 viewModel.LibraryItemsList.Add(motionItem);
-                if (GlobalVariables.ServerConnection.SocketAlive) DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
+                DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
             }
         }
 
@@ -260,7 +260,6 @@ namespace TuneRoboWPF.Views
                                                              GlobalVariables.ImageDownloadWorker.AddDownload(imageDownload);
                                                          };
             motionInfoRequest.ProcessError += (data, msg) => Debug.Fail(data.type.ToString(), msg);
-
             GlobalVariables.StoreWorker.ForceAddRequest(motionInfoRequest);
         }
     }

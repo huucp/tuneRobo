@@ -32,7 +32,6 @@ namespace TuneRoboWPF
 		    DataContext = new UserDetailScreenViewModel();
 		    ViewModel = (UserDetailScreenViewModel) DataContext;
 
-		    
 		}        
 
         private void DownloadAvatar()
@@ -83,6 +82,7 @@ namespace TuneRoboWPF
 
 	    private void UserDetailScreen_Loaded(object sender, RoutedEventArgs e)
 	    {
+            StaticMainWindow.Window.ShowLoadingScreen();
             ViewModel.Username = GlobalVariables.CurrentUser.DisplayName;
             DownloadAvatar();
 	        GetPurchasedList(0,19);
@@ -104,8 +104,13 @@ namespace TuneRoboWPF
                         motion.MotionClicked += PurchasedMotion_MotionClicked;
                         DownloadMotionImage(motionInfo.icon_url, motion);
                     }
+                    StaticMainWindow.Window.ShowContentScreen();
                 });
-	        purchaseRequest.ProcessError += (reply, msg) => Debug.Fail(reply.type.ToString(), msg);
+	        purchaseRequest.ProcessError += (reply, msg) =>
+            {
+                Debug.Fail(reply.type.ToString(), msg);
+                Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
+            };                               
             GlobalVariables.StoreWorker.ForceAddRequest(purchaseRequest);
 	    }
 

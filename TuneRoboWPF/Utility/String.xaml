@@ -21,5 +21,13 @@
     <sys:String x:Key="ResetPasswordEmailErrorText">Your Tosy ID is invalid!</sys:String>    
     <sys:String x:Key="ResetPasswordDefaultErrorText">Cannot reset your password now. Please try again later!</sys:String>    
     <sys:String x:Key="DownloadingText">Downloading</sys:String>   
-    <sys:String x:Key="TranferringText">Transferring</sys:String>   
+    <sys:String x:Key="TranferringText">Transferring</sys:String>    
+    <sys:String x:Key="LoadingScreenText">loading</sys:String>    
+    <sys:String x:Key="ErrorScreenText">We encounted an error. Please check out your connection and retry.</sys:String>    
+    <sys:String x:Key="DetailsTabHeaderText">Details</sys:String>
+    <sys:String x:Key="ReviewTabHeaderText">Rating and Reviews</sys:String>    
+    <sys:String x:Key="RelatedTabHeaderText">Related</sys:String>     
+    <sys:String x:Key="FreeText">Related</sys:String>
+    <sys:String x:Key="InstalledText">Installed</sys:String>
+    <sys:String x:Key="UpdateText">Update</sys:String>
 </ResourceDictionary>

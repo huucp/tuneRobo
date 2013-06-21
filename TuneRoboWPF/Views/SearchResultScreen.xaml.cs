@@ -22,6 +22,7 @@ namespace TuneRoboWPF.Views
 
             DataContext = new SearchResultScreenViewModel();
             ViewModel = (SearchResultScreenViewModel)DataContext;
+
         }
 
 
@@ -56,8 +57,13 @@ namespace TuneRoboWPF.Views
                         //}
 
                     }
+                    StaticMainWindow.Window.ShowContentScreen();
                 });
-            searchRequest.ProcessError += (reply, msg) => Debug.Fail(msg, reply.type.ToString());
+            searchRequest.ProcessError += (reply, msg) =>
+            {
+                Debug.Fail(msg, reply.type.ToString());
+                Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
+            };
             GlobalVariables.StoreWorker.ForceAddRequest(searchRequest);
         }
 
@@ -85,6 +91,11 @@ namespace TuneRoboWPF.Views
                         UpdateSearchList(numberSearchItem, numberSearchItem + 19);
                     } 
                 }
+        }
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            StaticMainWindow.Window.ShowLoadingScreen();
         }
     }
 }

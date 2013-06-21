@@ -3,7 +3,6 @@
 	x:Name="UserControl"
 	d:DesignWidth="1100" d:DesignHeight="480" mc:Ignorable="d" Height="30">
     <UserControl.Resources>
-        <Style x:Key="ButtonFlatStyle" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" TargetType="{x:Type Button}" />
         <LinearGradientBrush x:Key="TextBoxBorder" EndPoint="0,20" MappingMode="Absolute" StartPoint="0,0">
             <GradientStop Color="#ABADB3" Offset="0.05"/>
             <GradientStop Color="#E2E3EA" Offset="0.07"/>
@@ -530,7 +529,7 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Button x:Name="SignInButton" Content="Login" Margin="40,4,0,0" 
+        <Button x:Name="SignInButton" Content="{DynamicResource LoginText}" Margin="40,4,0,0" 
                 VerticalAlignment="Top" Height="23" Click="SignInButton_Click" Style="{DynamicResource LoginButtonStyle}" 
                 HorizontalAlignment="Left" />
         <Menu x:Name="UserMenu" HorizontalAlignment="Left" Height="23" Margin="40,4,0,0" VerticalAlignment="Top" Cursor="Hand" Visibility="Hidden" Background="{x:Null}">

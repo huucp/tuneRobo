@@ -93,12 +93,12 @@ namespace TuneRoboWPF
         private void MainScreen_Loaded(object sender, RoutedEventArgs e)
         {
             GlobalFunction.GetTempDataFolder();            
-            if (GlobalVariables.ServerConnection.ConfigAndConnectSocket() == 0)
-            {
-                //MessageBox.Show("Cannot connect to server!", "Connection error", MessageBoxButton.OK,
-                //    MessageBoxImage.Error);
-                Debug.Fail("Cannot connect to server");
-            }
+            //if (GlobalVariables.ServerConnection.ConfigAndConnectSocket() == 0)
+            //{
+            //    //MessageBox.Show("Cannot connect to server!", "Connection error", MessageBoxButton.OK,
+            //    //    MessageBoxImage.Error);
+            //    Debug.Fail("Cannot connect to server");
+            //}
             
             var firstScreen = new RemoteControlScreen();
             MainDock.Children.Add(firstScreen);
@@ -120,12 +120,40 @@ namespace TuneRoboWPF
         public void ChangeScreen(UserControl screen)
         {
             var lastElement = MainDock.Children[MainDock.Children.Count - 1];
-            if (lastElement.GetType() == screen.GetType())
-            {
-                return;                
-            }
+            //if (lastElement.GetType() == screen.GetType())
+            //{
+            //    return;                
+            //}
             MainDock.Children.Remove(lastElement);
             MainDock.Children.Add(screen);
-        }                        
+        }
+
+        private UIElement MainContentScreen;
+        public void ShowLoadingScreen()
+        {
+            MainContentScreen = MainDock.Children[MainDock.Children.Count - 1];
+            MainContentScreen.Visibility = Visibility.Collapsed;
+            var loadingScreen = new LoadingScreen();
+            MainDock.Children.Add(loadingScreen);
+        }
+
+        public void ShowErrorScreen()
+        {
+            var errorScreen = new ErrorScreen();
+            ChangeScreen(errorScreen);
+        }
+
+        public void ShowNoneScreen()
+        {
+            var noneScreen = new LoadingScreen();
+            ChangeScreen(noneScreen);
+        }
+
+        public void ShowContentScreen()
+        {
+            var lastElement = MainDock.Children[MainDock.Children.Count - 1];
+            MainDock.Children.Remove(lastElement);
+            MainContentScreen.Visibility=Visibility.Visible;
+        }
     }
 }

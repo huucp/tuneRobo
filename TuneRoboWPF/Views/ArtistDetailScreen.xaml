@@ -5,7 +5,8 @@
              xmlns:converter="clr-namespace:TuneRoboWPF.Converter" 
              xmlns:System_Windows_Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit" 
              x:Class="TuneRoboWPF.Views.ArtistDetailScreen" 
-             mc:Ignorable="d" d:DesignHeight="702" d:DesignWidth="1100">
+             mc:Ignorable="d" d:DesignHeight="702" d:DesignWidth="1100"
+             Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <converter:NumberMotionToStringConverter x:Key="NumberMotionToStringConverter"/>
         <converter:BoolToFollowButtonContentConverter x:Key="BoolToFollowButtonContentConverter"/>

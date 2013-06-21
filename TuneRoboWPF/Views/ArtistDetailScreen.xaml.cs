@@ -24,6 +24,7 @@ namespace TuneRoboWPF.Views
             DataContext = new ArtistDetailScreenViewModel();
             ViewModel = (ArtistDetailScreenViewModel)DataContext;
 
+            
         }
 
         public void SetInfo(ulong id)
@@ -49,7 +50,11 @@ namespace TuneRoboWPF.Views
                 });
                 UpdateArtistAvatar(Info.avatar_url);
             };
-            artistInfoRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
+            artistInfoRequest.ProcessError += (reply, msg) =>
+            {
+                Debug.Assert(false, msg);
+                Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
+            };
             GlobalVariables.StoreWorker.ForceAddRequest(artistInfoRequest);
         }
         private void UpdateArtistAvatar(string url)
@@ -95,18 +100,26 @@ namespace TuneRoboWPF.Views
                             //    motionItemVertical.SetInfo(motionInfo);
                             //    ViewModel.ArtistMotionsList.Add(motionItemVertical);
                             //}
+                            StaticMainWindow.Window.ShowContentScreen();
                         }
                     });
-                motionRequest.ProcessError +=
-                    (motionReply, msg) => Debug.Assert(false, msg + motionReply.type.ToString());
+                motionRequest.ProcessError += (motionReply, msg) =>
+                {
+                    Debug.Assert(false, motionReply.type.ToString() + msg);
+                    Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
+                };
                 GlobalVariables.StoreWorker.ForceAddRequest(motionRequest);
             };
-            countRequest.ProcessError += (countReply, msg) => Debug.Assert(false, msg + countReply.type.ToString());
+            countRequest.ProcessError += (countReply, msg) =>
+            {
+                Debug.Assert(false, msg + countReply.type.ToString());
+                StaticMainWindow.Window.ShowErrorScreen();
+            };
             GlobalVariables.StoreWorker.ForceAddRequest(countRequest);
         }
 
         private void motionItemVertical_MotionClicked(ulong motionID)
-        {            
+        {
             var detailScreen = new MotionDetailScreen(motionID);
             StaticMainWindow.Window.ChangeScreen(detailScreen);
         }
@@ -136,9 +149,18 @@ namespace TuneRoboWPF.Views
                     {
                         ViewModel.FollowState = (reply.user_relation.rel == UserRelationReply.Rel.FOLLOW);
                     });
-                followStateRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg + reply.type);
+                followStateRequest.ProcessError += (reply, msg) =>
+                {
+                    Debug.Assert(false, msg + reply.type);
+                    Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
+                };
                 GlobalVariables.StoreWorker.ForceAddRequest(followStateRequest);
             }
+        }
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            StaticMainWindow.Window.ShowLoadingScreen();
         }
     }
 }

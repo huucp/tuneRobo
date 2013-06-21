@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TuneRoboWPF.StoreService.SimpleRequest;
@@ -20,10 +21,10 @@ namespace TuneRoboWPF.Views
         public StoreScreen()
         {
             InitializeComponent();
-            
+
             DataContext = new StoreScreenViewModel();
             ViewModel = (StoreScreenViewModel)DataContext;
-                       
+
         }
 
         private List<ArtistShortInfo> artistList = new List<ArtistShortInfo>();
@@ -46,20 +47,27 @@ namespace TuneRoboWPF.Views
                             ViewModel.ArtistList.Add(artistItem);
                             DownloadImage(info.artist_id, info.avatar_url, artistItem);
                         }
-                        //Console.WriteLine("load finish");
-                        //StaticMainWindow.Window.ChangeScreen(this);
+                        StaticMainWindow.Window.ShowContentScreen();
                     });
                 };
-                listArtistRequest.ProcessError += (listReply, msg) => Debug.Assert(false, msg);
+                listArtistRequest.ProcessError += (listReply, msg) =>
+                {
+                    Debug.Assert(false, msg);
+                    Dispatcher.BeginInvoke((Action) (() => StaticMainWindow.Window.ShowErrorScreen()));
+                };                                                      
                 GlobalVariables.StoreWorker.ForceAddRequest(listArtistRequest);
             };
-            artistCountRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
+            artistCountRequest.ProcessError += (reply, msg) =>
+            {
+                Debug.Assert(false, msg);
+                Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
+            }; 
             GlobalVariables.StoreWorker.ForceAddRequest(artistCountRequest);
 
         }
 
         private void artistItem_ArtistItemClicked(ulong artistID)
-        {            
+        {
             var detailScreen = new ArtistDetailScreen();
             detailScreen.SetInfo(artistID);
             StaticMainWindow.Window.ChangeScreen(detailScreen);
@@ -88,8 +96,9 @@ namespace TuneRoboWPF.Views
             };
             hotListRequest.ProcessError += (reply, msg) =>
             {
-                Console.WriteLine("Host list request failed " + msg);
-            };
+                Debug.Assert(false, msg);
+                Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
+            }; 
             GlobalVariables.StoreWorker.ForceAddRequest(hotListRequest);
         }
 
@@ -112,19 +121,23 @@ namespace TuneRoboWPF.Views
                     }
                 });
             };
-            featuredListRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
+            featuredListRequest.ProcessError += (reply, msg) =>
+            {
+                Debug.Assert(false, msg);
+                Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
+            }; 
             GlobalVariables.StoreWorker.ForceAddRequest(featuredListRequest);
         }
 
         private void motionItem_MotionClicked(ulong motionID)
-        {            
+        {
             var detailScreen = new MotionDetailScreen(motionID);
             StaticMainWindow.Window.ChangeScreen(detailScreen);
         }
 
         private void DownloadImage(ulong id, string url, object item)
         {
-            var imageDownload = new ImageDownload( url);
+            var imageDownload = new ImageDownload(url);
             if (item is MotionItemVertical)
             {
                 imageDownload.DownloadCompleted += ((MotionItemVertical)item).SetImage;
@@ -155,12 +168,10 @@ namespace TuneRoboWPF.Views
         private void MainScrollViewer_DoMouseWheel(MouseWheelEventArgs e)
         {
             MainScrollViewer.ScrollToVerticalOffset(MainScrollViewer.VerticalOffset - e.Delta);
-        }        
-
-        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            //var loadingScreen = new LoadingScreen();
-            //StaticMainWindow.Window.ChangeScreen(loadingScreen);
+        }
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {           
+            StaticMainWindow.Window.ShowLoadingScreen();
             GetHotList();
             GetFeaturedList();
             GetArtistList();

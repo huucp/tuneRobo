@@ -55,9 +55,7 @@ namespace TuneRoboWPF.StoreService
                 count++;
             } while (count < StoreConnection.RetryTime);
             if (count == StoreConnection.RetryTime)
-            {
-                MessageBox.Show("You lost connection, please check your connection", "Connection error",
-                                MessageBoxButtons.OK);
+            {                
                 OnProcessError(null, "Lost connection");
                 return null;
             }

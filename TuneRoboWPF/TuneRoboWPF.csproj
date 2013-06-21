@@ -195,11 +195,17 @@
     <Compile Include="Views\ArtistItemVertical.xaml.cs">
       <DependentUpon>ArtistItemVertical.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BlueDot.xaml.cs">
+      <DependentUpon>BlueDot.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CommentItem.xaml.cs">
       <DependentUpon>CommentItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ControlButton.xaml.cs">
       <DependentUpon>ControlButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ErrorScreen.xaml.cs">
+      <DependentUpon>ErrorScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoadingScreen.xaml.cs">
       <DependentUpon>LoadingScreen.xaml</DependentUpon>
@@ -329,11 +335,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\BlueDot.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\CommentItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ErrorScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -106,6 +106,11 @@ namespace TuneRoboWPF
         {
             if (e.Key == Key.Enter && !string.IsNullOrEmpty(SearchTextBox.Text))
             {
+                if (onRemote)
+                {
+                    SearchTextBox.Text = string.Empty;
+                    return;
+                }                
                 var searchScreen = new SearchResultScreen();
                 searchScreen.SetQuery(SearchTextBox.Text);
                 StaticMainWindow.Window.ChangeScreen(searchScreen);
@@ -123,16 +128,19 @@ namespace TuneRoboWPF
             changePassWindow.ShowDialog();
         }
 
+        private bool onRemote = true;
         private void StoreToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             OnStoreButtonClickEvent();
             RemoteToggleButton.IsChecked = false;
+            onRemote = false;
         }
 
         private void RemoteToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             OnRemoteButtonClickEvent();
             StoreToggleButton.IsChecked = false;
+            onRemote = true;
         }
 
         private void StoreToggleButton_Click(object sender, RoutedEventArgs e)

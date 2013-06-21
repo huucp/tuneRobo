@@ -5,7 +5,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Views="clr-namespace:TuneRoboWPF.Views"
 	mc:Ignorable="d"
 	x:Class="TuneRoboWPF.Views.SearchResultScreen"
-	x:Name="UserControl"
+	x:Name="UserControl" Loaded="UserControl_Loaded"
 	d:DesignWidth="1100" d:DesignHeight="702">
 
     <Grid x:Name="LayoutRoot" Background="#f5f5f5">

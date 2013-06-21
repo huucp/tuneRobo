@@ -6,7 +6,8 @@
              xmlns:System_Windows_Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              xmlns:Views="clr-namespace:TuneRoboWPF.Views" x:Class="TuneRoboWPF.Views.MotionDetailScreen"
              mc:Ignorable="d" 
-             d:DesignHeight="703" d:DesignWidth="1100">
+             d:DesignHeight="703" d:DesignWidth="1100"
+             Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <Style x:Key="TabControlStyle1" TargetType="{x:Type TabControl}">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -45,11 +46,82 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <DataTemplate x:Key="ImageDataTemplate">
-            <Grid Width="320" Height="180">
-                <Image HorizontalAlignment="Stretch" Margin="0" Width="Auto" Source="{Binding ImageSource}"/>
-            </Grid>
-        </DataTemplate>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#b5b5b5" Offset="0"/>
+                        <GradientStop Color="#b5b5b5" Offset="0.036"/>
+                        <GradientStop Color="#b2b2b2" Offset="0.036"/>
+                        <GradientStop Color="#b2b2b2" Offset="0.96"/>
+                        <GradientStop Color="#929292" Offset="0.96"/>
+                        <GradientStop Color="#929292" Offset="1"/>
+
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFE0E0E0" Offset="1"/>
+                        <GradientStop Color="#FFCDCDCD" Offset="0.62"/>
+                        <GradientStop Color="#FFE5E5E5" Offset="0"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="{StaticResource BlackFont}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="13,0,13,1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="OuterBorder" CornerRadius="3" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                        <Setter Property="FontSize" Value="13"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderBrush">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0,1">
+                                            <GradientStop Color="#8e8e8e" Offset="0"/>
+                                            <GradientStop Color="#8e8e8e" Offset="0.036"/>
+                                            <GradientStop Color="#959595" Offset="0.036"/>
+                                            <GradientStop Color="#b0b0b0" Offset="0.96"/>
+                                            <GradientStop Color="#929292" Offset="0.96"/>
+                                            <GradientStop Color="#929292" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#eaeaea" Offset="1"/>
+                                            <GradientStop Color="#e0e0e0" Offset="0.53"/>
+                                            <GradientStop Color="#d0d0d0" Offset="0"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <ScrollViewer Margin="0" x:Name="MainScrollViewer" ScrollChanged="MainScrollViewer_ScrollChanged" VerticalScrollBarVisibility="Auto" >
         <ScrollViewer.Resources>
@@ -78,7 +150,7 @@
 				        Style="{StaticResource TabControlStyle1}" 
                         Height="Auto" VerticalAlignment="Top"
                         Background="#e6e6e6">
-                <TabItem Header="Details" x:Name="DetailsTab">
+                <TabItem Header="{DynamicResource DetailsTabHeaderText}" x:Name="DetailsTab">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -104,7 +176,7 @@
 
                     </Grid>
                 </TabItem>
-                <TabItem Header="Rating and Reviews" x:Name="ReviewsTab">
+                <TabItem Header="{DynamicResource ReviewTabHeaderText}" x:Name="ReviewsTab">
                     <Grid >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -137,7 +209,7 @@
                         <StackPanel x:Name="ReviewStackPanel" HorizontalAlignment="Stretch" Grid.Row="1" />
                     </Grid>
                 </TabItem>
-                <TabItem Header="Related" x:Name="RelatedTab">
+                <TabItem Header="{DynamicResource RelatedTabHeaderText}" x:Name="RelatedTab">
                     <Grid>
                         <TextBlock Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16" FontWeight="ExtraBold"
                                    Text="{Binding MoreByTextBlock}"/>
@@ -172,27 +244,17 @@
                     <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="LightGray"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Button x:Name="DownloadButton" Content="{Binding DownloadButtonContent}" HorizontalAlignment="Left" Height="27" 
-                    Margin="57,281,0,0" VerticalAlignment="Top" Width="166" Click="DownloadButton_Click">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="#FFD8D8D8" Offset="1"/>
-                        <GradientStop Color="#FFCDCDCD" Offset="0.619"/>
-                        <GradientStop Color="#FFE8E8E8"/>
-                    </LinearGradientBrush>
-                </Button.Background>
+            <Button x:Name="DownloadButton" Content="{Binding DownloadButtonContent}" HorizontalAlignment="Left" Height="28" 
+                    Margin="57,281,0,0" VerticalAlignment="Top" Width="166" Click="DownloadButton_Click" Cursor="Hand"
+                    Style="{StaticResource ButtonStyle}">
+
             </Button>
             <TextBlock x:Name="ArtistTextBlock" HorizontalAlignment="Left" Margin="30,354,0,0" 
                        TextWrapping="Wrap" Text="{Binding ArtistName}" 
                        VerticalAlignment="Top" FontWeight="UltraBold" FontSize="21.333" MouseDown="ArtistTextBlock_MouseDown" TextAlignment="Center" Width="220">
                 <TextBlock.Style>
-                   <Style TargetType="{x:Type TextBlock}" >
-                       <Setter Property="Foreground" Value="{StaticResource BlackFont}"/>
-                       <Setter Property="TextBlock.Effect">
-                            <Setter.Value>
-                                <DropShadowEffect ShadowDepth="1" BlurRadius="1"  Direction="270" Color="White"/>
-                            </Setter.Value>
-                        </Setter>
+                   <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                       <Setter Property="Foreground" Value="{StaticResource BlackFont}"/>                       
                        <Style.Triggers>
                        	<Trigger Property ="IsMouseOver" Value="True">
                        		<Setter Property= "Foreground" Value="#FF1a6ab9"/>

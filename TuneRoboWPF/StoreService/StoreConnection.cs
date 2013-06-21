@@ -48,7 +48,6 @@ namespace TuneRoboWPF.StoreService
 
         public void SendPacket(byte[] packet)
         {
-            //Console.WriteLine( "Send {0} bytes",packet.Length);
             Connection.Send(packet);
         }
 
