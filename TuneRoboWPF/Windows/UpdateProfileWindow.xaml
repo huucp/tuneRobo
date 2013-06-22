@@ -17,14 +17,15 @@
         </Style>
     </Window.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="WhiteSmoke">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource MainBackground}">
         <TextBlock HorizontalAlignment="Left" Margin="20,26,0,0" TextWrapping="Wrap" Text="Display name" VerticalAlignment="Top" 
                    TextAlignment="Right" FontWeight="ExtraBold"/>
         <TextBlock HorizontalAlignment="Left" Margin="39,74,0,0" TextWrapping="Wrap" Text="Avatar Url" VerticalAlignment="Top" FontWeight="ExtraBold"/>
         <Button Content="Update" Margin="370,106,0,0" IsDefault="True" FontWeight="Bold" Height="27" VerticalAlignment="Top"
-                x:Name="UpdateButton" Click="UpdateButton_Click" IsEnabled="False" HorizontalAlignment="Left" Width="70"/>
+                x:Name="UpdateButton" Click="UpdateButton_Click" IsEnabled="False" HorizontalAlignment="Left" Width="70"
+                Style="{StaticResource ButtonStyle}"/>
         <Button Content="Cancel" HorizontalAlignment="Left" Height="27" Margin="290,106,0,0" VerticalAlignment="Top" Width="70" IsCancel="True" FontWeight="Bold"
-                Click="CancelButton_Click"/>
+                Click="CancelButton_Click" Style="{StaticResource ButtonStyle}"/>
         <TextBox Margin="110,20,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Height="28" HorizontalAlignment="Left" Width="330"
                  Text="{Binding DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="DisplayNameTextBox_TextChanged" FontWeight="SemiBold"/>
         <TextBox HorizontalAlignment="Left" Height="28" Margin="110,68,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="330"

@@ -63,5 +63,15 @@ namespace TuneRoboWPF.ViewModels
                 NotifyPropertyChanged("Volume");
             }
         }
+        public bool VolumeVisibility
+        {
+            get { return model.VolumeVisibility; }
+            set
+            {
+                if (model.VolumeVisibility == value) return;
+                model.VolumeVisibility = value;
+                NotifyPropertyChanged("VolumeVisibility");
+            }
+        }
     }
 }

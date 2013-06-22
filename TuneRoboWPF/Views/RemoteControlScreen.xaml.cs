@@ -42,13 +42,13 @@ namespace TuneRoboWPF.Views
         {
             Dispatcher.BeginInvoke((Action)delegate
             {
-                if (RemoteListBox.SelectedIndex == 0)
-                {
-                    RemoteListBox.SelectedIndex =
-                        GlobalVariables.CurrentListMotion.Count - 1;
-                    return;
-                }
-                RemoteListBox.SelectedIndex--;
+                //if (RemoteListBox.SelectedIndex == 0)
+                //{
+                //    RemoteListBox.SelectedIndex = GlobalVariables.CurrentListMotion.Count - 1;
+                //    return;
+                //}
+                //RemoteListBox.SelectedIndex--;
+                UpdateRemoteControl();
             });
         }
 
@@ -56,13 +56,13 @@ namespace TuneRoboWPF.Views
         {
             Dispatcher.BeginInvoke((Action)delegate
             {
-                if (RemoteListBox.SelectedIndex ==
-                    GlobalVariables.CurrentListMotion.Count - 1)
-                {
-                    RemoteListBox.SelectedIndex = 0;
-                    return;
-                }
-                RemoteListBox.SelectedIndex++;
+                //if (RemoteListBox.SelectedIndex == GlobalVariables.CurrentListMotion.Count - 1)
+                //{
+                //    RemoteListBox.SelectedIndex = 0;
+                //    return;
+                //}
+                //RemoteListBox.SelectedIndex++;
+                UpdateRemoteControl();
             });
         }
 
@@ -77,6 +77,7 @@ namespace TuneRoboWPF.Views
                 case RobotTransformButtonModel.ButtonState.Untransform:
                     PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Play;
                     SetControlButtonState(true);
+                    UpdateRemoteControl();
                     break;
             }
         }
@@ -90,6 +91,7 @@ namespace TuneRoboWPF.Views
         {
             //UpdateMusicState();
             UpdateMotionPlay();
+            viewModel.Volume = GlobalVariables.CurrentRobotState.Volume;
         }
 
         private void UpdateMusicState()
@@ -112,7 +114,6 @@ namespace TuneRoboWPF.Views
         private void UpdateMotionPlay()
         {
             RemoteListBox.SelectedIndex = GlobalVariables.CurrentRobotState.MotionIndex;
-
         }
 
         private void SetControlButtonState(bool state)
@@ -120,6 +121,7 @@ namespace TuneRoboWPF.Views
             NextButton.ViewModel.Active = state;
             PreviousButton.ViewModel.Active = state;
             VolumeButton.ViewModel.Active = state;
+            viewModel.VolumeVisibility = state;
         }
 
         private RemoteControlScreenViewModel viewModel;
@@ -142,9 +144,10 @@ namespace TuneRoboWPF.Views
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     UnconnectedTextBox.Visibility = Visibility.Hidden;
-                    TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;
+                    TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;                    
                     GetListMotion();
-                    Cursor = Cursors.Arrow;
+
+                    UpdateRemoteControl();
                 });
                 GlobalVariables.RoboOnline = true;
             };
@@ -236,9 +239,16 @@ namespace TuneRoboWPF.Views
                 motionItem.ViewModel.HitTestVisible = false;
                 motionItem.ViewModel.Index = ++index;
                 motionItem.CopyMotion+=Library_CopyMotion;
+                motionItem.DelteMotion += Library_DelteMotion;
                 viewModel.LibraryItemsList.Add(motionItem);
                 DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
             }
+        }
+
+        private void Library_DelteMotion(object sender, RoutedEventArgs e)
+        {
+            viewModel.LibraryItemsList.Clear();
+            LoadLibrary();
         }
 
         private void Library_CopyMotion(object sender, RoutedEventArgs e)
@@ -259,8 +269,30 @@ namespace TuneRoboWPF.Views
                                                                                                                                      });
                                                              GlobalVariables.ImageDownloadWorker.AddDownload(imageDownload);
                                                          };
-            motionInfoRequest.ProcessError += (data, msg) => Debug.Fail(data.type.ToString(), msg);
+            motionInfoRequest.ProcessError += (data, msg) =>
+                                                  {
+                                                      if (data == null) Debug.Fail(msg);
+                                                      else Debug.Fail(data.type.ToString(), msg);
+                                                  };
             GlobalVariables.StoreWorker.ForceAddRequest(motionInfoRequest);
+        }
+
+        private void volumeBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var volumeRequest = new RemoteRequest(RobotPacket.PacketID.SetVolumeLevel, (int) viewModel.Volume);
+            volumeRequest.ProcessSuccessfully += (reply) =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    UpdateRemoteControl();
+                });
+            };
+            volumeRequest.ProcessError += (reply, msg) =>
+                                              {
+                                                  if (reply==null) Debug.Fail(msg);
+                                                  Debug.Fail(reply.ToString(),msg);
+                                              };
+            GlobalVariables.StoreWorker.AddRequest(volumeRequest);
         }
     }
 }

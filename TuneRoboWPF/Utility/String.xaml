@@ -27,7 +27,12 @@
     <sys:String x:Key="DetailsTabHeaderText">Details</sys:String>
     <sys:String x:Key="ReviewTabHeaderText">Rating and Reviews</sys:String>    
     <sys:String x:Key="RelatedTabHeaderText">Related</sys:String>     
-    <sys:String x:Key="FreeText">Related</sys:String>
+    <sys:String x:Key="FreeText">Free</sys:String>
     <sys:String x:Key="InstalledText">Installed</sys:String>
     <sys:String x:Key="UpdateText">Update</sys:String>
+    <sys:String x:Key="CopyText">Copy</sys:String>
+    <sys:String x:Key="DeleteText">Delete</sys:String>
+    <sys:String x:Key="HotListText">Hot</sys:String>
+    <sys:String x:Key="FeaturedListText">Featured</sys:String>
+    <sys:String x:Key="ArtistListText">Artist</sys:String>
 </ResourceDictionary>

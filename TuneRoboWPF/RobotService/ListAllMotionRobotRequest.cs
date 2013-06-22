@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using TuneRoboWPF.Utility;
@@ -75,6 +76,11 @@ namespace TuneRoboWPF.RobotService
             int motionCount = -1;
             var getMotionCountRequest = new GetMotionCountRequest(RobotPacket.PacketID.CountMotions);
             RobotReply reply = Connection.SendAndReceivePacket(getMotionCountRequest.BuildRequest());
+            if (reply==null)
+            {
+                Debug.Fail("Reply from robot is null");
+                return 0;
+            }
             reply.RequestID = RobotPacket.PacketID.CountMotions;
             RobotReplyData robotReplyData = reply.Process();
             if (robotReplyData.Type == RobotReplyData.ReplyType.Success)

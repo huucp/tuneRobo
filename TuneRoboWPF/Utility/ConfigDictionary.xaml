@@ -10,8 +10,5 @@
     <BitmapImage x:Key="TrashIcon" UriSource="/Resources/trash.png"/>
     <BitmapImage x:Key="PlayMotionHeader" UriSource="/Resources/play Gray.png"/>
     <BitmapImage x:Key="EditIcon" UriSource="/Resources/5_content_edit.png"/>
-	
-    <SolidColorBrush x:Key="RatingRateColor" Color="Yellow"/>
-    <SolidColorBrush x:Key="GrayFont" Color="#888888"/>
-    <SolidColorBrush x:Key="BlackFont" Color ="#3c3c3c"/>
+    
 </ResourceDictionary>

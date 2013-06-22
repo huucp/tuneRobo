@@ -25,13 +25,13 @@ namespace TuneRoboWPF
             GlobalVariables.CurrentUser = null;
             GlobalVariables.UserOnline = false;
 
-            Dispatcher.BeginInvoke((Action) delegate
+            Dispatcher.BeginInvoke((Action)delegate
             {
                 navigationBar.UserMenu.Visibility = Visibility.Hidden;
                 navigationBar.SignInButton.Visibility = Visibility.Visible;
                 var storeScreen = new StoreScreen();
                 ChangeScreen(storeScreen);
-            });            
+            });
         }
 
         private void navigationBar_LoginProcessSuccessfully(object sender)
@@ -48,13 +48,13 @@ namespace TuneRoboWPF
 
             var lastElement = MainDock.Children[MainDock.Children.Count - 1];
             if (lastElement is ArtistDetailScreen)
-            {                
+            {
                 ((ArtistDetailScreen)lastElement).CheckFollowState();
             }
 
         }
 
-        
+
 
         private void GetNotificationFromStore()
         {
@@ -67,11 +67,11 @@ namespace TuneRoboWPF
                     //testStoreScreen.Visibility = Visibility.Visible;
                     //remoteScreen.Visibility = Visibility.Collapsed;
                 });
-                
+
             };
             notificationRequest.ProcessError += (reply, msg) =>
             {
-                Console.WriteLine("GetNotificationFromStore failed: {0} - {1}",reply.type.ToString(), msg);
+                Console.WriteLine("GetNotificationFromStore failed: {0} - {1}", reply.type.ToString(), msg);
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     //testStoreScreen.Visibility = Visibility.Visible;
@@ -92,21 +92,21 @@ namespace TuneRoboWPF
 
         private void MainScreen_Loaded(object sender, RoutedEventArgs e)
         {
-            GlobalFunction.GetTempDataFolder();            
+            GlobalFunction.GetTempDataFolder();
             //if (GlobalVariables.ServerConnection.ConfigAndConnectSocket() == 0)
             //{
             //    //MessageBox.Show("Cannot connect to server!", "Connection error", MessageBoxButton.OK,
             //    //    MessageBoxImage.Error);
             //    Debug.Fail("Cannot connect to server");
             //}
-            
+
             var firstScreen = new RemoteControlScreen();
             MainDock.Children.Add(firstScreen);
         }
 
-   
+
         private void navigationBar_StoreButtonClick(object sender, RoutedEventArgs e)
-        {           
+        {
             var testStoreScreen = new StoreScreen();
             ChangeScreen(testStoreScreen);
         }
@@ -115,7 +115,7 @@ namespace TuneRoboWPF
         {
             var remoteScreen = new RemoteControlScreen();
             ChangeScreen(remoteScreen);
-        }               
+        }
 
         public void ChangeScreen(UserControl screen)
         {
@@ -153,7 +153,7 @@ namespace TuneRoboWPF
         {
             var lastElement = MainDock.Children[MainDock.Children.Count - 1];
             MainDock.Children.Remove(lastElement);
-            MainContentScreen.Visibility=Visibility.Visible;
+            MainContentScreen.Visibility = Visibility.Visible;
         }
     }
 }

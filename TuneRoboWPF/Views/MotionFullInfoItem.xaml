@@ -8,14 +8,13 @@
 	x:Class="TuneRoboWPF.Views.MotionFullInfoItem"
 	x:Name="UserControl" Height="148"
 	d:DesignWidth="500" >
-    <UserControl.Resources>
-        
+    <UserControl.Resources>        
         <converter:IndexToColorConverter x:Key="IndexToColorConverter"/>
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot">
         <Rectangle Fill="{Binding Index,Converter={StaticResource IndexToColorConverter},ConverterParameter=0}" 
-                   Margin="0" StrokeThickness="0"  d:LayoutOverrides="GridBox">            
+                   Margin="0" StrokeThickness="0" >            
         </Rectangle>
         <Rectangle  RadiusX="10" RadiusY="10" Width="128" Height="128" HorizontalAlignment="Left" 
                     Margin="10,0,0,0">
@@ -46,9 +45,13 @@
         	<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="{Binding HitTestVisible}"/>
         	<System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="{Binding HitTestVisible}"/>
         </System_Windows_Controls:Rating>
-        <Button x:Name="TransferButton"  Content="Copy" RenderTransformOrigin="1.884,2.247" 
-                Margin="0,0,30,0" Click="TransferButton_Click"
-                HorizontalAlignment="Right" Width="75" VerticalAlignment="Center"/>
+        <Button x:Name="TransferButton"  Content="{DynamicResource CopyText}" RenderTransformOrigin="1.884,2.247" 
+                Margin="0,42,30,0" Click="TransferButton_Click"
+                HorizontalAlignment="Right" Width="70" Height="27"  VerticalAlignment="Top"
+                Style="{StaticResource ButtonStyle}"/>
+        <Button x:Name="DeleteButton" Content="{DynamicResource DeleteText}" Click="DeleteButton_Click"
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,79,30,0"
+                Width="70" Height="27" Style="{StaticResource ButtonStyle}"/>
         <Separator Margin="0" Height="1" VerticalAlignment="Top" Background="{Binding Index,Converter={StaticResource IndexToColorConverter},ConverterParameter=1}"/>
         <Separator Margin="0,0,0,0" Height="1" Background="{Binding Index,Converter={StaticResource IndexToColorConverter},ConverterParameter=2}" VerticalAlignment="Bottom"/>        
     </Grid>

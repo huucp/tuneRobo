@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using TuneRoboWPF.RobotService;
 using TuneRoboWPF.Utility;
@@ -56,6 +59,8 @@ namespace TuneRoboWPF.Views
             remove { RemoveHandler(CopyMotionEvent, value); }
         }
 
+
+
         // This method raises the CopyMotion event
 
         private void TransferButton_Click(object sender, RoutedEventArgs e)
@@ -75,6 +80,41 @@ namespace TuneRoboWPF.Views
                 }
 
             }
+        }
+
+        public static readonly RoutedEvent DeleteMotionEvent = EventManager.RegisterRoutedEvent(
+           "DeleteMotion", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MotionTitleItem));
+
+        public event RoutedEventHandler DelteMotion
+        {
+            add { AddHandler(DeleteMotionEvent, value); }
+            remove { RemoveHandler(DeleteMotionEvent, value); }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DeleteLocalMotion())
+            {
+                var newEventArgs = new RoutedEventArgs(DeleteMotionEvent);
+                RaiseEvent(newEventArgs);
+            }            
+        }
+
+        private bool DeleteLocalMotion()
+        {
+            var motionPath = GlobalFunction.GetLocalMotionPath(MotionID);            
+            var musicPath = GlobalFunction.GetLocalMusicPath(MotionID);
+            try
+            {
+                File.Delete(motionPath);
+                File.Delete(musicPath);
+                return true;
+            }
+            catch (IOException)
+            {
+                Debug.Fail("Cannot delete");
+                return false;
+            }            
         }
     }
 }

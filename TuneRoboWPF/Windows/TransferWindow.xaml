@@ -9,12 +9,14 @@
 	ShowInTaskbar="False"
     ContentRendered="Window_ContentRendered" WindowStyle="None">
 
-	<Grid x:Name="LayoutRoot" Background="WhiteSmoke">
+	<Grid x:Name="LayoutRoot" Background="{StaticResource MainBackground}">
 		<ProgressBar x:Name="ProgressBar" Height="14" Margin="20,46,20,0" VerticalAlignment="Top"/>
-		<Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" Margin="0,94,20,0" Width="70" Cursor="Hand" Click="CancelButton_Click" Height="27" VerticalAlignment="Top" FontWeight="Bold"/>
-		<Label x:Name="FileTitle" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top">
+        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" Margin="0,94,20,0" Width="70" 
+                Style="{StaticResource ButtonStyle}" Click="CancelButton_Click" Height="27" 
+                VerticalAlignment="Top" FontWeight="Bold"/>
+		<Label x:Name="FileTitle" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Foreground="{StaticResource BlackFont}">
             <TextBlock>
-                <Run Text="{Binding TransferText}"/><Run Text=" "/><Run Text="{Binding Title}"/><Run Text="..."/><Run Text="{Binding Percentage}"/><Run Text="%"/>
+                <Run Text="{Binding TransferText}"/><Run Text=" "/><Run Text="{Binding Title}" FontWeight="Bold"/><Run Text=" ... "/><Run Text="{Binding Percentage}"/><Run Text="%"/>
             </TextBlock>
 		</Label>
 	</Grid>

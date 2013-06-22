@@ -134,7 +134,7 @@
             <TextBlock HorizontalAlignment="Left" Margin="343.667,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15"
                        Text="{Binding NumberRate}" Foreground="{StaticResource GrayFont}"/>
             <Button Content="{Binding FollowState,Converter={StaticResource BoolToFollowButtonContentConverter}}" Height="22" HorizontalAlignment="Left" Margin="34,154,0,0" 
-                    Name="FollowButton" VerticalAlignment="Top" Width="100" Click="FollowButton_Click" 
+                    Name="FollowButton" VerticalAlignment="Top" Width="100" Click="FollowButton_Click" Style="{StaticResource ButtonStyle}"
                     Visibility="{Binding FollowButtonVisibility,Converter={StaticResource BoolToFollowButtonVisibilityConverter}}" />
         </Grid>
     </ScrollViewer>

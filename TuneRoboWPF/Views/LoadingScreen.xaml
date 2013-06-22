@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:View="clr-namespace:TuneRoboWPF.Views" mc:Ignorable="d" 
              d:DesignHeight="702" d:DesignWidth="1100" Loaded="UserControl_Loaded">
-    <Grid Background="WhiteSmoke">
+    <Grid Background="{StaticResource MainBackground}">
         <TextBlock Text="{DynamicResource LoadingScreenText}" FontSize="21.333" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Grid HorizontalAlignment="Center" Margin="0" Width="160" Height="160" VerticalAlignment="Center">
         	<View:BlueDot Width="40" Height="40" RenderTransformOrigin="0.508,2" BeginTime='00:00:00' HorizontalAlignment="Center" VerticalAlignment="Top"/>

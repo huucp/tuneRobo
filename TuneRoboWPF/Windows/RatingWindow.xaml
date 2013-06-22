@@ -18,7 +18,7 @@
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         </Style>
     </Window.Resources>
-    <Grid Background="WhiteSmoke">
+    <Grid Background="{StaticResource MainBackground}">
         <TextBox x:Name="TitleTextBlock"  HorizontalAlignment="Left" Height="28" Margin="20,40,0,0" 
                  TextWrapping="NoWrap" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  VerticalAlignment="Top" Width="330" TextChanged="TextBox_TextChanged" FontWeight="Medium">
@@ -30,11 +30,11 @@
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ScrollViewer.VerticalScrollBarVisibility="Auto" />
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="430,215,0,0" Width="70" IsCancel="True" FontWeight="Bold"
-                Click="CancelButton_Click" Height="27" VerticalAlignment="Top"/>
+                Click="CancelButton_Click" Height="27" VerticalAlignment="Top"
+                Style="{StaticResource ButtonStyle}"/>
         <Button x:Name="SubmitButton" Content="Submit" HorizontalAlignment="Left" Height="27" Margin="510,215,0,0" 
                 VerticalAlignment="Top" Width="70" FontWeight="Bold" IsEnabled="False" 
-                IsDefault="True" Click="SubmitButton_Click">
-        </Button>
+                IsDefault="True" Click="SubmitButton_Click" Style="{StaticResource ButtonStyle}" />
         <TextBlock HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" Text="TITLE:" VerticalAlignment="Top" FontWeight="ExtraBold" />
         <TextBlock HorizontalAlignment="Left" Margin="20,80,0,0" TextWrapping="Wrap" Text="REVIEW:" VerticalAlignment="Top" FontWeight="ExtraBold"/>
         <TextBlock Margin="365,24,0,0" TextWrapping="Wrap" Text="CLICK TO RATE" VerticalAlignment="Top" FontWeight="ExtraBold" HorizontalAlignment="Left"/>

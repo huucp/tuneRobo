@@ -154,7 +154,6 @@
     <Compile Include="StoreService\StoreConnection.cs" />
     <Compile Include="StoreService\StoreReply.cs" />
     <Compile Include="StoreService\StoreRequest.cs" />
-    <Compile Include="Utility\Color.cs" />
     <Compile Include="Utility\CRCCCIT.cs" />
     <Compile Include="Utility\GlobalResource.cs" />
     <Compile Include="Utility\GlobalVariables.cs" />
@@ -298,6 +297,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
+    </Page>
+    <Page Include="Themes\ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Color.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -2,37 +2,42 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
-using TuneRoboWPF.Utility;
-//drop shadow
 namespace TuneRoboWPF.Converter
 {
     public class IndexToColorConverter : IValueConverter
     {
+        private const string MotionFullItemBackgroundEven = "#FAFAFA";
+        private const string MotionFullItemBackgroundOdd = "#F1F4F7";
+        private const string MotionFullItemTopSeperatorEven = "#FEFEFE";
+        private const string MotionFullItemTopSeperatorOdd = "#ECECEC";
+        private const string MotionFullItemBottomSeperatorEven = "#F6F9FB";
+        private const string MotionFullItemBottomSeperatorOdd = "#E7E9EC";
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             int index = value is int ? (int)value : 0;
-            int type = parameter is string ? int.Parse((string)parameter) : 0;
+            int type = parameter is string ? Int32.Parse((string)parameter) : 0;
             switch (type)
             {
                 case Background:
                     if (index % 2 == 0)
                     {
-                        return Color.MotionFullItemBackgroundEven;
+                        return MotionFullItemBackgroundEven;
                     }
-                    return Color.MotionFullItemBackgroundOdd;
+                    return MotionFullItemBackgroundOdd;
                 case TopSeperator:
                     if (index % 2 == 0)
                     {
-                        return Color.MotionFullItemTopSeperatorEven;
+                        return MotionFullItemTopSeperatorEven;
                     }
-                    return Color.MotionFullItemTopSeperatorOdd;
+                    return MotionFullItemTopSeperatorOdd;
                 case BottomSeperator:
 
                     if (index % 2 == 0)
                     {
-                        return Color.MotionFullItemBottomSeperatorEven;
+                        return MotionFullItemBottomSeperatorEven;
                     }
-                    return Color.MotionFullItemBottomSeperatorOdd;
+                    return MotionFullItemBottomSeperatorOdd;
                 default:
                     Debug.Assert(type != 0, "Null type");
                     return null;

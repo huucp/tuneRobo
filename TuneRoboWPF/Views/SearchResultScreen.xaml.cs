@@ -30,8 +30,9 @@ namespace TuneRoboWPF.Views
         {
             Query = query;
             ViewModel.SearchQuery = query;
-            UpdateSearchList(0, 19);
         }
+
+        private bool FirstLoad = true;
         public void UpdateSearchList(uint start, uint end)
         {
             var searchRequest = new SearchMotionStoreRequest(Query, start, end);
@@ -55,9 +56,13 @@ namespace TuneRoboWPF.Views
                         //    ViewModel.SearchList.Add(motionFull);
 
                         //}
-
+                        
                     }
-                    StaticMainWindow.Window.ShowContentScreen();
+                    if (FirstLoad)
+                    {
+                        StaticMainWindow.Window.ShowContentScreen();
+                        FirstLoad = false;
+                    }
                 });
             searchRequest.ProcessError += (reply, msg) =>
             {
@@ -96,6 +101,7 @@ namespace TuneRoboWPF.Views
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             StaticMainWindow.Window.ShowLoadingScreen();
+            UpdateSearchList(0,19);
         }
     }
 }

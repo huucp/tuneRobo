@@ -13,33 +13,40 @@
                 <Setter Property="FocusVisualStyle" Value="{x:Null}"/>                
             </Style>
             <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource FullAppleScrollBar}"/>
-        </ScrollViewer.Resources>
-        <Grid Height ="1200" Background="WhiteSmoke" x:Name="MainGrid">
-            <ListBox x:Name="HotMotionListBox" Height="390" Width="950"
-                     BorderThickness="1,0" BorderBrush="White"
-                     Margin="68,48,0,0" 
-                     VerticalAlignment="Top" HorizontalAlignment="Left"
+        </ScrollViewer.Resources>        
+        <Grid Height ="1200" Background="{StaticResource MainBackground}" x:Name="MainGrid">
+            
+            <ListBox x:Name="HotMotionListBox" Height="390"
+                     BorderThickness="1,0" BorderBrush="{StaticResource ListBoxHorizontalBorderBrush}"
+                     Margin="20,60,20,0" 
+                     VerticalAlignment="Top" HorizontalAlignment="Stretch"
                      ItemsSource="{Binding HotItemsList}"
                      Background="Transparent" Style="{StaticResource ListBoxVerticalStyle}"
                      ItemsPanel="{StaticResource WrapPanelListBoxTemplate}"
                      PreviewMouseWheel="HotMotionListBox_PreviewMouseWheel"
-                     Template="{StaticResource AppleListBoxControlTemplate}" />            
-            <ListBox x:Name="FeaturedMotionListBox" Height="390" Width="950"
-                     BorderThickness ="1,0,1,0" Margin="68,475,0,0"
-                     VerticalAlignment="Top" HorizontalAlignment="Left"
+                     Template="{StaticResource AppleListBoxControlTemplate}" />
+            <ListBox x:Name="FeaturedMotionListBox" Height="390" Margin="20,510,20,0"
+                     BorderThickness ="1,0,1,0" BorderBrush ="{StaticResource ListBoxHorizontalBorderBrush}" 
+                     VerticalAlignment="Top" HorizontalAlignment="Stretch"
                      ItemsSource="{Binding FeaturedItemsList}"
                      Background="Transparent" Style="{StaticResource ListBoxVerticalStyle}"
                      ItemsPanel="{StaticResource WrapPanelListBoxTemplate}" 
                      PreviewMouseWheel="FeaturedMotionListBox_PreviewMouseWheel"
                      Template="{StaticResource AppleListBoxControlTemplate}"/>
-            <ListBox x:Name="ArtistLisBox" Height="200" Width="950"
-                     Margin="68,900,0,0"  BorderThickness="1,0,1,0"
-                     VerticalAlignment="Top" HorizontalAlignment="Left"
+            <ListBox x:Name="ArtistLisBox" Height="200"
+                     Margin="20,960,20,0"  BorderThickness="1,0,1,0" BorderBrush="{StaticResource ListBoxHorizontalBorderBrush}"
+                     VerticalAlignment="Top" HorizontalAlignment="Stretch"
                      Style="{StaticResource ListBoxVerticalStyle}"
                      ItemsPanel="{StaticResource WrapPanelListBoxTemplate}"
                      ItemsSource="{Binding ArtistList}"
                      PreviewMouseWheel="ArtistLisBox_PreviewMouseWheel"
                      Template="{StaticResource AppleListBoxControlTemplate}" />
+            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Text="{DynamicResource HotListText}"                       
+                       Foreground="{StaticResource BlackFont}" FontWeight="Bold" FontSize="25" Margin ="20,20,0,0"/>
+            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Text="{DynamicResource FeaturedListText}"
+                       Foreground="{StaticResource BlackFont}" FontWeight="Bold" FontSize="25" Margin ="20,470,0,0"/>
+            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Text="{DynamicResource ArtistListText}"
+                       Foreground="{StaticResource BlackFont}" FontWeight="Bold" FontSize="25" Margin ="20,920,0,0"/>
         </Grid>
     </ScrollViewer>
 </UserControl>

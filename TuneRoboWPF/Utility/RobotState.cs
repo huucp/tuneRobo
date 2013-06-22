@@ -1,4 +1,6 @@
-﻿namespace TuneRoboWPF.Utility
+﻿using System;
+
+namespace TuneRoboWPF.Utility
 {
     public class RobotState
     {
@@ -30,6 +32,16 @@
             MusicState = (MusicStates)state[2];
             MotionID = GlobalFunction.LE8ToDec(GlobalFunction.SplitByteArray(state, 3, 8));
             FindCurrentMotionPlayingIndex();
+            PrintRoboState();
+        }
+
+        private void PrintRoboState()
+        {
+            Console.WriteLine("Volume: {0}",Volume);
+            Console.WriteLine("Transform state: {0}",Enum.GetName(typeof(TransformStates),TransformState));
+            Console.WriteLine("Music state: {0}", Enum.GetName(typeof(MusicStates), MusicState));
+            Console.WriteLine("Motion ID: {0}",MotionID);
+            Console.WriteLine("Play motion index: {0}",MotionIndex);
         }
 
         public void FindCurrentMotionPlayingIndex()
@@ -48,7 +60,7 @@
 
         public RobotState()
         {
-            Volume = 5;
+            Volume = 0;
             TransformState = TransformStates.Closed;
             MusicState = MusicStates.SystemHalt;
             MotionID = 0;
