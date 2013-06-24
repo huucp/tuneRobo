@@ -345,19 +345,16 @@ namespace TuneRoboWPF.Views
         }
 
         private void ArtistTextBlock_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            var window = StaticMainWindow.Window;
-            var lastElement = window.MainDock.Children[window.MainDock.Children.Count - 1];
-            window.MainDock.Children.Remove(lastElement);
+        {                     
             var artistDetailScreen = new ArtistDetailScreen();
             artistDetailScreen.SetInfo(Info.artist_id);
-            window.MainDock.Children.Add(artistDetailScreen);
+            StaticMainWindow.Window.ChangeScreen(artistDetailScreen);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            GetMotionInfo();
             StaticMainWindow.Window.ShowLoadingScreen();
+            GetMotionInfo();
         }
     }
 }

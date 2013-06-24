@@ -119,6 +119,13 @@ namespace TuneRoboWPF
 
         public void ChangeScreen(UserControl screen)
         {
+            //foreach (var element in MainDock.Children)
+            //{
+            //    if (element.GetType().ToString()=="LoadingScreen")
+            //    {
+            //        MainDock.Children.Remove((UIElement) element);
+            //    }
+            //}
             var lastElement = MainDock.Children[MainDock.Children.Count - 1];
             //if (lastElement.GetType() == screen.GetType())
             //{

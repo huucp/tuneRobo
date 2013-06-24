@@ -94,7 +94,7 @@
             	        </TextBlock.Foreground>
                     </TextBlock>
                     <Image x:Name="EditUsernameIcon" Grid.Column="1" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                           Source="{StaticResource EditIcon}" MouseDown="EditUsername_MouseDown" Margin="7,4,7,0">
+                           Source="{StaticResource EditIcon}" MouseDown="EditUsername_MouseDown" Margin="7,4,7,0" Cursor="Hand">
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
                                 <Setter Property="Visibility" Value="Hidden"/>
@@ -112,7 +112,7 @@
                     
                     <Label Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Center" VerticalAlignment="Stretch"
                            FontStyle="Italic" MouseDown="ChangePassword_Click">
-                        <TextBlock>Change password</TextBlock>
+                        <TextBlock Cursor="Hand">Change password</TextBlock>
                         <Label.Style>
                             <Style TargetType="{x:Type Label}">
                                 <Setter Property="Visibility" Value="Hidden"/>
@@ -138,7 +138,7 @@
                     </Label>                    
                 </Grid>
                 <Image HorizontalAlignment="Right" Height="32" Margin="0,40,40,0" VerticalAlignment="Top" Width="32" 
-                        Source="{StaticResource EditIcon}" MouseDown="AvatarEdit_MouseDown">
+                        Source="{StaticResource EditIcon}" MouseDown="AvatarEdit_MouseDown" Cursor="Hand">
                     <Image.Style>
                         <Style TargetType="{x:Type Image}">
                             <Setter Property="Visibility" Value="Hidden"/>

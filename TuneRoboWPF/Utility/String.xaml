@@ -35,4 +35,7 @@
     <sys:String x:Key="HotListText">Hot</sys:String>
     <sys:String x:Key="FeaturedListText">Featured</sys:String>
     <sys:String x:Key="ArtistListText">Artist</sys:String>
+    <sys:String x:Key="ConnectToRobotText">Please connect to robot</sys:String>
+    <sys:String x:Key="IPErrorText">IP error</sys:String>
+    <sys:String x:Key="IPInvalidText">IP address is invalid</sys:String>
 </ResourceDictionary>

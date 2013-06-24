@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+using MessageBoxUtils;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
 using TuneRoboWPF.StoreService.SimpleRequest;
@@ -47,7 +48,8 @@ namespace TuneRoboWPF.Windows
 	        updateProfileRequest.ProcessSuccessfully += reply =>
                 Dispatcher.BeginInvoke((Action) (delegate
                 {
-                    MessageBox.Show("Update successfully");
+                    //MessageBox.Show("Update successfully");
+                    WPFMessageBox.Show(this,"UpdateSuccessfully");
                     DialogResult = true;
                     Close();
                 }));

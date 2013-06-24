@@ -11,8 +11,8 @@
     </UserControl.Resources>
     <Grid>
         <Image Width="320" Height="180" Stretch="UniformToFill" Source="{Binding ScreenshotSource}"/>
-        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Resources/9_av_play_over_video.png"
+        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Resources/play over.png"
                Visibility="{Binding IsYoutubeThumbnail,Converter={StaticResource BoolToThumbnailVisibilityConverter},ConverterParameter='Collapsed'}"
-               Width="96"/>
+               Width="200"/>
     </Grid>
 </UserControl>

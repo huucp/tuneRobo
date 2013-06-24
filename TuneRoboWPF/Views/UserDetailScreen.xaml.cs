@@ -58,8 +58,10 @@ namespace TuneRoboWPF
             {
                 GlobalVariables.CurrentUser = new UserProfile(reply.profile);
                 Dispatcher.BeginInvoke((Action)delegate
-                {
+                {                    
                     ViewModel.Username = reply.profile.display_name;
+                    GlobalVariables.CurrentUser.DisplayName = reply.profile.display_name;
+                    StaticMainWindow.Window.navigationBar.ViewModel.Username = reply.profile.display_name;
                     DownloadAvatar();
                 });
             };

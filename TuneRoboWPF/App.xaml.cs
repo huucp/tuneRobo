@@ -19,8 +19,8 @@ namespace TuneRoboWPF
     {
         public App()
         {
-            GlobalFunction.ReadConfig(); 
-            
+            GlobalFunction.ReadConfig();
+            GlobalFunction.CheckExistAndCreateDirectory(GlobalFunction.GetSavedDir());
         }
 
         protected override void OnStartup(StartupEventArgs e)

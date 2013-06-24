@@ -149,7 +149,7 @@
                    Height="27.627" 
                    VerticalAlignment="Center" 
                    Cursor="Hand">
-            <Run Text="Please connect to robot"/>
+            <Run Text="{DynamicResource ConnectToRobotText}"/>
         </TextBlock>
         <local:PreviousTrackButton x:Name="PreviousButton" 
                                    Margin="144.5,55,233,0" VerticalAlignment="Top" Width="Auto" 

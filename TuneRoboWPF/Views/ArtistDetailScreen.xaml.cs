@@ -30,9 +30,7 @@ namespace TuneRoboWPF.Views
         public void SetInfo(ulong id)
         {
             ArtistID = id;
-            CheckFollowState();
-            GetArtistInfo();
-            GetMotionOfArtist();
+            
         }
 
         private void GetArtistInfo()
@@ -100,8 +98,8 @@ namespace TuneRoboWPF.Views
                             //    motionItemVertical.SetInfo(motionInfo);
                             //    ViewModel.ArtistMotionsList.Add(motionItemVertical);
                             //}
-                            StaticMainWindow.Window.ShowContentScreen();
                         }
+                        StaticMainWindow.Window.ShowContentScreen();
                     });
                 motionRequest.ProcessError += (motionReply, msg) =>
                 {
@@ -161,6 +159,9 @@ namespace TuneRoboWPF.Views
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             StaticMainWindow.Window.ShowLoadingScreen();
+            CheckFollowState();
+            GetArtistInfo();
+            GetMotionOfArtist();
         }
     }
 }

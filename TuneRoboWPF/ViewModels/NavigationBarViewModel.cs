@@ -1,11 +1,12 @@
 ﻿using TuneRoboWPF.Models;
+using TuneRoboWPF.Utility;
 
 namespace TuneRoboWPF.ViewModels
 {
     public class NavigationBarViewModel : ViewModelBase
     {
         private NavigationBarModel model = new NavigationBarModel();
-       
+
         public string Username
         {
             get { return model.Username; }
@@ -14,6 +15,6 @@ namespace TuneRoboWPF.ViewModels
                 model.Username = value;
                 NotifyPropertyChanged("Username");
             }
-        }       
+        }               
     }
 }

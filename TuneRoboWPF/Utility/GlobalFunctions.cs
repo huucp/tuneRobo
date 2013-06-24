@@ -323,16 +323,12 @@ namespace TuneRoboWPF.Utility
 
         public static string GetLocalMotionPath(ulong motionID)
         {
-            return
-                Path.Combine(GlobalVariables.LOCAL_DIR + GlobalVariables.FOLDER_ROOT + GlobalVariables.FOLDER_PLAYLIST,
-                             motionID.ToString() + ".mrb");
+            return Path.Combine(GetSavedDir(), motionID.ToString() + ".mrb");
         }
 
         public static string GetLocalMusicPath(ulong motionID)
         {
-            return
-                Path.Combine(GlobalVariables.LOCAL_DIR + GlobalVariables.FOLDER_ROOT + GlobalVariables.FOLDER_PLAYLIST,
-                             motionID.ToString() + ".mp3");
+            return Path.Combine(GetSavedDir(), motionID.ToString() + ".mp3");
         }
 
         public static MotionInfo GetLocalMotionInfo(ulong motionID)

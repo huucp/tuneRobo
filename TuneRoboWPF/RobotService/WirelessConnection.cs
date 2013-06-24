@@ -28,6 +28,8 @@ namespace TuneRoboWPF.RobotService
             Connection.SendTimeout = GlobalVariables.Timeout;
             Connection.ReceiveTimeout = GlobalVariables.Timeout;
 
+            Application.Current.FindResource("IPErrorText");
+
             if (GlobalVariables.WirelessIP == null)
             {
                 MessageBox.Show("IP address is invalid", "IP error", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -541,7 +541,7 @@
             <MenuItem x:Name="UsernameMenu" HorizontalAlignment="Center" VerticalAlignment="Center" 
                       Cursor="Hand" Style="{DynamicResource UsernameMenuItemStyle}">
                 <MenuItem.Header>
-                    <TextBlock Text="{Binding Username}"  VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Username,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Center">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="FontFamily" Value="Segoe UI SemiBold"/>

@@ -48,7 +48,7 @@ namespace TuneRoboWPF.Views
                 //    return;
                 //}
                 //RemoteListBox.SelectedIndex--;
-                UpdateRemoteControl();
+                UpdateRemoteControl();               
             });
         }
 

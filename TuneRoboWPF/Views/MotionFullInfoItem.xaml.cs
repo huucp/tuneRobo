@@ -67,7 +67,8 @@ namespace TuneRoboWPF.Views
         {
             if (!GlobalVariables.RoboOnline)
             {
-                MessageBox.Show("Please connect to robot!", "", MessageBoxButton.OK);
+                var msg = string.Format("{0}!", FindResource("ConnectToRobotText"));
+                MessageBox.Show(msg, "", MessageBoxButton.OK);
             }
             else
             {

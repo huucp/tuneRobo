@@ -184,14 +184,10 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 }
             }
 
-            string musicPath =
-                Path.Combine(GlobalVariables.LOCAL_DIR + GlobalVariables.FOLDER_ROOT + GlobalVariables.FOLDER_PLAYLIST,
-                             MotionID.ToString() + ".mp3");
+            string musicPath = Path.Combine(GlobalFunction.GetSavedDir(), MotionID.ToString() + ".mp3");
             File.WriteAllBytes(musicPath, musicData.ToArray());
 
-            string motionPath =
-                Path.Combine(GlobalVariables.LOCAL_DIR + GlobalVariables.FOLDER_ROOT + GlobalVariables.FOLDER_PLAYLIST,
-                             MotionID.ToString() + ".mrb");
+            string motionPath = Path.Combine(GlobalFunction.GetSavedDir(), MotionID.ToString() + ".mrb");
             File.WriteAllBytes(motionPath, motionData.ToArray());
 
             OnProgessReport(100);
