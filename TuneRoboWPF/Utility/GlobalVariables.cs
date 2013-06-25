@@ -12,135 +12,6 @@ namespace TuneRoboWPF.Utility
 {
     public static class GlobalVariables
     {
-        #region UI
-
-        //============================== DEFINITIONS GLOBAL VARIABLES ==================================//
-        public static string PROGRAM_NAME
-        {
-            get { return "tuneRobo"; }
-        }
-        public static string PROGRAM_TOOLTIP
-        {
-            get { return "tuneRobo version 1.0"; }
-        }
-        public static string PROGRAM_FONT
-        {
-            get { return "Times New Roman"; }
-        }
-        public static string WEBSITE_NAME
-        {
-            get { return "http://www.tosy.com"; }
-        }
-        public static string SUCCESS_TITLE
-        {
-            get { return "Success"; }
-        }
-        public static string WARNING_TITLE
-        {
-            get { return "Warning"; }
-        }
-        public static string ERROR_TITLE
-        {
-            get { return "Error"; }
-        }
-        public static string QUESTION_TITLE
-        {
-            get { return "Question"; }
-        }
-        public static string SYNC_TITLE
-        {
-            get { return "Synchronize"; }
-        }
-
-        //=========TEXT========//
-        public static string SEARCH_TEXT
-        {
-            get { return "Search Motion"; }
-        }
-        public static string DEFAULT_FOLDER_TEXT
-        {
-            get { return "Set Default folder"; }
-        }
-        public static string BROWSER_TEXT
-        {
-            get { return "Browser"; }
-        }
-        public static string LOGIN_TEXT
-        {
-            get { return "Sign In"; }
-        }
-        public static string PREFERENCES_TEXT
-        {
-            get { return "Preferences"; }
-        }
-        public static string HELP_TEXT
-        {
-            get { return "Help contents"; }
-        }
-        public static string MOTION_TEXT
-        {
-            get { return "View Search Motion"; }
-        }
-        public static string PLAYLIST_TEXT
-        {
-            get { return "View Playlist"; }
-        }
-        public static string MOUNT_DEVICE_TEXT
-        {
-            get { return "Mount Device"; }
-        }
-        public static string DEVICE_SCAN_TEXT
-        {
-            get { return "Scan Devices"; }
-        }
-        public static string DEVICE_SCANNING_TEXT
-        {
-            get { return "Scanning"; }
-        }
-
-        public static string ABORT_PROCESS_TEXT
-        {
-            get { return "Abort process!"; }
-        }
-        //=========BUTTON========//
-        public static string SYNC_TO_BUTTON
-        {
-            get { return "Synchronize to Device"; }
-        }
-        public static string SYNC_FROM_BUTTON
-        {
-            get { return "Synchronize from Device"; }
-        }
-        public static string MOVE_UP_BUTTON
-        {
-            get { return "Move Row Up"; }
-        }
-        public static string MOVE_DOWN_BUTTON
-        {
-            get { return "Move Row Down"; }
-        }
-        public static string EXIT_BUTTON
-        {
-            get { return "Exit"; }
-        }
-        public static string CLOSE_BUTTON
-        {
-            get { return "Close"; }
-        }
-        public static string MINIMIZE_BUTTON
-        {
-            get { return "Minimize"; }
-        }
-        public static string OK_BUTTON
-        {
-            get { return "Ok"; }
-        }
-        public static string CANCEL_BUTTON
-        {
-            get { return "Cancel"; }
-        }
-
-        #endregion
         #region Config parameters
         //=========================OTHER DEFINITION FUNCTIONS ==============================//
         private static string[] mediaExtensions = {".MP3", ".MP4", ".WMA", 
@@ -258,11 +129,12 @@ namespace TuneRoboWPF.Utility
         public static ulong CountRequest = 0;
 
         
-        public const int PACKET_HEADER = 0x0080;
+        public const int PacketHeader = 0x0080;
 
 
         public static Dictionary<string,BitmapImage> ImageDictionary = new Dictionary<string, BitmapImage>();
         public static Dictionary<string, Reply> RequestDictionary = new Dictionary<string, Reply>();
+        public static NavigationSystem Navigation = NavigationSystem.Instance;
 
         static GlobalVariables()
         {

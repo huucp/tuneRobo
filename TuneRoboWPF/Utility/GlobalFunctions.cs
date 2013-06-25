@@ -508,7 +508,7 @@ namespace TuneRoboWPF.Utility
             var index = -1;
             for (var i = 0; i < data.Length; i++)
             {
-                if (data[i] == GlobalVariables.PACKET_HEADER)
+                if (data[i] == GlobalVariables.PacketHeader)
                 {
                     index = i;
                     break;

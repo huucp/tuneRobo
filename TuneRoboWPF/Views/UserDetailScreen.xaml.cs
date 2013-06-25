@@ -118,7 +118,8 @@ namespace TuneRoboWPF
 
         private void PurchasedMotion_MotionClicked(ulong motionID)
         {
-            var detailScreen = new MotionDetailScreen(motionID);
+            var detailScreen = new MotionDetailScreen();
+            detailScreen.SetInfo(motionID);
             StaticMainWindow.Window.ChangeScreen(detailScreen);
         }
 

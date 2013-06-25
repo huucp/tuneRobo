@@ -10,7 +10,7 @@
         <Image x:Name="Artwork" Height="125" Margin="0" Width="125" VerticalAlignment="Top"
                Source="{Binding ArtistIcon, TargetNullValue={StaticResource DefaultImage}}">
             <Image.Effect>
-                <DropShadowEffect BlurRadius="3" ShadowDepth="1"/>
+                <DropShadowEffect BlurRadius="3" ShadowDepth="2" Color="LightGray" Direction="270"/>
             </Image.Effect>
             <Image.InputBindings>
                 <MouseBinding Command="{Binding ImageClick}" MouseAction="LeftClick"/>

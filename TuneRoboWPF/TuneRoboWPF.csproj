@@ -154,6 +154,7 @@
     <Compile Include="Utility\GlobalResource.cs" />
     <Compile Include="Utility\GlobalVariables.cs" />
     <Compile Include="Utility\MotionInfo.cs" />
+    <Compile Include="Utility\NavigationSystem.cs" />
     <Compile Include="Utility\RobotState.cs" />
     <Compile Include="Utility\GlobalFunctions.cs" />
     <Compile Include="Utility\UserProfile.cs" />

@@ -10,6 +10,14 @@
 	d:DesignWidth="500" >
     <UserControl.Resources>        
         <converter:IndexToColorConverter x:Key="IndexToColorConverter"/>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonStyle}">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=LayoutRoot,Path=IsMouseOver}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot">
@@ -47,11 +55,10 @@
         </System_Windows_Controls:Rating>
         <Button x:Name="TransferButton"  Content="{DynamicResource CopyText}" RenderTransformOrigin="1.884,2.247" 
                 Margin="0,42,30,0" Click="TransferButton_Click"
-                HorizontalAlignment="Right" Width="70" Height="27"  VerticalAlignment="Top"
-                Style="{StaticResource ButtonStyle}"/>
+                HorizontalAlignment="Right" Width="70" Height="27"  VerticalAlignment="Top"/>
         <Button x:Name="DeleteButton" Content="{DynamicResource DeleteText}" Click="DeleteButton_Click"
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,79,30,0"
-                Width="70" Height="27" Style="{StaticResource ButtonStyle}"/>
+                Width="70" Height="27"/>
         <Separator Margin="0" Height="1" VerticalAlignment="Top" Background="{Binding Index,Converter={StaticResource IndexToColorConverter},ConverterParameter=1}"/>
         <Separator Margin="0,0,0,0" Height="1" Background="{Binding Index,Converter={StaticResource IndexToColorConverter},ConverterParameter=2}" VerticalAlignment="Bottom"/>        
     </Grid>

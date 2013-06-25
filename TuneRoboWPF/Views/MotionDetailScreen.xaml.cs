@@ -27,14 +27,23 @@ namespace TuneRoboWPF.Views
         private motion.MotionInfo Info { get; set; }
         private uint numberOfComment = 0;
         private uint numberOfRelatedMotions = 0;
-        public MotionDetailScreen(ulong motionID)
+        public MotionDetailScreen()
         {
             InitializeComponent();
 
-            MotionID = motionID;
             DataContext = new MotionDetailScreenViewModel();
             ViewModel = (MotionDetailScreenViewModel)DataContext;
-            
+
+        }
+
+        public void SetInfo(ulong motionID, bool newScreen = true)
+        {
+            MotionID = motionID;
+            if (!newScreen) return; // Get from navigation system
+
+            var screen = new Screen(Screen.ScreenType.MotionDetail, MotionID);
+            GlobalVariables.Navigation.AddScreen(screen);
+
         }
 
         private void GetMotionInfo()
@@ -43,13 +52,13 @@ namespace TuneRoboWPF.Views
             infoRequest.ProcessSuccessfully += delegate(Reply reply)
                                                    {
                                                        Info = reply.motion_info.info;
-                                                       UpdateContent(reply.motion_info.info);                                                       
+                                                       UpdateContent(reply.motion_info.info);
                                                    };
             infoRequest.ProcessError += (reply, msg) =>
             {
                 Debug.Assert(false, msg);
                 Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
-            };                                            
+            };
             GlobalVariables.StoreWorker.AddRequest(infoRequest);
         }
 
@@ -71,7 +80,7 @@ namespace TuneRoboWPF.Views
                                                     }));
             }
 
-            
+
             UpdateNumberRating();
             UpdateArtwork(info.icon_url);
             UpdateScreenshots(info.screenshoot_ulrs);
@@ -202,7 +211,8 @@ namespace TuneRoboWPF.Views
 
         private void RelatedMotions_MotionClicked(ulong motionid)
         {
-            var motionDetailScreen = new MotionDetailScreen(motionid);
+            var motionDetailScreen = new MotionDetailScreen();
+            motionDetailScreen.SetInfo(motionid);
             StaticMainWindow.Window.ChangeScreen(motionDetailScreen);
         }
 
@@ -219,7 +229,7 @@ namespace TuneRoboWPF.Views
         {
             if (!IsOnLocal())
             {
-                ViewModel.DownloadButtonContent = (string) FindResource("FreeText");
+                ViewModel.DownloadButtonContent = (string)FindResource("FreeText");
             }
             else
             {
@@ -345,7 +355,7 @@ namespace TuneRoboWPF.Views
         }
 
         private void ArtistTextBlock_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {                     
+        {
             var artistDetailScreen = new ArtistDetailScreen();
             artistDetailScreen.SetInfo(Info.artist_id);
             StaticMainWindow.Window.ChangeScreen(artistDetailScreen);
@@ -353,6 +363,7 @@ namespace TuneRoboWPF.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+
             StaticMainWindow.Window.ShowLoadingScreen();
             GetMotionInfo();
         }

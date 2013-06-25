@@ -504,6 +504,110 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+        	<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+        	<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+        	<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+        	<Setter Property="BorderThickness" Value="1"/>
+        	<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        	<Setter Property="HorizontalContentAlignment" Value="Center"/>
+        	<Setter Property="VerticalContentAlignment" Value="Center"/>
+        	<Setter Property="Padding" Value="1"/>
+        	<Setter Property="Template">
+        		<Setter.Value>
+        			<ControlTemplate TargetType="{x:Type Button}">
+        				<Microsoft_Windows_Themes:ButtonChrome x:Name="Chrome" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsPressed}" RenderDefaulted="{TemplateBinding IsDefaulted}" SnapsToDevicePixels="true">
+        					<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        				</Microsoft_Windows_Themes:ButtonChrome>
+        				<ControlTemplate.Triggers>
+        					<Trigger Property="IsKeyboardFocused" Value="true">
+        						<Setter Property="RenderDefaulted" TargetName="Chrome" Value="true"/>
+        					</Trigger>
+        					<Trigger Property="ToggleButton.IsChecked" Value="true">
+        						<Setter Property="RenderPressed" TargetName="Chrome" Value="true"/>
+        					</Trigger>
+        					<Trigger Property="IsEnabled" Value="false">
+        						<Setter Property="Foreground" Value="#ADADAD"/>
+        					</Trigger>
+        				</ControlTemplate.Triggers>
+        			</ControlTemplate>
+        		</Setter.Value>
+        	</Setter>
+        </Style>
+        <Style x:Key="ButtonStyle2" TargetType="{x:Type Button}">
+        	<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+        	<Setter Property="Background">
+        		<Setter.Value>
+        			<LinearGradientBrush EndPoint="0,1">
+        				<GradientStop Color="#888888" Offset="0"/>
+        				<GradientStop Color="#4f4f4f" Offset="1"/>
+        			</LinearGradientBrush>
+        		</Setter.Value>
+        	</Setter>
+        	<Setter Property="BorderBrush">
+        		<Setter.Value>
+        			<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+        				<GradientStop Color="#4f4f4f" Offset="0"/>
+        				<GradientStop Color="#2c2c2c" Offset="1"/>
+        			</LinearGradientBrush>
+        		</Setter.Value>
+        	</Setter>
+        	<Setter Property="BorderThickness" Value="1"/>
+        	<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        	<Setter Property="HorizontalContentAlignment" Value="Center"/>
+        	<Setter Property="VerticalContentAlignment" Value="Center"/>
+        	<Setter Property="Padding" Value="13,0,13,1"/>
+        	<Setter Property="Template">
+        		<Setter.Value>
+        			<ControlTemplate TargetType="{x:Type Button}">
+        				<Border x:Name="OuterBorder" CornerRadius="3,0,0,3"
+        					BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+        					SnapsToDevicePixels="True">
+        					<Border x:Name="InnerBorder" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" CornerRadius="2,0,0,2"
+        						BorderThickness="{TemplateBinding BorderThickness}"  Background="{TemplateBinding Background}">
+        						<Border.BorderBrush>
+        							<LinearGradientBrush EndPoint="0,1">
+        								<GradientStop Color="#979797" Offset="0"/>
+        								<GradientStop Color="#4d4d4d" Offset="1"/>
+        							</LinearGradientBrush>
+        						</Border.BorderBrush>
+        					</Border>
+        				</Border>
+        				<ControlTemplate.Triggers>
+        					<Trigger Property="IsPressed" Value="True">
+        						<Setter Property="BorderBrush">
+        							<Setter.Value>
+        								<LinearGradientBrush EndPoint="0,1">
+        									<GradientStop Color="#2a2a2a" Offset="0"/>
+        									<GradientStop Color="#010101" Offset="1"/>
+        								</LinearGradientBrush>
+        							</Setter.Value>
+        						</Setter>
+        						<Setter Property="BorderThickness" TargetName="InnerBorder" Value="2"/>
+        						<Setter Property="BorderBrush" TargetName="InnerBorder">
+        							<Setter.Value>
+        								<LinearGradientBrush EndPoint="0,1">
+        									<GradientStop Color="#353535" Offset="0"/>
+        									<GradientStop Color="#393939" Offset="0.33"/>
+        									<GradientStop Color="#292929" Offset="1"/>
+        								</LinearGradientBrush>
+        							</Setter.Value>
+        						</Setter>
+        						<Setter Property="Background">
+        							<Setter.Value>
+        								<LinearGradientBrush EndPoint="0,1">
+        									<GradientStop Color="#3e3e3e" Offset="0"/>
+        									<GradientStop Color="#535353" Offset="0.3"/>
+        									<GradientStop Color="#313131" Offset="1"/>
+        								</LinearGradientBrush>
+        							</Setter.Value>
+        						</Setter>
+        					</Trigger>
+        				</ControlTemplate.Triggers>
+        			</ControlTemplate>
+        		</Setter.Value>
+        	</Setter>
+        </Style>
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot">
@@ -570,5 +674,7 @@
                  x:Name ="SearchTextBox" Margin="0,0,40,0" 
                  TextWrapping="Wrap" Width="170" Height="22" Style="{DynamicResource TextBoxStyle1}"
 		         KeyDown="SearchTextBox_KeyDown"/>
+        <Button Content="Previous" HorizontalAlignment="Left" Margin="157,4,0,0" Width="28" Height="23" BorderThickness="1" VerticalAlignment="Top" Click="Previous_Click" Style="{DynamicResource ButtonStyle2}" />
+        <Button Content="Forward" HorizontalAlignment="Left" Margin="207,4,0,0" Width="50" Height="20" BorderThickness="0" VerticalAlignment="Top" Click="Forward_Click" Style="{DynamicResource ButtonStyle1}"/>
     </Grid>
 </UserControl>

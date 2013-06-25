@@ -71,7 +71,7 @@ namespace TuneRoboWPF
         public NavigationBar()
         {
             InitializeComponent();
-            DataContext = new NavigationBarViewModel();            
+            DataContext = new NavigationBarViewModel();
             ViewModel = (NavigationBarViewModel)DataContext;
             RemoteToggleButton.IsChecked = true;
         }
@@ -83,13 +83,13 @@ namespace TuneRoboWPF
             var loginWindow = new LoginWindow();
             loginWindow.ShowDialog(StaticMainWindow.Window);
             if (loginWindow.DialogResult == true)
-            {                
+            {
                 OnLoginSuccessfully(null);
             }
         }
 
         private void AccountMenu_Click(object sender, RoutedEventArgs e)
-        {           
+        {
             var profileScreen = new UserDetailScreen();
             StaticMainWindow.Window.ChangeScreen(profileScreen);
         }
@@ -98,9 +98,9 @@ namespace TuneRoboWPF
         {
             var signoutRequest = new SignoutStoreRequest();
             signoutRequest.ProcessSuccessfully += (reply) => OnLogoutSuccessfully(null);
-            signoutRequest.ProcessError += (reply, msg) => Debug.Fail(reply.type.ToString(),msg);
+            signoutRequest.ProcessError += (reply, msg) => Debug.Fail(reply.type.ToString(), msg);
             GlobalVariables.StoreWorker.AddRequest(signoutRequest);
-        }        
+        }
 
         private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -110,7 +110,7 @@ namespace TuneRoboWPF
                 {
                     SearchTextBox.Text = string.Empty;
                     return;
-                }                
+                }
                 var searchScreen = new SearchResultScreen();
                 searchScreen.SetQuery(SearchTextBox.Text);
                 StaticMainWindow.Window.ChangeScreen(searchScreen);
@@ -145,7 +145,7 @@ namespace TuneRoboWPF
 
         private void StoreToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            if (StoreToggleButton.IsChecked==false)
+            if (StoreToggleButton.IsChecked == false)
             {
                 StoreToggleButton.IsChecked = true;
             }
@@ -159,5 +159,18 @@ namespace TuneRoboWPF
             }
         }
 
+        private void Previous_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = GlobalVariables.Navigation.Previous();
+            if (screen == null) return;
+            StaticMainWindow.Window.ChangeScreen(screen);
+        }
+
+        private void Forward_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = GlobalVariables.Navigation.Forward();
+            if (screen == null) return;
+            StaticMainWindow.Window.ChangeScreen(screen);
+        }
     }
 }

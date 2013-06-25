@@ -30,6 +30,7 @@ namespace TuneRoboWPF
                 navigationBar.UserMenu.Visibility = Visibility.Hidden;
                 navigationBar.SignInButton.Visibility = Visibility.Visible;
                 var storeScreen = new StoreScreen();
+                storeScreen.SetInfo(true);
                 ChangeScreen(storeScreen);
             });
         }
@@ -108,6 +109,7 @@ namespace TuneRoboWPF
         private void navigationBar_StoreButtonClick(object sender, RoutedEventArgs e)
         {
             var testStoreScreen = new StoreScreen();
+            testStoreScreen.SetInfo(true);
             ChangeScreen(testStoreScreen);
         }
 

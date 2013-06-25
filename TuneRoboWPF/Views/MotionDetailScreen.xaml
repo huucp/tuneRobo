@@ -175,7 +175,7 @@
 
             </Button>
             <TextBlock x:Name="ArtistTextBlock" HorizontalAlignment="Left" Margin="30,354,0,0" 
-                       TextWrapping="Wrap" Text="{Binding ArtistName}" 
+                       TextWrapping="Wrap" Text="{Binding ArtistName}" Cursor="Hand"
                        VerticalAlignment="Top" FontWeight="UltraBold" FontSize="21.333" MouseDown="ArtistTextBlock_MouseDown" TextAlignment="Center" Width="220">
                 <TextBlock.Style>
                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
@@ -195,11 +195,11 @@
                 <System_Windows_Controls:Rating.LayoutTransform>
                     <ScaleTransform ScaleX="1" ScaleY="1"/>
                 </System_Windows_Controls:Rating.LayoutTransform>
-                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
             </System_Windows_Controls:Rating>
             <TextBlock x:Name="MotionTitle" HorizontalAlignment="Left" Margin="278,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
                        FontSize="24" FontWeight="Bold" Text="{Binding MotionTitle}">

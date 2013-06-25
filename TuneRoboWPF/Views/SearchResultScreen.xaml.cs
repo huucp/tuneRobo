@@ -74,7 +74,8 @@ namespace TuneRoboWPF.Views
 
         private void motionFull_MotionClicked(ulong motionID)
         {
-            var motionScreen = new MotionDetailScreen(motionID);
+            var motionScreen = new MotionDetailScreen();
+            motionScreen.SetInfo(motionID);
             StaticMainWindow.Window.ChangeScreen(motionScreen);
         }
 

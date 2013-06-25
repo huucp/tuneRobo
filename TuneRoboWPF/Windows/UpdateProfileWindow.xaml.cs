@@ -49,7 +49,7 @@ namespace TuneRoboWPF.Windows
                 Dispatcher.BeginInvoke((Action) (delegate
                 {
                     //MessageBox.Show("Update successfully");
-                    WPFMessageBox.Show(this,"UpdateSuccessfully");
+                    WPFMessageBox.Show(this,"Update Successfully","Update Profile",MessageBoxButton.OK,MessageBoxImage.Information);
                     DialogResult = true;
                     Close();
                 }));

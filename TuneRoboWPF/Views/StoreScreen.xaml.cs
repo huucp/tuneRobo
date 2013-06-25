@@ -27,6 +27,14 @@ namespace TuneRoboWPF.Views
 
         }
 
+        public void SetInfo(bool newScreen = true)
+        {
+            if (!newScreen) return;// Get from Navigation System
+
+            var screen = new Screen(Screen.ScreenType.StoreScreen);
+            GlobalVariables.Navigation.AddScreen(screen);
+        }
+
         private List<ArtistShortInfo> artistList = new List<ArtistShortInfo>();
         private void GetArtistList()
         {
@@ -53,15 +61,15 @@ namespace TuneRoboWPF.Views
                 listArtistRequest.ProcessError += (listReply, msg) =>
                 {
                     Debug.Assert(false, msg);
-                    Dispatcher.BeginInvoke((Action) (() => StaticMainWindow.Window.ShowErrorScreen()));
-                };                                                      
+                    Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
+                };
                 GlobalVariables.StoreWorker.ForceAddRequest(listArtistRequest);
             };
             artistCountRequest.ProcessError += (reply, msg) =>
             {
                 Debug.Assert(false, msg);
                 Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
-            }; 
+            };
             GlobalVariables.StoreWorker.ForceAddRequest(artistCountRequest);
 
         }
@@ -98,7 +106,7 @@ namespace TuneRoboWPF.Views
             {
                 Debug.Assert(false, msg);
                 Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
-            }; 
+            };
             GlobalVariables.StoreWorker.ForceAddRequest(hotListRequest);
         }
 
@@ -125,13 +133,14 @@ namespace TuneRoboWPF.Views
             {
                 Debug.Assert(false, msg);
                 Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
-            }; 
+            };
             GlobalVariables.StoreWorker.ForceAddRequest(featuredListRequest);
         }
 
         private void motionItem_MotionClicked(ulong motionID)
         {
-            var detailScreen = new MotionDetailScreen(motionID);
+            var detailScreen = new MotionDetailScreen();
+            detailScreen.SetInfo(motionID);
             StaticMainWindow.Window.ChangeScreen(detailScreen);
         }
 
@@ -170,7 +179,8 @@ namespace TuneRoboWPF.Views
             MainScrollViewer.ScrollToVerticalOffset(MainScrollViewer.VerticalOffset - e.Delta);
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {           
+        {
+
             StaticMainWindow.Window.ShowLoadingScreen();
             GetHotList();
             GetFeaturedList();

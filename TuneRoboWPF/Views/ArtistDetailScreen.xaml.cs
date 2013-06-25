@@ -23,14 +23,14 @@ namespace TuneRoboWPF.Views
 
             DataContext = new ArtistDetailScreenViewModel();
             ViewModel = (ArtistDetailScreenViewModel)DataContext;
-
-            
         }
 
-        public void SetInfo(ulong id)
+        public void SetInfo(ulong id, bool newScreen = true)
         {
             ArtistID = id;
-            
+            if (!newScreen) return; // if this screen use for navigation system
+            var screen = new Screen(Screen.ScreenType.ArtistDetail, ArtistID);
+            GlobalVariables.Navigation.AddScreen(screen);
         }
 
         private void GetArtistInfo()
@@ -118,7 +118,8 @@ namespace TuneRoboWPF.Views
 
         private void motionItemVertical_MotionClicked(ulong motionID)
         {
-            var detailScreen = new MotionDetailScreen(motionID);
+            var detailScreen = new MotionDetailScreen();
+            detailScreen.SetInfo(motionID);
             StaticMainWindow.Window.ChangeScreen(detailScreen);
         }
 

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:MessageBoxUtils" x:Class="MessageBoxUtils.WPFMessageBoxWindow"
         Title="{Binding Title}" ResizeMode="NoResize" SizeToContent="WidthAndHeight" FlowDirection="{Binding TitleFlowDirection}"
-        ShowInTaskbar="False" WindowStartupLocation="CenterOwner" KeyDown="Window_KeyDown" MinWidth="250">
+        ShowInTaskbar="False" WindowStartupLocation="CenterOwner" KeyDown="Window_KeyDown" MinWidth="250" WindowStyle="SingleBorderWindow">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -93,15 +93,17 @@
                                 <RowDefinition Height="45" />                                
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="{Binding Message}" Grid.Row="0"  Grid.RowSpan="2" Grid.Column="1" TextWrapping="Wrap" TextAlignment="Left" HorizontalAlignment="{Binding ContentTextAlignment}" VerticalAlignment="Top" Margin="10 10 10 10" />
+                            <TextBlock Text="{Binding Message}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" TextWrapping="Wrap" 
+                                       TextAlignment="Left" HorizontalAlignment="{Binding ContentTextAlignment}" VerticalAlignment="Top" 
+                                       Margin="10 10 10 10" FontSize="13"/>
 
                             <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{x:Null}">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,20,0" >
-                                    <Button Content="_Yes" Visibility="{Binding YesNoVisibility}" Command="{Binding YesCommand}" IsDefault="{Binding IsYesDefault}" Margin="5,0" Height="27" Width="70" Style="{DynamicResource ButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                    <Button Content="_Yes" Visibility="{Binding YesNoVisibility}" Command="{Binding YesCommand}" IsDefault="{Binding IsYesDefault}" Margin="5,0" Height="27" Width="70" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                     <Button Content="_No" Visibility="{Binding YesNoVisibility}" Command="{Binding NoCommand}" IsDefault="{Binding IsNoDefault}" Margin="5,0" Height="27" Width="70" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                     <Button Content="O_K" Visibility="{Binding OkVisibility}" Command="{Binding OkCommand}" IsDefault="{Binding IsOkDefault}" Margin="5,0" Height="27" Width="70" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                     <Button Content="_Cancel" Visibility="{Binding CancelVisibility}" Command="{Binding CancelCommand}" IsDefault="{Binding IsCancelDefault}" Margin="5,0" Height="27" Width="70" HorizontalAlignment="Left" VerticalAlignment="Top" />
