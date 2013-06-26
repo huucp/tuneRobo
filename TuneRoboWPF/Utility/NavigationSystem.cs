@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Windows.Controls;
 using TuneRoboWPF.Views;
 
@@ -24,6 +22,31 @@ namespace TuneRoboWPF.Utility
             CurrentIndex = -1;
         }
 
+        private void UpdateNavigationButton()
+        {
+           // if (CurrentIndex==-1) return;
+            if (CurrentIndex > ScreenList.Count - 2)
+            {
+
+                StaticMainWindow.Window.navigationBar.ViewModel.ForwardEnable = false;
+            }
+            else
+            {
+                StaticMainWindow.Window.navigationBar.ViewModel.ForwardEnable = true;
+            }
+            if (CurrentIndex < 1)
+            {
+
+                StaticMainWindow.Window.navigationBar.ViewModel.PreviousEnable = false;
+            }
+            else
+            {
+                StaticMainWindow.Window.navigationBar.ViewModel.PreviousEnable = true;
+            }
+
+
+        }
+
         public void AddScreen(Screen screen)
         {
             if (CurrentIndex < ScreenList.Count - 1 && !CompareScreen(screen, ScreenList[CurrentIndex + 1])
@@ -33,6 +56,7 @@ namespace TuneRoboWPF.Utility
             }
             ScreenList.Add(screen);
             CurrentIndex++;
+            UpdateNavigationButton();
         }
 
         private bool CompareScreen(Screen a, Screen b)
@@ -47,6 +71,7 @@ namespace TuneRoboWPF.Utility
                 return null;
             }
             CurrentIndex++;
+            UpdateNavigationButton();
             return GetCurrentScreen();
         }
 
@@ -57,6 +82,7 @@ namespace TuneRoboWPF.Utility
                 return null;
             }
             CurrentIndex--;
+            UpdateNavigationButton();
             return GetCurrentScreen();
         }
 
@@ -70,12 +96,19 @@ namespace TuneRoboWPF.Utility
                     return storeScreen;
                 case Screen.ScreenType.MotionDetail:
                     var motionScreen = new MotionDetailScreen();
-                    motionScreen.SetInfo(ScreenList[CurrentIndex].Parameter,false);
+                    var motionID = (ulong) ScreenList[CurrentIndex].Parameter;
+                    motionScreen.SetInfo(motionID,false);
                     return motionScreen;
                 case Screen.ScreenType.ArtistDetail:
                     var artistScreen = new ArtistDetailScreen();
-                    artistScreen.SetInfo(ScreenList[CurrentIndex].Parameter);
-                    break;
+                    var artistID = (ulong)ScreenList[CurrentIndex].Parameter;
+                    artistScreen.SetInfo(artistID, false);
+                    return artistScreen;
+                    case Screen.ScreenType.Search:
+                    var searchScreen = new SearchResultScreen();
+                    var query = (string) ScreenList[CurrentIndex].Parameter;
+                    searchScreen.SetQuery(query,false);
+                    return searchScreen;
                 default:
                     Debug.Fail(string.Format("GetCurrentScreen error, index{0}", CurrentIndex));
                     return null;
@@ -88,12 +121,12 @@ namespace TuneRoboWPF.Utility
     {
         public enum ScreenType
         {
-            StoreScreen, MotionDetail, ArtistDetail
+            StoreScreen, MotionDetail, ArtistDetail,Search
         }
 
         public ScreenType Type { get; set; }
-        public ulong Parameter { get; set; }
-        public Screen(ScreenType type, ulong param = 0)
+        public object Parameter { get; set; }
+        public Screen(ScreenType type, object param = null)
         {
             Type = type;
             Parameter = param;

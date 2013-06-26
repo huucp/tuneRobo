@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:MessageBoxUtils" x:Class="MessageBoxUtils.WPFMessageBoxWindow"
         Title="{Binding Title}" ResizeMode="NoResize" SizeToContent="WidthAndHeight" FlowDirection="{Binding TitleFlowDirection}"
-        ShowInTaskbar="False" WindowStartupLocation="CenterOwner" KeyDown="Window_KeyDown" MinWidth="250" WindowStyle="SingleBorderWindow">
+        ShowInTaskbar="False" WindowStartupLocation="CenterOwner" KeyDown="Window_KeyDown" MinWidth="250" 
+        WindowStyle="SingleBorderWindow" >
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>

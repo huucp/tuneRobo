@@ -42,7 +42,7 @@ namespace TuneRoboWPF.Views
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     ViewModel.ArtistName = Info.artist_name;
-                    ViewModel.RatingValue = Info.avg_rating / 10.0;
+                    ViewModel.RatingValue = Info.avg_rating / GlobalVariables.RateValueMultiplierFactor;
                     //ViewModel.NumberRate= string.Format(Info.)
                     ViewModel.Biography = Info.description;
                 });

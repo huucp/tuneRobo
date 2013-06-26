@@ -36,7 +36,7 @@ namespace TuneRoboWPF.Views
         {
             ViewModel.MotionTitle = info.title;
             ViewModel.ArtistName = info.artist_name;
-            ViewModel.RatingValue = info.rating / 10.0;
+            ViewModel.RatingValue = info.rating / GlobalVariables.RateValueMultiplierFactor;
             MotionID = info.motion_id;
         }
 

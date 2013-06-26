@@ -119,7 +119,7 @@ namespace TuneRoboWPF.Views
         private void UpdateContentValue(motion.MotionInfo info)
         {
             ViewModel.MotionTitle = info.title;
-            ViewModel.RatingValue = info.rating / 10.0;
+            ViewModel.RatingValue = info.rating / GlobalVariables.RateValueMultiplierFactor;
             ViewModel.ArtistName = info.artist_name;
             ViewModel.MotionDescription = info.description;
             ViewModel.MoreByTextBlock = string.Format("More by {0}", info.artist_name);

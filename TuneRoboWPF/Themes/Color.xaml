@@ -4,5 +4,6 @@
     <SolidColorBrush x:Key="ListBoxHorizontalBorderBrush" Color="White"/>
     <SolidColorBrush x:Key="RatingRateColor" Color="Yellow"/>
     <SolidColorBrush x:Key="GrayFont" Color="#888888"/>
+    <SolidColorBrush x:Key="DarkGrayFont" Color="#646464"/>
     <SolidColorBrush x:Key="BlackFont" Color="#3c3c3c"/>
 </ResourceDictionary>

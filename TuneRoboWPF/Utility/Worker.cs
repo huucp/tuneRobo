@@ -33,7 +33,7 @@ namespace TuneRoboWPF.Utility
 
         private string ImageUrl { get; set; }
 
-        public ImageDownload( string url)
+        public ImageDownload(string url)
         {
             ImageUrl = url;
         }
@@ -46,39 +46,54 @@ namespace TuneRoboWPF.Utility
         private string FindImageInStorage(string filename)
         {
             string filePath = Path.Combine(GlobalVariables.AppDataFolder, filename);
-            return File.Exists(filePath) ? filePath : null;
+            var fileInfo = new FileInfo(filePath);
+            return (File.Exists(filePath) && fileInfo.Length != 0) ? filePath : null;
         }
 
         private void DownloadRemoteImageFile(string url, string filename)
         {
             if (string.IsNullOrWhiteSpace(url))
             {
-                OnDownloadFailed(null,"URL invalid");
+                OnDownloadFailed(null, "URL invalid");
                 return;
             }
-            if(GlobalVariables.ImageDictionary.ContainsKey(url))
+            if (GlobalVariables.ImageDictionary.ContainsKey(url))
             {
                 OnDownloadCompleted(GlobalVariables.ImageDictionary[url]);
-                return;                
+                return;
             }
             var cachedImagePath = FindImageInStorage(filename);
-            if(cachedImagePath!=null)
+            if (cachedImagePath != null)
             {
                 using (var memory = new MemoryStream(File.ReadAllBytes(cachedImagePath)))
                 {
+                    Console.WriteLine(memory.Capacity);
                     memory.Position = 0;
+                    bool loadImage = true;
                     var bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.StreamSource = memory;
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.EndInit();
+                    try
+                    {
+                        bitmapImage.BeginInit();
+                        bitmapImage.StreamSource = memory;
+                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmapImage.EndInit();
 
-                    bitmapImage.Freeze();
+                        bitmapImage.Freeze();
 
-                    GlobalVariables.ImageDictionary.Add(url, bitmapImage);
+                    }
+                    catch (Exception e)
+                    {
+                        loadImage = false;
+                        Debug.Fail(e.Message);
+                    }
 
-                    OnDownloadCompleted(bitmapImage);
-                    return;
+                    if (loadImage)
+                    {
+                        GlobalVariables.ImageDictionary.Add(url, bitmapImage);
+
+                        OnDownloadCompleted(bitmapImage);
+                        return;
+                    }
                 }
             }
 
@@ -89,7 +104,7 @@ namespace TuneRoboWPF.Utility
             }
             catch (Exception e)
             {
-                OnDownloadFailed(null,e.Message);
+                OnDownloadFailed(null, e.Message);
                 return;
             }
             var request = WebRequest.CreateDefault(urlUri);
@@ -97,38 +112,46 @@ namespace TuneRoboWPF.Utility
             var buffer = new byte[4096];
 
             string savedPath = Path.Combine(GlobalVariables.AppDataFolder, filename);
-            using (var target = new FileStream(savedPath, FileMode.Create, FileAccess.Write))
+            try
             {
-                using (var response = request.GetResponse())
+                using (var target = new FileStream(savedPath, FileMode.Create, FileAccess.Write))
                 {
-                    using (var stream = response.GetResponseStream())
+                    using (var response = request.GetResponse())
                     {
-                        using (var mStream = new MemoryStream())
+                        using (var stream = response.GetResponseStream())
                         {
-                            int read;
-                            Debug.Assert(stream != null, "stream is null");
-                            while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
+                            using (var mStream = new MemoryStream())
                             {
-                                target.Write(buffer, 0, read);
-                                mStream.Write(buffer,0,read);
+                                int read;
+                                Debug.Assert(stream != null, "stream is null");
+                                while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
+                                {
+                                    target.Write(buffer, 0, read);
+                                    mStream.Write(buffer, 0, read);
+                                }
+
+                                mStream.Position = 0;
+                                var bitmapImage = new BitmapImage();
+                                bitmapImage.BeginInit();
+                                bitmapImage.StreamSource = mStream;
+                                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                                bitmapImage.EndInit();
+
+                                bitmapImage.Freeze();
+
+                                GlobalVariables.ImageDictionary.Add(url, bitmapImage);
+
+                                OnDownloadCompleted(bitmapImage);
                             }
-
-                            mStream.Position = 0;
-                            var bitmapImage = new BitmapImage();
-                            bitmapImage.BeginInit();
-                            bitmapImage.StreamSource = mStream;
-                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                            bitmapImage.EndInit();
-
-                            bitmapImage.Freeze();
-
-                            GlobalVariables.ImageDictionary.Add(url, bitmapImage);
-
-                            OnDownloadCompleted(bitmapImage);
                         }
                     }
                 }
-            }            
+            }
+            catch (Exception e)
+            {
+                
+                OnDownloadFailed(null, e.Message);
+            }
         }
     }
 

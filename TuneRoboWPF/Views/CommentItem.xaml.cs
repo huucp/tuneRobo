@@ -33,7 +33,7 @@ namespace TuneRoboWPF.Views
             ViewModel = (CommentItemViewModel)DataContext;
 
             ViewModel.CommentTitle = ratingInfo.comment_title;
-            ViewModel.RatingValue = ratingInfo.rating / 10.0;
+            ViewModel.RatingValue = ratingInfo.rating / GlobalVariables.RateValueMultiplierFactor;
             ViewModel.UserReview = FormatUserReviewString(ratingInfo.user_name, ratingInfo.rating_time);
             ViewModel.CommentContent = ratingInfo.comment_content;
         }

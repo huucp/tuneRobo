@@ -54,7 +54,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
     </UserControl.Resources>
     <ScrollViewer Margin="0" x:Name="MainScrollViewer" VerticalScrollBarVisibility="Auto" >
         <ScrollViewer.Resources>
@@ -63,7 +62,7 @@
             </Style>
             <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource FullAppleScrollBar}"/>
         </ScrollViewer.Resources>
-        <Grid Background="#F5F5F5">
+        <Grid Background="{StaticResource MainBackground}">
             <TabControl x:Name="TabContent" Margin="0,85,0,0" Style="{DynamicResource TabControlStyle1}" HorizontalContentAlignment="Center">
                 <TabItem x:Name="MotionTab" Header="Motion">
                     <Grid >
@@ -87,7 +86,7 @@
                 </TabItem>
                 <TabItem x:Name="BiographyTab" Header="Biography">
                     <Grid >
-                        <TextBlock Margin="29,40,29,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13" Text="{Binding Biography}"
+                        <TextBlock Margin="29,50,29,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13" Text="{Binding Biography}"
                                     Foreground="{StaticResource BlackFont}"/>
                     </Grid>
                 </TabItem>

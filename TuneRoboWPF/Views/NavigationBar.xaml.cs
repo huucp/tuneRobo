@@ -172,5 +172,21 @@ namespace TuneRoboWPF
             if (screen == null) return;
             StaticMainWindow.Window.ChangeScreen(screen);
         }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(SearchTextBox.Text))
+            {
+                if (onRemote)
+                {
+                    SearchTextBox.Text = string.Empty;
+                    return;
+                }
+                var searchScreen = new SearchResultScreen();
+                searchScreen.SetQuery(SearchTextBox.Text);
+                StaticMainWindow.Window.ChangeScreen(searchScreen);
+                SearchTextBox.Text = string.Empty;
+            }
+        }
     }
 }

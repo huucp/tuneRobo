@@ -1,6 +1,7 @@
 using System;
 using System.Windows;
 using System.Windows.Input;
+using MessageBoxUtils;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using user;
@@ -15,7 +16,6 @@ namespace TuneRoboWPF.Windows
         public LoginWindow()
         {
             this.InitializeComponent();
-
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -30,13 +30,17 @@ namespace TuneRoboWPF.Windows
                                                          Dispatcher.BeginInvoke((Action)delegate
                                                                                              {
                                                                                                  DialogResult = true;
+                                                                                                 Cursor = Cursors.Arrow;
                                                                                              });
                                                      };
-            signinRequest.ProcessError += (s, msg) =>
-                                              {
-                                                  Console.WriteLine("Login failed: " + msg);
-                                              };
+            signinRequest.ProcessError += (s, msg) => 
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Cursor = Cursors.Arrow;
+                    WPFMessageBox.Show(this, "Login failed", "Login error", MessageBoxButton.OK, MessageBoxImage.Error);
+                });
             GlobalVariables.StoreWorker.AddRequest(signinRequest);
+            Cursor = Cursors.Wait;
         }
         public bool? ShowDialog(Window owner)
         {

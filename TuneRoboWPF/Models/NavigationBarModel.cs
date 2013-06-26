@@ -8,5 +8,7 @@ namespace TuneRoboWPF.Models
     public class NavigationBarModel
     {
         public string Username = String.Empty;
+        public bool PreviousEnable = false;
+        public bool ForwardEnable = false;
     }
 }

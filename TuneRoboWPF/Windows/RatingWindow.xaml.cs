@@ -47,7 +47,7 @@ namespace TuneRoboWPF.Windows
                     {
                         ViewModel.Title = ratingInfo.comment_title;
                         ViewModel.Review = ratingInfo.comment_content;
-                        ViewModel.RatingValue = ratingInfo.rating;
+                        ViewModel.RatingValue = ratingInfo.rating/GlobalVariables.RateValueMultiplierFactor;
                     });
                 }
             };
@@ -83,7 +83,7 @@ namespace TuneRoboWPF.Windows
 
         private void Comment()
         {
-            var ratingRequest = new RatingMotionStoreRequest(MotionID, (uint)(ViewModel.RatingValue * 10), VersionID,
+            var ratingRequest = new RatingMotionStoreRequest(MotionID, (uint)(ViewModel.RatingValue * GlobalVariables.RateValueMultiplierFactor), VersionID,
                                                              ViewModel.Title, ViewModel.Review);
             ratingRequest.ProcessSuccessfully += (reply) =>
                 Dispatcher.BeginInvoke((Action)delegate()

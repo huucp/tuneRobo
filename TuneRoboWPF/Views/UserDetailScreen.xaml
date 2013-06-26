@@ -4,7 +4,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Views="clr-namespace:TuneRoboWPF.Views"
 	mc:Ignorable="d"
-	x:Class="TuneRoboWPF.UserDetailScreen"
+	x:Class="TuneRoboWPF.Views.UserDetailScreen"
 	x:Name="UserControl"
 	d:DesignWidth="1100" d:DesignHeight="702"
     Loaded="UserDetailScreen_Loaded">

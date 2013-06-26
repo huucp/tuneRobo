@@ -12,9 +12,32 @@ namespace TuneRoboWPF.ViewModels
             get { return model.Username; }
             set
             {
+                if (model.Username == value) return;
                 model.Username = value;
                 NotifyPropertyChanged("Username");
             }
-        }               
+        }
+
+        public bool PreviousEnable
+        {
+            get { return model.PreviousEnable; }
+            set
+            {
+                if (model.PreviousEnable == value) return;
+                model.PreviousEnable = value;
+                NotifyPropertyChanged("PreviousEnable");
+            }
+        }
+
+        public bool ForwardEnable
+        {
+            get { return model.ForwardEnable; }
+            set
+            {
+                if (model.ForwardEnable == value) return;
+                model.ForwardEnable = value;
+                NotifyPropertyChanged("ForwardEnable");
+            }
+        }
     }
 }

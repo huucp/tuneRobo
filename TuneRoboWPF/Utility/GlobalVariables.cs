@@ -128,7 +128,7 @@ namespace TuneRoboWPF.Utility
         public static StoreConnection ServerConnection = StoreConnection.Instance;
         public static ulong CountRequest = 0;
 
-        
+        public static double RateValueMultiplierFactor = 10.0;
         public const int PacketHeader = 0x0080;
 
 
