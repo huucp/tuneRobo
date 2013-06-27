@@ -35,7 +35,13 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock Margin="0,20,0,0" TextWrapping="Wrap" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"
+                <TextBlock x:Name="SearchHeaderShadow" Margin="0,20,0,0" TextWrapping="Wrap" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"
+					Text="{Binding SearchQuery}" FontWeight="UltraBold" FontSize="24" Foreground="White">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform Y="1"/>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBlock x:Name="SearchHeader" Margin="0,20,0,0" TextWrapping="Wrap" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"
 					Text="{Binding SearchQuery}" FontWeight="UltraBold" FontSize="24" Foreground="{StaticResource BlackFont}"/>
             </Grid>
         </ScrollViewer>

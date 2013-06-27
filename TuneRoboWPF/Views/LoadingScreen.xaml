@@ -6,7 +6,14 @@
              xmlns:View="clr-namespace:TuneRoboWPF.Views" mc:Ignorable="d" 
              d:DesignHeight="702" d:DesignWidth="1100" Loaded="UserControl_Loaded">
     <Grid Background="{StaticResource MainBackground}">
-        <TextBlock Text="{DynamicResource LoadingScreenText}" FontSize="21.333" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="LoadingMessageShadow" Text="{DynamicResource LoadingScreenText}" 
+                   FontSize="21.333" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Foreground="White">
+            <TextBlock.RenderTransform>
+                <TranslateTransform Y="1"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock x:Name="LoadingMessage" Text="{DynamicResource LoadingScreenText}" FontSize="21.333" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Grid HorizontalAlignment="Center" Margin="0" Width="160" Height="160" VerticalAlignment="Center">
         	<View:BlueDot Width="40" Height="40" RenderTransformOrigin="0.508,2" BeginTime='00:00:00' HorizontalAlignment="Center" VerticalAlignment="Top"/>
         	<View:BlueDot Width="40"  Height="40" RenderTransformOrigin="0.508,2" BeginTime='00:00:00.2' HorizontalAlignment="Center" VerticalAlignment="Top">

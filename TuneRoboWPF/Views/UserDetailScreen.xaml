@@ -83,7 +83,14 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
-                    <TextBlock HorizontalAlignment="Right"  TextWrapping="Wrap" VerticalAlignment="Top"
+                    <TextBlock x:Name="UsernameTextBlockShadow" HorizontalAlignment="Right"  TextWrapping="Wrap" VerticalAlignment="Top"
+                               Text="{Binding Username}" FontSize="27" FontWeight="UltraBold" 
+                               Grid.Column="0" Grid.Row="0" Foreground="White">
+                        <TextBlock.RenderTransform>
+                            <TranslateTransform Y="1"/>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBlock x:Name="UsernameTextBlock" HorizontalAlignment="Right"  TextWrapping="Wrap" VerticalAlignment="Top"
                                Text="{Binding Username}" FontSize="27" FontWeight="UltraBold" 
                                Grid.Column="0" Grid.Row="0">
                         <TextBlock.Foreground>

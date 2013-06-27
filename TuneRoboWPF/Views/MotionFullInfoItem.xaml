@@ -10,7 +10,7 @@
 	d:DesignWidth="500" >
     <UserControl.Resources>        
         <converter:IndexToColorConverter x:Key="IndexToColorConverter"/>
-        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonStyle}">
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtoniTuneStyle}">
             <Setter Property="Visibility" Value="Hidden"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=LayoutRoot,Path=IsMouseOver}" Value="True">
@@ -31,9 +31,24 @@
                             ImageSource="{Binding CoverImage, TargetNullValue={StaticResource DefaultImage}}"/>
             </Rectangle.Fill>
         </Rectangle>
+        <TextBlock x:Name="MotionShadow" Margin="148,55,0,0" TextWrapping="NoWrap" 
+                   Text="{Binding MotionTitle}" HorizontalAlignment="Left" 
+                   FontWeight="Bold"  VerticalAlignment="Top" FontSize="18" Foreground="White">
+            <TextBlock.RenderTransform>
+                <TranslateTransform Y="1"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
         <TextBlock x:Name="Motion" Margin="148,55,0,0" TextWrapping="NoWrap" 
                    Text="{Binding MotionTitle}" HorizontalAlignment="Left" 
                    FontWeight="Bold"  VerticalAlignment="Top" FontSize="18" Foreground="{StaticResource BlackFont}"/>
+        <TextBlock x:Name="ArtistShadow" Margin="149,80,0,0" TextWrapping="NoWrap" 
+                   Text="{Binding ArtistName}" Foreground="White"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" 
+                   d:LayoutOverrides="VerticalAlignment">
+            <TextBlock.RenderTransform>
+                <TranslateTransform Y="1"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
         <TextBlock x:Name="Artist" Margin="149,80,0,0" TextWrapping="NoWrap" 
                    Text="{Binding ArtistName}" Foreground="{StaticResource GrayFont}"
                    HorizontalAlignment="Left" VerticalAlignment="Top" 

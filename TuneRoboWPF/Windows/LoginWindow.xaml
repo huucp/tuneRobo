@@ -55,8 +55,8 @@
         <PasswordBox x:Name="PasswordBox" Password ="1" Margin="20,110,0,0" Width="300" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top"/>
         <Button x:Name="LoginButton" Content="{DynamicResource LoginText}" Margin="250,0,0,18" Click ="LoginButton_Click" 
                 IsDefault="True" HorizontalAlignment="Left" Width="70" FontWeight="Bold" Height="27" VerticalAlignment="Bottom" 
-                Style="{StaticResource ButtonStyle}" />
-        <Button x:Name="CancelButton" Content="{DynamicResource CancelText}" Margin="170,0,0,18" Click ="CancelButton_Click" Height="27" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="70" FontWeight="Bold" IsCancel="True" Style="{StaticResource ButtonStyle}" />
+                Style="{StaticResource ButtoniTuneStyle}" />
+        <Button x:Name="CancelButton" Content="{DynamicResource CancelText}" Margin="170,0,0,18" Click ="CancelButton_Click" Height="27" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="70" FontWeight="Bold" IsCancel="True" Style="{StaticResource ButtoniTuneStyle}" />
         <Label Margin="226.736,83.16,0,0" Foreground="#FF0A226A" Padding="5,3,5,0" Cursor="Hand" 
                VerticalAlignment="Top" HorizontalAlignment="Left" MouseDown="Forgot_Click">
             <TextBlock><Run Text="{DynamicResource ForgotPasswordText}"/></TextBlock>            

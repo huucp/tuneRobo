@@ -93,7 +93,7 @@ namespace TuneRoboWPF.Views
 
         private void MainScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            if (IsLoaded)
+            if (IsLoaded )
                 {
 
                     if (MainScrollViewer.VerticalOffset + 10 > MainScrollViewer.ScrollableHeight)

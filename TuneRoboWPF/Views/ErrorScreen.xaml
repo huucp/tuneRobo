@@ -6,7 +6,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="702" d:DesignWidth="1100">
     <Grid Background="{StaticResource MainBackground}">
-    	<TextBlock HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="{DynamicResource ErrorScreenText}" VerticalAlignment="Center" FontSize="26.667" FontWeight="ExtraBold"/>
+        <TextBlock x:Name="ErrorMessageShadow"  HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" 
+                   Text="{DynamicResource ErrorScreenText}" VerticalAlignment="Center" Foreground="White"
+                   FontSize="26.667" FontWeight="ExtraBold">
+            <TextBlock.RenderTransform>
+                <TranslateTransform Y="1"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock x:Name="ErrorMessage"  HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="{DynamicResource ErrorScreenText}" VerticalAlignment="Center" FontSize="26.667" FontWeight="ExtraBold"/>
             
     </Grid>
 </UserControl>

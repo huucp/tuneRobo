@@ -9,9 +9,9 @@
              d:DesignHeight="703" d:DesignWidth="1100"
              Loaded="UserControl_Loaded">
     <UserControl.Resources>
-        <Style x:Key="TabControlStyle1" TargetType="{x:Type TabControl}">
+        <Style x:Key="TabControliTuneStyle" TargetType="{x:Type TabControl}">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="Padding" Value="4,4,4,4"/>
+            <Setter Property="Padding" Value="0"/>
             <Setter Property="BorderThickness" Value="0,0,0,0"/>
             <Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}"/>
             <Setter Property="Background" Value="#E6E6E6"/>
@@ -46,7 +46,100 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+        <Style x:Key="ReviewButtonStyle" TargetType="{x:Type Button}">
+        	<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        	<Setter Property="BorderThickness" Value="1"/>
+        	<Setter Property="BorderBrush">
+        		<Setter.Value>
+        			<LinearGradientBrush EndPoint="0,1">
+        				<GradientStop Color="#b5b5b5" Offset="0"/>
+        				<GradientStop Color="#b5b5b5" Offset="0.036"/>
+        				<GradientStop Color="#b2b2b2" Offset="0.036"/>
+        				<GradientStop Color="#b2b2b2" Offset="0.96"/>
+        				<GradientStop Color="#929292" Offset="0.96"/>
+        				<GradientStop Color="#929292" Offset="1"/>
+        			</LinearGradientBrush>
+        		</Setter.Value>
+        	</Setter>
+        	<Setter Property="Background">
+        		<Setter.Value>
+        			<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+        				<GradientStop Color="#FFE0E0E0" Offset="1"/>
+        				<GradientStop Color="#FFCDCDCD" Offset="0.62"/>
+        				<GradientStop Color="#FFE5E5E5" Offset="0"/>
+        			</LinearGradientBrush>
+        		</Setter.Value>            
+        	</Setter>        	
+        	<Setter Property="HorizontalContentAlignment" Value="Center"/>
+        	<Setter Property="VerticalContentAlignment" Value="Center"/>
+        	<Setter Property="Padding" Value="13,0,13,1"/>
+        	<Setter Property="Cursor" Value="Hand"/>
+        	<Setter Property="Template">
+        		<Setter.Value>
+        			<ControlTemplate TargetType="{x:Type Button}">
+        				<Border x:Name="OuterBorder" CornerRadius="3" Background="{TemplateBinding Background}"
+        					BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+        					SnapsToDevicePixels="True">
+        					<Grid>
+        						<ContentPresenter x:Name="ContentShadow" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+        							Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
+        							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+        							VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+        							<ContentPresenter.Resources>
+        								<Style TargetType="{x:Type TextBlock}">
+        									<Setter Property="FontSize" Value="10"/>
+        									<Setter Property="FontWeight" Value="Bold"/>
+        									<Setter Property="Foreground" Value="White"/>
+        								</Style>
+        							</ContentPresenter.Resources>
+        							<ContentPresenter.RenderTransform>
+        								<TranslateTransform Y="1"/>
+        							</ContentPresenter.RenderTransform>
+        						</ContentPresenter>
+        						<ContentPresenter x:Name="Content" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+        							Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
+        							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+        							VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+        							<ContentPresenter.Resources>
+        								<Style TargetType="{x:Type TextBlock}">
+        									<Setter Property="FontSize" Value="10"/>
+        									<Setter Property="FontWeight" Value="Bold"/>
+                                            <Setter Property="Foreground" Value="{StaticResource BlackFont}"/>
+        								</Style>
+        							</ContentPresenter.Resources>
+        						</ContentPresenter>
+        					</Grid>						
+        				</Border>
+        				<ControlTemplate.Triggers>
+        					<Trigger Property="IsPressed" Value="True">
+        						<Setter Property="BorderBrush">
+        							<Setter.Value>
+        								<LinearGradientBrush EndPoint="0,1">
+        									<GradientStop Color="#8e8e8e" Offset="0"/>
+        									<GradientStop Color="#8e8e8e" Offset="0.036"/>
+        									<GradientStop Color="#959595" Offset="0.036"/>
+        									<GradientStop Color="#b0b0b0" Offset="0.96"/>
+        									<GradientStop Color="#929292" Offset="0.96"/>
+        									<GradientStop Color="#929292" Offset="1"/>
+        								</LinearGradientBrush>
+        							</Setter.Value>
+        						</Setter>
+        						<Setter Property="Background">
+        							<Setter.Value>
+        								<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+        									<GradientStop Color="#eaeaea" Offset="1"/>
+        									<GradientStop Color="#e0e0e0" Offset="0.53"/>
+        									<GradientStop Color="#d0d0d0" Offset="0"/>
+        								</LinearGradientBrush>
+        							</Setter.Value>
+        						</Setter>
+        					</Trigger>
+        				</ControlTemplate.Triggers>
+        			</ControlTemplate>
+        		</Setter.Value>
+        	</Setter>
+        </Style>
+
     </UserControl.Resources>
     <ScrollViewer Margin="0" x:Name="MainScrollViewer" ScrollChanged="MainScrollViewer_ScrollChanged" VerticalScrollBarVisibility="Auto" >
         <ScrollViewer.Resources>
@@ -63,24 +156,41 @@
                     </VisualBrush.Visual>
                 </VisualBrush>
         	</Grid.Background>-->
-            <Border Margin="0,200,0,0" VerticalAlignment="Stretch" Background="#E6E6E6">
+            <Border Margin="0,200,0,0" VerticalAlignment="Stretch" Background="#f3f3f3">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Rectangle x:Name="TopBorder1" Fill="White" Height="1" Margin="0" Grid.Row="1"  VerticalAlignment="Top" Width="Auto" StrokeThickness="0"/>
                     <Rectangle x:Name="TopBorder2" Fill="#FFCCCCCC" Height="1" Margin="0,1,0,0" Grid.Row="1"  StrokeThickness="0" VerticalAlignment="Top" Width="Auto"/>
                     <Rectangle x:Name="TopBorder3" Fill="#FFDEDEDE" HorizontalAlignment="Stretch" Height="1" Margin="0,2,0,0" Grid.Row="1"  StrokeThickness="0" VerticalAlignment="Top" Width="Auto"/>
+                    <Rectangle Height="90" Margin="0,3,0,0" StrokeThickness="0" VerticalAlignment="Top">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFF2F2F2" Offset="1"/>
+                                <GradientStop Color="#FFE6E6E6"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
                 </Grid>
             </Border>
             <TabControl Margin="263,162,0,0" 
 				        x:Name="ContentTabControl"
-				        Style="{StaticResource TabControlStyle1}" 
+				        Style="{StaticResource TabControliTuneStyle}" 
                         Height="Auto" VerticalAlignment="Top"
-                        Background="#e6e6e6">
+                        Background="#f3f3f3">
                 <TabItem Header="{DynamicResource DetailsTabHeaderText}" x:Name="DetailsTab">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
+                        <Rectangle Height="90" Margin="0" StrokeThickness="0" VerticalAlignment="Top">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF2F2F2" Offset="1"/>
+                                    <GradientStop Color="#FFE6E6E6"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
                         <ListBox Grid.Row="0" x:Name="ScreenshotsListbox" Height="200" Margin="27.5,40,0,0" 
                                  VerticalAlignment="Top" HorizontalAlignment="Left" Width="751"
                                  VerticalContentAlignment="Top" Background="Transparent"
@@ -91,13 +201,33 @@
                                  PreviewMouseWheel="ScreenshotsListbox_PreviewMouseWheel"
                                  SelectionChanged="ScreenshotsListbox_SelectionChanged"
                                  Template="{StaticResource AppleListBoxControlTemplate}"/>
-                        <TextBlock Grid.Row="0"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 
-                                   VerticalAlignment="Top"  Text="Screen shots" FontWeight="Bold" FontSize="20"/>
-                        <TextBlock Grid.Row="1"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 
-                                   VerticalAlignment="Top"  Text="Description" FontWeight="Bold" FontSize="20"/>
+                        <TextBlock x:Name="ScreenshotTextBlockShadow" Grid.Row="0"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 
+                                   VerticalAlignment="Top"  Text="{DynamicResource ScreenshotsText}" FontWeight="Bold" FontSize="20" Foreground="White">
+                                    <TextBlock.RenderTransform>
+                                        <TranslateTransform Y="1"/>
+                                    </TextBlock.RenderTransform>
+                        </TextBlock>
+                        <TextBlock x:Name="ScreenshotTextBlock" Grid.Row="0"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 
+                                   VerticalAlignment="Top"  Text="{DynamicResource ScreenshotsText}" FontWeight="Bold" FontSize="20"/>
 
-                        <TextBlock Grid.Row="1"  x:Name="DescriptionTextBlock" Margin="27.5,46,0,0" TextWrapping="Wrap" 
-                                   Text="{Binding MotionDescription}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="751"/>
+                        <TextBlock x:Name="DescriptionTextBlockShadow" Grid.Row="1"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 
+                                   VerticalAlignment="Top"  Text="{DynamicResource DescriptionText}" FontWeight="Bold" FontSize="20"
+                                   Foreground="White">
+                                   <TextBlock.RenderTransform>
+                                        <TranslateTransform Y="1"/>  
+                                   </TextBlock.RenderTransform>
+                        </TextBlock>
+                        <TextBlock x:Name="DescriptionTextBlock" Grid.Row="1"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 
+                                   VerticalAlignment="Top"  Text="{DynamicResource DescriptionText}" FontWeight="Bold" FontSize="20"/>
+                        <TextBlock Grid.Row="1"  x:Name="MotionDescriptionTextBlockShadow" Margin="27.5,46,0,0" TextWrapping="Wrap" 
+                                   Text="{Binding MotionDescription}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="751"
+                                   Foreground="White">
+                                    <TextBlock.RenderTransform>
+                                        <TranslateTransform Y="1"/>
+                                    </TextBlock.RenderTransform>
+                        </TextBlock>
+                        <TextBlock Grid.Row="1"  x:Name="MotionDescriptionTextBlock" Margin="27.5,46,0,0" TextWrapping="Wrap" 
+                                   Text="{Binding MotionDescription}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="751" />
 
                     </Grid>
                 </TabItem>
@@ -107,10 +237,27 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="41,25,0,0" Text="AVERAGE RATING" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="13.333"/>
+                        <Rectangle Margin="0" StrokeThickness="0">
+                        	<Rectangle.Fill>
+                        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        			<GradientStop Color="#FFF2F2F2" Offset="1"/>
+                        			<GradientStop Color="#FFE6E6E6"/>
+                        		</LinearGradientBrush>
+                        	</Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock x:Name="AverageRatingTextblockShadow" Grid.Row="0" HorizontalAlignment="Left" 
+                                   Margin="41,25,0,0" Text="{DynamicResource AverageRatingUpperCaseText}" 
+                                   VerticalAlignment="Top" FontWeight="SemiBold" FontSize="13.333" Foreground="White">
+                                    <TextBlock.RenderTransform>
+                                        <TranslateTransform Y="1"/>
+                                    </TextBlock.RenderTransform>
+                        </TextBlock>
+                        <TextBlock x:Name="AverageRatingTextblock" Grid.Row="0" HorizontalAlignment="Left" 
+                                   Margin="41,25,0,0" Text="{DynamicResource AverageRatingUpperCaseText}" 
+                                   VerticalAlignment="Top" FontWeight="SemiBold" FontSize="13.333"/>
                         <System_Windows_Controls:Rating x:Name="ReviewsRatingControl" Width="100" HorizontalAlignment="Left"
 							Value="{Binding RatingValue}" Margin="176,25,0,0" d:LayoutOverrides="HorizontalAlignment" RenderTransformOrigin="1.035,0.465" Height="20.018" VerticalAlignment="Top"
-							Grid.Row="0" Background="Transparent">
+							Grid.Row="0" Background="Transparent" d:IsHidden="True">
                             <System_Windows_Controls:Rating.LayoutTransform>
                                 <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
                             </System_Windows_Controls:Rating.LayoutTransform>
@@ -120,23 +267,29 @@
                             <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
                             <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
                         </System_Windows_Controls:Rating>
-                        <Button x:Name="ReviewButton" Grid.Row="0" Content="Write a Review" Margin="314.5,23,380,0" Height="21.96" VerticalAlignment="Top"
-                                Click="ReviewButton_Click">
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                    <GradientStop Color="#FFE8E8E8"/>
-                                    <GradientStop Color="#FFDFDFDF" Offset="0.5"/>
-                                    <GradientStop Color="#FFDFDFDF" Offset="0.5"/>
-                                    <GradientStop Color="#FFD6D6D6" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Button.Background>
+                        <Button x:Name="ReviewButton" Grid.Row="0" Content="{DynamicResource WriteReviewText}" Margin="314.5,23,0,0" Height="18" VerticalAlignment="Top"
+                                Click="ReviewButton_Click" Style="{DynamicResource ReviewButtonStyle}" HorizontalAlignment="Left" Width="97">                           
                         </Button>
                         <StackPanel x:Name="ReviewStackPanel" HorizontalAlignment="Stretch" Grid.Row="1" />
                     </Grid>
                 </TabItem>
                 <TabItem Header="{DynamicResource RelatedTabHeaderText}" x:Name="RelatedTab">
                     <Grid>
-                        <TextBlock Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16" FontWeight="ExtraBold"
+                        <Rectangle Margin="0" StrokeThickness="0">
+                        	<Rectangle.Fill>
+                        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        			<GradientStop Color="#FFF2F2F2" Offset="1"/>
+                        			<GradientStop Color="#FFE6E6E6"/>
+                        		</LinearGradientBrush>
+                        	</Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock x:Name="RelatedTextBlockShadow" Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16" FontWeight="ExtraBold"
+                                   Text="{Binding MoreByTextBlock}" Foreground="White">
+                                    <TextBlock.RenderTransform>
+                                        <TranslateTransform Y="1"/>
+                                    </TextBlock.RenderTransform>
+                        </TextBlock>
+                        <TextBlock x:Name="RelatedTextBlock" Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16" FontWeight="ExtraBold"
                                    Text="{Binding MoreByTextBlock}"/>
                         <ItemsControl VerticalAlignment="Top" Margin="0,40,0,0" FontSize="13.333" Width="820.5" 
                                       ItemsSource="{Binding RelatedMotionsList}">
@@ -171,14 +324,22 @@
             </Rectangle>
             <Button x:Name="DownloadButton" Content="{Binding DownloadButtonContent}" HorizontalAlignment="Left" Height="28" 
                     Margin="57,281,0,0" VerticalAlignment="Top" Width="166" Click="DownloadButton_Click" Cursor="Hand"
-                    Style="{StaticResource ButtonStyle}">
+                    Style="{StaticResource ButtoniTuneStyle}">
 
             </Button>
+            <TextBlock x:Name="ArtistTextBlockShadow" HorizontalAlignment="Left" Margin="30,354,0,0" 
+                       TextWrapping="Wrap" Text="{Binding ArtistName}" Cursor="Hand"
+                       VerticalAlignment="Top" FontWeight="UltraBold" FontSize="21.333" MouseDown="ArtistTextBlock_MouseDown" 
+                       TextAlignment="Center" Width="220" Foreground="White">                
+               <TextBlock.RenderTransform>
+                    <TranslateTransform Y="1" />
+               </TextBlock.RenderTransform>
+            </TextBlock>
             <TextBlock x:Name="ArtistTextBlock" HorizontalAlignment="Left" Margin="30,354,0,0" 
                        TextWrapping="Wrap" Text="{Binding ArtistName}" Cursor="Hand"
                        VerticalAlignment="Top" FontWeight="UltraBold" FontSize="21.333" MouseDown="ArtistTextBlock_MouseDown" TextAlignment="Center" Width="220">
                 <TextBlock.Style>
-                   <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                   <Style TargetType="{x:Type TextBlock}">
                        <Setter Property="Foreground" Value="{StaticResource BlackFont}"/>                       
                        <Style.Triggers>
                        	<Trigger Property ="IsMouseOver" Value="True">
@@ -188,6 +349,8 @@
                     </Style>
                </TextBlock.Style>
             </TextBlock>
+
+
             <System_Windows_Controls:Rating x:Name="RatingControl" 
 				Height="20" Width="100" Background="Transparent"
 				VerticalAlignment="Top" HorizontalAlignment="Left" 
@@ -201,6 +364,13 @@
                 <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
                 <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
             </System_Windows_Controls:Rating>
+            <TextBlock x:Name="MotionTitleShadow" HorizontalAlignment="Left" Margin="278,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
+                       FontSize="24" FontWeight="Bold" Text="{Binding MotionTitle}" Foreground="White">
+                <TextBlock.RenderTransform>
+                    <TranslateTransform Y="1"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+
             <TextBlock x:Name="MotionTitle" HorizontalAlignment="Left" Margin="278,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
                        FontSize="24" FontWeight="Bold" Text="{Binding MotionTitle}">
             	<TextBlock.Foreground>
@@ -210,6 +380,12 @@
             		</LinearGradientBrush>
             	</TextBlock.Foreground>
             </TextBlock>
+            <TextBlock x:Name="RatingNumberShadow" HorizontalAlignment="Left" Margin="185,321,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15"
+				Text="{Binding NumberRating}" Foreground="White">
+                <TextBlock.RenderTransform>
+                    <TranslateTransform Y="1"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>            
             <TextBlock x:Name="RatingNumber" HorizontalAlignment="Left" Margin="185,321,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15"
 				Text="{Binding NumberRating}" Foreground="{StaticResource BlackFont}"/>
         </Grid>

@@ -17,11 +17,27 @@
             <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="15"/>
         </Grid.ColumnDefinitions>
+        <TextBlock x:Name="MotionTitleShadow"  HorizontalAlignment="Left"
+                   TextWrapping="NoWrap" Text="{Binding Title}" VerticalAlignment="Center"
+                   Grid.Column="1" Foreground="White"
+                   TextTrimming="CharacterEllipsis">
+            <TextBlock.RenderTransform>
+                <TranslateTransform Y="1"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
         <TextBlock x:Name="MotionTitle"  HorizontalAlignment="Left"
                    TextWrapping="NoWrap" Text="{Binding Title}" VerticalAlignment="Center"
                    Grid.Column="1"
                    TextTrimming="CharacterEllipsis"/>
-        <TextBlock HorizontalAlignment="Left" VerticalAlignment ="Center" 
+
+        <TextBlock x:Name="DurationShadow" HorizontalAlignment="Left" VerticalAlignment ="Center" 
+                   Grid.Column="2" Text="{Binding Duration, Converter={StaticResource SecondsToTimeSpanConverter}}"
+                   Foreground="White">
+            <TextBlock.RenderTransform>
+                <TranslateTransform Y="1"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock x:Name="Duration" HorizontalAlignment="Left" VerticalAlignment ="Center" 
                    Grid.Column="2" Text="{Binding Duration, Converter={StaticResource SecondsToTimeSpanConverter}}"/>
         <Image Source="{StaticResource TrashIcon}" Grid.Column="3" 
                VerticalAlignment="Center" Visibility="{Binding TrashVisibility, Converter={StaticResource BoolToVisibilityConverter},ConverterParameter='Hidden'}"

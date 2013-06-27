@@ -10,9 +10,9 @@
     	<TextBox x:Name="EmailTextBox"  Height="28" Margin="20,46,0,0" VerticalAlignment="Top" FontWeight="Medium" HorizontalAlignment="Left" Width="300"
                  Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     	<Button Content="{DynamicResource ResetPasswordText}" Height="27" Margin="250,84,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" HorizontalAlignment="Left"
-    		    FontWeight="Bold" Click="Reset_Click" Style="{StaticResource ButtonStyle}"/>
+    		    FontWeight="Bold" Click="Reset_Click" Style="{StaticResource ButtoniTuneStyle}"/>
     	<Button Content="{DynamicResource CancelText}" HorizontalAlignment="Left" Height="27" Margin="170,84,0,0" 
     		    VerticalAlignment="Top" Width="70" IsCancel="True" FontWeight="Bold" Click="Cancel_Click"
-                Style="{StaticResource ButtonStyle}"/>        
+                Style="{StaticResource ButtoniTuneStyle}"/>        
     </Grid>
 </Window>

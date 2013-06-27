@@ -41,11 +41,31 @@
                      ItemsSource="{Binding ArtistList}"
                      PreviewMouseWheel="ArtistLisBox_PreviewMouseWheel"
                      Template="{StaticResource AppleListBoxControlTemplate}" />
-            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Text="{DynamicResource HotListText}"                       
+            <TextBlock x:Name="HotTitleShadow" VerticalAlignment="Top" HorizontalAlignment="Left" Text="{DynamicResource HotListText}"                       
+                       Foreground="White" FontWeight="Bold" FontSize="25" Margin ="20,20,0,0">
+                <TextBlock.RenderTransform>
+                    <TranslateTransform Y="1"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <TextBlock x:Name="HotTitle" VerticalAlignment="Top" HorizontalAlignment="Left" Text="{DynamicResource HotListText}"                       
                        Foreground="{StaticResource BlackFont}" FontWeight="Bold" FontSize="25" Margin ="20,20,0,0"/>
-            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Text="{DynamicResource FeaturedListText}"
+            
+            <TextBlock x:Name="FeaturedTitleShadow" VerticalAlignment="Top" HorizontalAlignment="Left" Text="{DynamicResource FeaturedListText}"
+                       Foreground="White" FontWeight="Bold" FontSize="25" Margin ="20,470,0,0">
+                <TextBlock.RenderTransform>
+                    <TranslateTransform Y="1"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <TextBlock x:Name="FeaturedTitle" VerticalAlignment="Top" HorizontalAlignment="Left" Text="{DynamicResource FeaturedListText}"
                        Foreground="{StaticResource BlackFont}" FontWeight="Bold" FontSize="25" Margin ="20,470,0,0"/>
-            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Text="{DynamicResource ArtistListText}"
+            
+            <TextBlock x:Name="ArtitstTitleShadow" VerticalAlignment="Top" HorizontalAlignment="Left" Text="{DynamicResource ArtistListText}"
+                       Foreground="White" FontWeight="Bold" FontSize="25" Margin ="20,920,0,0">
+                <TextBlock.RenderTransform>
+                    <TranslateTransform Y="1"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <TextBlock x:Name="ArtitstTitle" VerticalAlignment="Top" HorizontalAlignment="Left" Text="{DynamicResource ArtistListText}"
                        Foreground="{StaticResource BlackFont}" FontWeight="Bold" FontSize="25" Margin ="20,920,0,0"/>
         </Grid>
     </ScrollViewer>

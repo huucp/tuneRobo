@@ -34,7 +34,7 @@ namespace TuneRoboWPF.StoreService
         {
             var clientIpAddress = IPAddress.Parse(IPServer);
             var remoteEndPoint = new IPEndPoint(clientIpAddress, PortServer);
-            Connection.ExclusiveAddressUse = true;
+            //Connection.ExclusiveAddressUse = true;
             try
             {
                 Connection.Connect(remoteEndPoint);

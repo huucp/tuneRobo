@@ -23,9 +23,9 @@
         <TextBlock HorizontalAlignment="Left" Margin="39,74,0,0" TextWrapping="Wrap" Text="Avatar Url" VerticalAlignment="Top" FontWeight="ExtraBold"/>
         <Button Content="Update" Margin="366,106,0,0" IsDefault="True" FontWeight="Bold" Height="27" VerticalAlignment="Top"
                 x:Name="UpdateButton" Click="UpdateButton_Click" IsEnabled="False"
-                Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Width="74"/>
+                Style="{StaticResource ButtoniTuneStyle}" HorizontalAlignment="Left" Width="74"/>
         <Button Content="Cancel" HorizontalAlignment="Left" Height="27" Margin="282,106,0,0" VerticalAlignment="Top" Width="74" IsCancel="True" FontWeight="Bold"
-                Click="CancelButton_Click" Style="{StaticResource ButtonStyle}"/>
+                Click="CancelButton_Click" Style="{StaticResource ButtoniTuneStyle}"/>
         <TextBox Margin="110,20,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Height="28" HorizontalAlignment="Left" Width="330"
                  Text="{Binding DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="DisplayNameTextBox_TextChanged" FontWeight="SemiBold"/>
         <TextBox HorizontalAlignment="Left" Height="28" Margin="110,68,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="330"

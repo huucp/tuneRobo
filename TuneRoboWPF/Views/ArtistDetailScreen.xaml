@@ -86,7 +86,13 @@
                 </TabItem>
                 <TabItem x:Name="BiographyTab" Header="Biography">
                     <Grid >
-                        <TextBlock Margin="29,50,29,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13" Text="{Binding Biography}"
+                        <TextBlock x:Name="BiographyShadow" Margin="29,50,29,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13" Text="{Binding Biography}"
+                                    Foreground="White">
+                            <TextBlock.RenderTransform>
+                                <TranslateTransform Y="1"/>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                        <TextBlock x:Name="Biography" Margin="29,50,29,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13" Text="{Binding Biography}"
                                     Foreground="{StaticResource BlackFont}"/>
                     </Grid>
                 </TabItem>
@@ -103,7 +109,13 @@
                     </Image.Effect>
                 </Image>
             </Border>
-            <TextBlock Height="Auto" HorizontalAlignment="Left" Margin="150,60,0,0" VerticalAlignment="Top" Width="Auto" 
+            <TextBlock x:Name="ArtistNameTextBlockShadow" Height="Auto" HorizontalAlignment="Left" Margin="150,60,0,0" VerticalAlignment="Top" Width="Auto" 
+                       FontWeight="UltraBold" FontSize="27" Text="{Binding ArtistName}" Foreground="White">
+                <TextBlock.RenderTransform>
+                    <TranslateTransform Y="1"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <TextBlock x:Name="ArtistNameTextBlock" Height="Auto" HorizontalAlignment="Left" Margin="150,60,0,0" VerticalAlignment="Top" Width="Auto" 
                        FontWeight="UltraBold" FontSize="27" Text="{Binding ArtistName}">
             	<TextBlock.Foreground>
             		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -112,11 +124,26 @@
             		</LinearGradientBrush>
             	</TextBlock.Foreground>
             </TextBlock>
-            <TextBlock Height="Auto" HorizontalAlignment="Left" Margin="150,100,0,0" Text="{Binding NumberMotion,Converter={StaticResource NumberMotionToStringConverter}}"
+
+            <TextBlock x:Name="NumberMotionTextBlockShadow" Height="Auto" HorizontalAlignment="Left" Margin="150,100,0,0" Text="{Binding NumberMotion,Converter={StaticResource NumberMotionToStringConverter}}"
+                       VerticalAlignment="Top" Width="Auto" FontSize="15" Foreground="White">
+                <TextBlock.RenderTransform>
+                    <TranslateTransform Y="1"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <TextBlock x:Name="NumberMotionTextBlock" Height="Auto" HorizontalAlignment="Left" Margin="150,100,0,0" Text="{Binding NumberMotion,Converter={StaticResource NumberMotionToStringConverter}}"
                        VerticalAlignment="Top" Width="Auto" FontSize="15" Foreground="{StaticResource GrayFont}" />
-            <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="150,130,0,0" 
+
+            <TextBlock x:Name="AverageRatingTextBlockShadow" Grid.Row="0" HorizontalAlignment="Left" Margin="150,130,0,0" 
                        VerticalAlignment="Top" FontSize="15" d:LayoutOverrides="VerticalAlignment"
-                       Foreground="{StaticResource GrayFont}"><Run Text="Average rating"/></TextBlock>
+                       Foreground="White"><Run Text="{DynamicResource AverageRatingText}"/>
+                <TextBlock.RenderTransform>
+                    <TranslateTransform Y="1"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <TextBlock x:Name="AverageRatingTextBlock" Grid.Row="0" HorizontalAlignment="Left" Margin="150,130,0,0" 
+                       VerticalAlignment="Top" FontSize="15" d:LayoutOverrides="VerticalAlignment"
+                       Foreground="{StaticResource GrayFont}"><Run Text="{DynamicResource AverageRatingText}"/></TextBlock>
             <System_Windows_Controls:Rating x:Name="ReviewsRatingControl" Width="100" HorizontalAlignment="Left"
             	                            Value="{Binding RatingValue}" Margin="263,133.338,0,0" RenderTransformOrigin="1.035,0.465" Height="20" VerticalAlignment="Top"
             	                            Grid.Row="0" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment, GridBox" BorderThickness="0"
@@ -124,16 +151,23 @@
                 <System_Windows_Controls:Rating.LayoutTransform>
                     <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
                 </System_Windows_Controls:Rating.LayoutTransform>
-                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
-                <System_Windows_Controls:RatingItem Content="" Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+                <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
             </System_Windows_Controls:Rating>
-            <TextBlock HorizontalAlignment="Left" Margin="343.667,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15"
+            
+            <TextBlock x:Name="NumberRateTextBlockShadow" HorizontalAlignment="Left" Margin="343.667,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15"
+                       Text="{Binding NumberRate}" Foreground="White">
+                <TextBlock.RenderTransform>
+                    <TranslateTransform Y="1"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <TextBlock x:Name="NumberRateTextBlock" HorizontalAlignment="Left" Margin="343.667,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15"
                        Text="{Binding NumberRate}" Foreground="{StaticResource GrayFont}"/>
             <Button Content="{Binding FollowState,Converter={StaticResource BoolToFollowButtonContentConverter}}" Height="22" HorizontalAlignment="Left" Margin="34,154,0,0" 
-                    Name="FollowButton" VerticalAlignment="Top" Width="100" Click="FollowButton_Click" Style="{StaticResource ButtonStyle}"
+                    Name="FollowButton" VerticalAlignment="Top" Width="100" Click="FollowButton_Click" Style="{StaticResource ButtoniTuneStyle}"
                     Visibility="{Binding FollowButtonVisibility,Converter={StaticResource BoolToFollowButtonVisibilityConverter}}" />
         </Grid>
     </ScrollViewer>

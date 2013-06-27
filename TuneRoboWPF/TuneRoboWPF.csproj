@@ -246,9 +246,6 @@
     <Compile Include="Views\RobotTransformButton.xaml.cs">
       <DependentUpon>RobotTransformButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StatusBar.xaml.cs">
-      <DependentUpon>StatusBar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\TestRemoteScreen.xaml.cs">
       <DependentUpon>TestRemoteScreen.xaml</DependentUpon>
@@ -406,10 +403,6 @@
     <Page Include="Views\RobotTransformButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StatusBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\TestRemoteScreen.xaml">
       <SubType>Designer</SubType>

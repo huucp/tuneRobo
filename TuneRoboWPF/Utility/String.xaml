@@ -38,4 +38,9 @@
     <sys:String x:Key="ConnectToRobotText">Please connect to robot</sys:String>
     <sys:String x:Key="IPErrorText">IP error</sys:String>
     <sys:String x:Key="IPInvalidText">IP address is invalid</sys:String>
+    <sys:String x:Key="AverageRatingUpperCaseText">AVERAGE RATING</sys:String>
+    <sys:String x:Key="AverageRatingText">Average rating</sys:String>
+    <sys:String x:Key="ScreenshotsText">Screenshots</sys:String>
+    <sys:String x:Key="DescriptionText">Description</sys:String>    
+    <sys:String x:Key="WriteReviewText">Write a review</sys:String>    
 </ResourceDictionary>
