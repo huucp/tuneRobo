@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MessageBoxUtils;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
@@ -40,13 +41,16 @@ namespace TuneRoboWPF.Windows
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
+            Cursor = Cursors.Wait;
             var createRequest = new SignupStoreRequest(ViewModel.Email, ViewModel.Username,ViewModel.Avatar);
             createRequest.ProcessSuccessfully += (reply) =>
                 Dispatcher.BeginInvoke((Action)delegate
                 {
-                    var msg = (string)FindResource("CreateAccountSuccessfullyText");
-                    MessageBox.Show(msg);
+                    var title = (string)TryFindResource("CreateAccountSuccessfullyText");
+                    var msg = (string) TryFindResource("CheckEmailForPasswordText");
+                    WPFMessageBox.Show(this,msg, title, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
                     Close();
+                    Cursor = Cursors.Arrow;
                 });
             createRequest.ProcessError += (reply, msg) =>
             {
@@ -55,22 +59,31 @@ namespace TuneRoboWPF.Windows
                     case (int)SignupReply.Type.EMAIL_ERROR:
                         Dispatcher.BeginInvoke((Action)delegate
                         {
-                            var msgError = (string)FindResource("CreateAccountEmailErrorText");
-                            MessageBox.Show(msgError);
+                            var titleError = (string)TryFindResource("CreateAccountEmailErrorText");
+                            var msgError = (string)TryFindResource("CheckEmailErrorText");
+                            WPFMessageBox.Show(this,msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,
+                                               MessageBoxResult.OK);
+                            Cursor = Cursors.Arrow;
                         });
                         break;
                     case (int)SignupReply.Type.NAME_ERROR:
                         Dispatcher.BeginInvoke((Action)delegate
                         {
-                            var msgError = (string)FindResource("CreateAccountNameErrorText");
-                            MessageBox.Show(msgError);
+                            var titleError = (string)TryFindResource("CreateAccountNameErrorText");
+                            var msgError = (string)TryFindResource("CheckNameErrorText");
+                            WPFMessageBox.Show(this,msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,
+                                               MessageBoxResult.OK);
+                            Cursor = Cursors.Arrow;
                         });
                         break;
                     default:
                         Dispatcher.BeginInvoke((Action)delegate
                         {
-                            var msgError = (string)FindResource("CreateAccountDefaultErrorText");
-                            MessageBox.Show(msgError);
+                            var titleError = (string)TryFindResource("CreateAccountDefaultErrorText");
+                            var msgError = (string)TryFindResource("CheckDefaultErrorText");
+                            WPFMessageBox.Show(this,msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,
+                                               MessageBoxResult.OK);
+                            Cursor = Cursors.Arrow;
                         });
                         Debug.Fail(reply.type.ToString(),msg);
                         break;

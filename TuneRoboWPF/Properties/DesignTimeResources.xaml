@@ -4,6 +4,14 @@
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="/TuneRoboWPF;component/Themes/ScrollBar.xaml"/>
 		<ResourceDictionary Source="/TuneRoboWPF;component/Utility/String.xaml"/>
+		<ResourceDictionary Source="/TuneRoboWPF;component/Themes/Color.xaml"/>
+		<ResourceDictionary Source="/TuneRoboWPF;component/Utility/ConfigDictionary.xaml"/>
+		<ResourceDictionary Source="/TuneRoboWPF;component/Themes/ButtonStyle.xaml"/>
+		<ResourceDictionary Source="/WPFMessageBox;component/Themes/Generic.xaml"/>
+		<ResourceDictionary Source="/TuneRoboWPF;component/Themes/Generic.xaml"/>
+		<ResourceDictionary Source="/TuneRoboWPF;component/Themes/ListBox.xaml"/>
+		<ResourceDictionary Source="/TuneRoboWPF;component/Themes/StyleAndTemplateDictionary.xaml"/>
+		<ResourceDictionary Source="/TuneRoboWPF;component/Themes/ToggleButton.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 	<!-- Resource dictionary entries should be defined here. -->
 </ResourceDictionary>

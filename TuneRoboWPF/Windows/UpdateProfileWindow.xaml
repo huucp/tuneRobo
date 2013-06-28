@@ -4,23 +4,24 @@
 	x:Class="TuneRoboWPF.Windows.UpdateProfileWindow"
 	x:Name="Window"
 	Title="UpdateProfileWindow"
-	Width="460" Height="151" WindowStyle="None" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" ResizeMode="NoResize"
+	Width="460" Height="151" WindowStyle="None" WindowStartupLocation="CenterOwner" 
+    ShowInTaskbar="False" ResizeMode="NoResize"
     MouseDown="Window_MouseDown">
     <Window.Resources>
-        <Style TargetType="{x:Type TextBox}">
+        <Style TargetType="{x:Type TextBox}">                       
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Setter Property="BorderBrush" Value="#93ACC4"/>
                     <Setter Property="BorderThickness" Value="2" />
-                </Trigger>
+                </Trigger>                
             </Style.Triggers>
         </Style>
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource MainBackground}">
-        <TextBlock HorizontalAlignment="Left" Margin="20,26,0,0" TextWrapping="Wrap" Text="Display name" VerticalAlignment="Top" 
+        <TextBlock HorizontalAlignment="Left" Margin="20,26,0,0" TextWrapping="Wrap" Text="{DynamicResource DisplayNameText}" VerticalAlignment="Top" 
                    TextAlignment="Right" FontWeight="ExtraBold"/>
-        <TextBlock HorizontalAlignment="Left" Margin="39,74,0,0" TextWrapping="Wrap" Text="Avatar Url" VerticalAlignment="Top" FontWeight="ExtraBold"/>
+        <TextBlock HorizontalAlignment="Left" Margin="39,74,0,0" TextWrapping="Wrap" Text="{DynamicResource AvatarUrlText}" VerticalAlignment="Top" FontWeight="ExtraBold"/>
         <Button Content="Update" Margin="366,106,0,0" IsDefault="True" FontWeight="Bold" Height="27" VerticalAlignment="Top"
                 x:Name="UpdateButton" Click="UpdateButton_Click" IsEnabled="False"
                 Style="{StaticResource ButtoniTuneStyle}" HorizontalAlignment="Left" Width="74"/>
@@ -29,6 +30,9 @@
         <TextBox Margin="110,20,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Height="28" HorizontalAlignment="Left" Width="330"
                  Text="{Binding DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="DisplayNameTextBox_TextChanged" FontWeight="SemiBold"/>
         <TextBox HorizontalAlignment="Left" Height="28" Margin="110,68,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="330"
-                 Text="{Binding AvatarUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="AvatarUrlTextBox_TextChanged" FontWeight="SemiBold"/>
+                 Text="{Binding AvatarUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 TextChanged="AvatarUrlTextBox_TextChanged" FontWeight="SemiBold">
+
+        </TextBox>
     </Grid>
 </Window>

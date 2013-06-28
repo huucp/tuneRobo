@@ -39,5 +39,16 @@ namespace TuneRoboWPF.ViewModels
                 NotifyPropertyChanged("ForwardEnable");
             }
         }
+
+        public bool OnStore
+        {
+            get { return model.OnStore; }
+            set
+            {
+                if (model.OnStore == value) return;
+                model.OnStore = value;
+                NotifyPropertyChanged("OnStore");
+            }
+        }
     }
 }

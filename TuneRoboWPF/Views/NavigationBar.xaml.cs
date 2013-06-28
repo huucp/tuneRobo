@@ -1,15 +1,13 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
-using TuneRoboWPF.Views;
 using TuneRoboWPF.Windows;
 
-namespace TuneRoboWPF
+namespace TuneRoboWPF.Views
 {
     /// <summary>
     /// Interaction logic for NavigationBar.xaml

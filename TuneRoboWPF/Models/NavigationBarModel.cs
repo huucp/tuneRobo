@@ -10,5 +10,6 @@ namespace TuneRoboWPF.Models
         public string Username = String.Empty;
         public bool PreviousEnable = false;
         public bool ForwardEnable = false;
+        public bool OnStore = false;
     }
 }

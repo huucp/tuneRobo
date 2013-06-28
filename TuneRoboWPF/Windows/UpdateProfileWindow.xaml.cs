@@ -33,11 +33,13 @@ namespace TuneRoboWPF.Windows
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
+            Cursor = Cursors.Wait;
             string displayName = ViewModel.DisplayName;
-            string avatarUrl = ViewModel.AvatarUrl.Trim();
+            string avatarUrl = ViewModel.AvatarUrl;
             if (!string.IsNullOrWhiteSpace(displayName) ||
                 !string.IsNullOrWhiteSpace(avatarUrl))
             {
+                if (avatarUrl != null) avatarUrl = avatarUrl.Trim();
                 UpdateProfile(displayName, avatarUrl);                
             }
         }
@@ -48,15 +50,23 @@ namespace TuneRoboWPF.Windows
 	        updateProfileRequest.ProcessSuccessfully += reply =>
                 Dispatcher.BeginInvoke((Action) (delegate
                 {
-                    //MessageBox.Show("Update successfully");
-                    WPFMessageBox.Show(this,"Update Successfully","Update Profile",MessageBoxButton.OK,MessageBoxImage.Information);
+                    var msg = (string)TryFindResource("UpdateProfileSuccessfullyText");
+                    WPFMessageBox.Show(this,"",msg,MessageBoxButton.OK,MessageBoxImage.Information,MessageBoxResult.OK);
                     DialogResult = true;
                     Close();
+                    Cursor = Cursors.Arrow;
                 }));
 	        updateProfileRequest.ProcessError += (reply, msg) =>
             {
                 Debug.Fail(reply.type.ToString(),msg);
-                Dispatcher.BeginInvoke((Action)(() => MessageBox.Show("Update failed")));
+                Dispatcher.BeginInvoke((Action)(delegate
+                {
+                    var msgError = (string)TryFindResource("CheckDefaultErrorText");
+                    var tittle = (string)TryFindResource("UpdateProfileFailedText");
+                    WPFMessageBox.Show(this, msgError, tittle, MessageBoxButton.OK, MessageBoxImage.Error,MessageBoxResult.OK);
+                    Cursor = Cursors.Arrow;
+                }));
+                
             };
             GlobalVariables.StoreWorker.AddRequest(updateProfileRequest);
 	    }	    

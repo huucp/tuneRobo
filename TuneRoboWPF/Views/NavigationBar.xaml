@@ -1,9 +1,10 @@
 ﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
-	xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
-	x:Class="TuneRoboWPF.NavigationBar"
-	x:Name="UserControl"
-	d:DesignWidth="1100" d:DesignHeight="480" mc:Ignorable="d" Height="30">
+	         xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+             xmlns:converter="clr-namespace:TuneRoboWPF.Converter"
+	         x:Class="TuneRoboWPF.Views.NavigationBar" x:Name="UserControl"
+	         d:DesignWidth="1100" d:DesignHeight="480" mc:Ignorable="d" Height="30">
     <UserControl.Resources>
+        <converter:BoolToVisibilityConverter x:Key="OnStoreVisibility"/>
         <LinearGradientBrush x:Key="TextBoxBorder" EndPoint="0,20" MappingMode="Absolute" StartPoint="0,0">
             <GradientStop Color="#ABADB3" Offset="0.05"/>
             <GradientStop Color="#E2E3EA" Offset="0.07"/>
@@ -703,10 +704,11 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Button x:Name="SignInButton" Content="{DynamicResource LoginText}" Margin="62,4,0,0" 
+        <Button x:Name="SignInButton" Content="{DynamicResource LoginText}" Margin="62,4,0,0" Cursor="Hand"
                 VerticalAlignment="Top" Height="23" Click="SignInButton_Click" Style="{DynamicResource LoginButtonStyle}" 
-                HorizontalAlignment="Left" />
-        <Menu x:Name="UserMenu" HorizontalAlignment="Left" Height="23" Margin="72,4,0,0" VerticalAlignment="Top" Cursor="Hand" Visibility="Hidden" Background="{x:Null}">
+                HorizontalAlignment="Left" Visibility="{Binding OnStore,Converter={StaticResource OnStoreVisibility}}"/>
+        <Menu x:Name="UserMenu" HorizontalAlignment="Left" Height="23" Margin="72,4,0,0" VerticalAlignment="Top" 
+              Cursor="Hand" Visibility="Hidden" Background="{x:Null}">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid/>
@@ -733,20 +735,22 @@
         </Menu>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
             <ToggleButton x:Name="StoreToggleButton" Content="Store" Height="20" Margin="68,0,0,0" VerticalAlignment="Top"
-                          Checked="StoreToggleButton_Checked" Click="StoreToggleButton_Click"
+                          Checked="StoreToggleButton_Checked" Click="StoreToggleButton_Click" Cursor="Hand"
                           Style="{StaticResource NavigationBarToggleButtonStyle}" HorizontalAlignment="Left"/>
             <ToggleButton x:Name="RemoteToggleButton" Content="Remote" Height="20" Margin="0"
-                          Checked="RemoteToggleButton_Checked" Click="RemoteToggleButton_Click"
+                          Checked="RemoteToggleButton_Checked" Click="RemoteToggleButton_Click" Cursor="Hand" 
                           Style="{StaticResource NavigationBarToggleButtonStyle}" HorizontalAlignment="Left"/>
         </Grid>
 
         <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" 
                  x:Name ="SearchTextBox" Margin="0,0,40,0" 
                  TextWrapping="Wrap" Width="170" Height="22" Style="{DynamicResource SearchTextBoxStyle}"
-		         KeyDown="SearchTextBox_KeyDown"/>
+		         KeyDown="SearchTextBox_KeyDown" Visibility="{Binding OnStore,Converter={StaticResource OnStoreVisibility}}"/>
         <Button Content="Previous" HorizontalAlignment="Left" Margin="3,4,0,0" Width="28" Height="23" BorderThickness="1" VerticalAlignment="Top" 
-                Click="Previous_Click" Style="{DynamicResource PreviousButtonStyle}" IsEnabled="{Binding PreviousEnable}" />
+                Click="Previous_Click" Style="{DynamicResource PreviousButtonStyle}" IsEnabled="{Binding PreviousEnable}"
+                Visibility="{Binding OnStore,Converter={StaticResource OnStoreVisibility}}"/>
         <Button Content="Forward" HorizontalAlignment="Left" Margin="31,4,0,0" Width="28" Height="23" BorderThickness="1" VerticalAlignment="Top" 
-                Click="Forward_Click" Style="{DynamicResource ForwardButtonStyle}" IsEnabled="{Binding ForwardEnable}"/>
+                Click="Forward_Click" Style="{DynamicResource ForwardButtonStyle}" IsEnabled="{Binding ForwardEnable}"
+                Visibility="{Binding OnStore,Converter={StaticResource OnStoreVisibility}}"/>
     </Grid>
 </UserControl>

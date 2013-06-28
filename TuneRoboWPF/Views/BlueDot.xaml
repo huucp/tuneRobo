@@ -11,15 +11,15 @@
       
       <DoubleAnimationUsingKeyFrames   Storyboard.TargetName="ellipse" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" RepeatBehavior="Forever">
 				<SplineDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-				<SplineDoubleKeyFrame KeyTime="00:00:02" Value="1"/>
-				<SplineDoubleKeyFrame KeyTime="00:00:02.6000000" Value="1"/>
-				<SplineDoubleKeyFrame KeyTime="00:00:03" Value="0" KeySpline="0.767,0,0.654,0.889"/>
+				<SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
+				<SplineDoubleKeyFrame KeyTime="00:00:01.6000000" Value="1"/>
+				<SplineDoubleKeyFrame KeyTime="00:00:02" Value="0" KeySpline="0.767,0,0.654,0.889"/>
 			</DoubleAnimationUsingKeyFrames>
 			<DoubleAnimationUsingKeyFrames  Storyboard.TargetName="ellipse" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" RepeatBehavior="Forever">
 				<SplineDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-				<SplineDoubleKeyFrame KeyTime="00:00:02" Value="1"/>
-				<SplineDoubleKeyFrame KeyTime="00:00:02.6000000" Value="1"/>
-				<SplineDoubleKeyFrame KeyTime="00:00:03" Value="0" KeySpline="0.767,0,0.654,0.889"/>
+				<SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
+				<SplineDoubleKeyFrame KeyTime="00:00:01.6000000" Value="1"/>
+				<SplineDoubleKeyFrame KeyTime="00:00:02" Value="0" KeySpline="0.767,0,0.654,0.889"/>
 			</DoubleAnimationUsingKeyFrames>
 		</Storyboard>
 	</UserControl.Resources>

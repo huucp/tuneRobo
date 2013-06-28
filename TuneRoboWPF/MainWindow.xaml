@@ -3,15 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:TuneRoboWPF" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-		mc:Ignorable="d" x:Name="MainScreen" x:Class="TuneRoboWPF.MainWindow"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Views="clr-namespace:TuneRoboWPF.Views"
+        mc:Ignorable="d" x:Name="MainScreen" x:Class="TuneRoboWPF.MainWindow"
         Title="TuneRobo" Height="770" Width="1100" WindowStartupLocation="CenterScreen" 
 		ResizeMode="CanMinimize"
     	ContentRendered="MainScreen_ContentRendered"
         Loaded="MainScreen_Loaded" >
     <Grid>
         <DockPanel x:Name="MainDock" LastChildFill="True" >
-            <local:NavigationBar x:Name="navigationBar" DockPanel.Dock="Top" Width="1100"
+            <Views:NavigationBar x:Name="navigationBar" DockPanel.Dock="Top" Width="1100"
                              StoreButtonClick="navigationBar_StoreButtonClick"
                              RemoteButtonClick="navigationBar_RemoteButtonClick"/>
             <!--<local:StatusBar x:Name="statusBar" DockPanel.Dock = "Bottom"/>-->

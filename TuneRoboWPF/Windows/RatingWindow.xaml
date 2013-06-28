@@ -29,15 +29,19 @@
                  HorizontalAlignment="Left" Width="560"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ScrollViewer.VerticalScrollBarVisibility="Auto" />
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="430,215,0,0" Width="70" IsCancel="True" FontWeight="Bold"
+        <Button Content="{DynamicResource CancelText}" HorizontalAlignment="Left" Margin="424,215,0,0" Width="73" IsCancel="True" FontWeight="Bold"
                 Click="CancelButton_Click" Height="27" VerticalAlignment="Top"
                 Style="{StaticResource ButtoniTuneStyle}"/>
-        <Button x:Name="SubmitButton" Content="Submit" HorizontalAlignment="Left" Height="27" Margin="510,215,0,0" 
-                VerticalAlignment="Top" Width="70" FontWeight="Bold" IsEnabled="False" 
+        <Button x:Name="SubmitButton" Content="{DynamicResource SubmitText}" HorizontalAlignment="Left" Height="27" Margin="507,215,0,0" 
+                VerticalAlignment="Top" Width="73" FontWeight="Bold" IsEnabled="False" 
                 IsDefault="True" Click="SubmitButton_Click" Style="{StaticResource ButtoniTuneStyle}" />
-        <TextBlock HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" Text="TITLE:" VerticalAlignment="Top" FontWeight="ExtraBold" />
-        <TextBlock HorizontalAlignment="Left" Margin="20,80,0,0" TextWrapping="Wrap" Text="REVIEW:" VerticalAlignment="Top" FontWeight="ExtraBold"/>
-        <TextBlock Margin="365,24,0,0" TextWrapping="Wrap" Text="CLICK TO RATE" VerticalAlignment="Top" FontWeight="ExtraBold" HorizontalAlignment="Left"/>
+        <TextBlock HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="ExtraBold">
+            <TextBlock.Inlines><Run Text="{DynamicResource TitleUpperCaseText}"/><Run Text=":"/></TextBlock.Inlines>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="20,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="ExtraBold">
+            <TextBlock.Inlines><Run Text="{DynamicResource ReviewUpperCaseText}"/><Run Text=":"/></TextBlock.Inlines>
+        </TextBlock>
+        <TextBlock Margin="365,24,0,0" TextWrapping="Wrap" Text="{DynamicResource ClickToRateUpperCaseText}" VerticalAlignment="Top" FontWeight="ExtraBold" HorizontalAlignment="Left"/>
         <System_Windows_Controls:Rating x:Name="RatingControl" Margin="367,47,0,0" 
     		Height="20" Width="100" HorizontalAlignment="Left" 
     		VerticalAlignment="Top" Background="Transparent"

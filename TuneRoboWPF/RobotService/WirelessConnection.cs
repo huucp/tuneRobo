@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows;
+using MessageBoxUtils;
 using TuneRoboWPF.Utility;
 
 namespace TuneRoboWPF.RobotService
@@ -28,16 +30,20 @@ namespace TuneRoboWPF.RobotService
             Connection.SendTimeout = GlobalVariables.Timeout;
             Connection.ReceiveTimeout = GlobalVariables.Timeout;
 
-            Application.Current.FindResource("IPErrorText");
+            var titleError = (string)Application.Current.TryFindResource("NetworkErrorText");
+            var msgError = (string)Application.Current.TryFindResource("CheckNetworkText");
+
 
             if (GlobalVariables.WirelessIP == null)
             {
-                MessageBox.Show("IP address is invalid", "IP error", MessageBoxButton.OK, MessageBoxImage.Error);
+                WPFMessageBox.Show(StaticMainWindow.Window,msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,MessageBoxResult.OK);
+                Debug.Fail("IP is invalid");
                 return 0;
             }
             if (GlobalVariables.WirelessPort == -1)
             {
-                MessageBox.Show("Port number is invalid", "Port number error", MessageBoxButton.OK, MessageBoxImage.Error);
+                WPFMessageBox.Show(StaticMainWindow.Window, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                Debug.Fail("Wireless port is invalid");
                 return 0;
             }
 

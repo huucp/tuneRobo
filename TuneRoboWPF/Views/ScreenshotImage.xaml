@@ -10,9 +10,11 @@
         <converter:BoolToVisibilityConverter x:Key="BoolToThumbnailVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
-        <Image Width="320" Height="180" Stretch="UniformToFill" Source="{Binding ScreenshotSource}"/>
-        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Resources/play over.png"
+        <Image Width="320" Height="180" Stretch="Fill" Source="{Binding ScreenshotSource}"/>
+        <Rectangle Fill="Black" Opacity="0.3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                   Visibility="{Binding IsYoutubeThumbnail,Converter={StaticResource BoolToThumbnailVisibilityConverter},ConverterParameter='Collapsed'}"/>
+        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Resources/video_play.png"
                Visibility="{Binding IsYoutubeThumbnail,Converter={StaticResource BoolToThumbnailVisibilityConverter},ConverterParameter='Collapsed'}"
-               Width="200"/>
+               Width="120" Height="120"/>
     </Grid>
 </UserControl>

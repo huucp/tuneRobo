@@ -32,7 +32,7 @@ namespace TuneRoboWPF.Views
             ViewModel.SearchQuery = query;
             if (!newScreen) return;// Get from navigation system
 
-            var screen = new Screen(Screen.ScreenType.MotionDetail, query);
+            var screen = new Screen(Screen.ScreenType.Search, query);
             GlobalVariables.Navigation.AddScreen(screen);            
         }
 

@@ -73,7 +73,7 @@
                     </TabItem>
                 </TabControl>
                 <Image x:Name="UserAvatar" HorizontalAlignment="Right" Height="200" Margin="0,40,40,0" VerticalAlignment="Top" 
-                       Width="200" Source="{Binding Avatar,TargetNullValue={StaticResource DefaultImage}}"/>
+                       Width="200" Source="{Binding Avatar,TargetNullValue={StaticResource DefaultAvatarImage}}"/>
                 <Grid x:Name="UsernameGrid"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,60,260,0" Background="{Binding ElementName=MainScrollViewer,Path=Background}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>

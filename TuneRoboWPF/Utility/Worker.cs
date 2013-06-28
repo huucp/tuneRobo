@@ -67,7 +67,6 @@ namespace TuneRoboWPF.Utility
             {
                 using (var memory = new MemoryStream(File.ReadAllBytes(cachedImagePath)))
                 {
-                    Console.WriteLine(memory.Capacity);
                     memory.Position = 0;
                     bool loadImage = true;
                     var bitmapImage = new BitmapImage();
@@ -84,6 +83,7 @@ namespace TuneRoboWPF.Utility
                     catch (Exception e)
                     {
                         loadImage = false;
+                        File.Delete(cachedImagePath);
                         Debug.Fail(e.Message);
                     }
 

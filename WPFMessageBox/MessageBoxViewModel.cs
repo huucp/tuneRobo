@@ -499,7 +499,7 @@ namespace MessageBoxUtils
 
                 //case MessageBoxImage.Asterisk:
                 case MessageBoxImage.Information:
-                    MessageImageSource = SystemIcons.Information.ToImageSource();
+                    MessageImageSource = SystemIcons.Information.ToImageSource();                    
                     break;
 
                 default:

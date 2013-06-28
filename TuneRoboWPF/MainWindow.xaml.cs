@@ -119,15 +119,45 @@ namespace TuneRoboWPF
             ChangeScreen(remoteScreen);
         }
 
+        private void OnRemoteCategory()
+        {
+            navigationBar.ViewModel.OnStore = false;
+            navigationBar.UserMenu.Visibility = Visibility.Hidden;
+            navigationBar.SignInButton.Visibility = Visibility.Hidden;
+        }
+        private void OnStoreCategory()
+        {
+            navigationBar.ViewModel.OnStore = true;
+            if (GlobalVariables.UserOnline)
+            {
+                navigationBar.UserMenu.Visibility = Visibility.Visible;
+                navigationBar.SignInButton.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                navigationBar.UserMenu.Visibility = Visibility.Hidden;
+                navigationBar.SignInButton.Visibility = Visibility.Visible;
+            }
+        }
+
         public void ChangeScreen(UserControl screen)
         {
             //foreach (var element in MainDock.Children)
             //{
-            //    if (element.GetType().ToString()=="LoadingScreen")
+            //    if (element.GetType().Name == "LoadingScreen")
             //    {
             //        MainDock.Children.Remove((UIElement) element);
             //    }
             //}
+
+            if (screen.GetType().Name == "RemoteControlScreen")
+            {
+                OnRemoteCategory();
+            }
+            else
+            {
+                OnStoreCategory();
+            }
             var lastElement = MainDock.Children[MainDock.Children.Count - 1];
             //if (lastElement.GetType() == screen.GetType())
             //{

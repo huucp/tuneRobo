@@ -70,6 +70,7 @@ namespace TuneRoboWPF.Windows
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            Cursor = Cursors.Wait;
             Comment();
         }
 
@@ -89,6 +90,7 @@ namespace TuneRoboWPF.Windows
                 Dispatcher.BeginInvoke((Action)delegate()
                 {
                     DialogResult = true;
+                    Cursor = Cursors.Arrow;
                     Close();
                 });
             ratingRequest.ProcessError += (reply, msg) => Debug.Fail(msg,reply.type.ToString());
