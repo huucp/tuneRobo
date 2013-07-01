@@ -11,5 +11,7 @@ namespace TuneRoboWPF.Models
     {
         public string SearchQuery = string.Empty;
         public ObservableCollection<MotionItemVertical> SearchList = new ObservableCollection<MotionItemVertical>();
+        public bool NoResultVisibility = false;
+        public string NoResultText = string.Empty;
     }
 }

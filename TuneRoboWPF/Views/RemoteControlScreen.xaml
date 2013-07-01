@@ -10,7 +10,7 @@
     Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
-        <converter:BoolToVisibilityConverter x:Key="BoolToVolumeVisibility"/>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <Style x:Key="CustomThumbForSlider" TargetType="{x:Type Thumb}">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Template">
@@ -37,7 +37,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>        
+        </Style>
 
         <Style x:Key="VolumeSliderStyle" TargetType="{x:Type Slider}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -62,7 +62,7 @@
                                                    Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
                                                    Stroke="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
                                                    StrokeThickness="0.0"/>
-                                        
+
                                     </Canvas>
                                 </Border>
                                 <Track x:Name="PART_Track" Grid.Row="1">
@@ -117,7 +117,7 @@
                  SelectedItem ="{Binding RemoteSelectedMotion}"
                  ItemsSource ="{Binding RemoteItemsList}"				 
                  SelectionChanged="RemoteListBox_SelectionChanged" 
-                 Background="#f4f4f4"
+                 Background="{StaticResource MainBackground}"
                  BorderThickness="1,1,0,0">
             <ListBox.Style>
                 <Style TargetType="{x:Type ListBox}">
@@ -135,6 +135,21 @@
             </ListBox.ItemContainerStyle>
         </ListBox>
 
+        <Border Background="{StaticResource MainBackground}" HorizontalAlignment="Stretch" BorderThickness="1,1,0,0" 
+                Margin="20,90,0,0" Grid.Column="1"
+                Visibility="{Binding NoRobotMotionVisibility,Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="UltraBold"
+                           Foreground="White" Text="{StaticResource NoMotionInLocalText}" TextWrapping="Wrap" TextAlignment="Center">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform Y="1"/>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="UltraBold"
+                           Foreground="{StaticResource BlackFont}" Text="{StaticResource NoMotionInLocalText}" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Grid>
+
+        </Border>
 
 
         <TextBlock x:Name="UnconnectedTextBox" Grid.Column="1"
@@ -166,20 +181,36 @@
                                     VerticalAlignment="Top" Grid.Column="1" d:LayoutOverrides="GridBox"/>
         <ScrollViewer Margin="20,90,0,0"  Grid.Column="0">
             <ScrollViewer.Resources>
-                <Style TargetType="ScrollViewer">                    
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>                    
+                <Style TargetType="ScrollViewer">
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                     <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
-                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>                    
+                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
                 </Style>
                 <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource AppleScrollBarNoLineButton}"/>
             </ScrollViewer.Resources>
-            <ItemsControl ItemsSource="{Binding LibraryItemsList}" HorizontalContentAlignment="Stretch"/>
+            <Grid>
+                <ItemsControl ItemsSource="{Binding LibraryItemsList}" HorizontalContentAlignment="Stretch"/>
+                <Border Background="{StaticResource MainBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        Visibility="{Binding NoLocalMotionVisibility,Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="UltraBold"
+                           Foreground="White" Text="{StaticResource NoMotionInRobotText}" TextWrapping="Wrap" TextAlignment="Center">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform Y="1"/>
+                    </TextBlock.RenderTransform>
+                        </TextBlock>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="UltraBold"
+                           Foreground="{StaticResource BlackFont}" Text="{StaticResource NoMotionInRobotText}" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </Grid>
+
+                </Border>
+            </Grid>
         </ScrollViewer>
         <ProgressBar x:Name="volumeBar"  Height="9" Width="100"
                      Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Maximum="10"
                      Style="{DynamicResource VolumeStyle}" HorizontalAlignment="Right" Margin="0,69.815,8,0" VerticalAlignment="Top"
                      Background="#cdced5" BorderBrush="#FFb6b6ba" BorderThickness="1" Grid.Column="1" ValueChanged="volumeBar_ValueChanged" 
-                     Visibility="{Binding VolumeVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BoolToVolumeVisibility},ConverterParameter='Collapsed'}">
+                     Visibility="{Binding VolumeVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
             <ProgressBar.Effect>
                 <DropShadowEffect ShadowDepth="1" BlurRadius="1" Color="White"/>
             </ProgressBar.Effect>
@@ -187,7 +218,7 @@
         <Slider x:Name="VolumeSlider" HorizontalAlignment="Right" Margin="0,66.815,8,0" VerticalAlignment="Top" 
                 Width="100" Value="{Binding Volume,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                 IsSnapToTickEnabled="True" TickFrequency="1" IsMoveToPointEnabled="true" 
-                Visibility="{Binding VolumeVisibility, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BoolToVolumeVisibility},ConverterParameter='Collapsed'}"
+                Visibility="{Binding VolumeVisibility, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter='Collapsed'}"
                 Style="{StaticResource VolumeSliderStyle}" Grid.Column="1"/>
     </Grid>
 </UserControl>

@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using MessageBoxUtils;
 using TuneRoboWPF.Models;
 using TuneRoboWPF.StoreService.BigRequest;
 using TuneRoboWPF.StoreService.SimpleRequest;
@@ -335,7 +336,11 @@ namespace TuneRoboWPF.Views
                             }
                             break;
                         case UserOwnMotionReply.Rel.NOT_OWNED:
-                            MessageBox.Show("You must own this motion to review");
+                            //MessageBox.Show("You must own this motion to review");
+                            var title = (string)TryFindResource("MustOwnMotionText");
+                            WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK,
+                                               MessageBoxImage.Warning, MessageBoxResult.OK);
+
                             break;
                     }
                 });

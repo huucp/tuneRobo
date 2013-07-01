@@ -11,5 +11,7 @@ namespace TuneRoboWPF.Models
         public MotionFullInfoItem LibrarySelectedMotion;
         public double Volume = 0;
         public bool VolumeVisibility = false;
+        public bool NoLocalMotionVisibility = false;
+        public bool NoRobotMotionVisibility = false;
     }
 }

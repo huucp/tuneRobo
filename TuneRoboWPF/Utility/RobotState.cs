@@ -31,7 +31,7 @@ namespace TuneRoboWPF.Utility
             TransformState = (TransformStates)state[1];
             MusicState = (MusicStates)state[2];
             MotionID = GlobalFunction.LE8ToDec(GlobalFunction.SplitByteArray(state, 3, 8));
-            FindCurrentMotionPlayingIndex();
+           // FindCurrentMotionPlayingIndex();
             PrintRoboState();
         }
 

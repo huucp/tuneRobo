@@ -51,7 +51,7 @@ namespace TuneRoboWPF.Windows
                         {
                             var titleError = (string)TryFindResource("ResetPasswordEmailErrorText");
                             var msgError = (string)TryFindResource("ResetPasswordCheckEmailErrorText");
-                            MessageBox.Show(this,msgError,titleError,MessageBoxButton.OK,MessageBoxImage.Error,MessageBoxResult.OK);
+                            WPFMessageBox.Show(this,msgError,titleError,MessageBoxButton.OK,MessageBoxImage.Error,MessageBoxResult.OK);
                             Cursor = Cursors.Arrow;
                         });
                         break;
@@ -60,7 +60,7 @@ namespace TuneRoboWPF.Windows
                         {
                             var titleError = (string)TryFindResource("ResetPasswordDefaultErrorText");
                             var msgError = (string) TryFindResource("CheckDefaultErrorText");
-                            MessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                            WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
                             Cursor = Cursors.Arrow;
                         });
                         break;

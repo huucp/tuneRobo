@@ -1,4 +1,5 @@
-﻿using TuneRoboWPF.RobotService;
+﻿using System;
+using TuneRoboWPF.RobotService;
 using TuneRoboWPF.Utility;
 
 namespace TuneRoboWPF.Views
@@ -26,6 +27,7 @@ namespace TuneRoboWPF.Views
             }
             ulong nextMotionID =
                 GlobalVariables.CurrentListMotion[index].MotionID;
+            Console.WriteLine("{0}:{1}", GlobalVariables.CurrentRobotState.MotionIndex, nextMotionID);
             Request = new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay, -1, nextMotionID);
         }
     }

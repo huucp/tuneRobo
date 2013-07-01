@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using MessageBoxUtils;
 using Microsoft.Win32;
 using TuneRoboWPF.RobotService;
 
@@ -549,23 +550,25 @@ namespace TuneRoboWPF.Utility
             var fInfo = new FileInfo(filename);
             if (!fInfo.Exists)
             {
-                MessageBox.Show("File " + filename + " is not exist", "File error", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("File " + filename + " is not exist", "File error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var titleError = (string) Application.Current.TryFindResource("FileText") + " " + filename + " " +
+                                 (string) Application.Current.TryFindResource("IsNotExistText");
+                WPFMessageBox.Show(StaticMainWindow.Window, "", titleError, MessageBoxButton.OK, MessageBoxImage.Error,
+                                   MessageBoxResult.OK);
                 return null;
             }
             if (fInfo.Length > (100 * 1024 * 1024))
             {
-                MessageBox.Show("File " + filename + " is too big", "File error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //MessageBox.Show("File " + filename + " is too big", "File error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                var titleError = (string)Application.Current.TryFindResource("FileText") + " " + filename + " " +
+                                 (string)Application.Current.TryFindResource("IsTooBigText");
+                WPFMessageBox.Show(StaticMainWindow.Window, "", titleError, MessageBoxButton.OK, MessageBoxImage.Error,
+                                   MessageBoxResult.OK);
                 return null;
             }
             return File.ReadAllBytes(filename);
         }
-
-        // Update current list motion
-        public static void UpdateCurrentListMotion(List<MotionInfo> listMotionInfo)
-        {
-            GlobalVariables.CurrentListMotion.Clear();
-            GlobalVariables.CurrentListMotion.AddRange(listMotionInfo);
-        }
+        
 
         #endregion
 

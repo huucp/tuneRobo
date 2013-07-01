@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using TuneRoboWPF.Models;
 using TuneRoboWPF.Views;
 
@@ -73,5 +74,27 @@ namespace TuneRoboWPF.ViewModels
                 NotifyPropertyChanged("VolumeVisibility");
             }
         }
+
+        public bool NoLocalMotionVisibility
+        {
+            get { return model.NoLocalMotionVisibility; }
+            set
+            {
+                if(model.NoLocalMotionVisibility == value)return;
+                model.NoLocalMotionVisibility = value;
+                NotifyPropertyChanged("NoLocalMotionVisibility");
+            }
+        }
+
+        public bool NoRobotMotionVisibility
+        {
+            get { return model.NoRobotMotionVisibility; }
+            set
+            {
+                if (model.NoRobotMotionVisibility == value) return;
+                model.NoRobotMotionVisibility = value;
+                NotifyPropertyChanged("NoRobotMotionVisibility");
+            }
+        }    
     }
 }

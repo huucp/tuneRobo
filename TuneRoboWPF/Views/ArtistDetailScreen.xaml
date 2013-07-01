@@ -19,10 +19,10 @@
         </LinearGradientBrush>
         <Style x:Key="TabControlStyle1" TargetType="{x:Type TabControl}">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="Padding" Value="4,4,4,4"/>
+            <Setter Property="Padding" Value="0"/>
             <Setter Property="BorderThickness" Value="0,0,0,0"/>
             <Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}"/>
-            <Setter Property="Background" Value="#E6E6E6"/>
+            <Setter Property="Background" Value="{StaticResource MainBackground}"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Template">
@@ -66,7 +66,15 @@
             <TabControl x:Name="TabContent" Margin="0,85,0,0" Style="{DynamicResource TabControlStyle1}" HorizontalContentAlignment="Center">
                 <TabItem x:Name="MotionTab" Header="Motion">
                     <Grid >
-                        <!--<WrapPanel Margin="28,40,28,0" VerticalAlignment="Top"/>-->
+                        <Rectangle Height="113" Margin="0" StrokeThickness="0" VerticalAlignment="Top">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF4F4F4" Offset="1"/>
+                                    <GradientStop Color="#FFE6E6E6"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
                         <ItemsControl VerticalAlignment="Top" Margin="29,40,29,0" 
                                       ItemsSource="{Binding ArtistMotionsList}">
                             <ItemsControl.ItemsPanel>
@@ -86,6 +94,14 @@
                 </TabItem>
                 <TabItem x:Name="BiographyTab" Header="Biography">
                     <Grid >
+                        <Rectangle Height="113" Margin="0" StrokeThickness="0" VerticalAlignment="Top">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFF2F2F2" Offset="1"/>
+                                    <GradientStop Color="#FFE6E6E6"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
                         <TextBlock x:Name="BiographyShadow" Margin="29,50,29,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="13" Text="{Binding Biography}"
                                     Foreground="White">
                             <TextBlock.RenderTransform>
@@ -166,9 +182,9 @@
             </TextBlock>
             <TextBlock x:Name="NumberRateTextBlock" HorizontalAlignment="Left" Margin="343.667,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15"
                        Text="{Binding NumberRate}" Foreground="{StaticResource GrayFont}"/>
-            <Button Content="{Binding FollowState,Converter={StaticResource BoolToFollowButtonContentConverter}}" Height="22" HorizontalAlignment="Left" Margin="34,154,0,0" 
+            <!--<Button Content="{Binding FollowState,Converter={StaticResource BoolToFollowButtonContentConverter}}" Height="22" HorizontalAlignment="Left" Margin="34,154,0,0" 
                     Name="FollowButton" VerticalAlignment="Top" Width="100" Click="FollowButton_Click" Style="{StaticResource ButtoniTuneStyle}"
-                    Visibility="{Binding FollowButtonVisibility,Converter={StaticResource BoolToFollowButtonVisibilityConverter}}" />
+                    Visibility="{Binding FollowButtonVisibility,Converter={StaticResource BoolToFollowButtonVisibilityConverter}}" />-->
         </Grid>
     </ScrollViewer>
 </UserControl>

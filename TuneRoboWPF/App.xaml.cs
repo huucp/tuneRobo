@@ -8,7 +8,6 @@ using System.Windows;
 using System.Windows.Forms;
 using TuneRoboWPF.Utility;
 using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
 
 namespace TuneRoboWPF
 {
@@ -21,6 +20,7 @@ namespace TuneRoboWPF
         {
             GlobalFunction.ReadConfig();
             GlobalFunction.CheckExistAndCreateDirectory(GlobalFunction.GetSavedDir());
+            
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -28,6 +28,16 @@ namespace TuneRoboWPF
             base.OnStartup(e);
             StaticMainWindow.Window = new MainWindow();
             StaticMainWindow.Window.Show();
+
+            if (true)
+            {
+                NBug.Settings.Destination1 = "Type=Mail;From=huupc@tosy.com;To=huupc@tosy.com;SmtpServer=mail.tosy.com;";
+
+                AppDomain.CurrentDomain.UnhandledException += NBug.Handler.UnhandledException;
+                Current.DispatcherUnhandledException += NBug.Handler.DispatcherUnhandledException;
+                System.Threading.Tasks.TaskScheduler.UnobservedTaskException += NBug.Handler.UnobservedTaskException; 
+            }
+
         }
     }
 }

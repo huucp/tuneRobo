@@ -14,7 +14,7 @@
             <Setter Property="Padding" Value="0"/>
             <Setter Property="BorderThickness" Value="0,0,0,0"/>
             <Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}"/>
-            <Setter Property="Background" Value="#E6E6E6"/>
+            <Setter Property="Background" Value="#f3f3f3"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Template">
@@ -174,8 +174,7 @@
             <TabControl Margin="263,162,0,0" 
 				        x:Name="ContentTabControl"
 				        Style="{StaticResource TabControliTuneStyle}" 
-                        Height="Auto" VerticalAlignment="Top"
-                        Background="#f3f3f3">
+                        Height="Auto" VerticalAlignment="Top">
                 <TabItem Header="{DynamicResource DetailsTabHeaderText}" x:Name="DetailsTab">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -219,15 +218,17 @@
                         </TextBlock>
                         <TextBlock x:Name="DescriptionTextBlock" Grid.Row="1"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 
                                    VerticalAlignment="Top"  Text="{DynamicResource DescriptionText}" FontWeight="Bold" FontSize="20"/>
+                        
                         <TextBlock Grid.Row="1"  x:Name="MotionDescriptionTextBlockShadow" Margin="27.5,46,0,0" TextWrapping="Wrap" 
                                    Text="{Binding MotionDescription}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="751"
-                                   Foreground="White">
+                                   Foreground="White" FontSize="13">
                                     <TextBlock.RenderTransform>
                                         <TranslateTransform Y="1"/>
                                     </TextBlock.RenderTransform>
                         </TextBlock>
                         <TextBlock Grid.Row="1"  x:Name="MotionDescriptionTextBlock" Margin="27.5,46,0,0" TextWrapping="Wrap" 
-                                   Text="{Binding MotionDescription}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="751" />
+                                   Text="{Binding MotionDescription}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="751"
+                                   Foreground="{StaticResource BlackFont}" FontSize="13"/>
 
                     </Grid>
                 </TabItem>
@@ -240,7 +241,7 @@
                         <Rectangle Height="90" Margin="0" StrokeThickness="0" VerticalAlignment="Top">
                         	<Rectangle.Fill>
                         		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        			<GradientStop Color="#FFF2F2F2" Offset="1"/>
+                        			<GradientStop Color="#FFF4F4F4" Offset="1"/>
                         			<GradientStop Color="#FFE6E6E6"/>
                         		</LinearGradientBrush>
                         	</Rectangle.Fill>

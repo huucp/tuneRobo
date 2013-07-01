@@ -3,12 +3,15 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Views="clr-namespace:TuneRoboWPF.Views"
-	mc:Ignorable="d"
+	mc:Ignorable="d" xmlns:converter="clr-namespace:TuneRoboWPF.Converter"
 	x:Class="TuneRoboWPF.Views.SearchResultScreen"
 	x:Name="UserControl" Loaded="UserControl_Loaded"
 	d:DesignWidth="1100" d:DesignHeight="702">
+    <UserControl.Resources>
+        <converter:BoolToVisibilityConverter x:Key="NoResultVisibilityConverter"/>
+    </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="#f5f5f5">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource MainBackground}">        
         <ScrollViewer Name="MainScrollViewer"  Margin="0" ScrollViewer.VerticalScrollBarVisibility="Auto" BorderThickness="0" ScrollChanged="MainScrollViewer_ScrollChanged">
             <ScrollViewer.Resources>
                 <Style TargetType="ScrollViewer">
@@ -17,7 +20,7 @@
                 <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource FullAppleScrollBar}"/>
             </ScrollViewer.Resources>
             <Grid>
-               
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"/>
                     <RowDefinition Height="*"/>
@@ -28,7 +31,7 @@
                             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                                 <WrapPanel.Resources>
                                     <Style TargetType="{x:Type Views:MotionItemVertical}">
-                                         <Setter Property="Margin" Value="20,0,0,0"/> 
+                                        <Setter Property="Margin" Value="20,0,0,0"/>
                                     </Style>
                                 </WrapPanel.Resources>
                             </WrapPanel>
@@ -45,5 +48,19 @@
 					Text="{Binding SearchQuery}" FontWeight="UltraBold" FontSize="24" Foreground="{StaticResource BlackFont}"/>
             </Grid>
         </ScrollViewer>
+        <Border Background="{StaticResource MainBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Visibility="{Binding NoResultVisibility,Converter={StaticResource NoResultVisibilityConverter}}">
+            <Grid>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="UltraBold"
+                           Foreground="White" Text="{Binding NoResultText}">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform Y="1"/>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="UltraBold"
+                           Foreground="{StaticResource BlackFont}" Text="{Binding NoResultText}"/>
+            </Grid>
+
+        </Border>
     </Grid>
 </UserControl>

@@ -17,7 +17,7 @@ namespace TuneRoboWPF
         {
             InitializeComponent();
             navigationBar.LoginProcessSuccessfully += navigationBar_LoginProcessSuccessfully;
-            navigationBar.LogoutSuccessfully += navigationBar_LogoutSuccessfully;
+            navigationBar.LogoutSuccessfully += navigationBar_LogoutSuccessfully;            
         }
 
         private void navigationBar_LogoutSuccessfully(object sender)

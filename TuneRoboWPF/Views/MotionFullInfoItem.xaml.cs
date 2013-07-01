@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using MessageBoxUtils;
 using TuneRoboWPF.RobotService;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
@@ -67,8 +68,9 @@ namespace TuneRoboWPF.Views
         {
             if (!GlobalVariables.RoboOnline)
             {
-                var msg = string.Format("{0}!", FindResource("ConnectToRobotText"));
-                MessageBox.Show(msg, "", MessageBoxButton.OK);
+                var title = string.Format("{0}!", TryFindResource("ConnectToRobotText"));
+                WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK, MessageBoxImage.Warning,
+                                   MessageBoxResult.OK);
             }
             else
             {

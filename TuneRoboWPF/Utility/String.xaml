@@ -42,6 +42,8 @@
     <sys:String x:Key="FeaturedListText">Featured</sys:String>
     <sys:String x:Key="ArtistListText">Artist</sys:String>
     <sys:String x:Key="ConnectToRobotText">Please connect to robot</sys:String>
+    <sys:String x:Key="ConnectToRobotSuccesfullyText">Connect to robot successfully</sys:String>
+    <sys:String x:Key="ConnectToRobotErrorText">Cannot connect to robot</sys:String>
     <sys:String x:Key="IPErrorText">IP error</sys:String>
     <sys:String x:Key="IPInvalidText">IP address is invalid</sys:String>
     <sys:String x:Key="AverageRatingUpperCaseText">AVERAGE RATING</sys:String>
@@ -67,4 +69,13 @@
     <sys:String x:Key="ChangePasswordDefaultText">An unknown error occured when change your password</sys:String>    
     <sys:String x:Key="NetworkErrorText">Cannot connect to server</sys:String>    
     <sys:String x:Key="CheckNetworkText">Please check your internet and try again</sys:String>    
+    <sys:String x:Key="FileText">File</sys:String>
+    <sys:String x:Key="FileErrorText">File error</sys:String>
+    <sys:String x:Key="IsNotExistText">is not exist</sys:String>    
+    <sys:String x:Key="IsTooBigText">is too big</sys:String>
+    <sys:String x:Key="MustOwnMotionText">You must own this motion to review</sys:String>
+    <sys:String x:Key="ShowResultForText">Showing results for</sys:String>    
+    <sys:String x:Key="NoResultForText">There are no results for</sys:String>    
+    <sys:String x:Key="NoMotionInLocalText">There are no motion in your computer</sys:String>    
+    <sys:String x:Key="NoMotionInRobotText">There are no motion in your robot</sys:String>    
 </ResourceDictionary>

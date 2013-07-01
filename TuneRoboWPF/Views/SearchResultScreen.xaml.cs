@@ -43,6 +43,11 @@ namespace TuneRoboWPF.Views
             searchRequest.ProcessSuccessfully += (reply) =>
               Dispatcher.BeginInvoke((Action)delegate
                 {
+                    if (reply.search_motion.motion_short_info.Count==0)
+                    {
+                        ViewModel.NoResultVisibility = true;
+                        //return;
+                    }
                     foreach (var info in reply.search_motion.motion_short_info)
                     {
                         var motionFull = new MotionItemVertical();

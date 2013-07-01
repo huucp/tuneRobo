@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MessageBoxUtils;
 using TuneRoboWPF.Models;
 using TuneRoboWPF.RobotService;
 using TuneRoboWPF.StoreService.SimpleRequest;
@@ -42,13 +43,13 @@ namespace TuneRoboWPF.Views
         {
             Dispatcher.BeginInvoke((Action)delegate
             {
-                //if (RemoteListBox.SelectedIndex == 0)
-                //{
-                //    RemoteListBox.SelectedIndex = GlobalVariables.CurrentListMotion.Count - 1;
-                //    return;
-                //}
-                //RemoteListBox.SelectedIndex--;
-                UpdateRemoteControl();               
+                if (RemoteListBox.SelectedIndex == 0)
+                {
+                    RemoteListBox.SelectedIndex = GlobalVariables.CurrentListMotion.Count - 1;
+                    return;
+                }
+                RemoteListBox.SelectedIndex--;
+                //UpdateRemoteControl();
             });
         }
 
@@ -56,13 +57,13 @@ namespace TuneRoboWPF.Views
         {
             Dispatcher.BeginInvoke((Action)delegate
             {
-                //if (RemoteListBox.SelectedIndex == GlobalVariables.CurrentListMotion.Count - 1)
-                //{
-                //    RemoteListBox.SelectedIndex = 0;
-                //    return;
-                //}
-                //RemoteListBox.SelectedIndex++;
-                UpdateRemoteControl();
+                if (RemoteListBox.SelectedIndex == GlobalVariables.CurrentListMotion.Count - 1)
+                {
+                    RemoteListBox.SelectedIndex = 0;
+                    return;
+                }
+                RemoteListBox.SelectedIndex++;
+                //UpdateRemoteControl();
             });
         }
 
@@ -131,7 +132,7 @@ namespace TuneRoboWPF.Views
         }
 
         private void UnconnectedTextBox_MouseDown(object sender, MouseButtonEventArgs e)
-        {
+        {            
             Cursor = Cursors.Wait;
             ConnectMrobo();
         }
@@ -140,9 +141,13 @@ namespace TuneRoboWPF.Views
             var helloRequest = new RemoteRequest(RobotPacket.PacketID.Hello);
             helloRequest.ProcessSuccessfully += (data) =>
             {
-                MessageBox.Show("Connect successfully!", "Connect to mRobo via Wireless connection", MessageBoxButton.OK);
+               
                 Dispatcher.BeginInvoke((Action)delegate
                 {
+                    var title = (string)TryFindResource("ConnectToRobotSuccesfullyText");
+                    WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK, MessageBoxImage.Information,
+                                       MessageBoxResult.OK);
+
                     UnconnectedTextBox.Visibility = Visibility.Hidden;
                     TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;                    
                     GetListMotion();
@@ -153,28 +158,34 @@ namespace TuneRoboWPF.Views
             };
             helloRequest.ProcessError += (errorCode, msg) =>
             {
-                MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine("Cannot connect to robot:" + msg + errorCode);
+                
                 Dispatcher.BeginInvoke((Action)delegate
                 {
+                    var titleError = (string)TryFindResource("ConnectToRobotErrorText");
+                    var msgError = (string)TryFindResource("CheckDefaultErrorText");
+                    WPFMessageBox.Show(StaticMainWindow.Window, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,
+                                       MessageBoxResult.OK);
                     Cursor = Cursors.Arrow;
                 });
             };
 
             GlobalVariables.RobotWorker.AddJob(helloRequest);
         }
-        private List<MotionInfo> RobotListMotion = new List<MotionInfo>();
 
         private void GetListMotion()
         {
             var listAllMotionRequest = new ListAllMotionRobotRequest();
-            if (viewModel.RemoteItemsList.Count > 0)
+            viewModel.NoRobotMotionVisibility = false;
+            if (GlobalVariables.CurrentListMotion.Count > 0)
             {
                 viewModel.RemoteItemsList.Clear();
-                RobotListMotion.Clear();
+                GlobalVariables.CurrentListMotion.Clear();
             }
+            
             listAllMotionRequest.ProcessSuccessfully += (listMotionInfo) => Dispatcher.BeginInvoke((Action)delegate
             {
-                RobotListMotion.AddRange(listMotionInfo);
+                if (listMotionInfo.Count == 0) viewModel.NoRobotMotionVisibility = true;
                 foreach (MotionInfo info in listMotionInfo)
                 {
                     if (info.MType != MotionInfo.MotionType.Dance) continue;
@@ -184,9 +195,10 @@ namespace TuneRoboWPF.Views
                     motionTitleItem.ViewModel.Duration = info.Duration;
                     motionTitleItem.DeleteMotion += MotionTitleItem_DeleteMotion;
                     viewModel.RemoteItemsList.Add(motionTitleItem);
+                    
+                    GlobalVariables.CurrentListMotion.Add(info);
                 }
 
-                GlobalFunction.UpdateCurrentListMotion(listMotionInfo);
                 Dispatcher.BeginInvoke((Action)delegate
                                                     {
                                                         Cursor = Cursors.Arrow;
@@ -229,8 +241,8 @@ namespace TuneRoboWPF.Views
 
         private void LoadLibrary()
         {
-            var r = new Random();
             int index = 0;
+            viewModel.NoLocalMotionVisibility = false;
             foreach (var file in Directory.GetFiles(GlobalFunction.GetSavedDir(), "*.mrb"))
             {
                 var motionInfo = new MotionInfo(file);
@@ -243,6 +255,7 @@ namespace TuneRoboWPF.Views
                 viewModel.LibraryItemsList.Add(motionItem);
                 DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
             }
+            if (index == 0) viewModel.NoLocalMotionVisibility = true;
         }
 
         private void Library_DelteMotion(object sender, RoutedEventArgs e)
