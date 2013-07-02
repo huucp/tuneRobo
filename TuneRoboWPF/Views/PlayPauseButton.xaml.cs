@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -56,15 +57,12 @@ namespace TuneRoboWPF.Views
 
         private void PlayRequest()
         {
-            var playRequest = new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay,-1,GlobalVariables.CurrentListMotion[1].MotionID);
+            //var playRequest = new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay,-1,GlobalVariables.CurrentListMotion[1].MotionID);
+            var playRequest = new RemoteRequest(RobotPacket.PacketID.Play);
             playRequest.ProcessSuccessfully += (data) =>
             {
                 ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Pause;
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    Cursor = Cursors.Arrow;
-                    OnUpdateParentControl(null);
-                });
+                Dispatcher.BeginInvoke((Action)GetState);
             };
             playRequest.ProcessError += (errorCode, msg) =>
                                             {
@@ -72,7 +70,7 @@ namespace TuneRoboWPF.Views
                                                 {
                                                     Cursor = Cursors.Arrow;
                                                 });
-                                                Console.WriteLine(msg);
+                                                Debug.Fail(msg);
                                             };
             GlobalVariables.RobotWorker.AddJob(playRequest);
         }   
@@ -82,11 +80,7 @@ namespace TuneRoboWPF.Views
             pauseRequest.ProcessSuccessfully += (data) =>
             {
                 ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Play;
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    Cursor = Cursors.Arrow;
-                    OnUpdateParentControl(null);
-                });
+                Dispatcher.BeginInvoke((Action)GetState);
             };
             pauseRequest.ProcessError += (errorCode, msg) =>
             {
@@ -94,9 +88,49 @@ namespace TuneRoboWPF.Views
                 {
                     Cursor = Cursors.Arrow;
                 });
-                Console.WriteLine(msg);
+                Debug.Fail(msg);
             };
             GlobalVariables.RobotWorker.AddJob(pauseRequest);
+        }
+
+        private void GetState()
+        {
+            var stateRequest = new GetStateRequest();
+            stateRequest.ProcessSuccessfully += data =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Cursor = Cursors.Arrow;
+                    UpdateButtonState();
+                    OnUpdateParentControl(null);
+                });
+                
+            };
+            stateRequest.ProcessError += (errorCode, msg) =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Cursor = Cursors.Arrow;
+                });
+                Debug.Fail(msg);
+            };
+            GlobalVariables.RobotWorker.AddJob(stateRequest);
+        }
+
+        private void UpdateButtonState()
+        {
+            switch (GlobalVariables.CurrentRobotState.MusicState)
+            {
+                case RobotState.MusicStates.MusicPlaying:
+                    ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Pause;
+                    break;
+                case RobotState.MusicStates.MusicPaused:
+                    ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Play;
+                    break;
+                case RobotState.MusicStates.MusicIdled:
+                    //ViewModel.StateButton = PlayPauseButtonModel.ButtonState.InActive;
+                    break;
+            }
         }
     }
 }

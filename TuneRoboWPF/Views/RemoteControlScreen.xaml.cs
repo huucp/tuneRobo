@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -43,13 +44,13 @@ namespace TuneRoboWPF.Views
         {
             Dispatcher.BeginInvoke((Action)delegate
             {
-                if (RemoteListBox.SelectedIndex == 0)
-                {
-                    RemoteListBox.SelectedIndex = GlobalVariables.CurrentListMotion.Count - 1;
-                    return;
-                }
-                RemoteListBox.SelectedIndex--;
-                //UpdateRemoteControl();
+                //if (RemoteListBox.SelectedIndex == 0)
+                //{
+                //    RemoteListBox.SelectedIndex = GlobalVariables.CurrentListMotion.Count - 1;
+                //    return;
+                //}
+                //RemoteListBox.SelectedIndex--;
+                UpdateRemoteControl();
             });
         }
 
@@ -57,13 +58,13 @@ namespace TuneRoboWPF.Views
         {
             Dispatcher.BeginInvoke((Action)delegate
             {
-                if (RemoteListBox.SelectedIndex == GlobalVariables.CurrentListMotion.Count - 1)
-                {
-                    RemoteListBox.SelectedIndex = 0;
-                    return;
-                }
-                RemoteListBox.SelectedIndex++;
-                //UpdateRemoteControl();
+                //if (RemoteListBox.SelectedIndex == GlobalVariables.CurrentListMotion.Count - 1)
+                //{
+                //    RemoteListBox.SelectedIndex = 0;
+                //    return;
+                //}
+                //RemoteListBox.SelectedIndex++;
+                UpdateRemoteControl();
             });
         }
 
@@ -90,9 +91,28 @@ namespace TuneRoboWPF.Views
 
         private void UpdateRemoteControl()
         {
-            //UpdateMusicState();
+            UpdateMusicState();
             UpdateMotionPlay();
             viewModel.Volume = GlobalVariables.CurrentRobotState.Volume;
+            UpdateControlButtonState();
+        }
+
+        private void UpdateControlButtonState()
+        {
+            RobotState state = GlobalVariables.CurrentRobotState;
+            switch (state.TransformState)
+            {
+                case RobotState.TransformStates.Closed:
+                case RobotState.TransformStates.Openning:
+                    TransformButton.ViewModel.State =RobotTransformButtonModel.ButtonState.Transform;
+                    SetControlButtonState(false);
+                    break;
+                case RobotState.TransformStates.Opened:
+                case RobotState.TransformStates.Closing:
+                    TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Untransform;
+                    SetControlButtonState(true);
+                    break;
+            }
         }
 
         private void UpdateMusicState()
@@ -106,8 +126,8 @@ namespace TuneRoboWPF.Views
                     PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Play;
                     break;
                 case RobotState.MusicStates.MusicIdled:
-                    PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.InActive;
-                    SetControlButtonState(false);
+                    PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Play;
+                    //SetControlButtonState(false);
                     break;
             }
         }
@@ -132,7 +152,7 @@ namespace TuneRoboWPF.Views
         }
 
         private void UnconnectedTextBox_MouseDown(object sender, MouseButtonEventArgs e)
-        {            
+        {
             Cursor = Cursors.Wait;
             ConnectMrobo();
         }
@@ -141,7 +161,7 @@ namespace TuneRoboWPF.Views
             var helloRequest = new RemoteRequest(RobotPacket.PacketID.Hello);
             helloRequest.ProcessSuccessfully += (data) =>
             {
-               
+
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     var title = (string)TryFindResource("ConnectToRobotSuccesfullyText");
@@ -149,17 +169,17 @@ namespace TuneRoboWPF.Views
                                        MessageBoxResult.OK);
 
                     UnconnectedTextBox.Visibility = Visibility.Hidden;
-                    TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;                    
+                    TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;
                     GetListMotion();
 
-                    UpdateRemoteControl();
+                    GetState();
                 });
                 GlobalVariables.RoboOnline = true;
             };
             helloRequest.ProcessError += (errorCode, msg) =>
             {
                 Console.WriteLine("Cannot connect to robot:" + msg + errorCode);
-                
+
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     var titleError = (string)TryFindResource("ConnectToRobotErrorText");
@@ -173,6 +193,28 @@ namespace TuneRoboWPF.Views
             GlobalVariables.RobotWorker.AddJob(helloRequest);
         }
 
+        private void GetState()
+        {
+            var stateRequest = new GetStateRequest();
+            stateRequest.ProcessSuccessfully += data =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    UpdateRemoteControl();
+                    Cursor = Cursors.Arrow;
+                });
+            };
+            stateRequest.ProcessError += (errorCode, msg) =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Cursor = Cursors.Arrow;
+                });
+                Debug.Fail(msg);
+            };
+            GlobalVariables.RobotWorker.AddJob(stateRequest);
+        }
+
         private void GetListMotion()
         {
             var listAllMotionRequest = new ListAllMotionRobotRequest();
@@ -182,10 +224,11 @@ namespace TuneRoboWPF.Views
                 viewModel.RemoteItemsList.Clear();
                 GlobalVariables.CurrentListMotion.Clear();
             }
-            
+
             listAllMotionRequest.ProcessSuccessfully += (listMotionInfo) => Dispatcher.BeginInvoke((Action)delegate
             {
                 if (listMotionInfo.Count == 0) viewModel.NoRobotMotionVisibility = true;
+                listMotionInfo = SortListString(listMotionInfo);
                 foreach (MotionInfo info in listMotionInfo)
                 {
                     if (info.MType != MotionInfo.MotionType.Dance) continue;
@@ -195,24 +238,31 @@ namespace TuneRoboWPF.Views
                     motionTitleItem.ViewModel.Duration = info.Duration;
                     motionTitleItem.DeleteMotion += MotionTitleItem_DeleteMotion;
                     viewModel.RemoteItemsList.Add(motionTitleItem);
-                    
+
                     GlobalVariables.CurrentListMotion.Add(info);
                 }
 
-                Dispatcher.BeginInvoke((Action)delegate
-                                                    {
-                                                        Cursor = Cursors.Arrow;
-                                                    });
+                //Dispatcher.BeginInvoke((Action)delegate
+                //                                    {
+                //                                        Cursor = Cursors.Arrow;
+                //                                    });
             });
             listAllMotionRequest.ProcessError += (e, msg) =>
             {
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    Cursor = Cursors.Arrow;
-                });
+                //Dispatcher.BeginInvoke((Action)delegate
+                //{
+                //    Cursor = Cursors.Arrow;
+                //});
                 Console.WriteLine(msg);
             };
             GlobalVariables.RobotWorker.AddJob(listAllMotionRequest);
+        }
+
+
+        private List<MotionInfo> SortListString(List<MotionInfo> list)
+        {            
+            list.Sort((x, y) => string.Compare(x.Title, y.Title));
+            return list;
         }
 
         private void MotionTitleItem_DeleteMotion(ulong motionID)
@@ -228,7 +278,7 @@ namespace TuneRoboWPF.Views
             delRequest.ProcessError += (errorCode, msg) => Debug.Fail(errorCode.ToString(), msg);
             GlobalVariables.RobotWorker.AddJob(delRequest);
         }
-        
+
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -250,7 +300,7 @@ namespace TuneRoboWPF.Views
                 motionItem.SetMotionInfo(motionInfo);
                 motionItem.ViewModel.HitTestVisible = false;
                 motionItem.ViewModel.Index = ++index;
-                motionItem.CopyMotion+=Library_CopyMotion;
+                motionItem.CopyMotion += Library_CopyMotion;
                 motionItem.DelteMotion += Library_DelteMotion;
                 viewModel.LibraryItemsList.Add(motionItem);
                 DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
@@ -292,18 +342,12 @@ namespace TuneRoboWPF.Views
 
         private void volumeBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            var volumeRequest = new RemoteRequest(RobotPacket.PacketID.SetVolumeLevel, (int) viewModel.Volume);
-            volumeRequest.ProcessSuccessfully += (reply) =>
-            {
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    UpdateRemoteControl();
-                });
-            };
+            var volumeRequest = new RemoteRequest(RobotPacket.PacketID.SetVolumeLevel, (int)viewModel.Volume);
+            volumeRequest.ProcessSuccessfully += (reply) => Dispatcher.BeginInvoke((Action)UpdateRemoteControl);
             volumeRequest.ProcessError += (reply, msg) =>
                                               {
-                                                  if (reply==null) Debug.Fail(msg);
-                                                  Debug.Fail(reply.ToString(),msg);
+                                                  if (reply == null) Debug.Fail(msg);
+                                                  Debug.Fail(reply.ToString(), msg);
                                               };
             GlobalVariables.StoreWorker.AddRequest(volumeRequest);
         }

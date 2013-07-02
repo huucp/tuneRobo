@@ -31,7 +31,7 @@ namespace TuneRoboWPF.Windows
             DataContext = viewModel;
             ViewModel = (TransferWindowViewModel)DataContext;
             ViewModel.Title = motionTitle;
-            ViewModel.TransferText = (string)FindResource("TransferringText");
+            ViewModel.TransferText = (string)TryFindResource("TransferringText");
 		}
 
         public TransferWindow(DownloadMotionStoreRequest request, string motionTitle)
@@ -49,7 +49,7 @@ namespace TuneRoboWPF.Windows
             DataContext = viewModel;
             ViewModel = (TransferWindowViewModel)DataContext;
             ViewModel.Title = motionTitle;
-            ViewModel.TransferText = (string) FindResource("DownloadingText");
+            ViewModel.TransferText = (string) TryFindResource("DownloadingText");
         }
 
 	    private void Request_ProgressReport(int progressValue)

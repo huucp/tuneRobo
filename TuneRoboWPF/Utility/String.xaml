@@ -26,8 +26,8 @@
     <sys:String x:Key="ResetPasswordEmailErrorText">Your Tosy account is invalid</sys:String>    
     <sys:String x:Key="ResetPasswordCheckEmailErrorText">Please check your Tosy account and try again</sys:String>    
     <sys:String x:Key="ResetPasswordDefaultErrorText">An unknown error occurred when reset your passwod</sys:String>    
-    <sys:String x:Key="DownloadingText">Downloading</sys:String>   
-    <sys:String x:Key="TranferringText">Transferring</sys:String>    
+    <sys:String x:Key="DownloadingText">Downloading</sys:String>
+    <sys:String x:Key="TransferringText">Transferring</sys:String>    
     <sys:String x:Key="LoadingScreenText">loading</sys:String>    
     <sys:String x:Key="ErrorScreenText">We encounted an error. Please check out your connection and retry.</sys:String>    
     <sys:String x:Key="DetailsTabHeaderText">Details</sys:String>

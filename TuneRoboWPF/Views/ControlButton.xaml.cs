@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Controls;
 using TuneRoboWPF.RobotService;
 using TuneRoboWPF.Utility;
@@ -36,16 +37,33 @@ namespace TuneRoboWPF.Views
             ClickProcess();
             if (Request == null) return;
             Request.ProcessSuccessfully += data =>
-                                               {                                                   
-                                                   OnProcessSuccessfully(data);
-                                                   OnUpdateParentControl(null);
-                                               };
+            {
+                //OnProcessSuccessfully(data);
+                //OnUpdateParentControl(null);
+                GetState();
+            };
             Request.ProcessError += (errorCode, msg) =>
                                         {
-                                            Console.WriteLine(msg);
+                                            Debug.Fail(msg);
                                             OnProcessError();
                                         };
             GlobalVariables.RobotWorker.AddJob(Request);
+        }
+
+        private void GetState()
+        {
+            var stateRequest = new GetStateRequest();
+            stateRequest.ProcessSuccessfully += data =>
+            {
+                OnProcessSuccessfully(data);
+                OnUpdateParentControl(null);
+            };
+            stateRequest.ProcessError += (errorCode, msg) =>
+            {
+                Debug.Fail(msg);
+                OnProcessError();
+            };
+            GlobalVariables.RobotWorker.AddJob(stateRequest);
         }
 
         protected virtual void OnProcessSuccessfully(RobotReplyData data)
