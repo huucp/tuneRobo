@@ -84,7 +84,7 @@
         </Style>
 
         <Style x:Key="VolumeStyle" TargetType="{x:Type ProgressBar}">
-            <Setter Property="Foreground" Value="#FFf5f5f5"/>
+            <Setter Property="Foreground" Value="#426DBA"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -118,7 +118,7 @@
                  ItemsSource ="{Binding RemoteItemsList}"				 
                  SelectionChanged="RemoteListBox_SelectionChanged" 
                  Background="{StaticResource MainBackground}"
-                 BorderThickness="1,1,0,0">
+                 BorderThickness="1,1,0,0" MouseDoubleClick="RemoteListBox_MouseDoubleClick">
             <ListBox.Style>
                 <Style TargetType="{x:Type ListBox}">
                     <Style.Resources>

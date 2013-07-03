@@ -31,17 +31,19 @@ namespace TuneRoboWPF.Utility
             TransformState = (TransformStates)state[1];
             MusicState = (MusicStates)state[2];
             MotionID = GlobalFunction.LE8ToDec(GlobalFunction.SplitByteArray(state, 3, 8));
-           // FindCurrentMotionPlayingIndex();
+            FindCurrentMotionPlayingIndex();
             PrintRoboState();
         }
 
         private void PrintRoboState()
         {
+            Console.WriteLine("================================================");
             Console.WriteLine("Volume: {0}",Volume);
             Console.WriteLine("Transform state: {0}",Enum.GetName(typeof(TransformStates),TransformState));
             Console.WriteLine("Music state: {0}", Enum.GetName(typeof(MusicStates), MusicState));
             Console.WriteLine("Motion ID: {0}",MotionID);
             Console.WriteLine("Play motion index: {0}",MotionIndex);
+            Console.WriteLine("================================================");
         }
 
         public void FindCurrentMotionPlayingIndex()

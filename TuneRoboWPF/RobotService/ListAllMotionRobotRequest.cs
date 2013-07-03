@@ -33,7 +33,8 @@ namespace TuneRoboWPF.RobotService
         {
             SetupConnection = 0,
             MotionCount = 1,
-            MotionInfo = 2
+            MotionInfo = 2,
+            WrongSessionID = 3
 
         }
         private WirelessConnection Connection = new WirelessConnection();
@@ -54,6 +55,11 @@ namespace TuneRoboWPF.RobotService
                 OnProcessError(ErrorCode.MotionCount, "Motion count must be greater than -1");
                 return 0;
             }
+            if (motionCount==-2)
+            {
+                return 0;
+            }
+            
             var listMotionInfo = new List<MotionInfo>();
             for (int i = 0; i < motionCount; i++)
             {
@@ -76,16 +82,28 @@ namespace TuneRoboWPF.RobotService
             int motionCount = -1;
             var getMotionCountRequest = new GetMotionCountRequest(RobotPacket.PacketID.CountMotions);
             RobotReply reply = Connection.SendAndReceivePacket(getMotionCountRequest.BuildRequest());
-            if (reply==null)
+            if (reply == null)
             {
                 Debug.Fail("Reply from robot is null");
                 return 0;
             }
             reply.RequestID = RobotPacket.PacketID.CountMotions;
             RobotReplyData robotReplyData = reply.Process();
-            if (robotReplyData.Type == RobotReplyData.ReplyType.Success)
+            //if (robotReplyData.Type == RobotReplyData.ReplyType.Success)
+            //{
+            //    return (int)GlobalFunction.LE4ToDec(robotReplyData.Data);
+            //}
+
+            switch (robotReplyData.Type)
             {
-                return (int)GlobalFunction.LE4ToDec(robotReplyData.Data);
+                case RobotReplyData.ReplyType.Success:
+                    return (int)GlobalFunction.LE4ToDec(robotReplyData.Data);
+                //case RobotReplyData.ReplyType.Failed:
+                //    OnProcessError(ErrorCode.ReplyFailed, "Reply error");
+                //    return -2;
+                case RobotReplyData.ReplyType.WrongID:
+                    OnProcessError(ErrorCode.WrongSessionID, "Wrong session ID");
+                    return -2;
             }
             return motionCount;
         }

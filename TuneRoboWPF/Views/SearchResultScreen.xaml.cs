@@ -33,7 +33,7 @@ namespace TuneRoboWPF.Views
             if (!newScreen) return;// Get from navigation system
 
             var screen = new Screen(Screen.ScreenType.Search, query);
-            GlobalVariables.Navigation.AddScreen(screen);            
+            GlobalVariables.Navigation.AddScreen(screen);
         }
 
         private bool FirstLoad = true;
@@ -43,7 +43,7 @@ namespace TuneRoboWPF.Views
             searchRequest.ProcessSuccessfully += (reply) =>
               Dispatcher.BeginInvoke((Action)delegate
                 {
-                    if (reply.search_motion.motion_short_info.Count==0)
+                    if (reply.search_motion.motion_short_info.Count == 0 && FirstLoad)
                     {
                         ViewModel.NoResultVisibility = true;
                         //return;
@@ -65,7 +65,7 @@ namespace TuneRoboWPF.Views
                         //    ViewModel.SearchList.Add(motionFull);
 
                         //}
-                        
+
                     }
                     if (FirstLoad)
                     {
@@ -98,20 +98,20 @@ namespace TuneRoboWPF.Views
 
         private void MainScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            if (IsLoaded )
-                {
+            if (IsLoaded)
+            {
 
-                    if (MainScrollViewer.VerticalOffset + 10 > MainScrollViewer.ScrollableHeight)
-                    {
-                        UpdateSearchList(numberSearchItem, numberSearchItem + 19);
-                    } 
+                if (MainScrollViewer.VerticalOffset + 10 > MainScrollViewer.ScrollableHeight)
+                {
+                    UpdateSearchList(numberSearchItem, numberSearchItem + 19);
                 }
+            }
         }
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             StaticMainWindow.Window.ShowLoadingScreen();
-            UpdateSearchList(0,19);
+            UpdateSearchList(0, 19);
         }
     }
 }

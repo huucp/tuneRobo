@@ -77,5 +77,7 @@
     <sys:String x:Key="ShowResultForText">Showing results for</sys:String>    
     <sys:String x:Key="NoResultForText">There are no results for</sys:String>    
     <sys:String x:Key="NoMotionInLocalText">There are no motion in your computer</sys:String>    
-    <sys:String x:Key="NoMotionInRobotText">There are no motion in your robot</sys:String>    
+    <sys:String x:Key="NoMotionInRobotText">There are no motion in your robot</sys:String>
+    <sys:String x:Key="RobotConnectionLostText">Your connection to robot is lost</sys:String>
+    <sys:String x:Key="WantReconnectRobotText">Do you want to reconnect?</sys:String>    
 </ResourceDictionary>

@@ -28,7 +28,7 @@
                  Text="{Binding Review, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" 
                  HorizontalAlignment="Left" Width="560"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                 ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
         <Button Content="{DynamicResource CancelText}" HorizontalAlignment="Left" Margin="424,215,0,0" Width="73" IsCancel="True" FontWeight="Bold"
                 Click="CancelButton_Click" Height="27" VerticalAlignment="Top"
                 Style="{StaticResource ButtoniTuneStyle}"/>

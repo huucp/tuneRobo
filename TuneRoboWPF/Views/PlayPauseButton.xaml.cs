@@ -57,23 +57,33 @@ namespace TuneRoboWPF.Views
 
         private void PlayRequest()
         {
-            //var playRequest = new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay,-1,GlobalVariables.CurrentListMotion[1].MotionID);
-            var playRequest = new RemoteRequest(RobotPacket.PacketID.Play);
+            RobotState state = GlobalVariables.CurrentRobotState;
+            var playRequest = state.MusicState == RobotState.MusicStates.MusicIdled
+                                  ? new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay, -1, state.MotionID)
+                                  : new RemoteRequest(RobotPacket.PacketID.Play);
             playRequest.ProcessSuccessfully += (data) =>
             {
                 ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Pause;
                 Dispatcher.BeginInvoke((Action)GetState);
             };
             playRequest.ProcessError += (errorCode, msg) =>
-                                            {
-                                                Dispatcher.BeginInvoke((Action)delegate
-                                                {
-                                                    Cursor = Cursors.Arrow;
-                                                });
-                                                Debug.Fail(msg);
-                                            };
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Cursor = Cursors.Arrow;
+                    Cursor = Cursors.Arrow;
+                    switch (errorCode)
+                    {
+                        case RobotRequest.ErrorCode.SetupConnection:
+                        case RobotRequest.ErrorCode.WrongSessionID:
+                            OnUpdateParentControl("MustReconnect");
+                            break;
+                    }
+                });
+                Debug.Fail(msg, Enum.GetName(typeof(RobotRequest.ErrorCode), errorCode));
+            };
             GlobalVariables.RobotWorker.AddJob(playRequest);
-        }   
+        }
         private void PauseRequest()
         {
             var pauseRequest = new RemoteRequest(RobotPacket.PacketID.Pause);
@@ -104,15 +114,23 @@ namespace TuneRoboWPF.Views
                     UpdateButtonState();
                     OnUpdateParentControl(null);
                 });
-                
+
             };
             stateRequest.ProcessError += (errorCode, msg) =>
             {
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     Cursor = Cursors.Arrow;
+                    Cursor = Cursors.Arrow;
+                    switch (errorCode)
+                    {
+                        case RobotRequest.ErrorCode.SetupConnection:
+                        case RobotRequest.ErrorCode.WrongSessionID:
+                            OnUpdateParentControl("MustReconnect");
+                            break;
+                    }
                 });
-                Debug.Fail(msg);
+                Debug.Fail(msg, Enum.GetName(typeof(RobotRequest.ErrorCode), errorCode));
             };
             GlobalVariables.RobotWorker.AddJob(stateRequest);
         }

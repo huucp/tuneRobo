@@ -51,10 +51,19 @@ namespace TuneRoboWPF.RobotService
             var remoteEndPoint = new IPEndPoint(clientIpAddress, GlobalVariables.WirelessPort);
             try
             {
-                Connection.Connect(remoteEndPoint);
+                IAsyncResult result = Connection.BeginConnect(remoteEndPoint, null, null);
+
+                bool success = result.AsyncWaitHandle.WaitOne(1000, true);
+
+                if (!success)
+                {
+                    Connection.Close();
+                    //throw new ApplicationException("Failed to connect server.");
+                }
             }
-            catch (SocketException)
+            catch (SocketException e)
             {
+                Debug.Fail(e.Message);
                 return 0;
             }
             return Connection.Connected ? 1 : 0;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -57,23 +58,30 @@ namespace TuneRoboWPF.Views
         {
             var transformRequest = new RemoteRequest(RobotPacket.PacketID.OpenTransform);
             transformRequest.ProcessSuccessfully += (data) =>
-                                                        {
-                                                            ViewModel.State =
-                                                                RobotTransformButtonModel.ButtonState.Untransform;
-                                                            Dispatcher.BeginInvoke((Action)delegate
-                                                            {
-                                                                Cursor = Cursors.Arrow;
-                                                                OnUpdateParentControl(null);
-                                                            });
-                                                        };
+            {
+                ViewModel.State = RobotTransformButtonModel.ButtonState.Untransform;
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Cursor = Cursors.Arrow;
+                    OnUpdateParentControl(null);
+                });
+            };
             transformRequest.ProcessError += (errorCode, msg) =>
-                                                 {
-                                                     Dispatcher.BeginInvoke((Action)delegate
-                                                     {
-                                                         Cursor = Cursors.Arrow;
-                                                     });
-                                                     Console.WriteLine(msg);
-                                                 };
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Cursor = Cursors.Arrow;
+                    Cursor = Cursors.Arrow;
+                    switch (errorCode)
+                    {
+                        case RobotRequest.ErrorCode.SetupConnection:
+                        case RobotRequest.ErrorCode.WrongSessionID:
+                            OnUpdateParentControl("MustReconnect");
+                            break;
+                    }
+                });
+                Debug.Fail(msg, Enum.GetName(typeof(RobotRequest.ErrorCode), errorCode));
+            };
             GlobalVariables.RobotWorker.AddJob(transformRequest);
         }
 
@@ -81,23 +89,29 @@ namespace TuneRoboWPF.Views
         {
             var untransformRequest = new RemoteRequest(RobotPacket.PacketID.CloseTransform);
             untransformRequest.ProcessSuccessfully += (data) =>
-                                                          {
-                                                              ViewModel.State =
-                                                                  RobotTransformButtonModel.ButtonState.Transform;
-                                                              Dispatcher.BeginInvoke((Action)delegate
-                                                              {
-                                                                  Cursor = Cursors.Arrow;
-                                                                  OnUpdateParentControl(null);
-                                                              });
-                                                          };
+            {
+                ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Cursor = Cursors.Arrow;
+                    OnUpdateParentControl(null);
+                });
+            };
             untransformRequest.ProcessError += (errorCode, msg) =>
-                                                   {
-                                                       Dispatcher.BeginInvoke((Action)delegate
-                                                       {
-                                                           Cursor = Cursors.Arrow;
-                                                       });
-                                                       Console.WriteLine(msg);
-                                                   };
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Cursor = Cursors.Arrow;
+                    switch (errorCode)
+                    {
+                        case RobotRequest.ErrorCode.SetupConnection:
+                        case RobotRequest.ErrorCode.WrongSessionID:
+                            OnUpdateParentControl("MustReconnect");
+                            break;
+                    }
+                });
+                Debug.Fail(msg, Enum.GetName(typeof(RobotRequest.ErrorCode), errorCode));
+            };
             GlobalVariables.RobotWorker.AddJob(untransformRequest);
         }
     }

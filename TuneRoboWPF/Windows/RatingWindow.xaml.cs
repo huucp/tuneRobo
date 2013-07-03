@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
 using TuneRoboWPF.StoreService.SimpleRequest;
+using comm;
 
 namespace TuneRoboWPF.Windows
 {
@@ -93,7 +94,7 @@ namespace TuneRoboWPF.Windows
                     Cursor = Cursors.Arrow;
                     Close();
                 });
-            ratingRequest.ProcessError += (reply, msg) => Debug.Fail(msg,reply.type.ToString());
+            ratingRequest.ProcessError += (reply, msg) => Debug.Fail(msg,Enum.GetName(typeof(Reply.Type),reply.type));
             GlobalVariables.StoreWorker.AddRequest(ratingRequest);
         }
 

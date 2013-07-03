@@ -45,7 +45,7 @@
             </TextBlock>
             <TextBlock x:Name="TitleTextBlock" Margin="0,40,0,0" TextWrapping="Wrap" 
                    VerticalAlignment="Top" HorizontalAlignment="Left" 
-                   FontSize="13" FontWeight="ExtraBold"
+                   FontSize="13" FontWeight="ExtraBold" Foreground="{StaticResource BlackFont}"
                    Text="{Binding CommentTitle}"
                    Grid.Column="0" Grid.Row="0"/>
         </Grid>
@@ -58,7 +58,7 @@
         </TextBlock>
         <TextBlock x:Name="UserTextBlock" TextWrapping="Wrap" Text="{Binding UserReview}" 
                    HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,61.299,0,0"
-                   FontSize="13"/>
+                   FontSize="13" Foreground="{StaticResource BlackFont}"/>
 
 
         <TextBlock x:Name="ContentTextBlockShadow" Margin="0,82.04,0,0" 
@@ -72,6 +72,6 @@
         <TextBlock x:Name="ContentTextBlock" Margin="0,82.04,0,0" 
                    HorizontalAlignment="Left" VerticalAlignment="Top" 
                    TextWrapping="Wrap" Text="{Binding CommentContent}"
-                   FontSize="12"/>
+                   FontSize="12" Foreground="{StaticResource BlackFont}"/>
     </Grid>
 </UserControl>

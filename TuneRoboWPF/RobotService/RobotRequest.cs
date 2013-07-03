@@ -34,7 +34,8 @@ namespace TuneRoboWPF.RobotService
             SetupConnection = 0,
             SocketException = 1,
             ReplyNull = 2,
-            ReplyFailed
+            ReplyFailed = 3,
+            WrongSessionID = 4
         }
 
         public WirelessConnection Conn;
@@ -101,26 +102,29 @@ namespace TuneRoboWPF.RobotService
                 {
                     reply.RequestID = RequestID;
                     replyData = reply.Process();
-                    if (replyData.Type == RobotReplyData.ReplyType.Success)
+                    
+                    switch (replyData.Type)
                     {
-                        OnProcessSuccessfully(replyData);
-                    }
-                    else if (replyData.Type == RobotReplyData.ReplyType.Failed ||
-                             replyData.Type == RobotReplyData.ReplyType.WrongID)
-                    {
-                        OnProcessError(ErrorCode.ReplyFailed, "Reply error");
-                    }
-                    else if (replyData.Type == RobotReplyData.ReplyType.CRC)
-                    {
-                        crcError = true;                        
-                    }
+                        case RobotReplyData.ReplyType.Success:
+                            OnProcessSuccessfully(replyData);
+                            break;
+                        case RobotReplyData.ReplyType.Failed:
+                            OnProcessError(ErrorCode.ReplyFailed, "Reply error");
+                            break;
+                        case RobotReplyData.ReplyType.WrongID:
+                            OnProcessError(ErrorCode.WrongSessionID, "Wrong session ID");
+                            break;
+                        case RobotReplyData.ReplyType.CRC:
+                            crcError = true;
+                            break;
+                    }                    
                 }
                 else
                 {
                     OnProcessError(ErrorCode.ReplyNull, "Reply cannot be null");
                 }
             } while (crcCount < WirelessConnection.MaxCrcRetry && crcError);
-            
+
             ReleaseConenction();
             return replyData;
         }

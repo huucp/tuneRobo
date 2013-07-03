@@ -38,22 +38,22 @@ namespace TuneRoboWPF.Windows
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();        
+            Close();
         }
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(OldPassword.Password))
             {
-                var title = (string) TryFindResource("OldPasswordEmptyText");
+                var title = (string)TryFindResource("OldPasswordEmptyText");
                 WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                return;                
+                return;
             }
             if (string.IsNullOrWhiteSpace(NewPassword.Password))
             {
                 var title = (string)TryFindResource("NewPasswordEmptyText");
                 WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                return;      
+                return;
             }
             Cursor = Cursors.Wait;
             ChangePass();
@@ -62,8 +62,8 @@ namespace TuneRoboWPF.Windows
         private void ChangePass()
         {
             var changePassRequest = new ChangePasswordStoreRequest(OldPassword.Password, NewPassword.Password);
-            changePassRequest.ProcessSuccessfully += (reply) => 
-                Dispatcher.BeginInvoke((Action) delegate
+            changePassRequest.ProcessSuccessfully += (reply) =>
+                Dispatcher.BeginInvoke((Action)delegate
                 {
                     var title = (string)TryFindResource("UpdatePasswordSuccffullyText");
                     WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
@@ -71,36 +71,32 @@ namespace TuneRoboWPF.Windows
                     Close();
                 });
             changePassRequest.ProcessError += (reply, msg) =>
-            {
-                switch (reply.type)
+                Dispatcher.BeginInvoke((Action)delegate
                 {
-                    case (int)ChangePassReply.Type.OLD_PASS_ERROR:
-                        Dispatcher.BeginInvoke((Action)(delegate
-                        {
-                            var titleError = (string)TryFindResource("OldPasswordErrorText");
-                            var msgError = (string) TryFindResource("CheckOldPasswordErrorText");
+                    string titleError, msgError;
+                    switch (reply.type)
+                    {
+                        case (int)ChangePassReply.Type.OLD_PASS_ERROR:
+                            titleError = (string)TryFindResource("OldPasswordErrorText");
+                            msgError = (string)TryFindResource("CheckOldPasswordErrorText");
                             WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                        }));
-                        break;
-                    case (int)ChangePassReply.Type.NEW_PASS_ERROR:
-                        Dispatcher.BeginInvoke((Action)(delegate
-                        {
-                            var titleError = (string)TryFindResource("NewPasswordErrorText");
-                            var msgError = (string)TryFindResource("CheckNewPasswordErrorText");
+                            break;
+                        case (int)ChangePassReply.Type.NEW_PASS_ERROR:
+
+                            titleError = (string)TryFindResource("NewPasswordErrorText");
+                            msgError = (string)TryFindResource("CheckNewPasswordErrorText");
                             WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                        }));
-                        break;
-                    default:
-                        Dispatcher.BeginInvoke((Action)(delegate
-                        {
-                            var titleError = (string)TryFindResource("ChangePasswordDefaultText");
-                            var msgError = (string)TryFindResource("CheckDefaultErrorText");
+
+                            break;
+                        default:
+                            titleError = (string)TryFindResource("ChangePasswordDefaultText");
+                            msgError = (string)TryFindResource("CheckDefaultErrorText");
                             WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                        }));
-                        break;
-                }
-                Cursor = Cursors.Arrow;
-            };
+                            break;
+                    }
+                    Cursor = Cursors.Arrow;
+                });
+
             GlobalVariables.StoreWorker.AddRequest(changePassRequest);
         }
 

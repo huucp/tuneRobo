@@ -45,6 +45,13 @@ namespace TuneRoboWPF.Views
             Request.ProcessError += (errorCode, msg) =>
                                         {
                                             Debug.Fail(msg);
+                                            switch (errorCode)
+                                            {
+                                                case RobotRequest.ErrorCode.SetupConnection:
+                                                case RobotRequest.ErrorCode.WrongSessionID:
+                                                    OnUpdateParentControl("MustReconnect");
+                                                    break;
+                                            }
                                             OnProcessError();
                                         };
             GlobalVariables.RobotWorker.AddJob(Request);
@@ -61,6 +68,13 @@ namespace TuneRoboWPF.Views
             stateRequest.ProcessError += (errorCode, msg) =>
             {
                 Debug.Fail(msg);
+                switch (errorCode)
+                {
+                    case RobotRequest.ErrorCode.SetupConnection:
+                    case RobotRequest.ErrorCode.WrongSessionID:
+                        OnUpdateParentControl("MustReconnect");
+                        break;
+                }
                 OnProcessError();
             };
             GlobalVariables.RobotWorker.AddJob(stateRequest);
