@@ -25,7 +25,7 @@ namespace TuneRoboWPF.StoreService
         const int BufferLength = 100000;
         public static int DataChunkSize = 32768;
 
-        public StoreConnection()
+        private StoreConnection()
         {
             Connection = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
         }
@@ -37,7 +37,23 @@ namespace TuneRoboWPF.StoreService
             //Connection.ExclusiveAddressUse = true;
             try
             {
-                Connection.Connect(remoteEndPoint);
+                Connection = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP)
+                                 {
+                                     ReceiveTimeout = GlobalVariables.Timeout, 
+                                     SendTimeout = GlobalVariables.Timeout
+                                 };
+                //Connection.Connect(remoteEndPoint);
+                IAsyncResult result = Connection.BeginConnect(remoteEndPoint, null, null);
+
+                bool success = result.AsyncWaitHandle.WaitOne(1000, true);
+
+                if (!success)
+                {
+                    //Connection.Shutdown(SocketShutdown.Both);
+                    Connection.Close();
+                    //Connection = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+                    //throw new ApplicationException("Failed to connect server.");
+                }
             }
             catch (SocketException)
             {

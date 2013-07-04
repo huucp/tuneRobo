@@ -17,9 +17,9 @@ namespace TuneRoboWPF.StoreService
             PacketID = packetID;
         }
 
-        public Reply  ProcessReply()
+        public Reply ProcessReply()
         {
-            if (Packet == null) return null;
+            if (Packet == null || Packet.Length == 0) return null;
 
             if (Packet[0] != MagicByte || Packet[1] != MagicByte) return null;
 
@@ -27,7 +27,7 @@ namespace TuneRoboWPF.StoreService
             if (GlobalFunction.BE2ToDec(tmpSize) != Packet.Length) return null;
 
             byte[] tmpType = GlobalFunction.SplitByteArray(Packet, 4, 3);
-            if (GlobalFunction.BE3ToDec(tmpType) != (decimal) MessageType.Type.REPLY) return null;
+            if (GlobalFunction.BE3ToDec(tmpType) != (decimal)MessageType.Type.REPLY) return null;
 
             byte[] tmpID = GlobalFunction.SplitByteArray(Packet, 8, 8);
             if (GlobalFunction.BE8ToDec(tmpID) != PacketID) return null;
@@ -36,5 +36,5 @@ namespace TuneRoboWPF.StoreService
             var reply = Serializer.Deserialize<Reply>(new MemoryStream(dataReply));
             return reply;
         }
-    }    
+    }
 }
