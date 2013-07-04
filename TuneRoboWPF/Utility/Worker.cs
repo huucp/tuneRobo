@@ -114,42 +114,44 @@ namespace TuneRoboWPF.Utility
             string savedPath = Path.Combine(GlobalVariables.AppDataFolder, filename);
             try
             {
-                using (var target = new FileStream(savedPath, FileMode.Create, FileAccess.Write))
+                //using (var target = new FileStream(savedPath, FileMode.Create, FileAccess.Write))
+                //{
+                using (var response = request.GetResponse())
                 {
-                    using (var response = request.GetResponse())
+                    using (var stream = response.GetResponseStream())
                     {
-                        using (var stream = response.GetResponseStream())
+                        using (var mStream = new MemoryStream())
                         {
-                            using (var mStream = new MemoryStream())
+                            int read;
+                            Debug.Assert(stream != null, "stream is null");
+                            while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
                             {
-                                int read;
-                                Debug.Assert(stream != null, "stream is null");
-                                while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
-                                {
-                                    target.Write(buffer, 0, read);
-                                    mStream.Write(buffer, 0, read);
-                                }
-
-                                mStream.Position = 0;
-                                var bitmapImage = new BitmapImage();
-                                bitmapImage.BeginInit();
-                                bitmapImage.StreamSource = mStream;
-                                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                                bitmapImage.EndInit();
-
-                                bitmapImage.Freeze();
-
-                                GlobalVariables.ImageDictionary.Add(url, bitmapImage);
-
-                                OnDownloadCompleted(bitmapImage);
+                                //target.Write(buffer, 0, read);
+                                mStream.Write(buffer, 0, read);
                             }
+
+                            File.WriteAllBytes(savedPath, mStream.ToArray());
+
+                            mStream.Position = 0;
+                            var bitmapImage = new BitmapImage();
+                            bitmapImage.BeginInit();
+                            bitmapImage.StreamSource = mStream;
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.EndInit();
+
+                            bitmapImage.Freeze();
+
+                            GlobalVariables.ImageDictionary.Add(url, bitmapImage);
+
+                            OnDownloadCompleted(bitmapImage);
                         }
                     }
                 }
+                //}
             }
             catch (Exception e)
             {
-                
+
                 OnDownloadFailed(null, e.Message);
             }
         }
@@ -157,7 +159,7 @@ namespace TuneRoboWPF.Utility
 
     public class ImageDownloadWorker
     {
-        public static BlockingQueue<ImageDownload> ListsJobs = new BlockingQueue<ImageDownload>(false);
+        public static BlockingQueue<ImageDownload> ListsJobs = new BlockingQueue<ImageDownload>();
 
         private static readonly Lazy<ImageDownloadWorker> Lazy = new Lazy<ImageDownloadWorker>(() => new ImageDownloadWorker());
 
@@ -170,7 +172,8 @@ namespace TuneRoboWPF.Utility
             backgroundWorker = new Thread(MainProcess)
             {
                 IsBackground = true,
-                Name = "Worker thread"
+                Name = "Image Download Worker",
+                Priority = ThreadPriority.BelowNormal
             };
 
             backgroundWorker.Start();
@@ -178,14 +181,19 @@ namespace TuneRoboWPF.Utility
 
         public void AddDownload(ImageDownload request)
         {
-            ListsJobs.Enqueue(request);
+            ListsJobs.Add(request);
+        }
+
+        public void ClearAll()
+        {
+            ListsJobs.ClearAll();
         }
 
         private void MainProcess()
         {
             while (true)
             {
-                var currentJob = ListsJobs.GetFirst();
+                var currentJob = ListsJobs.Get();
                 currentJob.Process();
             }
         }
@@ -218,7 +226,7 @@ namespace TuneRoboWPF.Utility
             backgroundWorker = new Thread(MainProcess)
             {
                 IsBackground = true,
-                Name = "Worker thread"
+                Name = "Store Worker"
             };
             IsClearWorker = true;
             backgroundWorker.Start();
@@ -226,13 +234,13 @@ namespace TuneRoboWPF.Utility
 
         public void AddRequest(IRequest request)
         {
-            ListsJobs.Enqueue(request);
+            ListsJobs.Add(request);
         }
 
         public void ForceAddRequest(IRequest request)
         {
             IsClearWorker = false;
-            ListsJobs.Enqueue(request);
+            ListsJobs.Add(request);
             IsClearWorker = true;
         }
 
@@ -240,7 +248,7 @@ namespace TuneRoboWPF.Utility
         {
             while (true)
             {
-                var currentJob = ListsJobs.GetFirst();
+                var currentJob = ListsJobs.Get();
                 currentJob.Process();
             }
         }
@@ -261,7 +269,7 @@ namespace TuneRoboWPF.Utility
             backgroundWorker = new Thread(MainProcess)
             {
                 IsBackground = true,
-                Name = "Worker thread"
+                Name = "Robot Worker"
             };
 
             backgroundWorker.Start();
@@ -269,14 +277,14 @@ namespace TuneRoboWPF.Utility
 
         public void AddJob(IRequest request)
         {
-            ListsJobs.Enqueue(request);
+            ListsJobs.Add(request);
         }
 
         private static void MainProcess()
         {
             while (true)
             {
-                var currentJob = ListsJobs.GetFirst();
+                var currentJob = ListsJobs.Get();
                 currentJob.Process();
             }
         }
@@ -298,7 +306,7 @@ namespace TuneRoboWPF.Utility
             ClearQueue = clearQueue;
         }
 
-        public void Enqueue(T element)
+        public void Add(T element)
         {
             lock (q)
             {
@@ -312,7 +320,7 @@ namespace TuneRoboWPF.Utility
             }
         }
 
-        public T GetFirst()
+        public T Get()
         {
             lock (q)
             {
@@ -324,11 +332,65 @@ namespace TuneRoboWPF.Utility
             }
         }
 
-        public bool IsEmpty()
+        private bool IsEmpty()
         {
             lock (q)
             {
                 return q.Count == 0;
+            }
+        }
+
+        public void ClearAll()
+        {
+            lock(q)
+            {
+                q.Clear();
+            }
+        }
+    }
+
+    public class BlockingStack<T>
+    {
+        private const int MaxWaitingCount = 1;
+        private Stack<T> stack = new Stack<T>();
+        public bool ClearStack { get; set; }
+
+        public BlockingStack(bool clearStack = false)
+        {
+            ClearStack = clearStack;
+        }
+
+        public void Add(T element)
+        {
+            lock (stack)
+            {
+                if (stack.Count > MaxWaitingCount && ClearStack)
+                {
+                    Console.WriteLine("clear stack");
+                    stack.Clear();
+                }
+                stack.Push(element);                
+                Monitor.PulseAll(stack);
+            }
+        }
+
+        public T Get()
+        {
+            lock (stack)
+            {
+                while (IsEmpty())
+                {
+                    Monitor.Wait(stack);
+                }
+                return stack.Pop();
+            }
+        }
+
+        public bool IsEmpty()
+        {
+            lock (stack)
+            {
+                return stack.Count == 0;
             }
         }
     }

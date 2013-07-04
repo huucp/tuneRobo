@@ -58,9 +58,15 @@ namespace TuneRoboWPF.Views
         private void PlayRequest()
         {
             RobotState state = GlobalVariables.CurrentRobotState;
-            var playRequest = state.MusicState == RobotState.MusicStates.MusicIdled
+            RemoteRequest playRequest = null;
+            if (state.MusicState == RobotState.MusicStates.MusicIdled)
+            {
+                playRequest = state.MotionID > 2
                                   ? new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay, -1, state.MotionID)
-                                  : new RemoteRequest(RobotPacket.PacketID.Play);
+                                  : new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay, -1,
+                                                      GlobalVariables.CurrentListMotion[0].MotionID);
+            }
+            else playRequest = new RemoteRequest(RobotPacket.PacketID.Play);
             playRequest.ProcessSuccessfully += (data) =>
             {
                 ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Pause;
@@ -70,7 +76,6 @@ namespace TuneRoboWPF.Views
             {
                 Dispatcher.BeginInvoke((Action)delegate
                 {
-                    Cursor = Cursors.Arrow;
                     Cursor = Cursors.Arrow;
                     switch (errorCode)
                     {
@@ -97,6 +102,13 @@ namespace TuneRoboWPF.Views
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     Cursor = Cursors.Arrow;
+                    switch (errorCode)
+                    {
+                        case RobotRequest.ErrorCode.SetupConnection:
+                        case RobotRequest.ErrorCode.WrongSessionID:
+                            OnUpdateParentControl("MustReconnect");
+                            break;
+                    }
                 });
                 Debug.Fail(msg);
             };

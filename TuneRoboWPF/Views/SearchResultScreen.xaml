@@ -38,27 +38,28 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock x:Name="SearchHeaderShadow" Margin="0,20,0,0" TextWrapping="Wrap" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"
-					Text="{Binding SearchQuery}" FontWeight="UltraBold" FontSize="24" Foreground="White">
+                <TextBlock x:Name="SearchHeaderShadow" Margin="20,20,20,0" TextWrapping="NoWrap" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"
+					Text="{Binding SearchQuery}" FontWeight="UltraBold" FontSize="24" Foreground="White" TextTrimming="WordEllipsis">
                     <TextBlock.RenderTransform>
                         <TranslateTransform Y="1"/>
                     </TextBlock.RenderTransform>
                 </TextBlock>
-                <TextBlock x:Name="SearchHeader" Margin="0,20,0,0" TextWrapping="Wrap" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"
-					Text="{Binding SearchQuery}" FontWeight="UltraBold" FontSize="24" Foreground="{StaticResource BlackFont}"/>
+                <TextBlock x:Name="SearchHeader" Margin="20,20,20,0" TextWrapping="NoWrap" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center"
+					Text="{Binding SearchQuery}" FontWeight="UltraBold" FontSize="24" Foreground="{StaticResource BlackFont}"
+                           TextTrimming="WordEllipsis"/>
             </Grid>
         </ScrollViewer>
         <Border Background="{StaticResource MainBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 Visibility="{Binding NoResultVisibility,Converter={StaticResource NoResultVisibilityConverter}}">
             <Grid>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="UltraBold"
-                           Foreground="White" Text="{Binding NoResultText}">
+                           Foreground="White" Text="{Binding NoResultText}" TextTrimming="WordEllipsis">
                     <TextBlock.RenderTransform>
                         <TranslateTransform Y="1"/>
                     </TextBlock.RenderTransform>
                 </TextBlock>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="UltraBold"
-                           Foreground="{StaticResource BlackFont}" Text="{Binding NoResultText}"/>
+                           Foreground="{StaticResource BlackFont}" Text="{Binding NoResultText}" TextTrimming="WordEllipsis"/>
             </Grid>
 
         </Border>

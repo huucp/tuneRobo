@@ -10,5 +10,6 @@ namespace TuneRoboWPF.Models
         public string Email = string.Empty;
         public string Username = string.Empty;
         public string Avatar = string.Empty;
+        public bool EnableUI = true;
     }
 }

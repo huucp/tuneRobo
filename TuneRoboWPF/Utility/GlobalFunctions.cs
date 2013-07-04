@@ -15,7 +15,7 @@ using Microsoft.Win32;
 using TuneRoboWPF.RobotService;
 
 namespace TuneRoboWPF.Utility
-{    
+{
     class GlobalFunction
     {
         [DllImport("kernel32")]
@@ -190,14 +190,14 @@ namespace TuneRoboWPF.Utility
         }
 
         public static void GetTempDataFolder()
-        {            
+        {
             string appdataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
                                  GlobalVariables.FOLDER_ROOT;
             if (!Directory.Exists(appdataPath))
             {
                 Directory.CreateDirectory(appdataPath);
             }
-            GlobalVariables.AppDataFolder = appdataPath;            
+            GlobalVariables.AppDataFolder = appdataPath;
         }
 
         // Check exist of folder path if not then create new directory
@@ -297,7 +297,7 @@ namespace TuneRoboWPF.Utility
 
         public static string GetSavedDir()
         {
-            return GlobalVariables.LOCAL_DIR + GlobalVariables.FOLDER_ROOT + GlobalVariables.FOLDER_PLAYLIST ;
+            return GlobalVariables.LOCAL_DIR + GlobalVariables.FOLDER_ROOT + GlobalVariables.FOLDER_PLAYLIST;
         }
 
         public static string CalculateMD5Hash(string input)
@@ -322,6 +322,8 @@ namespace TuneRoboWPF.Utility
             return serverOriginTime.AddSeconds(timestamp);
         }
 
+
+
         public static string GetLocalMotionPath(ulong motionID)
         {
             return Path.Combine(GetSavedDir(), motionID.ToString() + ".mrb");
@@ -336,8 +338,36 @@ namespace TuneRoboWPF.Utility
         {
             string motionPath = GetLocalMotionPath(motionID);
             return new MotionInfo(motionPath);
-        }        
+        }
 
+        public static void ClearCacheImage()
+        {
+            var listImage = Directory.EnumerateFiles(GlobalVariables.AppDataFolder, "*.*")
+                .Where(s => s.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)
+                    || s.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
+                    || s.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
+                    || s.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase));
+            foreach (var image in listImage)
+            {
+                var info = new FileInfo(image);
+                DateTime today = DateTime.Today;
+                DateTime creationTime = info.CreationTime;
+                if ((today-creationTime).TotalDays > 14)
+                {
+                    File.Delete(image);
+                }
+            }
+        }
+
+        public static bool IsAnImage(string s)
+        {
+            var imageExtension=new List<string>(){"jpg","jpeg","png"};
+            foreach(var extionsion in imageExtension)
+            {
+                if (s.EndsWith(extionsion)) return true;
+            }
+            return false;
+        }
         #region RemoteViaWifi
         // Convert a decimal number to a hexadecimal number in 2 byte little endian format
         public static byte[] DecToLE2(int num)
@@ -351,7 +381,7 @@ namespace TuneRoboWPF.Utility
         // Convert a hexadecimal number in 2 byte big endian format to a decimal number
         public static int LE2ToDec(byte[] data)
         {
-            Debug.Assert(data.Length!=0,"Byte array cannot be null!");
+            Debug.Assert(data.Length != 0, "Byte array cannot be null!");
             return (data[1] << 8) | data[0];
         }
 
@@ -551,8 +581,8 @@ namespace TuneRoboWPF.Utility
             if (!fInfo.Exists)
             {
                 //MessageBox.Show("File " + filename + " is not exist", "File error", MessageBoxButton.OK, MessageBoxImage.Error);
-                var titleError = (string) Application.Current.TryFindResource("FileText") + " " + filename + " " +
-                                 (string) Application.Current.TryFindResource("IsNotExistText");
+                var titleError = (string)Application.Current.TryFindResource("FileText") + " " + filename + " " +
+                                 (string)Application.Current.TryFindResource("IsNotExistText");
                 WPFMessageBox.Show(StaticMainWindow.Window, "", titleError, MessageBoxButton.OK, MessageBoxImage.Error,
                                    MessageBoxResult.OK);
                 return null;
@@ -568,7 +598,7 @@ namespace TuneRoboWPF.Utility
             }
             return File.ReadAllBytes(filename);
         }
-        
+
 
         #endregion
 

@@ -30,7 +30,7 @@ namespace TuneRoboWPF.Windows
             InitializeComponent();
 
             DataContext = new SignupWindowViewModel();
-            ViewModel = (SignupWindowViewModel) DataContext;
+            ViewModel = (SignupWindowViewModel)DataContext;
         }
 
         public bool? ShowDialog(Window owner)
@@ -39,16 +39,33 @@ namespace TuneRoboWPF.Windows
             return ShowDialog();
         }
 
+        private bool ValidateData()
+        {
+            if (!GlobalFunction.IsAnImage(ViewModel.Avatar))
+            {
+                var title = (string)TryFindResource("AvatarNotImageText");
+                WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                return false;
+            }
+            return true;
+        }
+
+
         private void Create_Click(object sender, RoutedEventArgs e)
         {
+            if (!ValidateData())
+            {
+                return;
+            }
             Cursor = Cursors.Wait;
-            var createRequest = new SignupStoreRequest(ViewModel.Email, ViewModel.Username,ViewModel.Avatar);
+            ViewModel.EnableUI = false;
+            var createRequest = new SignupStoreRequest(ViewModel.Email, ViewModel.Username, ViewModel.Avatar);
             createRequest.ProcessSuccessfully += (reply) =>
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     var title = (string)TryFindResource("CreateAccountSuccessfullyText");
-                    var msg = (string) TryFindResource("CheckEmailForPasswordText");
-                    WPFMessageBox.Show(this,msg, title, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+                    var msg = (string)TryFindResource("CheckEmailForPasswordText");
+                    WPFMessageBox.Show(this, msg, title, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
                     Close();
                     Cursor = Cursors.Arrow;
                 });
@@ -61,9 +78,10 @@ namespace TuneRoboWPF.Windows
                         {
                             var titleError = (string)TryFindResource("CreateAccountEmailErrorText");
                             var msgError = (string)TryFindResource("CheckEmailErrorText");
-                            WPFMessageBox.Show(this,msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,
+                            WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,
                                                MessageBoxResult.OK);
                             Cursor = Cursors.Arrow;
+                            ViewModel.EnableUI = true;
                         });
                         break;
                     case (int)SignupReply.Type.NAME_ERROR:
@@ -71,9 +89,10 @@ namespace TuneRoboWPF.Windows
                         {
                             var titleError = (string)TryFindResource("CreateAccountNameErrorText");
                             var msgError = (string)TryFindResource("CheckNameErrorText");
-                            WPFMessageBox.Show(this,msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,
+                            WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,
                                                MessageBoxResult.OK);
                             Cursor = Cursors.Arrow;
+                            ViewModel.EnableUI = true;
                         });
                         break;
                     default:
@@ -81,11 +100,12 @@ namespace TuneRoboWPF.Windows
                         {
                             var titleError = (string)TryFindResource("CreateAccountDefaultErrorText");
                             var msgError = (string)TryFindResource("CheckDefaultErrorText");
-                            WPFMessageBox.Show(this,msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,
+                            WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,
                                                MessageBoxResult.OK);
                             Cursor = Cursors.Arrow;
+                            ViewModel.EnableUI = true;
                         });
-                        Debug.Fail(reply.type.ToString(),msg);
+                        Debug.Fail(reply.type.ToString(), msg);
                         break;
                 }
             };

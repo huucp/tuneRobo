@@ -159,6 +159,7 @@ namespace TuneRoboWPF.Views
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            GlobalVariables.ImageDownloadWorker.ClearAll();
             StaticMainWindow.Window.ShowLoadingScreen();
             CheckFollowState();
             GetArtistInfo();

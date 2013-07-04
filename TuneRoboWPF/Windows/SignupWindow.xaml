@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="TuneRoboWPF.Windows.SignupWindow"
         Title="SignupWindow" Height="257" Width="340" WindowStartupLocation="CenterOwner" 
-        ResizeMode="NoResize" WindowStyle="None" ShowInTaskbar="True">
+        ResizeMode="NoResize" WindowStyle="None" ShowInTaskbar="False">
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Style.Triggers>
@@ -29,26 +29,26 @@
             </TextBlock.Inlines>
         </TextBlock>
         <TextBox x:Name="EmailTextBox"  Height="28" Margin="20,46,0,0" VerticalAlignment="Top" FontWeight="Medium" HorizontalAlignment="Left" Width="300"
-                 Text="{Binding Email,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Email,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding EnableUI}"/>
         <TextBlock HorizontalAlignment="Left" Margin="20,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold">
             <TextBlock.Inlines>
                 <Run Text="{DynamicResource UsernameText}"/><Run Text="("/><Run Text="*" Foreground="Red"/><Run Text=")"/>  
             </TextBlock.Inlines>
         </TextBlock>
         <TextBox x:Name="UsernameTextBox" Margin="20,110,0,0" FontWeight="Medium" HorizontalAlignment="Left" 
-                 Width="300" Height="28" VerticalAlignment="Top"
+                 Width="300" Height="28" VerticalAlignment="Top" IsEnabled="{Binding EnableUI}"
                  Text="{Binding Username,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
         <TextBlock HorizontalAlignment="Left" Margin="20,148,0,0" TextWrapping="Wrap" Text="{DynamicResource AvatarUrlText}" 
     		VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBox x:Name="AvatarTextBox" Height="28" Margin="20,174,0,0" VerticalAlignment="Top" 
-                 FontWeight="Medium" HorizontalAlignment="Left" Width="300"
+                 FontWeight="Medium" HorizontalAlignment="Left" Width="300" IsEnabled="{Binding EnableUI}"
                  Text="{Binding Avatar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Content="{DynamicResource CreateAccountText}" Height="27" Margin="250,212,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" HorizontalAlignment="Left"
-                FontWeight="Bold" Click="Create_Click" Style="{StaticResource ButtoniTuneStyle}"/>
-        <Button Content="{DynamicResource CancelText}" HorizontalAlignment="Left" Height="27" Margin="170,212,0,0" 
+        <Button Name="CreateButton" Content="{DynamicResource CreateAccountText}" Height="27" Margin="250,212,0,0" VerticalAlignment="Top" Width="70" IsDefault="True" HorizontalAlignment="Left"
+                FontWeight="Bold" Click="Create_Click" Style="{StaticResource ButtoniTuneStyle}" IsEnabled="{Binding EnableUI}"/>
+        <Button Name="CancelButton" Content="{DynamicResource CancelText}" HorizontalAlignment="Left" Height="27" Margin="170,212,0,0" 
                 VerticalAlignment="Top" Width="70" IsCancel="True" FontWeight="Bold" Click="Cancel_Click"
-                Style="{StaticResource ButtoniTuneStyle}"/>
-        <TextBlock Margin="0,20,20,0" TextWrapping="Wrap"
+                Style="{StaticResource ButtoniTuneStyle}" IsEnabled="{Binding EnableUI}"/>
+        <TextBlock Margin="0,20,20,0" TextWrapping="Wrap" IsEnabled="{Binding EnableUI}"
         	VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Right" FontSize="10">
             <Run Text="("/><Run Text="*" Foreground="Red"/><Run Text="):"/><Run Text="{DynamicResource FieldRequiredText}"/>
         </TextBlock>

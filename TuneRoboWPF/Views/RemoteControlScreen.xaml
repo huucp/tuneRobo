@@ -111,6 +111,36 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
+        <Border Margin="0,90,0,0" Grid.Column="0" BorderThickness="0,1,1,0" BorderBrush="#FF828790">
+            <ScrollViewer Margin="20,0,0,0" >
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollViewer">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+                        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+                    </Style>
+                    <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource AppleScrollBarNoLineButton}"/>
+                </ScrollViewer.Resources>
+                <Grid>
+                    <ItemsControl ItemsSource="{Binding LibraryItemsList}" HorizontalContentAlignment="Stretch"/>
+                    <Border Background="{StaticResource MainBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        Visibility="{Binding NoLocalMotionVisibility,Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Grid>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="UltraBold"
+                           Foreground="White" Text="{StaticResource NoMotionInLocalText}" TextWrapping="Wrap" TextAlignment="Center">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform Y="1"/>
+                    </TextBlock.RenderTransform>
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="UltraBold"
+                           Foreground="{StaticResource BlackFont}" Text="{StaticResource NoMotionInLocalText}" TextWrapping="Wrap" TextAlignment="Center"/>
+                        </Grid>
+
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+        
         <ListBox x:Name="RemoteListBox" Grid.Column="1"
                  HorizontalAlignment="Stretch" Margin="20,90,0,0" 
                  HorizontalContentAlignment="Stretch"
@@ -140,13 +170,13 @@
                 Visibility="{Binding NoRobotMotionVisibility,Converter={StaticResource BoolToVisibilityConverter}}">
             <Grid>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="UltraBold"
-                           Foreground="White" Text="{StaticResource NoMotionInLocalText}" TextWrapping="Wrap" TextAlignment="Center">
+                           Foreground="White" Text="{StaticResource NoMotionInRobotText}" TextWrapping="Wrap" TextAlignment="Center">
                     <TextBlock.RenderTransform>
                         <TranslateTransform Y="1"/>
                     </TextBlock.RenderTransform>
                 </TextBlock>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="UltraBold"
-                           Foreground="{StaticResource BlackFont}" Text="{StaticResource NoMotionInLocalText}" TextWrapping="Wrap" TextAlignment="Center"/>
+                           Foreground="{StaticResource BlackFont}" Text="{StaticResource NoMotionInRobotText}" TextWrapping="Wrap" TextAlignment="Center"/>
             </Grid>
 
         </Border>
@@ -179,33 +209,7 @@
         <local:RobotTransformButton x:Name="TransformButton" 
                                     Margin="64.5,55,313,0" Width="Auto" Height="35" 
                                     VerticalAlignment="Top" Grid.Column="1" d:LayoutOverrides="GridBox"/>
-        <ScrollViewer Margin="20,90,0,0"  Grid.Column="0">
-            <ScrollViewer.Resources>
-                <Style TargetType="ScrollViewer">
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
-                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-                </Style>
-                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource AppleScrollBarNoLineButton}"/>
-            </ScrollViewer.Resources>
-            <Grid>
-                <ItemsControl ItemsSource="{Binding LibraryItemsList}" HorizontalContentAlignment="Stretch"/>
-                <Border Background="{StaticResource MainBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                        Visibility="{Binding NoLocalMotionVisibility,Converter={StaticResource BoolToVisibilityConverter}}">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="UltraBold"
-                           Foreground="White" Text="{StaticResource NoMotionInRobotText}" TextWrapping="Wrap" TextAlignment="Center">
-                    <TextBlock.RenderTransform>
-                        <TranslateTransform Y="1"/>
-                    </TextBlock.RenderTransform>
-                        </TextBlock>
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="UltraBold"
-                           Foreground="{StaticResource BlackFont}" Text="{StaticResource NoMotionInRobotText}" TextWrapping="Wrap" TextAlignment="Center"/>
-                    </Grid>
-
-                </Border>
-            </Grid>
-        </ScrollViewer>
+                
         <ProgressBar x:Name="volumeBar"  Height="9" Width="100"
                      Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Maximum="10"
                      Style="{DynamicResource VolumeStyle}" HorizontalAlignment="Right" Margin="0,69.815,8,0" VerticalAlignment="Top"

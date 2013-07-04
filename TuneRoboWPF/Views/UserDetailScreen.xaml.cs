@@ -82,6 +82,7 @@ namespace TuneRoboWPF.Views
 
 	    private void UserDetailScreen_Loaded(object sender, RoutedEventArgs e)
 	    {
+            GlobalVariables.ImageDownloadWorker.ClearAll();
             StaticMainWindow.Window.ShowLoadingScreen();
             ViewModel.Username = GlobalVariables.CurrentUser.DisplayName;
             DownloadAvatar();

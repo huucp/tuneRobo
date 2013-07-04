@@ -3,7 +3,7 @@
     <SolidColorBrush x:Key="MainBackground" Color="WhiteSmoke"/>
     <SolidColorBrush x:Key="ListBoxHorizontalBorderBrush" Color="White"/>
     <SolidColorBrush x:Key="RatingRateColor" Color="Yellow"/>
-    <SolidColorBrush x:Key="GrayFont" Color="#888888"/>
+    <SolidColorBrush x:Key="GrayFont" Color="#7D7D7D"/>
     <SolidColorBrush x:Key="DarkGrayFont" Color="#646464"/>
-    <SolidColorBrush x:Key="BlackFont" Color="#3c3c3c"/>
+    <SolidColorBrush x:Key="BlackFont" Color="#323232"/>
 </ResourceDictionary>

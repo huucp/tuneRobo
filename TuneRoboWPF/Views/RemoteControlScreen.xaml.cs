@@ -180,17 +180,16 @@ namespace TuneRoboWPF.Views
         private void UpdateControlButtonState()
         {
             RobotState state = GlobalVariables.CurrentRobotState;
+            SetControlButtonState(true);
             switch (state.TransformState)
             {
                 case RobotState.TransformStates.Closed:
-                    TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;
-                    SetControlButtonState(false);
+                case RobotState.TransformStates.Closing:
+                    TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;                    
                     break;
                 case RobotState.TransformStates.Openning:
                 case RobotState.TransformStates.Opened:
-                case RobotState.TransformStates.Closing:
                     TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Untransform;
-                    SetControlButtonState(true);
                     break;
             }
         }
@@ -400,6 +399,7 @@ namespace TuneRoboWPF.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            GlobalVariables.ImageDownloadWorker.ClearAll();
             if (Visibility == Visibility.Visible)
             {
                 LoadLibrary();
@@ -450,15 +450,15 @@ namespace TuneRoboWPF.Views
         {
             var motionInfoRequest = new GetMotionFullInfoStoreRequest(id);
             motionInfoRequest.ProcessSuccessfully += (data) =>
-                                                         {
-                                                             var imageDownload = new ImageDownload(data.motion_info.info.icon_url);
-                                                             imageDownload.DownloadCompleted += (img) => Dispatcher.
-                                                                                                             BeginInvoke((Action)delegate
-                                                                                                                                     {
-                                                                                                                                         model.CoverImage = img;
-                                                                                                                                     });
-                                                             GlobalVariables.ImageDownloadWorker.AddDownload(imageDownload);
-                                                         };
+            {
+                var imageDownload = new ImageDownload(data.motion_info.info.icon_url);
+                imageDownload.DownloadCompleted += (img) => Dispatcher.
+                                                                BeginInvoke((Action)delegate
+                                                                {
+                                                                    model.CoverImage = img;
+                                                                });
+                GlobalVariables.ImageDownloadWorker.AddDownload(imageDownload);
+            };
             motionInfoRequest.ProcessError += (data, msg) =>
                                                   {
                                                       if (data == null) Debug.Fail(msg);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
@@ -18,9 +19,18 @@ namespace TuneRoboWPF
     {
         public App()
         {
+            var preprocessThread = new BackgroundWorker();
+            preprocessThread.DoWork += Preprocess;                           
+            preprocessThread.RunWorkerAsync();
+        }
+        
+
+        private void Preprocess(object sender, DoWorkEventArgs e)
+        {
             GlobalFunction.ReadConfig();
             GlobalFunction.CheckExistAndCreateDirectory(GlobalFunction.GetSavedDir());
-            
+            GlobalFunction.GetTempDataFolder();
+            GlobalFunction.ClearCacheImage();
         }
 
         protected override void OnStartup(StartupEventArgs e)

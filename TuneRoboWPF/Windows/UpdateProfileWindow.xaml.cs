@@ -9,19 +9,19 @@ using TuneRoboWPF.StoreService.SimpleRequest;
 
 namespace TuneRoboWPF.Windows
 {
-	/// <summary>
-	/// Interaction logic for UpdateProfileWindow.xaml
-	/// </summary>
-	public partial class UpdateProfileWindow : Window
-	{
+    /// <summary>
+    /// Interaction logic for UpdateProfileWindow.xaml
+    /// </summary>
+    public partial class UpdateProfileWindow : Window
+    {
         private UpdateProfileWindowViewModel ViewModel { get; set; }
-		public UpdateProfileWindow()
-		{
-			this.InitializeComponent();
+        public UpdateProfileWindow()
+        {
+            this.InitializeComponent();
 
-		    DataContext = new UpdateProfileWindowViewModel();
-		    ViewModel = (UpdateProfileWindowViewModel) DataContext;
-		}
+            DataContext = new UpdateProfileWindowViewModel();
+            ViewModel = (UpdateProfileWindowViewModel)DataContext;
+        }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -30,50 +30,68 @@ namespace TuneRoboWPF.Windows
                 DragMove();
             }
         }
-
-        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        private bool ValidateData()
         {
-            Cursor = Cursors.Wait;
             string displayName = ViewModel.DisplayName;
             string avatarUrl = ViewModel.AvatarUrl;
             if (!string.IsNullOrWhiteSpace(displayName) ||
                 !string.IsNullOrWhiteSpace(avatarUrl))
             {
+                if (!GlobalFunction.IsAnImage(avatarUrl))
+                {
+                    var title = (string)TryFindResource("AvatarNotImageText");
+                    WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            string displayName = ViewModel.DisplayName;
+            string avatarUrl = ViewModel.AvatarUrl;
+            if (ValidateData())
+            {
+                Cursor = Cursors.Wait;
                 if (avatarUrl != null) avatarUrl = avatarUrl.Trim();
-                UpdateProfile(displayName, avatarUrl);                
+                UpdateProfile(displayName, avatarUrl);
             }
         }
 
-	    private void UpdateProfile(string displayName, string avatarUrl)
-	    {
-	        var updateProfileRequest = new SetUserInfoStoreRequest(displayName, avatarUrl);
-	        updateProfileRequest.ProcessSuccessfully += reply =>
-                Dispatcher.BeginInvoke((Action) (delegate
+        private void UpdateProfile(string displayName, string avatarUrl)
+        {
+            var updateProfileRequest = new SetUserInfoStoreRequest(displayName, avatarUrl);
+            updateProfileRequest.ProcessSuccessfully += reply =>
+                Dispatcher.BeginInvoke((Action)(delegate
                 {
                     var msg = (string)TryFindResource("UpdateProfileSuccessfullyText");
-                    WPFMessageBox.Show(this,"",msg,MessageBoxButton.OK,MessageBoxImage.Information,MessageBoxResult.OK);
+                    WPFMessageBox.Show(this, "", msg, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
                     DialogResult = true;
                     Close();
                     Cursor = Cursors.Arrow;
                 }));
-	        updateProfileRequest.ProcessError += (reply, msg) =>
+            updateProfileRequest.ProcessError += (reply, msg) =>
             {
-                Debug.Fail(reply.type.ToString(),msg);
+                Debug.Fail(reply.type.ToString(), msg);
                 Dispatcher.BeginInvoke((Action)(delegate
                 {
                     var msgError = (string)TryFindResource("CheckDefaultErrorText");
                     var tittle = (string)TryFindResource("UpdateProfileFailedText");
-                    WPFMessageBox.Show(this, msgError, tittle, MessageBoxButton.OK, MessageBoxImage.Error,MessageBoxResult.OK);
+                    WPFMessageBox.Show(this, msgError, tittle, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
                     Cursor = Cursors.Arrow;
                 }));
-                
+
             };
             GlobalVariables.StoreWorker.AddRequest(updateProfileRequest);
-	    }	    
+        }
 
-	    private void CancelButton_Click(object sender, RoutedEventArgs e)
-	    {
-	        DialogResult = false;
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
             Close();
         }
 
@@ -92,5 +110,5 @@ namespace TuneRoboWPF.Windows
             Owner = owner;
             return ShowDialog();
         }
-	}
+    }
 }

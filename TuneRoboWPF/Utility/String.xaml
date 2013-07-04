@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <sys:String x:Key="UsernameText">Username</sys:String>
+    <sys:String x:Key="UsernameText">Tosy account</sys:String>
     <sys:String x:Key="EmailText">Email</sys:String>    
     <sys:String x:Key="AvatarUrlText">Avatar URL</sys:String>    
     <sys:String x:Key="CreateAccountText">Create</sys:String>    
@@ -20,7 +20,7 @@
     <sys:String x:Key="CheckNameErrorText">Please use another nick name and try again</sys:String>
     <sys:String x:Key="CreateAccountDefaultErrorText">An unknown error occurred when create Tosy account</sys:String>
     <sys:String x:Key="CheckDefaultErrorText">Please try again later</sys:String>
-    <sys:String x:Key="ForgotEmailText">Enter your Tosy ID to get started.</sys:String>    
+    <sys:String x:Key="ForgotEmailText">Enter your Tosy account to get started.</sys:String>    
     <sys:String x:Key="ResetPasswordText">Reset</sys:String>    
     <sys:String x:Key="ResetPasswordSuccessfullyText">Your password has been reset. Check your email for new password!</sys:String>    
     <sys:String x:Key="ResetPasswordEmailErrorText">Your Tosy account is invalid</sys:String>    
@@ -79,5 +79,6 @@
     <sys:String x:Key="NoMotionInLocalText">There are no motion in your computer</sys:String>    
     <sys:String x:Key="NoMotionInRobotText">There are no motion in your robot</sys:String>
     <sys:String x:Key="RobotConnectionLostText">Your connection to robot is lost</sys:String>
-    <sys:String x:Key="WantReconnectRobotText">Do you want to reconnect?</sys:String>    
+    <sys:String x:Key="WantReconnectRobotText">Do you want to reconnect?</sys:String>
+    <sys:String x:Key="AvatarNotImageText">Your avatar url is not an image</sys:String>    
 </ResourceDictionary>

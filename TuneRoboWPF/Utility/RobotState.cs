@@ -49,7 +49,7 @@ namespace TuneRoboWPF.Utility
         public void FindCurrentMotionPlayingIndex()
         {
             if (GlobalVariables.CurrentListMotion == null) return;
-            MotionIndex = 0;
+            MotionIndex = -1;
             for (int i = 0; i < GlobalVariables.CurrentListMotion.Count; i++)
             {
                 if (MotionID == GlobalVariables.CurrentListMotion[i].MotionID)
@@ -66,7 +66,7 @@ namespace TuneRoboWPF.Utility
             TransformState = TransformStates.Closed;
             MusicState = MusicStates.SystemHalt;
             MotionID = 0;
-            MotionIndex = 0;
+            MotionIndex = -1;
         }
     }
 }

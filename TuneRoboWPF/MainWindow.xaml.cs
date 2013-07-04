@@ -93,7 +93,7 @@ namespace TuneRoboWPF
 
         private void MainScreen_Loaded(object sender, RoutedEventArgs e)
         {
-            GlobalFunction.GetTempDataFolder();
+            
             //if (GlobalVariables.ServerConnection.ConfigAndConnectSocket() == 0)
             //{
             //    //MessageBox.Show("Cannot connect to server!", "Connection error", MessageBoxButton.OK,

@@ -39,5 +39,16 @@ namespace TuneRoboWPF.ViewModels
                 NotifyPropertyChanged("Avatar");
             }
         }
+
+        public bool EnableUI
+        {
+            get { return model.EnableUI; }
+            set
+            {
+                if (model.EnableUI == value) return;
+                model.EnableUI = value;
+                NotifyPropertyChanged("EnableUI");
+            }
+        }
     }
 }
