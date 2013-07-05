@@ -29,6 +29,11 @@ namespace TuneRoboWPF.Views
         {
             ViewModel.MotionTitle = info.Title;
             ViewModel.ArtistName = info.Artist;
+            TimeSpan t = TimeSpan.FromSeconds(info.Duration);
+            if (info.Duration>-1)
+            {
+                ViewModel.MotionDuration = string.Format("{0:D2}:{1:D2}", t.Minutes, t.Seconds);
+            }            
             ViewModel.RatingValue = 0.6;
             MotionID = info.MotionID;
         }
@@ -36,7 +41,7 @@ namespace TuneRoboWPF.Views
         public void SetMotionInfo(MotionShortInfo info)
         {
             ViewModel.MotionTitle = info.title;
-            ViewModel.ArtistName = info.artist_name;
+            ViewModel.ArtistName = info.artist_name;            
             ViewModel.RatingValue = info.rating / GlobalVariables.RateValueMultiplierFactor;
             MotionID = info.motion_id;
         }

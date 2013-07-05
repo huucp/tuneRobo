@@ -119,15 +119,12 @@ namespace TuneRoboWPF.Views
         {
             var stateRequest = new GetStateRequest();
             stateRequest.ProcessSuccessfully += data =>
-            {
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     Cursor = Cursors.Arrow;
                     UpdateButtonState();
                     OnUpdateParentControl(null);
                 });
-
-            };
             stateRequest.ProcessError += (errorCode, msg) =>
             {
                 Dispatcher.BeginInvoke((Action)delegate

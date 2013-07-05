@@ -47,6 +47,16 @@ namespace TuneRoboWPF.ViewModels
             }
         }
 
+        public string MotionDuration
+        {
+            get { return model.MotionDuration; }
+            set
+            {
+                model.MotionDuration = value;
+                NotifyPropertyChanged("MotionDuration");
+            }
+        }
+
         public bool HitTestVisible
         {
             get { return model.HitTestVisible; }

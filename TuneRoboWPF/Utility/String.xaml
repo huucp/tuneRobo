@@ -75,9 +75,9 @@
     <sys:String x:Key="IsTooBigText">is too big</sys:String>
     <sys:String x:Key="MustOwnMotionText">You must own this motion to review</sys:String>
     <sys:String x:Key="ShowResultForText">Showing results for</sys:String>    
-    <sys:String x:Key="NoResultForText">There are no results for</sys:String>    
-    <sys:String x:Key="NoMotionInLocalText">There are no motion in your computer</sys:String>    
-    <sys:String x:Key="NoMotionInRobotText">There are no motion in your robot</sys:String>
+    <sys:String x:Key="NoResultForText">There is no results for</sys:String>    
+    <sys:String x:Key="NoMotionInLocalText">There is no motion in your computer</sys:String>    
+    <sys:String x:Key="NoMotionInRobotText">There is no motion in your robot</sys:String>
     <sys:String x:Key="RobotConnectionLostText">Your connection to robot is lost</sys:String>
     <sys:String x:Key="WantReconnectRobotText">Do you want to reconnect?</sys:String>
     <sys:String x:Key="AvatarNotImageText">Your avatar url is not an image</sys:String>    

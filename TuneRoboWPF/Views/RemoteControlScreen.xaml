@@ -111,7 +111,7 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Margin="0,90,0,0" Grid.Column="0" BorderThickness="0,1,1,0" BorderBrush="#FF828790">
+        <Border Margin="0" Grid.Column="0" BorderThickness="0" BorderBrush="#FF828790">
             <ScrollViewer Margin="20,0,0,0" >
                 <ScrollViewer.Resources>
                     <Style TargetType="ScrollViewer">
@@ -140,35 +140,12 @@
                 </Grid>
             </ScrollViewer>
         </Border>
-        
-        <ListBox x:Name="RemoteListBox" Grid.Column="1"
-                 HorizontalAlignment="Stretch" Margin="20,90,0,0" 
-                 HorizontalContentAlignment="Stretch"
-                 SelectedItem ="{Binding RemoteSelectedMotion}"
-                 ItemsSource ="{Binding RemoteItemsList}"				 
-                 SelectionChanged="RemoteListBox_SelectionChanged" 
-                 Background="{StaticResource MainBackground}"
-                 BorderThickness="1,1,0,0" MouseDoubleClick="RemoteListBox_MouseDoubleClick">
-            <ListBox.Style>
-                <Style TargetType="{x:Type ListBox}">
-                    <Style.Resources>
-                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#f8d699" />
-                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#3c3c3c" />
-                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#f8d699" />
-                    </Style.Resources>
-                </Style>
-            </ListBox.Style>
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Padding" Value="0"/>
-                </Style>
-            </ListBox.ItemContainerStyle>
-        </ListBox>
 
         <Border Background="{StaticResource MainBackground}" HorizontalAlignment="Stretch" BorderThickness="1,1,0,0" 
-                Margin="20,90,0,0" Grid.Column="1"
+                Margin="0,0,0,20" Grid.Column="1"
                 Visibility="{Binding NoRobotMotionVisibility,Converter={StaticResource BoolToVisibilityConverter}}">
-            <Grid>
+            <Grid Margin="0">
+
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="UltraBold"
                            Foreground="White" Text="{StaticResource NoMotionInRobotText}" TextWrapping="Wrap" TextAlignment="Center">
                     <TextBlock.RenderTransform>
@@ -180,8 +157,59 @@
             </Grid>
 
         </Border>
-
-
+        <ListBox x:Name="RemoteListBox" Margin="0,10,0,55" 
+        	HorizontalContentAlignment="Stretch"
+        	SelectedItem ="{Binding RemoteSelectedMotion}"
+        	ItemsSource ="{Binding RemoteItemsList}"				 
+        	SelectionChanged="RemoteListBox_SelectionChanged" 
+        	Background="{StaticResource MainBackground}"
+        	BorderThickness="1" MouseDoubleClick="RemoteListBox_MouseDoubleClick" Grid.Column="1" Panel.ZIndex="1">
+        	<ListBox.Style>
+        		<Style TargetType="{x:Type ListBox}">
+        			<Style.Resources>
+        				<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#f8d699" />
+        				<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#3c3c3c" />
+        				<SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#f8d699" />
+        			</Style.Resources>
+        		</Style>
+        	</ListBox.Style>
+        	<ListBox.ItemContainerStyle>
+        		<Style TargetType="{x:Type ListBoxItem}">
+        			<Setter Property="Padding" Value="0"/>
+        		</Style>
+        	</ListBox.ItemContainerStyle>
+        </ListBox>
+        <Grid Grid.Column="1" Margin="0,0,0,10" VerticalAlignment="Bottom">
+        	<local:PreviousTrackButton x:Name="PreviousButton" 
+        		Margin="104,0,0,0" Width="35" 
+        		Height="35" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="19.957,-0.912" />
+        	<local:PlayPauseButton x:Name="PlayPauseButtons" 
+        		Height="35" Margin="139,0,0,0" VerticalAlignment="Center" Width="Auto" HorizontalAlignment="Left"/>
+        	<local:NextTrackButton x:Name="NextButton" Margin="174,0,203.5,0" VerticalAlignment="Center" 
+        		Width="Auto" Height="35" 
+                               />
+        	<local:VolumeButton x:Name="VolumeButton" Margin="0,0,120,0" 
+        		VerticalAlignment="Center" Width="Auto" Height="35" HorizontalAlignment="Right"/>
+        	<local:RobotTransformButton x:Name="TransformButton" 
+        		Margin="20,0,0,0" Width="Auto" Height="35" 
+        		VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                
+        	<ProgressBar x:Name="volumeBar"  Height="9" Width="100"
+        		Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Maximum="10"
+        		Style="{DynamicResource VolumeStyle}" HorizontalAlignment="Right" Margin="0,0,20,3" VerticalAlignment="Center"
+        		Background="#cdced5" BorderBrush="#FFb6b6ba" BorderThickness="1" ValueChanged="volumeBar_ValueChanged" 
+        		Visibility="{Binding VolumeVisibility, ConverterParameter=Collapsed, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        		<ProgressBar.Effect>
+        			<DropShadowEffect ShadowDepth="1" BlurRadius="1" Color="White"/>
+        		</ProgressBar.Effect>
+        	</ProgressBar>
+        	<Slider x:Name="VolumeSlider" HorizontalAlignment="Right" Margin="0,0,20,3" VerticalAlignment="Center" 
+        		Width="100" Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        		IsSnapToTickEnabled="True" TickFrequency="1" IsMoveToPointEnabled="true" 
+        		Visibility="{Binding VolumeVisibility, ConverterParameter=Collapsed, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        		Style="{StaticResource VolumeSliderStyle}"/>
+            
+        </Grid>
         <TextBlock x:Name="UnconnectedTextBox" Grid.Column="1"
                    HorizontalAlignment="Center" 
                    MouseDown="UnconnectedTextBox_MouseDown"  
@@ -193,36 +221,6 @@
                    RenderTransformOrigin="0.165,0.33" 
                    Height="27.627" 
                    VerticalAlignment="Center" 
-                   Cursor="Hand">
-            <Run Text="{DynamicResource ConnectToRobotText}"/>
-        </TextBlock>
-        <local:PreviousTrackButton x:Name="PreviousButton" 
-                                   Margin="144.5,55,233,0" VerticalAlignment="Top" Width="Auto" 
-                                   Height="35" Grid.Column="1" d:LayoutOverrides="GridBox" />
-        <local:PlayPauseButton x:Name="PlayPauseButtons" 
-                               Height="35" Margin="180.5,55,197,0" VerticalAlignment="Top" Width="Auto" Grid.Column="1" d:LayoutOverrides="GridBox"/>
-        <local:NextTrackButton x:Name="NextButton" Margin="216.5,55,161,0" VerticalAlignment="Top" 
-                               Width="35" Height="35" 
-                               d:LayoutOverrides="GridBox" Grid.Column="1"/>
-        <local:VolumeButton x:Name="VolumeButton" Margin="252.5,55,125,0" 
-                            VerticalAlignment="Top" Width="Auto" Height="35" Grid.Column="1" d:LayoutOverrides="GridBox"/>
-        <local:RobotTransformButton x:Name="TransformButton" 
-                                    Margin="64.5,55,313,0" Width="Auto" Height="35" 
-                                    VerticalAlignment="Top" Grid.Column="1" d:LayoutOverrides="GridBox"/>
-                
-        <ProgressBar x:Name="volumeBar"  Height="9" Width="100"
-                     Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Maximum="10"
-                     Style="{DynamicResource VolumeStyle}" HorizontalAlignment="Right" Margin="0,69.815,8,0" VerticalAlignment="Top"
-                     Background="#cdced5" BorderBrush="#FFb6b6ba" BorderThickness="1" Grid.Column="1" ValueChanged="volumeBar_ValueChanged" 
-                     Visibility="{Binding VolumeVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
-            <ProgressBar.Effect>
-                <DropShadowEffect ShadowDepth="1" BlurRadius="1" Color="White"/>
-            </ProgressBar.Effect>
-        </ProgressBar>
-        <Slider x:Name="VolumeSlider" HorizontalAlignment="Right" Margin="0,66.815,8,0" VerticalAlignment="Top" 
-                Width="100" Value="{Binding Volume,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                IsSnapToTickEnabled="True" TickFrequency="1" IsMoveToPointEnabled="true" 
-                Visibility="{Binding VolumeVisibility, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter='Collapsed'}"
-                Style="{StaticResource VolumeSliderStyle}" Grid.Column="1"/>
+                   Cursor="Hand"><Run Text="{DynamicResource ConnectToRobotText}"/></TextBlock>
     </Grid>
 </UserControl>
