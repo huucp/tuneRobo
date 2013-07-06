@@ -50,25 +50,15 @@ namespace TuneRoboWPF.Utility
             return (File.Exists(filePath) && fileInfo.Length != 0) ? filePath : null;
         }
 
-        private void DownloadRemoteImageFile(string url, string filename)
+        private bool LoadImageInStorage(string cachedImagePath,string url)
         {
-            if (string.IsNullOrWhiteSpace(url))
-            {
-                OnDownloadFailed(null, "URL invalid");
-                return;
-            }
-            if (GlobalVariables.ImageDictionary.ContainsKey(url))
-            {
-                OnDownloadCompleted(GlobalVariables.ImageDictionary[url]);
-                return;
-            }
-            var cachedImagePath = FindImageInStorage(filename);
+            bool loadImage = true;
             if (cachedImagePath != null)
             {
                 using (var memory = new MemoryStream(File.ReadAllBytes(cachedImagePath)))
                 {
                     memory.Position = 0;
-                    bool loadImage = true;
+                    
                     var bitmapImage = new BitmapImage();
                     try
                     {
@@ -91,12 +81,19 @@ namespace TuneRoboWPF.Utility
                     {
                         GlobalVariables.ImageDictionary.Add(url, bitmapImage);
 
-                        OnDownloadCompleted(bitmapImage);
-                        return;
+                        OnDownloadCompleted(bitmapImage);                        
                     }
                 }
             }
+            else
+            {
+                loadImage = false;
+            }
+            return loadImage;
+        }
 
+        private void DownloadImageFromUrl(string url,string filename)
+        {
             Uri urlUri = null;
             try
             {
@@ -108,6 +105,7 @@ namespace TuneRoboWPF.Utility
                 return;
             }
             var request = WebRequest.CreateDefault(urlUri);
+            request.Timeout = 5000;
 
             var buffer = new byte[4096];
 
@@ -154,6 +152,24 @@ namespace TuneRoboWPF.Utility
 
                 OnDownloadFailed(null, e.Message);
             }
+        }
+
+        private void DownloadRemoteImageFile(string url, string filename)
+        {
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                OnDownloadFailed(null, "URL invalid");
+                return;
+            }
+            if (GlobalVariables.ImageDictionary.ContainsKey(url))
+            {
+                OnDownloadCompleted(GlobalVariables.ImageDictionary[url]);
+                return;
+            }
+            var cachedImagePath = FindImageInStorage(filename);
+            if (LoadImageInStorage(cachedImagePath,url)) return;
+            DownloadImageFromUrl(url,filename);
+            
         }
     }
 

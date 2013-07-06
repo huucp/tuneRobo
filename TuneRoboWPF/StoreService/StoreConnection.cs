@@ -45,12 +45,12 @@ namespace TuneRoboWPF.StoreService
                 //Connection.Connect(remoteEndPoint);
                 IAsyncResult result = Connection.BeginConnect(remoteEndPoint, null, null);
 
-                bool success = result.AsyncWaitHandle.WaitOne(1000, true);
+                bool success = result.AsyncWaitHandle.WaitOne(3000, true);
 
                 if (!success)
                 {
                     //Connection.Shutdown(SocketShutdown.Both);
-                    Connection.Close();
+                    //Connection.Close();
                     //Connection = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
                     //throw new ApplicationException("Failed to connect server.");
                 }

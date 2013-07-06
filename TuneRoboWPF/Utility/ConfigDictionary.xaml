@@ -11,5 +11,7 @@
     <BitmapImage x:Key="TrashIcon" UriSource="/Resources/trash.png"/>
     <BitmapImage x:Key="PlayMotionHeader" UriSource="/Resources/play Gray.png"/>
     <BitmapImage x:Key="EditIcon" UriSource="/Resources/5_content_edit.png"/>
+    <BitmapImage x:Key="UntransformRobotImage" UriSource="/Resources/mRobo_Loa.png"/>
+    <BitmapImage x:Key="TransformedRobotImage" UriSource="/Resources/mRobo_big.png"/>
     
 </ResourceDictionary>

@@ -29,7 +29,7 @@
     <sys:String x:Key="DownloadingText">Downloading</sys:String>
     <sys:String x:Key="TransferringText">Transferring</sys:String>    
     <sys:String x:Key="LoadingScreenText">loading</sys:String>    
-    <sys:String x:Key="ErrorScreenText">We encounted an error. Please check out your connection and retry.</sys:String>    
+    <sys:String x:Key="ErrorScreenText">We encounted an error. Please check your connection and retry.</sys:String>    
     <sys:String x:Key="DetailsTabHeaderText">Details</sys:String>
     <sys:String x:Key="ReviewTabHeaderText">Rating and Reviews</sys:String>    
     <sys:String x:Key="RelatedTabHeaderText">Related</sys:String>     

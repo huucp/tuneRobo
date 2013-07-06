@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using MessageBoxUtils;
 using TuneRoboWPF.Models;
 using TuneRoboWPF.RobotService;
@@ -157,11 +158,28 @@ namespace TuneRoboWPF.Views
 
         private void UpdateRemoteControl()
         {
+            UpdateRemoteBackground();
             UpdateMusicState();
             UpdateMotionPlay();
             viewModel.Volume = GlobalVariables.CurrentRobotState.Volume;
             UpdateControlButtonState();
             //UpdateTransformButton();
+        }
+        
+        private void UpdateRemoteBackground()
+        {
+            RobotState state = GlobalVariables.CurrentRobotState;
+            switch (state.TransformState)
+            {
+                case RobotState.TransformStates.Closed:
+                case RobotState.TransformStates.Closing:
+                    viewModel.RobotBackgroundImageSource = (BitmapImage) TryFindResource("UntransformRobotImage");
+                    break;
+                case RobotState.TransformStates.Openning:
+                case RobotState.TransformStates.Opened:
+                    viewModel.RobotBackgroundImageSource = (BitmapImage)TryFindResource("TransformedRobotImage");
+                    break;
+            }
         }
 
         private void UpdateTransformButton()
@@ -196,7 +214,13 @@ namespace TuneRoboWPF.Views
 
         private void UpdateMusicState()
         {
-            switch (GlobalVariables.CurrentRobotState.MusicState)
+            var state = GlobalVariables.CurrentRobotState;
+            if (state.TransformState == RobotState.TransformStates.Openning ||
+                state.TransformState == RobotState.TransformStates.Closing)
+            {
+                PlayPauseButtons.ViewModel.StateButton=PlayPauseButtonModel.ButtonState.Play;
+            }
+            switch (state.MusicState)
             {
                 case RobotState.MusicStates.MusicPlaying:
                     PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Pause;

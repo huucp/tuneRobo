@@ -113,6 +113,7 @@ namespace TuneRoboWPF.RobotService
             var getMotionInfoAtIndexRequest = new GetMotionInfoAtIndexRequest(
                 RobotPacket.PacketID.GetInfoMotionAtIndex, motionIndex);
             RobotReply reply = Connection.SendAndReceivePacket(getMotionInfoAtIndexRequest.BuildRequest());
+            if (reply == null) return null;
             reply.RequestID = RobotPacket.PacketID.GetInfoMotionAtIndex;
             RobotReplyData robotReplyData = reply.Process();
             if (robotReplyData.Type == RobotReplyData.ReplyType.Failed)

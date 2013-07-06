@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using TuneRoboWPF.Models;
 using TuneRoboWPF.Views;
 
@@ -95,6 +96,16 @@ namespace TuneRoboWPF.ViewModels
                 model.NoRobotMotionVisibility = value;
                 NotifyPropertyChanged("NoRobotMotionVisibility");
             }
-        }    
+        }
+        public BitmapImage RobotBackgroundImageSource
+        {
+            get { return model.RobotBackgroundImageSource; }
+            set
+            {
+                if (Equals(model.RobotBackgroundImageSource, value)) return;
+                model.RobotBackgroundImageSource = value;
+                NotifyPropertyChanged("RobotBackgroundImageSource");
+            }
+        }   
     }
 }
