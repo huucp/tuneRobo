@@ -25,8 +25,13 @@ namespace TuneRoboWPF.Views
                 index--;
                 GlobalVariables.CurrentRobotState.MotionIndex--;
             }
+            if (index < 0 || index >= GlobalVariables.CurrentListMotion.Count)
+            {
+                Request = null;
+                return;
+            }
             ulong previousMotionID =
-                GlobalVariables.CurrentListMotion[index].MotionID;
+                GlobalVariables.CurrentListMotion[index].MotionID;            
             Console.WriteLine("{0}:{1}", GlobalVariables.CurrentRobotState.MotionIndex, previousMotionID);
             Request = new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay, -1, previousMotionID);
         }

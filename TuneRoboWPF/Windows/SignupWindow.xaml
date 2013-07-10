@@ -32,7 +32,7 @@
                  Text="{Binding Email,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding EnableUI}"/>
         <TextBlock HorizontalAlignment="Left" Margin="20,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold">
             <TextBlock.Inlines>
-                <Run Text="{DynamicResource UsernameText}"/><Run Text="("/><Run Text="*" Foreground="Red"/><Run Text=")"/>  
+                <Run Text="{DynamicResource YourDisplayNameText}"/><Run Text="("/><Run Text="*" Foreground="Red"/><Run Text=")"/>  
             </TextBlock.Inlines>
         </TextBlock>
         <TextBox x:Name="UsernameTextBox" Margin="20,110,0,0" FontWeight="Medium" HorizontalAlignment="Left" 

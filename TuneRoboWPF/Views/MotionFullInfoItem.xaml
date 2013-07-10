@@ -24,7 +24,7 @@
         <Rectangle Fill="{Binding Index,Converter={StaticResource IndexToColorConverter},ConverterParameter=0}" 
                    Margin="0" StrokeThickness="0" >
         </Rectangle>
-        <Rectangle  RadiusX="10" RadiusY="10" Width="128" Height="128" HorizontalAlignment="Left" 
+        <Rectangle  RadiusX="23" RadiusY="23" Width="128" Height="128" HorizontalAlignment="Left" 
                     Margin="10,0,0,0">
             <Rectangle.Fill>
                 <ImageBrush x:Name="Artwork" 

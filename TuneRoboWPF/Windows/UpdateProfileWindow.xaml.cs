@@ -37,7 +37,7 @@ namespace TuneRoboWPF.Windows
             if (!string.IsNullOrWhiteSpace(displayName) ||
                 !string.IsNullOrWhiteSpace(avatarUrl))
             {
-                if (!GlobalFunction.IsAnImage(avatarUrl))
+                if (!string.IsNullOrWhiteSpace(avatarUrl) && !GlobalFunction.IsAnImage(avatarUrl))
                 {
                     var title = (string)TryFindResource("AvatarNotImageText");
                     WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);

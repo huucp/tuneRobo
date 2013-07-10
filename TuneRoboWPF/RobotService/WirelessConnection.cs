@@ -36,13 +36,24 @@ namespace TuneRoboWPF.RobotService
 
             if (GlobalVariables.WirelessIP == null)
             {
-                WPFMessageBox.Show(StaticMainWindow.Window,msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,MessageBoxResult.OK);
+                Application.Current.Dispatcher.BeginInvoke((Action) (() =>
+                                                                     WPFMessageBox.Show(StaticMainWindow.Window,
+                                                                                        msgError, titleError,
+                                                                                        MessageBoxButton.OK,
+                                                                                        MessageBoxImage.Error,
+                                                                                        MessageBoxResult.OK)));
+                
                 Debug.Fail("IP is invalid");
                 return 0;
             }
             if (GlobalVariables.WirelessPort == -1)
             {
-                WPFMessageBox.Show(StaticMainWindow.Window, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                Application.Current.Dispatcher.BeginInvoke((Action)(() =>
+                                                                     WPFMessageBox.Show(StaticMainWindow.Window,
+                                                                                        msgError, titleError,
+                                                                                        MessageBoxButton.OK,
+                                                                                        MessageBoxImage.Error,
+                                                                                        MessageBoxResult.OK)));
                 Debug.Fail("Wireless port is invalid");
                 return 0;
             }

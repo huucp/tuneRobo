@@ -111,7 +111,7 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Margin="0" Grid.Column="0" BorderThickness="0" BorderBrush="#FF828790">
+        <Border Margin="0" Grid.Column="0" BorderThickness="0" BorderBrush="#FF828790" d:IsHidden="True">
             <ScrollViewer Margin="20,0,0,0" >
                 <ScrollViewer.Resources>
                     <Style TargetType="ScrollViewer">
@@ -141,11 +141,17 @@
             </ScrollViewer>
         </Border>
 
+        <ListBox Name="RemoteListBoxShadowEffect"  Margin="2,10,0,55" Grid.Column="1" Background="{StaticResource MainBackground}" BorderThickness="0">
+            <ListBox.Effect>
+                <DropShadowEffect ShadowDepth="3" BlurRadius="5" Color="LightGray" Direction="225"/>
+            </ListBox.Effect>
+        </ListBox>
+
         <Image x:Name="RobotBackgroundImage" Grid.Column="1" 
-               Source="{Binding RobotBackgroundImageSource,TargetNullValue={StaticResource UntransformRobotImage}}" Opacity="0.3"/>
+               Source="{Binding RobotBackgroundImageSource,TargetNullValue={StaticResource UntransformRobotImage}}" Opacity="0.3" d:IsHidden="True"/>
         <Border HorizontalAlignment="Stretch" BorderThickness="1,1,0,0" 
                 Margin="0,0,0,20" Grid.Column="1"
-                Visibility="{Binding NoRobotMotionVisibility,Converter={StaticResource BoolToVisibilityConverter}}">
+                Visibility="{Binding NoRobotMotionVisibility,Converter={StaticResource BoolToVisibilityConverter}}" d:IsHidden="True">
             <Grid Margin="0">
 
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="UltraBold"
@@ -159,6 +165,7 @@
             </Grid>
 
         </Border>
+        
         <ListBox x:Name="RemoteListBox" Margin="2,10,0,55" 
         	    HorizontalContentAlignment="Stretch"
         	    SelectedItem ="{Binding RemoteSelectedMotion}"
@@ -166,7 +173,8 @@
         	    SelectionChanged="RemoteListBox_SelectionChanged" 
         	    BorderThickness="1,0,0,1" BorderBrush="White"
                 MouseDoubleClick="RemoteListBox_MouseDoubleClick" 
-                Grid.Column="1" Panel.ZIndex="1" Background="{x:Null}">
+                Grid.Column="1" Panel.ZIndex="1" Background="{x:Null}"
+                Template="{StaticResource AppleListBoxControlTemplate}">
         	<ListBox.Style>
         		<Style TargetType="{x:Type ListBox}">
         			<Style.Resources>
@@ -180,12 +188,9 @@
         		<Style TargetType="{x:Type ListBoxItem}">
         			<Setter Property="Padding" Value="0"/>
         		</Style>
-        	</ListBox.ItemContainerStyle>
-            <ListBox.Effect>
-                <DropShadowEffect BlurRadius ="3" Color="LightGray" Direction="270" ShadowDepth="2"/>
-            </ListBox.Effect>
+        	</ListBox.ItemContainerStyle>            
         </ListBox>
-        <Grid Grid.Column="1" Margin="0,0,0,10" VerticalAlignment="Bottom">
+        <Grid Grid.Column="1" Margin="0,0,0,10" VerticalAlignment="Bottom" d:IsHidden="True">
         	<local:PreviousTrackButton x:Name="PreviousButton" 
         		Margin="104,0,0,0" Width="35" 
         		Height="35" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="19.957,-0.912" />
@@ -227,6 +232,6 @@
                    RenderTransformOrigin="0.165,0.33" 
                    Height="27.627" 
                    VerticalAlignment="Center" 
-                   Cursor="Hand"><Run Text="{DynamicResource ConnectToRobotText}"/></TextBlock>
+                   Cursor="Hand" d:IsHidden="True"><Run Text="{DynamicResource ConnectToRobotText}"/></TextBlock>
     </Grid>
 </UserControl>

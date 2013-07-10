@@ -111,7 +111,7 @@ namespace TuneRoboWPF.Views
             countRequest.ProcessError += (countReply, msg) =>
             {
                 Debug.Assert(false, msg + countReply.type.ToString());
-                StaticMainWindow.Window.ShowErrorScreen();
+                Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
             };
             GlobalVariables.StoreWorker.ForceAddRequest(countRequest);
         }

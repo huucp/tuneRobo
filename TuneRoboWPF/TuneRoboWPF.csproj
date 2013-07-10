@@ -84,6 +84,7 @@
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Converter\IndexToColorConverter.cs" />
     <Compile Include="Converter\NumberMotionToStringConverter.cs" />
+    <Compile Include="Converter\NumberRatingsToStringConverter.cs" />
     <Compile Include="Converter\SecondsToTimeSpanConverter.cs" />
     <Compile Include="Models\ArtistDetailScreenModel.cs" />
     <Compile Include="Models\ArtistItemVerticalModel.cs" />
@@ -92,9 +93,11 @@
     <Compile Include="Models\ForgotWindowModel.cs" />
     <Compile Include="Models\MotionDetailScreenModel.cs" />
     <Compile Include="Models\MotionFullInfoItemModel.cs" />
+    <Compile Include="Models\MotionHorizontalItemModel.cs" />
     <Compile Include="Models\MotionItemVerticalModel.cs" />
     <Compile Include="Models\MotionTitleItemModel.cs" />
     <Compile Include="Models\NavigationBarModel.cs" />
+    <Compile Include="Models\NewStoreScreenModel.cs" />
     <Compile Include="Models\PlayPauseButtonModel.cs" />
     <Compile Include="Models\RatingWindowModel.cs" />
     <Compile Include="Models\RemoteControlScreenModel.cs" />
@@ -169,6 +172,7 @@
     <Compile Include="ViewModels\ForgotWindowViewModel.cs" />
     <Compile Include="ViewModels\MotionDetailScreenViewModel.cs" />
     <Compile Include="ViewModels\MotionFullInfoItemViewModel.cs" />
+    <Compile Include="ViewModels\MotionHorizontalItemViewModel.cs" />
     <Compile Include="ViewModels\MotionItemVerticalViewModel.cs" />
     <Compile Include="ViewModels\MotionTitleItemViewModel.cs">
       <SubType>Code</SubType>
@@ -176,6 +180,7 @@
     <Compile Include="ViewModels\NavigationBarViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\NewStoreScreenViewModel.cs" />
     <Compile Include="ViewModels\PlayPauseButtonViewModel.cs" />
     <Compile Include="ViewModels\RatingWindowViewModel.cs" />
     <Compile Include="ViewModels\RemoteControlScreenViewModel.cs" />
@@ -212,8 +217,14 @@
     <Compile Include="Views\MotionDetailScreen.xaml.cs">
       <DependentUpon>MotionDetailScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MotionHorizontalItem.xaml.cs">
+      <DependentUpon>MotionHorizontalItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MotionItemVertical.xaml.cs">
       <DependentUpon>MotionItemVertical.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewStoreScreen.xaml.cs">
+      <DependentUpon>NewStoreScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ScreenshotImage.xaml.cs">
       <DependentUpon>ScreenshotImage.xaml</DependentUpon>
@@ -363,7 +374,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\MotionHorizontalItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MotionItemVertical.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewStoreScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -474,8 +493,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\cov894.jpeg" />
-    <Resource Include="Views\mRobo_Images\Image.png" />
-    <Resource Include="Views\mRobo_Images\Layer 35.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Play.png" />

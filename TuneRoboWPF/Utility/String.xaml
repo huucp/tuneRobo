@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <sys:String x:Key="UsernameText">Tosy account</sys:String>
+    <sys:String x:Key="TosyAccountText">Tosy account</sys:String>
+    <sys:String x:Key="YourDisplayNameText">Your display name</sys:String>
     <sys:String x:Key="EmailText">Email</sys:String>    
     <sys:String x:Key="AvatarUrlText">Avatar URL</sys:String>    
     <sys:String x:Key="CreateAccountText">Create</sys:String>    
@@ -41,6 +42,7 @@
     <sys:String x:Key="HotListText">Hot</sys:String>
     <sys:String x:Key="FeaturedListText">Featured</sys:String>
     <sys:String x:Key="ArtistListText">Artist</sys:String>
+    <sys:String x:Key="SeeAllText">See All ></sys:String>
     <sys:String x:Key="ConnectToRobotText">Please connect to robot</sys:String>
     <sys:String x:Key="ConnectToRobotSuccesfullyText">Connect to robot successfully</sys:String>
     <sys:String x:Key="ConnectToRobotErrorText">Cannot connect to robot</sys:String>
@@ -80,5 +82,12 @@
     <sys:String x:Key="NoMotionInRobotText">There is no motion in your robot</sys:String>
     <sys:String x:Key="RobotConnectionLostText">Your connection to robot is lost</sys:String>
     <sys:String x:Key="WantReconnectRobotText">Do you want to reconnect?</sys:String>
-    <sys:String x:Key="AvatarNotImageText">Your avatar url is not an image</sys:String>    
+    <sys:String x:Key="AvatarNotImageText">Your avatar url is not an image</sys:String>
+    <sys:String x:Key="MustTransformToPlaytext">Your robot must transform before dance</sys:String>
+    <sys:String x:Key="PleaseTransformText">Please let your robot transform</sys:String>    
+    <sys:String x:Key="NoMotionText">No motion</sys:String>    
+    <sys:String x:Key="MotionText">motion</sys:String>    
+    <sys:String x:Key="MotionsText">motions</sys:String>    
+    <sys:String x:Key="RatingText">rating</sys:String>    
+    <sys:String x:Key="RatingsText">ratings</sys:String>    
 </ResourceDictionary>

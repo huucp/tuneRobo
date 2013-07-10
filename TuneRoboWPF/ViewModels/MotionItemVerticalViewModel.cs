@@ -49,7 +49,7 @@ namespace TuneRoboWPF.ViewModels
             set
             {
                 model.DescriptionClick = value;
-                NotifyPropertyChanged("Description");
+                NotifyPropertyChanged("DescriptionClick");
             }
         }
 

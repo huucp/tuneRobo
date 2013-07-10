@@ -8,20 +8,16 @@ using System.Windows.Data;
 
 namespace TuneRoboWPF.Converter
 {
-    public class NumberMotionToStringConverter : IValueConverter
+    public class NumberRatingsToStringConverter:IValueConverter 
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            uint number = value is uint ? (uint) value : 0;
-            switch (number)
+            ulong number = value is ulong ? (ulong)value : 0;
+            if (number<2)
             {
-                case 0:
-                    return Application.Current.TryFindResource("NoMotionText");
-                case 1:
-                    return "1 " + Application.Current.TryFindResource("MotionText");
-                default:
-                    return number.ToString() + " " + Application.Current.TryFindResource("MotionsText");
+                return string.Format("{0} {1}", number.ToString(), Application.Current.TryFindResource("RatingText"));
             }
+            return string.Format("{0} {1}", number.ToString(), Application.Current.TryFindResource("RatingsText"));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

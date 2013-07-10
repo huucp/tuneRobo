@@ -94,7 +94,15 @@ namespace TuneRoboWPF.Windows
                     Cursor = Cursors.Arrow;
                     Close();
                 });
-            ratingRequest.ProcessError += (reply, msg) => Debug.Fail(msg,Enum.GetName(typeof(Reply.Type),reply.type));
+            ratingRequest.ProcessError += (reply, msg) =>
+                                              {
+                                                  if (reply == null)
+                                                  {
+                                                      Debug.Fail(msg);
+                                                      return;
+                                                  }
+                                                  Debug.Fail(msg, Enum.GetName(typeof (Reply.Type), reply.type));
+                                              };
             GlobalVariables.StoreWorker.AddRequest(ratingRequest);
         }
 

@@ -21,7 +21,7 @@ namespace TuneRoboWPF.StoreService.SimpleRequest
             MotionID = motionID;
             Start = start;
             End = end;
-            RequestKey = GetType() + motionID.ToString() + start.ToString() + end.ToString();
+           // RequestKey = GetType() + motionID.ToString() + start.ToString() + end.ToString();
         }
         public override void BuildPacket()
         {

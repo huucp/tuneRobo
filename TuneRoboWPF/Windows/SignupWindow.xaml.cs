@@ -41,7 +41,7 @@ namespace TuneRoboWPF.Windows
 
         private bool ValidateData()
         {
-            if (!GlobalFunction.IsAnImage(ViewModel.Avatar))
+            if (!string.IsNullOrWhiteSpace(ViewModel.Avatar) && !GlobalFunction.IsAnImage(ViewModel.Avatar))
             {
                 var title = (string)TryFindResource("AvatarNotImageText");
                 WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);

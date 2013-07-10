@@ -1,0 +1,260 @@
+﻿<UserControl x:Class="TuneRoboWPF.Views.NewStoreScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" xmlns:Views="clr-namespace:TuneRoboWPF.Views"
+             d:DesignHeight="1000" d:DesignWidth="1100" Width="Auto" Height="Auto"
+             Loaded="UserControl_Loaded">
+
+    <ScrollViewer x:Name="MainScrollViewer" Margin="0" CanContentScroll="True" VerticalScrollBarVisibility="Auto" Background="#FFF5F6F7">
+        <ScrollViewer.Resources>
+            <Style TargetType="ScrollViewer">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            </Style>
+            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource FullAppleScrollBar}"/>
+        </ScrollViewer.Resources>
+        <Grid>
+            <Border x:Name="HotContentPresenter" CornerRadius="4" VerticalAlignment="Top" Height="468" BorderThickness="1" Width="1037" Margin="0,20,0,0">
+                <Border.BorderBrush>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#c3c4c4" Offset="0"/>
+                        <GradientStop Color="#c3c4c4" Offset="0.002"/>
+                        <GradientStop Color="#b4b6b5" Offset="0.009"/>
+                        <GradientStop Color="#b4b6b5" Offset="0.991"/>
+                        <GradientStop Color="#9e9e9f" Offset="0.998"/>
+                        <GradientStop Color="#9e9e9f" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <DockPanel LastChildFill="True">
+                    <Border Height="31" DockPanel.Dock="Top" CornerRadius="4,4,0,0" BorderThickness="0,1,0,0" BorderBrush="#e3e3e3">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                <GradientStop Color="#fefefe" Offset="0"/>
+                                <GradientStop Color="#f2f2f2" Offset="0.5"/>
+                                <GradientStop Color="#efefef" Offset="0.5"/>
+                                <GradientStop Color="#e4e4e4" Offset="0.97"/>
+                                <GradientStop Color="#d5d5d5" Offset="0.97"/>
+                                <GradientStop Color="#FFBCBCBC" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="HotListTitleShadow"  HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" 
+        						Text="{DynamicResource HotListText}" VerticalAlignment="Center" 
+        						Foreground="White" Grid.Column="0" FontSize="14.667" FontWeight="Bold">
+        						<TextBlock.RenderTransform>
+        							<TranslateTransform Y="1"/>
+        						</TextBlock.RenderTransform>
+                            </TextBlock>
+                            <TextBlock x:Name="HotListTitle" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" 
+        						Text="{DynamicResource HotListText}" VerticalAlignment="Center" 
+        						Foreground="{StaticResource BlackFont}" Grid.Column="0" FontSize="14.667" FontWeight="Bold"/>
+
+                            <TextBlock x:Name="SeeAllHotShadow" HorizontalAlignment="Left" Margin="14,0,0,0" Text="{DynamicResource SeeAllText}"
+        						Foreground="White" VerticalAlignment="Center" Grid.Column="1" FontSize="10.667" FontWeight="Bold">
+        						<TextBlock.RenderTransform>
+        							<TranslateTransform Y="1"/>
+        						</TextBlock.RenderTransform>
+                            </TextBlock>
+                            <TextBlock x:Name="SeeAllHot" HorizontalAlignment="Left" Margin="14,4,0,0" Text="{DynamicResource SeeAllText}"
+        						Foreground="{StaticResource BlackFont}" VerticalAlignment="Center" Grid.Column="1" FontSize="10.667" FontWeight="Bold" />
+                        </Grid>
+                    </Border>
+                    <Grid>
+                        <StackPanel x:Name="HotListBackground">
+                            <Rectangle Height="108" Margin="0" Stroke="Gray" Fill="White" StrokeThickness="0"/>
+                            <Rectangle Height="109" Margin="0" Stroke="Gray" Fill="#FFEAEAEA" StrokeThickness="0"/>
+                            <Rectangle Height="109" Margin="0" Stroke="Gray" Fill="White" StrokeThickness="0"/>
+                            <Rectangle Height="109" Margin="0" Stroke="Gray" Fill="#FFEAEAEA" StrokeThickness="0"/>
+                        </StackPanel>
+                        <ItemsControl ItemsSource="{Binding HotMotionsList}" Margin="-1,0,-2,0">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                        <WrapPanel.Resources>
+                                            <Style TargetType="{x:Type Views:MotionHorizontalItem}">
+                                                <Setter Property="Margin" Value="1,0,1,1"/>
+                                            </Style>
+                                        </WrapPanel.Resources>
+                                    </WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        <Rectangle Height="2" Margin="0" StrokeThickness="0" VerticalAlignment="Top">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="#dddddd" Offset="0"/>
+                                    <GradientStop Color="#dddddd" Offset="0.5"/>
+                                    <GradientStop Color="#f6f6f6" Offset="0.5"/>
+                                    <GradientStop Color="#f6f6f6" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle x:Name="HotContentPresenterHorizontalLine1" Height="1" Margin="0,108,0,0" StrokeThickness="0" VerticalAlignment="Top" Fill="#d9d9d9" />
+                        <Rectangle x:Name="HotContentPresenterHorizontalLine2" Height="1" Margin="0,217,0,0" StrokeThickness="0" VerticalAlignment="Top" Fill="#d9d9d9" />
+                        <Rectangle x:Name="HotContentPresenterHorizontalLine3" Height="1" Margin="0,326,0,0" StrokeThickness="0" VerticalAlignment="Top" Fill="#d9d9d9" />
+                        <Rectangle x:Name="HotContentPresenterHorizontalLine4" Height="1" StrokeThickness="0" VerticalAlignment="Bottom" Fill="#d1d1d1"/>
+                        <Rectangle x:Name="HotContentPresenterVerticalLine1" Width="2" HorizontalAlignment="Left" StrokeThickness="0" Margin="257,0,0,0">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Color="#d9d9d9" Offset="0"/>
+                                    <GradientStop Color="#d9d9d9" Offset="0.5"/>
+                                    <GradientStop Color="#ffffff" Offset="0.5"/>
+                                    <GradientStop Color="#ffffff" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle x:Name="HotContentPresenterVerticalLine2" Width="2" HorizontalAlignment="Left" StrokeThickness="0" Margin="516,0,0,0">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Color="#d9d9d9" Offset="0"/>
+                                    <GradientStop Color="#d9d9d9" Offset="0.5"/>
+                                    <GradientStop Color="#ffffff" Offset="0.5"/>
+                                    <GradientStop Color="#ffffff" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle x:Name="HotContentPresenterVerticalLine3" Width="2" HorizontalAlignment="Left" StrokeThickness="0" Margin="775,0,0,0">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Color="#d9d9d9" Offset="0"/>
+                                    <GradientStop Color="#d9d9d9" Offset="0.5"/>
+                                    <GradientStop Color="#ffffff" Offset="0.5"/>
+                                    <GradientStop Color="#ffffff" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Grid>
+                </DockPanel>
+            </Border>
+            <ListBox x:Name="ArtistsLisBox" Height="200"
+                     Margin="0,508,0,20"  BorderThickness="1,0,1,0" BorderBrush="{StaticResource ListBoxHorizontalBorderBrush}" HorizontalAlignment="Stretch"
+                     Style="{StaticResource ListBoxVerticalStyle}"
+                     ItemsPanel="{StaticResource WrapPanelListBoxTemplate}"
+                     ItemsSource="{Binding ArtistsList}"
+                     PreviewMouseWheel="ArtistLisBox_PreviewMouseWheel"
+                     Template="{StaticResource AppleListBoxControlTemplate}" VerticalAlignment="Top" Width="1037" />
+            <Border x:Name="FeaturedContentPresenter" CornerRadius="4" Height="468" BorderThickness="1" Width="1037" Margin="0,728,0,40">
+                <Border.BorderBrush>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#c3c4c4" Offset="0"/>
+                        <GradientStop Color="#c3c4c4" Offset="0.002"/>
+                        <GradientStop Color="#b4b6b5" Offset="0.009"/>
+                        <GradientStop Color="#b4b6b5" Offset="0.991"/>
+                        <GradientStop Color="#9e9e9f" Offset="0.998"/>
+                        <GradientStop Color="#9e9e9f" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <DockPanel LastChildFill="True">
+                    <Border Height="31" DockPanel.Dock="Top" CornerRadius="4,4,0,0" BorderThickness="0,1,0,0" BorderBrush="#e3e3e3">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                <GradientStop Color="#fefefe" Offset="0"/>
+                                <GradientStop Color="#f2f2f2" Offset="0.5"/>
+                                <GradientStop Color="#efefef" Offset="0.5"/>
+                                <GradientStop Color="#e4e4e4" Offset="0.97"/>
+                                <GradientStop Color="#d5d5d5" Offset="0.97"/>
+                                <GradientStop Color="#FFBCBCBC" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="FeaturedListTitleShadow"  HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" 
+        						Text="{DynamicResource FeaturedListText}" VerticalAlignment="Center" 
+        						Foreground="White" Grid.Column="0" FontSize="14.667" FontWeight="Bold">
+        						<TextBlock.RenderTransform>
+        							<TranslateTransform Y="1"/>
+        						</TextBlock.RenderTransform>
+                            </TextBlock>
+                            <TextBlock x:Name="FeaturedListTitle" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" 
+        						Text="{DynamicResource FeaturedListText}" VerticalAlignment="Center" 
+        						Foreground="{StaticResource BlackFont}" Grid.Column="0" FontSize="14.667" FontWeight="Bold"/>
+
+                            <TextBlock x:Name="SeeAllFeaturedShadow" HorizontalAlignment="Left" Margin="14,0,0,0" Text="{DynamicResource SeeAllText}"
+        						Foreground="White" VerticalAlignment="Center" Grid.Column="1" FontSize="10.667" FontWeight="Bold">
+        						<TextBlock.RenderTransform>
+        							<TranslateTransform Y="1"/>
+        						</TextBlock.RenderTransform>
+                            </TextBlock>
+                            <TextBlock x:Name="SeeAllFeatured" HorizontalAlignment="Left" Margin="14,4,0,0" Text="{DynamicResource SeeAllText}"
+        						Foreground="{StaticResource BlackFont}" VerticalAlignment="Center" Grid.Column="1" FontSize="10.667" FontWeight="Bold" />
+                        </Grid>
+                    </Border>
+                    <Grid>
+                        <StackPanel x:Name="FeaturedListBackground">
+                            <Rectangle Height="108" Margin="0" Stroke="Gray" Fill="White" StrokeThickness="0"/>
+                            <Rectangle Height="109" Margin="0" Stroke="Gray" Fill="#FFEAEAEA" StrokeThickness="0"/>
+                            <Rectangle Height="109" Margin="0" Stroke="Gray" Fill="White" StrokeThickness="0"/>
+                            <Rectangle Height="109" Margin="0" Stroke="Gray" Fill="#FFEAEAEA" StrokeThickness="0"/>
+                        </StackPanel>
+                        <ItemsControl ItemsSource="{Binding FeaturedMotionsList}" Margin="-1,0,-2,0">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                        <WrapPanel.Resources>
+                                            <Style TargetType="{x:Type Views:MotionHorizontalItem}">
+                                                <Setter Property="Margin" Value="1,0,1,1"/>
+                                            </Style>
+                                        </WrapPanel.Resources>
+                                    </WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        <Rectangle Height="2" Margin="0" StrokeThickness="0" VerticalAlignment="Top">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="#dddddd" Offset="0"/>
+                                    <GradientStop Color="#dddddd" Offset="0.5"/>
+                                    <GradientStop Color="#f6f6f6" Offset="0.5"/>
+                                    <GradientStop Color="#f6f6f6" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle x:Name="FeaturedContentPresenterHorizontalLine1" Height="1" Margin="0,108,0,0" StrokeThickness="0" VerticalAlignment="Top" Fill="#d9d9d9" />
+                        <Rectangle x:Name="FeaturedContentPresenterHorizontalLine2" Height="1" Margin="0,217,0,0" StrokeThickness="0" VerticalAlignment="Top" Fill="#d9d9d9" />
+                        <Rectangle x:Name="FeaturedContentPresenterHorizontalLine3" Height="1" Margin="0,326,0,0" StrokeThickness="0" VerticalAlignment="Top" Fill="#d9d9d9" />
+                        <Rectangle x:Name="FeaturedContentPresenterHorizontalLine4" Height="1" StrokeThickness="0" VerticalAlignment="Bottom" Fill="#d1d1d1"/>
+                        <Rectangle x:Name="FeaturedContentPresenterVerticalLine1" Width="2" HorizontalAlignment="Left" StrokeThickness="0" Margin="257,0,0,0">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Color="#d9d9d9" Offset="0"/>
+                                    <GradientStop Color="#d9d9d9" Offset="0.5"/>
+                                    <GradientStop Color="#ffffff" Offset="0.5"/>
+                                    <GradientStop Color="#ffffff" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle x:Name="FeaturedContentPresenterVerticalLine2" Width="2" HorizontalAlignment="Left" StrokeThickness="0" Margin="516,0,0,0">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Color="#d9d9d9" Offset="0"/>
+                                    <GradientStop Color="#d9d9d9" Offset="0.5"/>
+                                    <GradientStop Color="#ffffff" Offset="0.5"/>
+                                    <GradientStop Color="#ffffff" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle x:Name="FeaturedContentPresenterVerticalLine3" Width="2" HorizontalAlignment="Left" StrokeThickness="0" Margin="775,0,0,0">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Color="#d9d9d9" Offset="0"/>
+                                    <GradientStop Color="#d9d9d9" Offset="0.5"/>
+                                    <GradientStop Color="#ffffff" Offset="0.5"/>
+                                    <GradientStop Color="#ffffff" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Grid>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+
+</UserControl>

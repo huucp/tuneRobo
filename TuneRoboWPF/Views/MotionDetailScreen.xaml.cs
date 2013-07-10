@@ -112,6 +112,7 @@ namespace TuneRoboWPF.Views
                         //}
                     });
                 }
+                //Console.WriteLine(ReviewStackPanel.Children.Count);
             };
             commentRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg);
             GlobalVariables.StoreWorker.ForceAddRequest(commentRequest);
@@ -309,7 +310,8 @@ namespace TuneRoboWPF.Views
         {
             if (IsLoaded)
             {
-                if (MainScrollViewer.VerticalOffset + 10 > MainScrollViewer.ScrollableHeight)
+                if (MainScrollViewer.VerticalOffset + 10 > MainScrollViewer.ScrollableHeight
+                    && (MainScrollViewer.VerticalOffset > 0 || MainScrollViewer.ScrollableHeight > 0))
                 {
                     if (ContentTabControl.SelectedIndex == 1)
                     {
@@ -332,7 +334,10 @@ namespace TuneRoboWPF.Views
                             ratingWindow.SetInfo(Info.motion_id, Info.version_id);
                             if (ratingWindow.ShowDialog(StaticMainWindow.Window) == true)
                             {
-
+                                var commentCount = (uint)ReviewStackPanel.Children.Count;
+                                numberOfComment = 0;
+                                ReviewStackPanel.Children.Clear();
+                                UpdateComment(0, commentCount + 1);
                             }
                             break;
                         case UserOwnMotionReply.Rel.NOT_OWNED:

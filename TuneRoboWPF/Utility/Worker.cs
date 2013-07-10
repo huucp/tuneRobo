@@ -50,7 +50,7 @@ namespace TuneRoboWPF.Utility
             return (File.Exists(filePath) && fileInfo.Length != 0) ? filePath : null;
         }
 
-        private bool LoadImageInStorage(string cachedImagePath,string url)
+        private bool LoadImageInStorage(string cachedImagePath, string url)
         {
             bool loadImage = true;
             if (cachedImagePath != null)
@@ -58,7 +58,7 @@ namespace TuneRoboWPF.Utility
                 using (var memory = new MemoryStream(File.ReadAllBytes(cachedImagePath)))
                 {
                     memory.Position = 0;
-                    
+
                     var bitmapImage = new BitmapImage();
                     try
                     {
@@ -81,7 +81,7 @@ namespace TuneRoboWPF.Utility
                     {
                         GlobalVariables.ImageDictionary.Add(url, bitmapImage);
 
-                        OnDownloadCompleted(bitmapImage);                        
+                        OnDownloadCompleted(bitmapImage);
                     }
                 }
             }
@@ -92,7 +92,7 @@ namespace TuneRoboWPF.Utility
             return loadImage;
         }
 
-        private void DownloadImageFromUrl(string url,string filename)
+        private void DownloadImageFromUrl(string url, string filename)
         {
             Uri urlUri = null;
             try
@@ -167,9 +167,9 @@ namespace TuneRoboWPF.Utility
                 return;
             }
             var cachedImagePath = FindImageInStorage(filename);
-            if (LoadImageInStorage(cachedImagePath,url)) return;
-            DownloadImageFromUrl(url,filename);
-            
+            if (LoadImageInStorage(cachedImagePath, url)) return;
+            DownloadImageFromUrl(url, filename);
+
         }
     }
 
@@ -210,6 +210,7 @@ namespace TuneRoboWPF.Utility
             while (true)
             {
                 var currentJob = ListsJobs.Get();
+                if (currentJob == null) continue;
                 currentJob.Process();
             }
         }
@@ -265,6 +266,7 @@ namespace TuneRoboWPF.Utility
             while (true)
             {
                 var currentJob = ListsJobs.Get();
+                if (currentJob == null) continue;
                 currentJob.Process();
             }
         }
@@ -301,6 +303,7 @@ namespace TuneRoboWPF.Utility
             while (true)
             {
                 var currentJob = ListsJobs.Get();
+                if (currentJob == null) continue;
                 currentJob.Process();
             }
         }
@@ -358,7 +361,7 @@ namespace TuneRoboWPF.Utility
 
         public void ClearAll()
         {
-            lock(q)
+            lock (q)
             {
                 q.Clear();
             }
@@ -385,7 +388,7 @@ namespace TuneRoboWPF.Utility
                     Console.WriteLine("clear stack");
                     stack.Clear();
                 }
-                stack.Push(element);                
+                stack.Push(element);
                 Monitor.PulseAll(stack);
             }
         }

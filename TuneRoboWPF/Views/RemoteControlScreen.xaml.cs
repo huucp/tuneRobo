@@ -386,8 +386,10 @@ namespace TuneRoboWPF.Views
                 {
                     case ListAllMotionRobotRequest.ErrorCode.SetupConnection:
                     case ListAllMotionRobotRequest.ErrorCode.WrongSessionID:
-                        var result = WPFMessageBox.Show(StaticMainWindow.Window, "Your connection to robot is lost",
-                                                 "Do you want to reconnect", MessageBoxButton.YesNo,
+                        var titleReconnect = (string) TryFindResource("RobotConnectionLostText");
+                        var msgReconnect = (string)TryFindResource("WantReconnectRobotText");
+                        var result = WPFMessageBox.Show(StaticMainWindow.Window, titleReconnect,
+                                                 msgReconnect, MessageBoxButton.YesNo,
                                                  MessageBoxImage.Question, MessageBoxResult.Yes);
                         if (result == MessageBoxResult.Yes)
                         {
@@ -512,6 +514,16 @@ namespace TuneRoboWPF.Views
 
         private void Play(ulong motionID)
         {
+            if (GlobalVariables.CurrentRobotState.TransformState != RobotState.TransformStates.Opened)
+            {
+                var msgTransform = (string)TryFindResource("MustTransformToPlaytext");
+                var titleTransform = (string)TryFindResource("PleaseTransformText");
+                WPFMessageBox.Show(StaticMainWindow.Window, titleTransform,
+                                         msgTransform, MessageBoxButton.OK,
+                                         MessageBoxImage.Information, MessageBoxResult.OK);
+                RemoteListBox.SelectedIndex = -1;
+                return;
+            }
             Cursor = Cursors.Wait;
             var playRequest = new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay, -1, motionID);
             playRequest.ProcessSuccessfully += (data) => Dispatcher.BeginInvoke((Action)GetState);

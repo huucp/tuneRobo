@@ -48,7 +48,7 @@
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource MainBackground}">
-        <TextBlock HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" Text="{DynamicResource UsernameText}" 
+        <TextBlock HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" Text="{DynamicResource EmailText}" 
                    VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBlock HorizontalAlignment="Left" Margin="20,84,0,0" TextWrapping="Wrap" Text="{DynamicResource PasswordText}" FontWeight="Bold" VerticalAlignment="Top"/>
         <TextBox x:Name="UsernameTextBox" Text="huupc@tosy.com"  Height="28" Margin="20,46,0,0" VerticalAlignment="Top" FontWeight="Medium" HorizontalAlignment="Left" Width="300"/>

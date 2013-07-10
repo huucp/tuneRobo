@@ -108,7 +108,7 @@ namespace TuneRoboWPF
 
         private void navigationBar_StoreButtonClick(object sender, RoutedEventArgs e)
         {
-            var testStoreScreen = new StoreScreen();
+            var testStoreScreen = new NewStoreScreen();
             testStoreScreen.SetInfo(true);
             ChangeScreen(testStoreScreen);
         }
@@ -192,7 +192,7 @@ namespace TuneRoboWPF
         {
             var lastElement = MainDock.Children[MainDock.Children.Count - 1];
             MainDock.Children.Remove(lastElement);
-            MainContentScreen.Visibility = Visibility.Visible;
+             MainContentScreen.Visibility = Visibility.Visible;
         }
     }
 }

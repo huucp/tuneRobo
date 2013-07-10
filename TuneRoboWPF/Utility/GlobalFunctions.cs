@@ -360,7 +360,7 @@ namespace TuneRoboWPF.Utility
         }
 
         public static bool IsAnImage(string s)
-        {
+        {            
             var imageExtension=new List<string>(){"jpg","jpeg","png"};
             foreach(var extionsion in imageExtension)
             {

@@ -1,0 +1,69 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:TuneRoboWPF.Converter"
+             xmlns:System_Windows_Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit" x:Class="TuneRoboWPF.Views.MotionHorizontalItem" 
+             mc:Ignorable="d" Height="108" Width="257"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converter:NumberRatingsToStringConverter x:Key="NumbersRatingToString"/>
+    </UserControl.Resources>
+    <Grid>
+        <Rectangle HorizontalAlignment="Left" Margin="11,11,0,0" Stroke="Gray" 
+                   Width="86" RadiusY="13" RadiusX="13" Height="86" VerticalAlignment="Top"
+                   Cursor="Hand">
+            <Rectangle.InputBindings>
+                <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
+            </Rectangle.InputBindings>
+            <Rectangle.Fill>
+                <ImageBrush x:Name="ArtworkImage" 
+                            ImageSource="{Binding CoverImage, TargetNullValue={StaticResource DefaultImage}}"/>
+            </Rectangle.Fill>
+            <Rectangle.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="LightGray" Direction="270"/>
+            </Rectangle.Effect>
+            
+        </Rectangle>
+        <TextBlock Margin="108,26,0,0" Text="{Binding MotionTitle}" VerticalAlignment="Top" FontWeight="Bold" 
+                   FontSize="13.333" HorizontalAlignment="Left" MaxWidth="139" TextTrimming="WordEllipsis" Cursor="Hand">
+            <TextBlock.InputBindings>
+                <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
+            </TextBlock.InputBindings>
+        </TextBlock>
+        <TextBlock Margin="108,48,0,0" Text="{Binding ArtistName}" Cursor="Hand"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" MaxWidth="139" TextTrimming="WordEllipsis">
+            <TextBlock.InputBindings>
+                <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
+            </TextBlock.InputBindings>
+        </TextBlock>
+        <System_Windows_Controls:Rating x:Name="RatingControl" Height="20" Width="100" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                        Value="{Binding RatingValue}" RenderTransformOrigin="0.5,0.5" Margin="87.5,64,0,0" Cursor="Hand">
+            <System_Windows_Controls:Rating.InputBindings>
+                <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
+            </System_Windows_Controls:Rating.InputBindings>
+        	<System_Windows_Controls:Rating.RenderTransform>
+        		<TransformGroup>
+        			<ScaleTransform ScaleY="0.6" ScaleX="0.6"/>
+        			<SkewTransform/>
+        			<RotateTransform/>
+        			<TranslateTransform/>
+        		</TransformGroup>        			
+        	</System_Windows_Controls:Rating.RenderTransform>            
+            <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+            <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+            <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+            <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+            <System_Windows_Controls:RatingItem Foreground="{StaticResource RatingRateColor}" Background="Transparent" IsHitTestVisible="False"/>
+        </System_Windows_Controls:Rating>
+        <TextBlock Margin="176,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Cursor="Hand"
+                   Text="{Binding NumberRatings,Converter={StaticResource NumbersRatingToString}}" 
+                   HorizontalAlignment="Left" MaxWidth="71">
+            <TextBlock.InputBindings>
+                <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
+            </TextBlock.InputBindings>
+        </TextBlock>
+
+    </Grid>
+</UserControl>
