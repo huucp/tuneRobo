@@ -79,7 +79,7 @@ namespace TuneRoboWPF.StoreService.BigRequest
             // Get info
             var motionDownloadRequest = new GetDowloadMotionInfoStoreRequest(MotionID);
             var motionDownloadReply = (Reply)motionDownloadRequest.Process();
-            if (motionDownloadReply.type != (decimal)Reply.Type.OK)
+            if (motionDownloadReply == null || motionDownloadReply.type != (decimal)Reply.Type.OK)
             {
                 OnProcessError((Reply.Type)motionDownloadReply.type, "Get motion info download failed: " + motionDownloadReply.type);
                 return motionDownloadReply;
@@ -102,7 +102,7 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 var request = new DownloadMotionTrunkDataStoreRequest(MotionID, ReadMotionDataRequest.Type.MOTION,
                                                                       (ulong)(i * trunkSize), (ulong)trunkSize);
                 var reply = (Reply)request.Process();
-                if (reply.type != (decimal)Reply.Type.OK)
+                if (reply == null || reply.type != (decimal)Reply.Type.OK)
                 {
                     OnProcessError((Reply.Type)reply.type, "Download motion failed");
                     return reply;
@@ -124,7 +124,7 @@ namespace TuneRoboWPF.StoreService.BigRequest
                                                                                       (ulong)(numberOfMotionTrunk * trunkSize),
                                                                                       (ulong)remainMotionDataSize);
                 var remainMotionReply = (Reply)remainMotionRequest.Process();
-                if (remainMotionReply.type != (decimal)Reply.Type.OK)
+                if (remainMotionReply == null || remainMotionReply.type != (decimal)Reply.Type.OK)
                 {
                     OnProcessError((Reply.Type)remainMotionReply.type, "Download motion failed");
                     return remainMotionReply;
@@ -147,7 +147,7 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 var request = new DownloadMotionTrunkDataStoreRequest(MotionID, ReadMotionDataRequest.Type.MUSIC,
                                                                       (ulong)(i * trunkSize), (ulong)trunkSize);
                 var reply = (Reply)request.Process();
-                if (reply.type != (decimal)Reply.Type.OK)
+                if (reply == null || reply.type != (decimal)Reply.Type.OK)
                 {
                     OnProcessError((Reply.Type)reply.type, "Download motion failed");
                     return reply;
@@ -169,7 +169,7 @@ namespace TuneRoboWPF.StoreService.BigRequest
                                                                                       (ulong)(numberOfMusicTrunk * trunkSize),
                                                                                       (ulong)remainMusicDataSize);
                 var remainMusicReply = (Reply)remainMusicRequest.Process();
-                if (remainMusicReply.type != (decimal)Reply.Type.OK)
+                if (remainMusicReply == null || remainMusicReply.type != (decimal)Reply.Type.OK)
                 {
                     OnProcessError((Reply.Type)remainMusicReply.type, "Download motion failed");
                     return remainMusicReply;

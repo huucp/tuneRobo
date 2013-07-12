@@ -283,6 +283,9 @@
     <Compile Include="Windows\SignupWindow.xaml.cs">
       <DependentUpon>SignupWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\TestCoverFlow.xaml.cs">
+      <DependentUpon>TestCoverFlow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\TransferWindow.xaml.cs">
       <DependentUpon>TransferWindow.xaml</DependentUpon>
     </Compile>
@@ -454,6 +457,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\TestCoverFlow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\TransferWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -490,6 +497,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\cov894.jpeg" />
@@ -547,6 +555,10 @@
     <Resource Include="Resources\play over.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CoverFlow\CoverFlow.csproj">
+      <Project>{6BC47BD2-8FEA-4BEE-A1C0-BA63E781CCAC}</Project>
+      <Name>CoverFlow</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WPFMessageBox\WPFMessageBox.csproj">
       <Project>{53F2D809-3E1A-422D-A507-ABCB407EBF29}</Project>
       <Name>WPFMessageBox</Name>

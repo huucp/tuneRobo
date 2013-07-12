@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -9,9 +10,11 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
@@ -30,8 +33,10 @@ namespace TuneRoboWPF.Views
         {
             InitializeComponent();
 
+            InitCover();
+
             DataContext = new NewStoreScreenViewModel();
-            ViewModel = (NewStoreScreenViewModel) DataContext;
+            ViewModel = (NewStoreScreenViewModel)DataContext;
         }
 
         public void SetInfo(bool newScreen = true)
@@ -91,7 +96,7 @@ namespace TuneRoboWPF.Views
                             artistItem.ArtistItemClicked += artistItem_ArtistItemClicked;
                             ViewModel.ArtistsList.Add(artistItem);
                             DownloadImage(info.artist_id, info.avatar_url, artistItem);
-                        }                        
+                        }
                     });
                 listArtistRequest.ProcessError += (listReply, msg) =>
                 {
@@ -116,7 +121,7 @@ namespace TuneRoboWPF.Views
 
         private void GetFeaturedList()
         {
-            var featuredListRequest = new ListCategoryMotionStoreRequest(CategoryMotionRequest.Type.FEATURE, 0, 15);
+            var featuredListRequest = new ListCategoryMotionStoreRequest(CategoryMotionRequest.Type.FEATURE, 0, 16);
             featuredListRequest.ProcessSuccessfully += (reply) =>
                 Dispatcher.BeginInvoke((Action)delegate
                 {
@@ -167,5 +172,147 @@ namespace TuneRoboWPF.Views
         {
             MainScrollViewer.ScrollToVerticalOffset(MainScrollViewer.VerticalOffset - e.Delta);
         }
+
+        #region Cover
+        private void InitCover()
+        {
+            Image1.Source = new BitmapImage(new Uri(new FileInfo("1.png").FullName, UriKind.RelativeOrAbsolute));
+            Image2.Source = new BitmapImage(new Uri(new FileInfo("2.jpg").FullName, UriKind.RelativeOrAbsolute));
+            Image3.Source = new BitmapImage(new Uri(new FileInfo("3.jpg").FullName, UriKind.RelativeOrAbsolute));
+            Image4.Source = new BitmapImage(new Uri(new FileInfo("4.jpg").FullName, UriKind.RelativeOrAbsolute));
+
+            thumnailList.Add(Image1);
+            thumnailList.Add(Image2);
+            thumnailList.Add(Image3);
+            thumnailList.Add(Image4);
+
+
+            firstMargin = thumnailList[0].Margin;
+
+            Cover1.Source = Image2.Source;
+            Cover1.Opacity = 0;
+            Cover2.Source = Image3.Source;
+
+            Panel.SetZIndex(Cover1, 1);
+            Panel.SetZIndex(Cover2, 2);
+
+            //Console.WriteLine(Cover1.Opacity);
+            //Console.WriteLine(Cover2.Opacity);
+
+
+            timer.Interval = new TimeSpan(0, 0, 5);
+            timer.Tick += timer_Tick;
+            timer.Start();
+        }        
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            CoverFlowing();
+        }
+        List<Image> thumnailList = new List<Image>();
+
+        private Thickness firstMargin;
+
+        private DispatcherTimer timer = new DispatcherTimer();
+
+        private void TranslationAnimate(int index, double from, double to)
+        {
+            var da = new DoubleAnimation();
+            da.From = from;
+            da.To = to;
+            da.Duration = new Duration(TimeSpan.FromSeconds(1));
+            var tt = new TranslateTransform();
+            var image = thumnailList[index];
+            image.RenderTransform = tt;
+            da.Completed += (sender, e) =>
+            {
+                tt.BeginAnimation(TranslateTransform.YProperty, null);
+                if (index == nextReserveImageIndex)
+                {
+                    image.Margin = firstMargin;
+                }
+                else image.Margin = new Thickness(777, image.Margin.Top + thumnailTranslationStep, 0, 0);
+                if (index == thumnailList.Count - 1)
+                {
+                    if (nextReserveImageIndex == 0) nextReserveImageIndex = thumnailList.Count - 1;
+                    else nextReserveImageIndex--;                    
+                }
+            };
+            tt.BeginAnimation(TranslateTransform.YProperty, da);
+        }
+
+        private void OpacityAnimate(Image image, double from, double to)
+        {
+            var da = new DoubleAnimation()
+            {
+                From = from,
+                To = to,
+                Duration = new Duration(TimeSpan.FromSeconds(1))
+            };
+            da.Completed += (sender, e) =>
+            {
+                image.BeginAnimation(OpacityProperty, null);
+                if (Cover1CanVisible)
+                {
+                    //Bring cover1 to front   
+                    var tmpZIndex = Panel.GetZIndex(Cover1);
+                    Panel.SetZIndex(Cover1, Panel.GetZIndex(Cover2));
+                    Panel.SetZIndex(Cover2, tmpZIndex);
+                    //Change to next image
+                    Cover2.Source = thumnailList[nextImageIndex].Source;
+
+                    Cover1CanVisible = false;
+                }
+                else
+                {
+                    //Bring cover 2 to front
+                    var tmpZIndex = Panel.GetZIndex(Cover2);
+                    Panel.SetZIndex(Cover2, Panel.GetZIndex(Cover1));
+                    Panel.SetZIndex(Cover1, tmpZIndex);
+                    //Change to next image
+                    Cover1.Source = thumnailList[nextImageIndex].Source;
+
+                    Cover1CanVisible = true;
+                }
+                //Console.WriteLine(Panel.GetZIndex(Cover1));
+                //Console.WriteLine(Panel.GetZIndex(Cover2));
+                nextImageIndex--;
+                if (nextImageIndex < 0) nextImageIndex = thumnailList.Count - 1;
+                //Console.WriteLine(nextImageIndex);
+            };
+            image.BeginAnimation(OpacityProperty, da);
+        }
+
+
+        private int nextReserveImageIndex = 3;
+        private int nextImageIndex = 0;
+        private int thumnailTranslationStep = 111;
+        private bool Cover1CanVisible = true;
+
+        private void CoverFlowing()
+        {
+            for (int i = 0; i < thumnailList.Count; i++)
+            {
+                TranslationAnimate(i, 0, thumnailTranslationStep);
+            }
+            if (Cover1CanVisible)
+            {
+                Cover1.Opacity = 1;
+                OpacityAnimate(Cover2, 1, 0);                
+            }
+            else
+            {
+                Cover2.Opacity = 1;
+                OpacityAnimate(Cover1, 1, 0);                
+            }
+
+        }
+        private void CoverDownButton_Click(object sender, RoutedEventArgs e)
+        {
+            CoverFlowing();
+        }
+        #endregion
+
+        
     }
 }

@@ -39,7 +39,7 @@ namespace TuneRoboWPF
             StaticMainWindow.Window = new MainWindow();
             StaticMainWindow.Window.Show();
             
-            if (false)
+            if (true)
             {
                 NBug.Settings.Destination1 = "Type=Mail;From=huupc@tosy.com;To=huupc@tosy.com;SmtpServer=mail.tosy.com;";
 

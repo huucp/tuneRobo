@@ -10,776 +10,904 @@
 // Generated from: comm.proto
 namespace comm
 {
-
-    public partial class Reply : global::ProtoBuf.IExtensible
+  
+  public partial class Reply : global::ProtoBuf.IExtensible
+  {
+    
+    private user.SigninReply _signin = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"signin", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public user.SigninReply signin
     {
-
-
-        private user.SigninReply _signin = null;
-        [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name = @"signin", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue(null)]
-        public user.SigninReply signin
-        {
-            get { return _signin; }
-            set { _signin = value; }
-        }
-
-        private user.SignoutReply _signout = null;
-        [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name = @"signout", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue(null)]
-        public user.SignoutReply signout
-        {
-            get { return _signout; }
-            set { _signout = value; }
-        }
-
-        private user.ProfileReply _profile = null;
-        [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name = @"profile", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue(null)]
-        public user.ProfileReply profile
-        {
-            get { return _profile; }
-            set { _profile = value; }
-        }
-
-        private user.UpdateProfileReply _update_profile = null;
-        [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name = @"update_profile", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue(null)]
-        public user.UpdateProfileReply update_profile
-        {
-            get { return _update_profile; }
-            set { _update_profile = value; }
-        }
-
-        private user.ChangePassReply _change_pass = null;
-        [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name = @"change_pass", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue(null)]
-        public user.ChangePassReply change_pass
-        {
-            get { return _change_pass; }
-            set { _change_pass = value; }
-        }
-
-        private user.FollowReply _follow = null;
-        [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name = @"follow", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue(null)]
-        public user.FollowReply follow
-        {
-            get { return _follow; }
-            set { _follow = value; }
-        }
-
-        private user.UserRelationReply _user_relation = null;
-        [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name = @"user_relation", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue(null)]
-        public user.UserRelationReply user_relation
-        {
-            get { return _user_relation; }
-            set { _user_relation = value; }
-        }
-
-        private user.NotificationReply _notification = null;
-        [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name = @"notification", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue(null)]
-        public user.NotificationReply notification
-        {
-            get { return _notification; }
-            set { _notification = value; }
-        }
-
+      get { return _signin; }
+      set { _signin = value; }
     }
 
+    private user.SignoutReply _signout = null;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"signout", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public user.SignoutReply signout
+    {
+      get { return _signout; }
+      set { _signout = value; }
+    }
+
+    private user.ProfileReply _profile = null;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"profile", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public user.ProfileReply profile
+    {
+      get { return _profile; }
+      set { _profile = value; }
+    }
+
+    private user.UpdateProfileReply _update_profile = null;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"update_profile", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public user.UpdateProfileReply update_profile
+    {
+      get { return _update_profile; }
+      set { _update_profile = value; }
+    }
+
+    private user.ChangePassReply _change_pass = null;
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"change_pass", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public user.ChangePassReply change_pass
+    {
+      get { return _change_pass; }
+      set { _change_pass = value; }
+    }
+
+    private user.FollowReply _follow = null;
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"follow", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public user.FollowReply follow
+    {
+      get { return _follow; }
+      set { _follow = value; }
+    }
+
+    private user.UserRelationReply _user_relation = null;
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"user_relation", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public user.UserRelationReply user_relation
+    {
+      get { return _user_relation; }
+      set { _user_relation = value; }
+    }
+
+    private user.NotificationReply _notification = null;
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"notification", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public user.NotificationReply notification
+    {
+      get { return _notification; }
+      set { _notification = value; }
+    }
+
+    private user.GetListUserReply _get_list_user = null;
+    [global::ProtoBuf.ProtoMember(45, IsRequired = false, Name=@"get_list_user", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public user.GetListUserReply get_list_user
+    {
+      get { return _get_list_user; }
+      set { _get_list_user = value; }
+    }
+
+    private user.KickUserResponse _kick_user = null;
+    [global::ProtoBuf.ProtoMember(46, IsRequired = false, Name=@"kick_user", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public user.KickUserResponse kick_user
+    {
+      get { return _kick_user; }
+      set { _kick_user = value; }
+    }
+    
+  }
+  
 }
 // Generated from: user.proto
 // Note: requires additional types generated from: comm.proto
 namespace user
 {
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"SignupRequest")]
-    public partial class SignupRequest : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SignupRequest")]
+  public partial class SignupRequest : global::ProtoBuf.IExtensible
+  {
+    public SignupRequest() {}
+    
+    private string _email;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"email", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string email
     {
-        public SignupRequest() { }
-
-        private string _email;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"email", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public string email
-        {
-            get { return _email; }
-            set { _email = value; }
-        }
-        private string _display_name;
-        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"display_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public string display_name
-        {
-            get { return _display_name; }
-            set { _display_name = value; }
-        }
-
-        private string _avatar_url = "";
-        [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name = @"avatar_url", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue("")]
-        public string avatar_url
-        {
-            get { return _avatar_url; }
-            set { _avatar_url = value; }
-        }
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+      get { return _email; }
+      set { _email = value; }
+    }
+    private string _display_name;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"display_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string display_name
+    {
+      get { return _display_name; }
+      set { _display_name = value; }
     }
 
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"SignupReply")]
-    public partial class SignupReply : global::ProtoBuf.IExtensible
+    private string _avatar_url = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"avatar_url", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string avatar_url
     {
-        public SignupReply() { }
-
-        [global::ProtoBuf.ProtoContract(Name = @"Type")]
-        public enum Type
-        {
-
-            [global::ProtoBuf.ProtoEnum(Name = @"EMAIL_ERROR", Value = 4)]
-            EMAIL_ERROR = 4,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NAME_ERROR", Value = 5)]
-            NAME_ERROR = 5
-        }
-
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+      get { return _avatar_url; }
+      set { _avatar_url = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SignupReply")]
+  public partial class SignupReply : global::ProtoBuf.IExtensible
+  {
+    public SignupReply() {}
+    
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"EMAIL_ERROR", Value=4)]
+      EMAIL_ERROR = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NAME_ERROR", Value=5)]
+      NAME_ERROR = 5
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SigninRequest")]
+  public partial class SigninRequest : global::ProtoBuf.IExtensible
+  {
+    public SigninRequest() {}
+    
+    private string _email;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"email", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string email
+    {
+      get { return _email; }
+      set { _email = value; }
+    }
+    private string _password;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"password", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string password
+    {
+      get { return _password; }
+      set { _password = value; }
+    }
+    private user.SigninRequest.Type _type;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public user.SigninRequest.Type type
+    {
+      get { return _type; }
+      set { _type = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"PUBLISHER", Value=1)]
+      PUBLISHER = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"USER", Value=2)]
+      USER = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SigninReply")]
+  public partial class SigninReply : global::ProtoBuf.IExtensible
+  {
+    public SigninReply() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    private string _email;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"email", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string email
+    {
+      get { return _email; }
+      set { _email = value; }
     }
 
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"SigninRequest")]
-    public partial class SigninRequest : global::ProtoBuf.IExtensible
+    private string _display_name = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"display_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string display_name
     {
-        public SigninRequest() { }
-
-        private string _email;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"email", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public string email
-        {
-            get { return _email; }
-            set { _email = value; }
-        }
-        private string _password;
-        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"password", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public string password
-        {
-            get { return _password; }
-            set { _password = value; }
-        }
-        private user.SigninRequest.Type _type;
-        [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name = @"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public user.SigninRequest.Type type
-        {
-            get { return _type; }
-            set { _type = value; }
-        }
-        [global::ProtoBuf.ProtoContract(Name = @"Type")]
-        public enum Type
-        {
-
-            [global::ProtoBuf.ProtoEnum(Name = @"PUBLISHER", Value = 1)]
-            PUBLISHER = 1,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"USER", Value = 2)]
-            USER = 2
-        }
-
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+      get { return _display_name; }
+      set { _display_name = value; }
     }
 
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"SigninReply")]
-    public partial class SigninReply : global::ProtoBuf.IExtensible
+    private string _avatar_url = "";
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"avatar_url", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string avatar_url
     {
-        public SigninReply() { }
-
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        private string _email;
-        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"email", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public string email
-        {
-            get { return _email; }
-            set { _email = value; }
-        }
-
-        private string _display_name = "";
-        [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name = @"display_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue("")]
-        public string display_name
-        {
-            get { return _display_name; }
-            set { _display_name = value; }
-        }
-
-        private string _avatar_url = "";
-        [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name = @"avatar_url", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue("")]
-        public string avatar_url
-        {
-            get { return _avatar_url; }
-            set { _avatar_url = value; }
-        }
-        [global::ProtoBuf.ProtoContract(Name = @"Type")]
-        public enum Type
-        {
-
-            [global::ProtoBuf.ProtoEnum(Name = @"EMAIL_ERROR", Value = 4)]
-            EMAIL_ERROR = 4,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"PASSWORD_ERROR", Value = 5)]
-            PASSWORD_ERROR = 5
-        }
-
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+      get { return _avatar_url; }
+      set { _avatar_url = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"EMAIL_ERROR", Value=4)]
+      EMAIL_ERROR = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"PASSWORD_ERROR", Value=5)]
+      PASSWORD_ERROR = 5
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SignoutRequest")]
+  public partial class SignoutRequest : global::ProtoBuf.IExtensible
+  {
+    public SignoutRequest() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SignoutReply")]
+  public partial class SignoutReply : global::ProtoBuf.IExtensible
+  {
+    public SignoutReply() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_SESSION", Value=4)]
+      NO_SESSION = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"USER_ERROR", Value=5)]
+      USER_ERROR = 5
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ProfileRequest")]
+  public partial class ProfileRequest : global::ProtoBuf.IExtensible
+  {
+    public ProfileRequest() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ProfileReply")]
+  public partial class ProfileReply : global::ProtoBuf.IExtensible
+  {
+    public ProfileReply() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    private string _email;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"email", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string email
+    {
+      get { return _email; }
+      set { _email = value; }
+    }
+    private string _display_name;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"display_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string display_name
+    {
+      get { return _display_name; }
+      set { _display_name = value; }
     }
 
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"SignoutRequest")]
-    public partial class SignoutRequest : global::ProtoBuf.IExtensible
+    private string _avatar_url = "";
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"avatar_url", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string avatar_url
     {
-        public SignoutRequest() { }
-
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+      get { return _avatar_url; }
+      set { _avatar_url = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_USER", Value=4)]
+      NO_USER = 4
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UpdateProfileRequest")]
+  public partial class UpdateProfileRequest : global::ProtoBuf.IExtensible
+  {
+    public UpdateProfileRequest() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
     }
 
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"SignoutReply")]
-    public partial class SignoutReply : global::ProtoBuf.IExtensible
+    private string _display_name = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"display_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string display_name
     {
-        public SignoutReply() { }
-
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        [global::ProtoBuf.ProtoContract(Name = @"Type")]
-        public enum Type
-        {
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_SESSION", Value = 4)]
-            NO_SESSION = 4,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"USER_ERROR", Value = 5)]
-            USER_ERROR = 5
-        }
-
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+      get { return _display_name; }
+      set { _display_name = value; }
     }
 
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"ProfileRequest")]
-    public partial class ProfileRequest : global::ProtoBuf.IExtensible
+    private string _avatar_url = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"avatar_url", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string avatar_url
     {
-        public ProfileRequest() { }
-
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+      get { return _avatar_url; }
+      set { _avatar_url = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UpdateProfileReply")]
+  public partial class UpdateProfileReply : global::ProtoBuf.IExtensible
+  {
+    public UpdateProfileReply() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_USER", Value=4)]
+      NO_USER = 4
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ForgotPassRequest")]
+  public partial class ForgotPassRequest : global::ProtoBuf.IExtensible
+  {
+    public ForgotPassRequest() {}
+    
+    private string _email;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"email", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string email
+    {
+      get { return _email; }
+      set { _email = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ForgotPassReply")]
+  public partial class ForgotPassReply : global::ProtoBuf.IExtensible
+  {
+    public ForgotPassReply() {}
+    
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"EMAIL_ERROR", Value=4)]
+      EMAIL_ERROR = 4
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ChangePassRequest")]
+  public partial class ChangePassRequest : global::ProtoBuf.IExtensible
+  {
+    public ChangePassRequest() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    private string _old_pass;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"old_pass", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string old_pass
+    {
+      get { return _old_pass; }
+      set { _old_pass = value; }
+    }
+    private string _new_pass;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"new_pass", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string new_pass
+    {
+      get { return _new_pass; }
+      set { _new_pass = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ChangePassReply")]
+  public partial class ChangePassReply : global::ProtoBuf.IExtensible
+  {
+    public ChangePassReply() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"OLD_PASS_ERROR", Value=4)]
+      OLD_PASS_ERROR = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NEW_PASS_ERROR", Value=5)]
+      NEW_PASS_ERROR = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_USER", Value=6)]
+      NO_USER = 6
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"FollowRequest")]
+  public partial class FollowRequest : global::ProtoBuf.IExtensible
+  {
+    public FollowRequest() {}
+    
+    private user.FollowRequest.Type _type;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public user.FollowRequest.Type type
+    {
+      get { return _type; }
+      set { _type = value; }
+    }
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    private ulong _artist_id;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"artist_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong artist_id
+    {
+      get { return _artist_id; }
+      set { _artist_id = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FOLLOW", Value=1)]
+      FOLLOW = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"UNFOLLOW", Value=2)]
+      UNFOLLOW = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"FollowReply")]
+  public partial class FollowReply : global::ProtoBuf.IExtensible
+  {
+    public FollowReply() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    private ulong _artist_id;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"artist_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong artist_id
+    {
+      get { return _artist_id; }
+      set { _artist_id = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_USER", Value=4)]
+      NO_USER = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_ARTIST", Value=5)]
+      NO_ARTIST = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"USER_ERROR", Value=6)]
+      USER_ERROR = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_RELATION", Value=7)]
+      NO_RELATION = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"RELATION_EXISTED", Value=8)]
+      RELATION_EXISTED = 8,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"INPUT_ERROR", Value=9)]
+      INPUT_ERROR = 9
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserRelationRequest")]
+  public partial class UserRelationRequest : global::ProtoBuf.IExtensible
+  {
+    public UserRelationRequest() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    private ulong _artist_id;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"artist_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong artist_id
+    {
+      get { return _artist_id; }
+      set { _artist_id = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserRelationReply")]
+  public partial class UserRelationReply : global::ProtoBuf.IExtensible
+  {
+    public UserRelationReply() {}
+    
+    private user.UserRelationReply.Rel _rel;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"rel", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public user.UserRelationReply.Rel rel
+    {
+      get { return _rel; }
+      set { _rel = value; }
+    }
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    private ulong _artist_id;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"artist_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong artist_id
+    {
+      get { return _artist_id; }
+      set { _artist_id = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_USER", Value=4)]
+      NO_USER = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_ARTIST", Value=5)]
+      NO_ARTIST = 5
+    }
+  
+    [global::ProtoBuf.ProtoContract(Name=@"Rel")]
+    public enum Rel
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FOLLOW", Value=1)]
+      FOLLOW = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"UNFOLLOW", Value=2)]
+      UNFOLLOW = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"NotificationRequest")]
+  public partial class NotificationRequest : global::ProtoBuf.IExtensible
+  {
+    public NotificationRequest() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"NotificationReply")]
+  public partial class NotificationReply : global::ProtoBuf.IExtensible
+  {
+    public NotificationReply() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    private readonly global::System.Collections.Generic.List<user.NotificationReply.MotionShortInfo> _motionshortinfo = new global::System.Collections.Generic.List<user.NotificationReply.MotionShortInfo>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"motionshortinfo", DataFormat = global::ProtoBuf.DataFormat.Group)]
+    public global::System.Collections.Generic.List<user.NotificationReply.MotionShortInfo> motionshortinfo
+    {
+      get { return _motionshortinfo; }
+    }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MotionShortInfo")]
+  public partial class MotionShortInfo : global::ProtoBuf.IExtensible
+  {
+    public MotionShortInfo() {}
+    
+    private ulong _motion_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong motion_id
+    {
+      get { return _motion_id; }
+      set { _motion_id = value; }
+    }
+    private string _icon_url;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"icon_url", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string icon_url
+    {
+      get { return _icon_url; }
+      set { _icon_url = value; }
+    }
+    private string _title;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"title", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string title
+    {
+      get { return _title; }
+      set { _title = value; }
+    }
+    private string _artist_name;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"artist_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string artist_name
+    {
+      get { return _artist_name; }
+      set { _artist_name = value; }
+    }
+    private uint _rating;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"rating", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public uint rating
+    {
+      get { return _rating; }
+      set { _rating = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_USER", Value=4)]
+      NO_USER = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"USER_ERROR", Value=5)]
+      USER_ERROR = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_MOTION", Value=6)]
+      NO_MOTION = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_EVENT", Value=7)]
+      NO_EVENT = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_NOTIFICATION", Value=8)]
+      NO_NOTIFICATION = 8
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GetListUserRequest")]
+  public partial class GetListUserRequest : global::ProtoBuf.IExtensible
+  {
+    public GetListUserRequest() {}
+    
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GetListUserReply")]
+  public partial class GetListUserReply : global::ProtoBuf.IExtensible
+  {
+    public GetListUserReply() {}
+    
+    private readonly global::System.Collections.Generic.List<user.GetListUserReply.UserInfo> _userinfo = new global::System.Collections.Generic.List<user.GetListUserReply.UserInfo>();
+    [global::ProtoBuf.ProtoMember(1, Name=@"userinfo", DataFormat = global::ProtoBuf.DataFormat.Group)]
+    public global::System.Collections.Generic.List<user.GetListUserReply.UserInfo> userinfo
+    {
+      get { return _userinfo; }
+    }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserInfo")]
+  public partial class UserInfo : global::ProtoBuf.IExtensible
+  {
+    public UserInfo() {}
+    
+    private user.GetListUserReply.Type _type;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public user.GetListUserReply.Type type
+    {
+      get { return _type; }
+      set { _type = value; }
+    }
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
+    {
+      get { return _user_id; }
+      set { _user_id = value; }
+    }
+    private byte[] _email;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"email", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public byte[] email
+    {
+      get { return _email; }
+      set { _email = value; }
+    }
+    private byte[] _password;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"password", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public byte[] password
+    {
+      get { return _password; }
+      set { _password = value; }
     }
 
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"ProfileReply")]
-    public partial class ProfileReply : global::ProtoBuf.IExtensible
+    private byte[] _display_name = null;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"display_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public byte[] display_name
     {
-        public ProfileReply() { }
-
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        private string _email;
-        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"email", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public string email
-        {
-            get { return _email; }
-            set { _email = value; }
-        }
-        private string _display_name;
-        [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name = @"display_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public string display_name
-        {
-            get { return _display_name; }
-            set { _display_name = value; }
-        }
-
-        private string _avatar_url = "";
-        [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name = @"avatar_url", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue("")]
-        public string avatar_url
-        {
-            get { return _avatar_url; }
-            set { _avatar_url = value; }
-        }
-        [global::ProtoBuf.ProtoContract(Name = @"Type")]
-        public enum Type
-        {
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_USER", Value = 4)]
-            NO_USER = 4
-        }
-
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+      get { return _display_name; }
+      set { _display_name = value; }
     }
 
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"UpdateProfileRequest")]
-    public partial class UpdateProfileRequest : global::ProtoBuf.IExtensible
+    private byte[] _avatar_url = null;
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"avatar_url", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public byte[] avatar_url
     {
-        public UpdateProfileRequest() { }
-
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-
-        private string _display_name = "";
-        [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name = @"display_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue("")]
-        public string display_name
-        {
-            get { return _display_name; }
-            set { _display_name = value; }
-        }
-
-        private string _avatar_url = "";
-        [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name = @"avatar_url", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        [global::System.ComponentModel.DefaultValue("")]
-        public string avatar_url
-        {
-            get { return _avatar_url; }
-            set { _avatar_url = value; }
-        }
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+      get { return _avatar_url; }
+      set { _avatar_url = value; }
     }
-
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"UpdateProfileReply")]
-    public partial class UpdateProfileReply : global::ProtoBuf.IExtensible
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
     {
-        public UpdateProfileReply() { }
-
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        [global::ProtoBuf.ProtoContract(Name = @"Type")]
-        public enum Type
-        {
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_USER", Value = 4)]
-            NO_USER = 4
-        }
-
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"USER", Value=1)]
+      USER = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"PUBLISHER", Value=2)]
+      PUBLISHER = 2
     }
-
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"ForgotPassRequest")]
-    public partial class ForgotPassRequest : global::ProtoBuf.IExtensible
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"KickUserResponse")]
+  public partial class KickUserResponse : global::ProtoBuf.IExtensible
+  {
+    public KickUserResponse() {}
+    
+    private ulong _user_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong user_id
     {
-        public ForgotPassRequest() { }
-
-        private string _email;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"email", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public string email
-        {
-            get { return _email; }
-            set { _email = value; }
-        }
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+      get { return _user_id; }
+      set { _user_id = value; }
     }
-
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"ForgotPassReply")]
-    public partial class ForgotPassReply : global::ProtoBuf.IExtensible
-    {
-        public ForgotPassReply() { }
-
-        [global::ProtoBuf.ProtoContract(Name = @"Type")]
-        public enum Type
-        {
-
-            [global::ProtoBuf.ProtoEnum(Name = @"EMAIL_ERROR", Value = 4)]
-            EMAIL_ERROR = 4
-        }
-
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-    }
-
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"ChangePassRequest")]
-    public partial class ChangePassRequest : global::ProtoBuf.IExtensible
-    {
-        public ChangePassRequest() { }
-
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        private string _old_pass;
-        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"old_pass", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public string old_pass
-        {
-            get { return _old_pass; }
-            set { _old_pass = value; }
-        }
-        private string _new_pass;
-        [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name = @"new_pass", DataFormat = global::ProtoBuf.DataFormat.Default)]
-        public string new_pass
-        {
-            get { return _new_pass; }
-            set { _new_pass = value; }
-        }
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-    }
-
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"ChangePassReply")]
-    public partial class ChangePassReply : global::ProtoBuf.IExtensible
-    {
-        public ChangePassReply() { }
-
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        [global::ProtoBuf.ProtoContract(Name = @"Type")]
-        public enum Type
-        {
-
-            [global::ProtoBuf.ProtoEnum(Name = @"OLD_PASS_ERROR", Value = 4)]
-            OLD_PASS_ERROR = 4,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NEW_PASS_ERROR", Value = 5)]
-            NEW_PASS_ERROR = 5,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_USER", Value = 6)]
-            NO_USER = 6
-        }
-
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-    }
-
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"FollowRequest")]
-    public partial class FollowRequest : global::ProtoBuf.IExtensible
-    {
-        public FollowRequest() { }
-
-        private user.FollowRequest.Type _type;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public user.FollowRequest.Type type
-        {
-            get { return _type; }
-            set { _type = value; }
-        }
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        private ulong _artist_id;
-        [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name = @"artist_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong artist_id
-        {
-            get { return _artist_id; }
-            set { _artist_id = value; }
-        }
-        [global::ProtoBuf.ProtoContract(Name = @"Type")]
-        public enum Type
-        {
-
-            [global::ProtoBuf.ProtoEnum(Name = @"FOLLOW", Value = 1)]
-            FOLLOW = 1,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"UNFOLLOW", Value = 2)]
-            UNFOLLOW = 2
-        }
-
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-    }
-
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"FollowReply")]
-    public partial class FollowReply : global::ProtoBuf.IExtensible
-    {
-        public FollowReply() { }
-
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        private ulong _artist_id;
-        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"artist_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong artist_id
-        {
-            get { return _artist_id; }
-            set { _artist_id = value; }
-        }
-        [global::ProtoBuf.ProtoContract(Name = @"Type")]
-        public enum Type
-        {
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_USER", Value = 4)]
-            NO_USER = 4,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_ARTIST", Value = 5)]
-            NO_ARTIST = 5,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"USER_ERROR", Value = 6)]
-            USER_ERROR = 6,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_RELATION", Value = 7)]
-            NO_RELATION = 7,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"RELATION_EXISTED", Value = 8)]
-            RELATION_EXISTED = 8,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"INPUT_ERROR", Value = 9)]
-            INPUT_ERROR = 9
-        }
-
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-    }
-
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"UserRelationRequest")]
-    public partial class UserRelationRequest : global::ProtoBuf.IExtensible
-    {
-        public UserRelationRequest() { }
-
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        private ulong _artist_id;
-        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"artist_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong artist_id
-        {
-            get { return _artist_id; }
-            set { _artist_id = value; }
-        }
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-    }
-
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"UserRelationReply")]
-    public partial class UserRelationReply : global::ProtoBuf.IExtensible
-    {
-        public UserRelationReply() { }
-
-        private user.UserRelationReply.Rel _rel;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"rel", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public user.UserRelationReply.Rel rel
-        {
-            get { return _rel; }
-            set { _rel = value; }
-        }
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        private ulong _artist_id;
-        [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name = @"artist_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong artist_id
-        {
-            get { return _artist_id; }
-            set { _artist_id = value; }
-        }
-        [global::ProtoBuf.ProtoContract(Name = @"Type")]
-        public enum Type
-        {
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_USER", Value = 4)]
-            NO_USER = 4,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_ARTIST", Value = 5)]
-            NO_ARTIST = 5
-        }
-
-        [global::ProtoBuf.ProtoContract(Name = @"Rel")]
-        public enum Rel
-        {
-
-            [global::ProtoBuf.ProtoEnum(Name = @"FOLLOW", Value = 1)]
-            FOLLOW = 1,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"UNFOLLOW", Value = 2)]
-            UNFOLLOW = 2
-        }
-
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-    }
-
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NotificationRequest")]
-    public partial class NotificationRequest : global::ProtoBuf.IExtensible
-    {
-        public NotificationRequest() { }
-
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-    }
-
-    [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"NotificationReply")]
-    public partial class NotificationReply : global::ProtoBuf.IExtensible
-    {
-        public NotificationReply() { }
-
-        private ulong _user_id;
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-        public ulong user_id
-        {
-            get { return _user_id; }
-            set { _user_id = value; }
-        }
-        private readonly global::System.Collections.Generic.List<user.NotificationReply.MotionShortInfo> _motionshortinfo = new global::System.Collections.Generic.List<user.NotificationReply.MotionShortInfo>();
-        [global::ProtoBuf.ProtoMember(2, Name = @"motionshortinfo", DataFormat = global::ProtoBuf.DataFormat.Group)]
-        public global::System.Collections.Generic.List<user.NotificationReply.MotionShortInfo> motionshortinfo
-        {
-            get { return _motionshortinfo; }
-        }
-
-        [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"MotionShortInfo")]
-        public partial class MotionShortInfo : global::ProtoBuf.IExtensible
-        {
-            public MotionShortInfo() { }
-
-            private ulong _motion_id;
-            [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name = @"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-            public ulong motion_id
-            {
-                get { return _motion_id; }
-                set { _motion_id = value; }
-            }
-            private string _icon_url;
-            [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name = @"icon_url", DataFormat = global::ProtoBuf.DataFormat.Default)]
-            public string icon_url
-            {
-                get { return _icon_url; }
-                set { _icon_url = value; }
-            }
-            private string _title;
-            [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name = @"title", DataFormat = global::ProtoBuf.DataFormat.Default)]
-            public string title
-            {
-                get { return _title; }
-                set { _title = value; }
-            }
-            private string _artist_name;
-            [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name = @"artist_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
-            public string artist_name
-            {
-                get { return _artist_name; }
-                set { _artist_name = value; }
-            }
-            private uint _rating;
-            [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name = @"rating", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-            public uint rating
-            {
-                get { return _rating; }
-                set { _rating = value; }
-            }
-            private global::ProtoBuf.IExtension extensionObject;
-            global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-            { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-        }
-
-        [global::ProtoBuf.ProtoContract(Name = @"Type")]
-        public enum Type
-        {
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_USER", Value = 4)]
-            NO_USER = 4,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"USER_ERROR", Value = 5)]
-            USER_ERROR = 5,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_MOTION", Value = 6)]
-            NO_MOTION = 6,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_EVENT", Value = 7)]
-            NO_EVENT = 7,
-
-            [global::ProtoBuf.ProtoEnum(Name = @"NO_NOTIFICATION", Value = 8)]
-            NO_NOTIFICATION = 8
-        }
-
-        private global::ProtoBuf.IExtension extensionObject;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-    }
-
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
 }

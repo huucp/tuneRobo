@@ -155,7 +155,13 @@ namespace comm
       LIST_INFO_MOTION = 144,
             
       [global::ProtoBuf.ProtoEnum(Name=@"CHECK_USER_OWNED_MOTION", Value=145)]
-      CHECK_USER_OWNED_MOTION = 145
+      CHECK_USER_OWNED_MOTION = 145,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"GET_LIST_USER_INFO", Value=146)]
+      GET_LIST_USER_INFO = 146,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"KICK_USER", Value=147)]
+      KICK_USER = 147
     }
   
     private global::ProtoBuf.IExtension extensionObject;
