@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using MessageBoxUtils;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
 using TuneRoboWPF.StoreService.SimpleRequest;
@@ -33,7 +26,7 @@ namespace TuneRoboWPF.Windows
             DataContext = new RatingWindowViewModel();
             ViewModel = (RatingWindowViewModel)DataContext;
 
-            
+            SubmitButton.IsEnabled = false;
         }
 
         private void UpdateExistComment()
@@ -72,6 +65,7 @@ namespace TuneRoboWPF.Windows
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             Cursor = Cursors.Wait;
+            if (!ValidateData()) return;
             Comment();
         }
 
@@ -81,6 +75,27 @@ namespace TuneRoboWPF.Windows
             {
                 DragMove();
             }
+        }
+
+        private bool ValidateData()
+        {
+            var title = ViewModel.Title;
+            var review = ViewModel.Review;
+            if (!string.IsNullOrWhiteSpace(title) && string.IsNullOrWhiteSpace(review))
+            {
+                var titleWarning = (string)TryFindResource("TitleRatingWarningText");
+                WPFMessageBox.Show(this, "", titleWarning, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(review) && string.IsNullOrWhiteSpace(title))
+            {
+
+                var titleWarning = (string)TryFindResource("ReviewRatingWarningText");
+                WPFMessageBox.Show(this, "", titleWarning, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                return false;
+            }
+            return true;
         }
 
         private void Comment()
@@ -109,13 +124,19 @@ namespace TuneRoboWPF.Windows
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SubmitButton.IsEnabled = !string.IsNullOrEmpty(ViewModel.Title);
+            //SubmitButton.IsEnabled = !string.IsNullOrEmpty(ViewModel.Title);
         }
 
         public bool? ShowDialog(Window owner)
         {
             Owner = owner;
             return ShowDialog();
+        }
+
+        private void RatingControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        {
+            //SubmitButton.IsEnabled = true;
+            if (Math.Abs(ViewModel.RatingValue - 0) < 0.0001) SubmitButton.IsEnabled = false;
         }
     }
 }

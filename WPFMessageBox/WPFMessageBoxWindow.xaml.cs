@@ -28,11 +28,11 @@ namespace MessageBoxUtils
 
         public static MessageBoxResult Show(
             Action<Window> setOwner,
-            string messageBoxText, 
-            string caption, 
-            MessageBoxButton button, 
-            MessageBoxImage icon, 
-            MessageBoxResult defaultResult, 
+            string messageBoxText,
+            string caption,
+            MessageBoxButton button,
+            MessageBoxImage icon,
+            MessageBoxResult defaultResult,
             MessageBoxOptions options)
         {
             if ((options & MessageBoxOptions.DefaultDesktopOnly) == MessageBoxOptions.DefaultDesktopOnly)
@@ -97,7 +97,7 @@ namespace MessageBoxUtils
             WindowHelper.RemoveIcon(this);
 
             switch (_viewModel.Options)
-            { 
+            {
                 case MessageBoxOptions.None:
                     break;
 

@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MessageBoxUtils;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
@@ -47,9 +39,31 @@ namespace TuneRoboWPF.Windows
                 WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
                 return false;
             }
-            return true;
+            if (ViewModel.Username.Length < 1 || ViewModel.Username.Length > 128)
+            {
+                var title = (string)TryFindResource("UsernameLengthErrorText");
+                WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                return false;
+            }
+            return ValidateEmail();
         }
 
+        private bool ValidateEmail()
+        {
+            var emailRegex =
+                new Regex(
+                    @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+            var match = emailRegex.Match(ViewModel.Email);
+            if (match.Success)
+            {
+                return true;
+            }
+            var titleError = (string)TryFindResource("CreateAccountEmailErrorText");
+            var msgError = (string)TryFindResource("CheckEmailErrorText");
+            WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,
+                               MessageBoxResult.OK);
+            return false;
+        }
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
@@ -73,7 +87,7 @@ namespace TuneRoboWPF.Windows
             {
                 switch (reply.type)
                 {
-                    case (int)SignupReply.Type.EMAIL_ERROR:
+                    case (int)SignupReply.Type.INVALID_EMAIL:
                         Dispatcher.BeginInvoke((Action)delegate
                         {
                             var titleError = (string)TryFindResource("CreateAccountEmailErrorText");
@@ -84,7 +98,19 @@ namespace TuneRoboWPF.Windows
                             ViewModel.EnableUI = true;
                         });
                         break;
-                    case (int)SignupReply.Type.NAME_ERROR:
+                    case (int)SignupReply.Type.EMAIL_EXISTED:
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            var titleError = (string)TryFindResource("CreateAccountEmailExistedText");
+                            var msgError = (string)TryFindResource("CheckEmailExistedText");
+                            WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,
+                                               MessageBoxResult.OK);
+                            Cursor = Cursors.Arrow;
+                            ViewModel.EnableUI = true;
+                        });
+                        break;
+
+                    case (int)SignupReply.Type.INVALID_NAME:
                         Dispatcher.BeginInvoke((Action)delegate
                         {
                             var titleError = (string)TryFindResource("CreateAccountNameErrorText");

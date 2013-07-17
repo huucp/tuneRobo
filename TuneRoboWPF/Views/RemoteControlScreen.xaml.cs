@@ -454,14 +454,14 @@ namespace TuneRoboWPF.Views
                 motionItem.ViewModel.HitTestVisible = false;
                 motionItem.ViewModel.Index = ++index;
                 motionItem.CopyMotion += Library_CopyMotion;
-                motionItem.DelteMotion += Library_DelteMotion;
+                motionItem.DelteMotion += Library_DeleteMotion;
                 viewModel.LibraryItemsList.Add(motionItem);
                 DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
             }
             if (index == 0) viewModel.NoLocalMotionVisibility = true;
         }
 
-        private void Library_DelteMotion(object sender, RoutedEventArgs e)
+        private void Library_DeleteMotion(object sender, RoutedEventArgs e)
         {
             viewModel.LibraryItemsList.Clear();
             LoadLibrary();

@@ -16,16 +16,40 @@ namespace TuneRoboWPF.Windows
         public LoginWindow()
         {
             this.InitializeComponent();
+
+#if DEBUG
+            UsernameTextBox.Text = "huupc@tosy.com";
+            PasswordBox.Password = "1";
+#endif
+        }
+
+        private bool ValidateData()
+        {
+            var username = UsernameTextBox.Text;
+            var password = PasswordBox.Password;
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                var title = (string) TryFindResource("EmailNullErrorText");
+                WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                var title = (string)TryFindResource("PasswordNullErrorText");
+                WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                return false;
+            }
+            return true;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (!ValidateData()) return;
             var signinRequest = new SigninStoreRequest(UsernameTextBox.Text, PasswordBox.Password,
                                                        SigninRequest.Type.USER);
             signinRequest.ProcessSuccessfully += (s) =>
                                                      {
-                                                         GlobalVariables.CurrentUser = new UserProfile(s.signin);
+                                                         GlobalVariables.CurrentUser = new UserProfile(s.signin,PasswordBox.Password);
                                                          GlobalVariables.UserOnline = true;
                                                          Dispatcher.BeginInvoke((Action)delegate
                                                                                              {
@@ -37,7 +61,7 @@ namespace TuneRoboWPF.Windows
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     Cursor = Cursors.Arrow;
-                    WPFMessageBox.Show(this, "Login failed", "Login error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    WPFMessageBox.Show(this, "Login failed", "Login error", MessageBoxButton.OK, MessageBoxImage.Error,MessageBoxResult.OK);
                 });
             GlobalVariables.StoreWorker.AddRequest(signinRequest);
             Cursor = Cursors.Wait;

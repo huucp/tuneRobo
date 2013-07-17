@@ -80,7 +80,7 @@ namespace TuneRoboWPF.Windows
                                                 });
         }
 
-        private void Request_ProcessError(Reply.Type errorcode, string errorMessage)
+        private void Request_ProcessError(DownloadMotionStoreRequest.DownloadMotionErrorCode errorcode, string errorMessage)
         {
             Dispatcher.BeginInvoke((Action)delegate
             {

@@ -55,13 +55,24 @@
         						Foreground="{StaticResource BlackFont}" Grid.Column="0" FontSize="14.667" FontWeight="Bold"/>
 
                             <TextBlock x:Name="SeeAllHotShadow" HorizontalAlignment="Left" Margin="14,0,0,0" Text="{DynamicResource SeeAllText}"
-        						Foreground="White" VerticalAlignment="Center" Grid.Column="1" FontSize="10.667" FontWeight="Bold">
+        						Foreground="White" VerticalAlignment="Center" Grid.Column="1" FontSize="10.667" FontWeight="Bold" Cursor="Hand">
         						<TextBlock.RenderTransform>
         							<TranslateTransform Y="1"/>
         						</TextBlock.RenderTransform>
                             </TextBlock>
                             <TextBlock x:Name="SeeAllHot" HorizontalAlignment="Left" Margin="14,4,0,0" Text="{DynamicResource SeeAllText}"
-        						Foreground="{StaticResource BlackFont}" VerticalAlignment="Center" Grid.Column="1" FontSize="10.667" FontWeight="Bold" />
+        						       Foreground="{StaticResource BlackFont}" VerticalAlignment="Center" Grid.Column="1" 
+                                       Cursor="Hand" FontSize="10.667" FontWeight="Bold">
+                                <TextBlock.Style>
+                                   <Style TargetType="TextBlock">                                       
+                                       <Style.Triggers>
+                                           <Trigger Property ="IsMouseOver" Value="True">
+                                                <Setter Property= "TextDecorations" Value="Underline"/>
+                                           </Trigger>
+                                       </Style.Triggers>
+                                    </Style>
+                               </TextBlock.Style>
+                            </TextBlock>
                         </Grid>
                     </Border>
                     <Grid>
@@ -178,13 +189,25 @@
         						Foreground="{StaticResource BlackFont}" Grid.Column="0" FontSize="14.667" FontWeight="Bold"/>
 
                             <TextBlock x:Name="SeeAllFeaturedShadow" HorizontalAlignment="Left" Margin="14,0,0,0" Text="{DynamicResource SeeAllText}"
-        						Foreground="White" VerticalAlignment="Center" Grid.Column="1" FontSize="10.667" FontWeight="Bold">
+        						       Foreground="White" VerticalAlignment="Center" Grid.Column="1" FontSize="10.667" FontWeight="Bold"
+                                       Cursor="Hand">
         						<TextBlock.RenderTransform>
         							<TranslateTransform Y="1"/>
         						</TextBlock.RenderTransform>
                             </TextBlock>
                             <TextBlock x:Name="SeeAllFeatured" HorizontalAlignment="Left" Margin="14,4,0,0" Text="{DynamicResource SeeAllText}"
-        						Foreground="{StaticResource BlackFont}" VerticalAlignment="Center" Grid.Column="1" FontSize="10.667" FontWeight="Bold" />
+        						       Foreground="{StaticResource BlackFont}" VerticalAlignment="Center" Grid.Column="1" 
+                                       FontSize="10.667" FontWeight="Bold" Cursor="Hand">
+                                <TextBlock.Style>
+                                   <Style TargetType="TextBlock">                                       
+                                       <Style.Triggers>
+                                           <Trigger Property ="IsMouseOver" Value="True">
+                                                <Setter Property= "TextDecorations" Value="Underline"/>
+                                           </Trigger>
+                                       </Style.Triggers>
+                                    </Style>
+                               </TextBlock.Style>
+                            </TextBlock>
                         </Grid>
                     </Border>
                     <Grid>
@@ -254,16 +277,16 @@
                     </Grid>
                 </DockPanel>
             </Border>
-            <Border BorderBrush="Black" BorderThickness="1,0,1,1" Height="334" Margin="0" VerticalAlignment="Top" Width="1038" ClipToBounds="True" CornerRadius="0,0,10,10">
-            	<Grid Margin="0" ClipToBounds="True">
-            		<Image x:Name="Cover1" HorizontalAlignment="Left" Margin="0" Width="777" VerticalAlignment="Top" Height="333"/>
-            		<Image x:Name="Cover2" HorizontalAlignment="Left" Margin="0" Width="777" Height="333" VerticalAlignment="Top"/>
-            		<Image x:Name="Image1" Margin="777,-111,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" Height="111"/>
-            		<Image x:Name="Image2" HorizontalAlignment="Left" Margin="777,0,0,0" Width="259" Height="111" VerticalAlignment="Top"/>
-            		<Image x:Name="Image3" HorizontalAlignment="Left" Height="111" Margin="777,111,0,0" VerticalAlignment="Top" Width="259"/>
-            		<Image x:Name="Image4" HorizontalAlignment="Left" Height="111" Margin="777,222,0,0" VerticalAlignment="Top" Width="259"/>
-            		<Button Content="Down" HorizontalAlignment="Right" Height="31" Margin="0,0,94,8" VerticalAlignment="Bottom" Width="51.5" Click="CoverDownButton_Click"/>
-            	</Grid>
+            <Border BorderBrush="LightGray" BorderThickness="2,0,2,2" Height="334" Margin="0" VerticalAlignment="Top" Width="1038" ClipToBounds="True" CornerRadius="0,0,0,0">
+                <Grid Margin="0">
+                    <Image x:Name="Cover1" HorizontalAlignment="Left" Margin="0" Width="777" VerticalAlignment="Top" Height="333" Stretch="UniformToFill"/>
+                    <Image x:Name="Cover2" HorizontalAlignment="Left" Margin="0" Width="777" Height="333" VerticalAlignment="Top" Stretch="UniformToFill"/>
+                    <Image x:Name="Image1" Margin="777,-111,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" Height="111" Stretch="UniformToFill"/>
+                    <Image x:Name="Image2" HorizontalAlignment="Left" Margin="777,0,0,0" Width="259" Height="111" VerticalAlignment="Top" Stretch="UniformToFill"/>
+                    <Image x:Name="Image3" HorizontalAlignment="Left" Height="111" Margin="777,111,0,0" VerticalAlignment="Top" Width="259" Stretch="UniformToFill"/>
+                    <Image x:Name="Image4" HorizontalAlignment="Left" Height="111" Margin="777,222,0,0" VerticalAlignment="Top" Width="259" Stretch="UniformToFill"/>
+                    <Button Content="Down" HorizontalAlignment="Right" Height="31" Margin="0,0,94,8" VerticalAlignment="Bottom" Width="51.5" Click="CoverDownButton_Click"/>
+                </Grid>
             </Border>
         </Grid>
     </ScrollViewer>

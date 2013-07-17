@@ -255,7 +255,11 @@ namespace TuneRoboWPF.Views
                 {
                     ViewModel.NumberRating = string.Format("({0})", reply.number_rating_info.number);
                 });
-            numberRatingRequest.ProcessError += (reply, msg) => Debug.Assert(false, msg + reply.type);
+            numberRatingRequest.ProcessError += (reply, msg) =>
+                                                    {
+                                                        if (reply == null) Debug.Fail("reply is null");
+                                                        Debug.Assert(false, msg + reply.type);
+                                                    };
             GlobalVariables.StoreWorker.ForceAddRequest(numberRatingRequest);
         }
 
@@ -341,7 +345,6 @@ namespace TuneRoboWPF.Views
                             }
                             break;
                         case UserOwnMotionReply.Rel.NOT_OWNED:
-                            //MessageBox.Show("You must own this motion to review");
                             var title = (string)TryFindResource("MustOwnMotionText");
                             WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK,
                                                MessageBoxImage.Warning, MessageBoxResult.OK);
@@ -349,7 +352,11 @@ namespace TuneRoboWPF.Views
                             break;
                     }
                 });
-            relationRequest.ProcessError += (reply, msg) => Debug.Fail(reply.type.ToString(), msg);
+            relationRequest.ProcessError += (reply, msg) =>
+                                                {
+                                                    if (reply == null) Debug.Fail("reply is null");
+                                                    else Debug.Fail(reply.type.ToString(), msg);
+                                                };
             GlobalVariables.StoreWorker.AddRequest(relationRequest);
         }
 

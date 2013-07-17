@@ -314,7 +314,7 @@
             </TabControl>
             <Rectangle x:Name="Artwork" HorizontalAlignment="Left" Height="220" Margin="30,48,0,0" 
                        Stroke="Gray" VerticalAlignment="Top" Width="220" RadiusY="40" RadiusX="40"
-                       StrokeThickness ="1">
+                       StrokeThickness ="1" Stretch="UniformToFill">
                 <Rectangle.Fill>
                     <ImageBrush x:Name="ArtworkImage" 
                             ImageSource="{Binding CoverImage, TargetNullValue={StaticResource DefaultImage}}"/>

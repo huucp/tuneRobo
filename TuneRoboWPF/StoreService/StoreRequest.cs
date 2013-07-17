@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Sockets;
+using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Threading;
+using MessageBoxUtils;
+using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using comm;
+using user;
 
 namespace TuneRoboWPF.StoreService
 {
@@ -32,6 +37,19 @@ namespace TuneRoboWPF.StoreService
         protected byte[] Packet { get; set; }
         protected string RequestKey { get; set; }
 
+        private void AutoSignin()
+        {
+            var signinRequest = new SigninStoreRequest(GlobalVariables.CurrentUser.Email, GlobalVariables.CurrentUser.Password,
+                                                       SigninRequest.Type.USER);
+            signinRequest.ProcessSuccessfully += (s) =>
+            {
+
+
+            };
+            signinRequest.ProcessError += (s, msg) => { };
+            GlobalVariables.StoreWorker.AddRequest(signinRequest);
+        }
+
         public object Process()
         {
             if (!string.IsNullOrEmpty(RequestKey))
@@ -49,6 +67,10 @@ namespace TuneRoboWPF.StoreService
                 connection = GlobalVariables.ServerConnection;
                 if (connection.SocketAlive)
                 {
+                    if (GlobalVariables.UserOnline && count > 0)
+                    {
+                        AutoSignin();
+                    }
                     //GlobalVariables.ServerConnection.Connection.Close();                    
                     break;
                 }
@@ -56,7 +78,8 @@ namespace TuneRoboWPF.StoreService
                 count++;
             } while (count < StoreConnection.RetryTime);
             if (count == StoreConnection.RetryTime)
-            {                
+            {
+                //if (GlobalVariables)
                 OnProcessError(null, "Lost connection");
                 return null;
             }

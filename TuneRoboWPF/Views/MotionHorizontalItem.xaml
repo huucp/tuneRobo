@@ -13,7 +13,7 @@
     <Grid>
         <Rectangle HorizontalAlignment="Left" Margin="11,11,0,0" Stroke="Gray" 
                    Width="86" RadiusY="13" RadiusX="13" Height="86" VerticalAlignment="Top"
-                   Cursor="Hand">
+                   Cursor="Hand" Stretch="UniformToFill">
             <Rectangle.InputBindings>
                 <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
             </Rectangle.InputBindings>
@@ -27,12 +27,13 @@
             
         </Rectangle>
         <TextBlock Margin="108,26,0,0" Text="{Binding MotionTitle}" VerticalAlignment="Top" FontWeight="Bold" 
-                   FontSize="13.333" HorizontalAlignment="Left" MaxWidth="139" TextTrimming="WordEllipsis" Cursor="Hand">
+                   FontSize="13.333" HorizontalAlignment="Left" MaxWidth="139" TextTrimming="WordEllipsis" 
+                   Cursor="Hand" Foreground="{StaticResource BlackFont}">
             <TextBlock.InputBindings>
                 <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
             </TextBlock.InputBindings>
         </TextBlock>
-        <TextBlock Margin="108,48,0,0" Text="{Binding ArtistName}" Cursor="Hand"
+        <TextBlock Margin="108,48,0,0" Text="{Binding ArtistName}" Cursor="Hand" Foreground="{StaticResource GrayFont}"
                    HorizontalAlignment="Left" VerticalAlignment="Top" MaxWidth="139" TextTrimming="WordEllipsis">
             <TextBlock.InputBindings>
                 <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
@@ -59,7 +60,7 @@
         </System_Windows_Controls:Rating>
         <TextBlock Margin="176,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Cursor="Hand"
                    Text="{Binding NumberRatings,Converter={StaticResource NumbersRatingToString}}" 
-                   HorizontalAlignment="Left" MaxWidth="71">
+                   HorizontalAlignment="Left" MaxWidth="71" Foreground="{StaticResource GrayFont}">
             <TextBlock.InputBindings>
                 <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
             </TextBlock.InputBindings>

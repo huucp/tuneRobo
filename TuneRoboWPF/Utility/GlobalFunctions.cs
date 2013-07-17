@@ -367,7 +367,7 @@ namespace TuneRoboWPF.Utility
                 if (s.EndsWith(extionsion)) return true;
             }
             return false;
-        }
+        }       
         #region RemoteViaWifi
         // Convert a decimal number to a hexadecimal number in 2 byte little endian format
         public static byte[] DecToLE2(int num)

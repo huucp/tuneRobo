@@ -24,7 +24,7 @@
                  VerticalAlignment="Top" Width="330" TextChanged="TextBox_TextChanged" FontWeight="Medium">
             
         </TextBox>
-        <TextBox Height="100" Margin="20,105,0,0" TextWrapping="NoWrap" 
+        <TextBox Height="100" Margin="20,105,0,0" TextWrapping="Wrap" 
                  Text="{Binding Review, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" 
                  HorizontalAlignment="Left" Width="560"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -44,7 +44,7 @@
         <TextBlock Margin="365,24,0,0" TextWrapping="Wrap" Text="{DynamicResource ClickToRateUpperCaseText}" VerticalAlignment="Top" FontWeight="ExtraBold" HorizontalAlignment="Left"/>
         <System_Windows_Controls:Rating x:Name="RatingControl" Margin="367,47,0,0" 
     		Height="20" Width="100" HorizontalAlignment="Left" 
-    		VerticalAlignment="Top" Background="Transparent"
+    		VerticalAlignment="Top" Background="Transparent" ValueChanged="RatingControl_ValueChanged"
     		Value="{Binding RatingValue,Mode=TwoWay}" d:LayoutOverrides="VerticalAlignment, GridBox">
             <System_Windows_Controls:Rating.LayoutTransform>
                 <ScaleTransform ScaleX="0.75" ScaleY="0.75" />

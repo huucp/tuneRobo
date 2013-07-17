@@ -160,8 +160,8 @@ namespace comm
       [global::ProtoBuf.ProtoEnum(Name=@"GET_LIST_USER_INFO", Value=146)]
       GET_LIST_USER_INFO = 146,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"KICK_USER", Value=147)]
-      KICK_USER = 147
+      [global::ProtoBuf.ProtoEnum(Name=@"KICK_USER_RESPONSE", Value=147)]
+      KICK_USER_RESPONSE = 147
     }
   
     private global::ProtoBuf.IExtension extensionObject;

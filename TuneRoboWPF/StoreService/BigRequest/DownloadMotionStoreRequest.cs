@@ -22,11 +22,11 @@ namespace TuneRoboWPF.StoreService.BigRequest
             if (handler != null) handler(sender);
         }
 
-        public delegate void ErrorEventHandler(Reply.Type errorCode, string errorMessage);
+        public delegate void ErrorEventHandler(DownloadMotionErrorCode errorCode, string errorMessage);
 
         public event ErrorEventHandler ProcessError;
 
-        private void OnProcessError(Reply.Type errorCode, string errorMessage)
+        private void OnProcessError(DownloadMotionErrorCode errorCode, string errorMessage)
         {
             ErrorEventHandler handler = ProcessError;
             if (handler != null) handler(errorCode, errorMessage);
@@ -41,6 +41,11 @@ namespace TuneRoboWPF.StoreService.BigRequest
             if (handler != null) handler(progressValue);
         }
 
+
+        public enum DownloadMotionErrorCode
+        {
+            IOError, DBError, NoPermission, ReplyNull, UnknownError
+        }
 
         private object cancelLock = new object();
         private bool _cancelProcess;
@@ -68,6 +73,21 @@ namespace TuneRoboWPF.StoreService.BigRequest
             MotionID = motionID;
         }
 
+        private DownloadMotionErrorCode ConvertReplyErrorCode(Reply.Type errorCode)
+        {
+            switch (errorCode)
+            {
+                case Reply.Type.IO_ERROR:
+                    return DownloadMotionErrorCode.IOError;
+                case Reply.Type.DB_ERROR:
+                    return DownloadMotionErrorCode.DBError;
+                case Reply.Type.NO_PERMISSION:
+                    return DownloadMotionErrorCode.NoPermission;
+                default:
+                    return DownloadMotionErrorCode.UnknownError;
+            }
+        }
+
         // Download steps:
         // 1. Call MotionDownloadRequest 
         // 2. Call ReadMotionDataRequest to get data
@@ -79,9 +99,14 @@ namespace TuneRoboWPF.StoreService.BigRequest
             // Get info
             var motionDownloadRequest = new GetDowloadMotionInfoStoreRequest(MotionID);
             var motionDownloadReply = (Reply)motionDownloadRequest.Process();
-            if (motionDownloadReply == null || motionDownloadReply.type != (decimal)Reply.Type.OK)
+            if (motionDownloadReply == null)
             {
-                OnProcessError((Reply.Type)motionDownloadReply.type, "Get motion info download failed: " + motionDownloadReply.type);
+                OnProcessError(DownloadMotionErrorCode.ReplyNull, "Reply is null");
+                return null;
+            }
+            if (motionDownloadReply.type != (decimal)Reply.Type.OK)
+            {
+                OnProcessError(ConvertReplyErrorCode((Reply.Type)motionDownloadReply.type), "Get motion info download failed: " + motionDownloadReply.type);
                 return motionDownloadReply;
             }
             ulong motionSize = motionDownloadReply.motion_download.motion_file_size;
@@ -102,9 +127,14 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 var request = new DownloadMotionTrunkDataStoreRequest(MotionID, ReadMotionDataRequest.Type.MOTION,
                                                                       (ulong)(i * trunkSize), (ulong)trunkSize);
                 var reply = (Reply)request.Process();
-                if (reply == null || reply.type != (decimal)Reply.Type.OK)
+                if (reply == null)
                 {
-                    OnProcessError((Reply.Type)reply.type, "Download motion failed");
+                    OnProcessError(DownloadMotionErrorCode.ReplyNull, "Reply is null");
+                    return null;
+                }
+                if (reply.type != (decimal)Reply.Type.OK)
+                {
+                    OnProcessError(ConvertReplyErrorCode((Reply.Type)reply.type), "Download motion failed");
                     return reply;
                 }
                 motionData.AddRange(reply.read_data.data);
@@ -124,9 +154,14 @@ namespace TuneRoboWPF.StoreService.BigRequest
                                                                                       (ulong)(numberOfMotionTrunk * trunkSize),
                                                                                       (ulong)remainMotionDataSize);
                 var remainMotionReply = (Reply)remainMotionRequest.Process();
-                if (remainMotionReply == null || remainMotionReply.type != (decimal)Reply.Type.OK)
+                if (remainMotionReply==null)
                 {
-                    OnProcessError((Reply.Type)remainMotionReply.type, "Download motion failed");
+                    OnProcessError(DownloadMotionErrorCode.ReplyNull, "Reply is null");
+                    return null;
+                }
+                if (remainMotionReply.type != (decimal)Reply.Type.OK)
+                {
+                    OnProcessError(ConvertReplyErrorCode((Reply.Type)remainMotionReply.type), "Download motion failed");
                     return remainMotionReply;
                 }
                 motionData.AddRange(remainMotionReply.read_data.data);
@@ -147,9 +182,14 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 var request = new DownloadMotionTrunkDataStoreRequest(MotionID, ReadMotionDataRequest.Type.MUSIC,
                                                                       (ulong)(i * trunkSize), (ulong)trunkSize);
                 var reply = (Reply)request.Process();
-                if (reply == null || reply.type != (decimal)Reply.Type.OK)
+                if (reply==null)
                 {
-                    OnProcessError((Reply.Type)reply.type, "Download motion failed");
+                    OnProcessError(DownloadMotionErrorCode.ReplyNull, "Reply is null");
+                    return null;
+                }
+                if (reply.type != (decimal)Reply.Type.OK)
+                {
+                    OnProcessError(ConvertReplyErrorCode((Reply.Type)reply.type), "Download motion failed");
                     return reply;
                 }
                 musicData.AddRange(reply.read_data.data);
@@ -169,9 +209,14 @@ namespace TuneRoboWPF.StoreService.BigRequest
                                                                                       (ulong)(numberOfMusicTrunk * trunkSize),
                                                                                       (ulong)remainMusicDataSize);
                 var remainMusicReply = (Reply)remainMusicRequest.Process();
-                if (remainMusicReply == null || remainMusicReply.type != (decimal)Reply.Type.OK)
+                if (remainMusicReply==null)
                 {
-                    OnProcessError((Reply.Type)remainMusicReply.type, "Download motion failed");
+                    OnProcessError(DownloadMotionErrorCode.ReplyNull, "Reply is null");
+                    return null;
+                }
+                if (remainMusicReply.type != (decimal)Reply.Type.OK)
+                {
+                    OnProcessError(ConvertReplyErrorCode((Reply.Type)remainMusicReply.type), "Download motion failed");
                     return remainMusicReply;
                 }
                 musicData.AddRange(remainMusicReply.read_data.data);

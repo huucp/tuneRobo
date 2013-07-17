@@ -39,7 +39,7 @@ namespace TuneRoboWPF.StoreService
             {
                 Connection = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP)
                                  {
-                                     ReceiveTimeout = GlobalVariables.Timeout, 
+                                     ReceiveTimeout = GlobalVariables.Timeout,
                                      SendTimeout = GlobalVariables.Timeout
                                  };
                 //Connection.Connect(remoteEndPoint);
@@ -74,13 +74,16 @@ namespace TuneRoboWPF.StoreService
             try
             {
                 var ret = Connection.Receive(buffer);
+                if (ret == 0) return null;
                 var receive = GlobalFunction.SplitByteArray(buffer, 0, ret);
                 packet.AddRange(receive);
                 //Console.WriteLine("Receive {0:d} bytes", ret);
 
                 while (ret < 4)
                 {
+                    if (Connection.Available == 0) break;
                     var ret_ = Connection.Receive(buffer);
+                    if (ret_ == 0) break;
                     ret += ret_;
                     var receive_ = GlobalFunction.SplitByteArray(buffer, 0, ret_);
                     packet.AddRange(receive_);
@@ -92,7 +95,9 @@ namespace TuneRoboWPF.StoreService
                 while (ret < size)
                 {
                     //Console.WriteLine("need receive more {0:d} bytes.", size - ret);
+                    if (Connection.Available == 0) break;
                     var ret_ = Connection.Receive(buffer);
+                    if (ret_ == 0) break;
                     ret += ret_;
                     var receive_ = GlobalFunction.SplitByteArray(buffer, 0, ret_);
                     packet.AddRange(receive_);
@@ -139,7 +144,7 @@ namespace TuneRoboWPF.StoreService
 
                 var tmpSize = GlobalFunction.SplitByteArray(buffer, 2, 2);
                 var size = GlobalFunction.BE2ToDec(tmpSize);
-                
+
                 while (ret < size)
                 {
                     //Console.WriteLine("need receive more {0:d} bytes.", size - ret);
@@ -197,7 +202,7 @@ namespace TuneRoboWPF.StoreService
             var id = GlobalFunction.BE8ToDec(tmpID);
 
             var tmpProfile = GlobalFunction.SplitByteArray(reply, 16, packetSize - 16);
-            
+
             return null;
         }
 

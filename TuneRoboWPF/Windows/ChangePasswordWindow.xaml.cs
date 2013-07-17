@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -41,20 +42,50 @@ namespace TuneRoboWPF.Windows
             Close();
         }
 
-        private void SubmitButton_Click(object sender, RoutedEventArgs e)
+        private bool ValidatePassword()
         {
             if (string.IsNullOrWhiteSpace(OldPassword.Password))
             {
                 var title = (string)TryFindResource("OldPasswordEmptyText");
                 WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                return;
+                return false;
             }
             if (string.IsNullOrWhiteSpace(NewPassword.Password))
             {
                 var title = (string)TryFindResource("NewPasswordEmptyText");
                 WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-                return;
+                return false;
             }
+            if (String.CompareOrdinal(OldPassword.Password, NewPassword.Password) == 0)
+            {
+                var titleError = (string)TryFindResource("SamePasswordErrorText");
+                var msgError = (string)TryFindResource("CheckSamePasswordErrorText");
+                WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                return false;
+            }
+            return ValidateNewPassword();
+        }
+
+
+        // Password must be at least 6 characters, contain at least 1 number and 1 uppercase letter and no space
+        private bool ValidateNewPassword()
+        {
+            string password = NewPassword.Password;
+            
+            if (password.Length < 6 || !Regex.IsMatch(password, "\\d")
+                || !Regex.IsMatch(password, "[A-Z]") || Regex.IsMatch(password,@"[\w\s]"))
+            {
+                var titleError = (string)TryFindResource("NewPasswordErrorText");
+                var msgError = (string)TryFindResource("CheckNewPasswordErrorText");
+                WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                return false;
+            }
+            return true;
+        }
+        
+        private void SubmitButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(!ValidatePassword()) return;
             Cursor = Cursors.Wait;
             ChangePass();
         }
@@ -76,17 +107,20 @@ namespace TuneRoboWPF.Windows
                     string titleError, msgError;
                     switch (reply.type)
                     {
-                        case (int)ChangePassReply.Type.OLD_PASS_ERROR:
+                        case (int)ChangePassReply.Type.INVALID_OLD_PASS:
                             titleError = (string)TryFindResource("OldPasswordErrorText");
                             msgError = (string)TryFindResource("CheckOldPasswordErrorText");
                             WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
                             break;
-                        case (int)ChangePassReply.Type.NEW_PASS_ERROR:
-
+                        case (int)ChangePassReply.Type.INVALID_NEW_PASS:
                             titleError = (string)TryFindResource("NewPasswordErrorText");
                             msgError = (string)TryFindResource("CheckNewPasswordErrorText");
                             WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-
+                            break;
+                        case (int)ChangePassReply.Type.SAME_OLD_PASS:
+                            titleError = (string)TryFindResource("SamePasswordErrorText");
+                            msgError = (string)TryFindResource("CheckSamePasswordErrorText");
+                            WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
                             break;
                         default:
                             titleError = (string)TryFindResource("ChangePasswordDefaultText");

@@ -14,6 +14,7 @@ namespace comm
   public partial class Reply : global::ProtoBuf.IExtensible
   {
     
+
     private user.SigninReply _signin = null;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"signin", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -94,15 +95,6 @@ namespace comm
       get { return _get_list_user; }
       set { _get_list_user = value; }
     }
-
-    private user.KickUserResponse _kick_user = null;
-    [global::ProtoBuf.ProtoMember(46, IsRequired = false, Name=@"kick_user", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public user.KickUserResponse kick_user
-    {
-      get { return _kick_user; }
-      set { _kick_user = value; }
-    }
     
   }
   
@@ -153,11 +145,14 @@ namespace user
     public enum Type
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"EMAIL_ERROR", Value=4)]
-      EMAIL_ERROR = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"INVALID_EMAIL", Value=4)]
+      INVALID_EMAIL = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NAME_ERROR", Value=5)]
-      NAME_ERROR = 5
+      [global::ProtoBuf.ProtoEnum(Name=@"EMAIL_EXISTED", Value=5)]
+      EMAIL_EXISTED = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"INVALID_NAME", Value=6)]
+      INVALID_NAME = 6
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -512,14 +507,17 @@ namespace user
     public enum Type
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OLD_PASS_ERROR", Value=4)]
-      OLD_PASS_ERROR = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"INVALID_OLD_PASS", Value=4)]
+      INVALID_OLD_PASS = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NEW_PASS_ERROR", Value=5)]
-      NEW_PASS_ERROR = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"INVALID_NEW_PASS", Value=5)]
+      INVALID_NEW_PASS = 5,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NO_USER", Value=6)]
-      NO_USER = 6
+      [global::ProtoBuf.ProtoEnum(Name=@"SAME_OLD_PASS", Value=6)]
+      SAME_OLD_PASS = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_USER", Value=7)]
+      NO_USER = 7
     }
   
     private global::ProtoBuf.IExtension extensionObject;

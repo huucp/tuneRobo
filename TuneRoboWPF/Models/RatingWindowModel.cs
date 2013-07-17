@@ -10,6 +10,6 @@ namespace TuneRoboWPF.Models
         public string Nickname = string.Empty;
         public string Title = string.Empty;
         public string Review = string.Empty;
-        public double RatingValue = 0.2;
+        public double RatingValue = 1.0;
     }
 }

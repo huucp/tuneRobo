@@ -10,6 +10,8 @@
 // Generated from: comm.proto
 namespace comm
 {
+ 
+  
   
   public partial class Reply : global::ProtoBuf.IExtensible
   {
@@ -68,6 +70,8 @@ namespace comm
       get { return _number_all_artist; }
       set { _number_all_artist = value; }
     }
+    
+  
     
   }
   

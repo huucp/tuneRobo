@@ -51,8 +51,8 @@
         <TextBlock HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" Text="{DynamicResource EmailText}" 
                    VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBlock HorizontalAlignment="Left" Margin="20,84,0,0" TextWrapping="Wrap" Text="{DynamicResource PasswordText}" FontWeight="Bold" VerticalAlignment="Top"/>
-        <TextBox x:Name="UsernameTextBox" Text="huupc@tosy.com"  Height="28" Margin="20,46,0,0" VerticalAlignment="Top" FontWeight="Medium" HorizontalAlignment="Left" Width="300"/>
-        <PasswordBox x:Name="PasswordBox" Password ="1" Margin="20,110,0,0" Width="300" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top"/>
+        <TextBox x:Name="UsernameTextBox" Text=""  Height="28" Margin="20,46,0,0" VerticalAlignment="Top" FontWeight="Medium" HorizontalAlignment="Left" Width="300"/>
+        <PasswordBox x:Name="PasswordBox" Password ="" Margin="20,110,0,0" Width="300" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top"/>
         <Button x:Name="LoginButton" Content="{DynamicResource LoginText}" Margin="250,0,0,18" Click ="LoginButton_Click" 
                 IsDefault="True" HorizontalAlignment="Left" Width="70" FontWeight="Bold" Height="27" VerticalAlignment="Bottom" 
                 Style="{StaticResource ButtoniTuneStyle}" />

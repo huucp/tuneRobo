@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -199,15 +201,54 @@ namespace TuneRoboWPF.Views
             //Console.WriteLine(Cover1.Opacity);
             //Console.WriteLine(Cover2.Opacity);
 
+            var CoverWorker = new BackgroundWorker();
+            CoverWorker.DoWork += CoverWorker_DoWork;
+            CoverWorker.RunWorkerAsync();
 
             timer.Interval = new TimeSpan(0, 0, 5);
             timer.Tick += timer_Tick;
             timer.Start();
-        }        
+        }
+
+        private int CoverNumber = 0;
+        private object CoverNumberLock = new object();
+        private bool CanFlow = true;
+        private object CanFlowLock = new object();
+
+        private void CoverWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+
+                lock (CoverNumberLock)
+                {
+                    while (CoverNumber == 0)
+                    {
+                        Monitor.Wait(CoverNumberLock);    
+                    }                    
+                }
+
+                lock (CanFlowLock)
+                {
+                    while (!CanFlow)
+                    {
+                        Monitor.Wait(CanFlowLock);
+                    }
+                }
+                Dispatcher.BeginInvoke((Action) CoverFlowing);
+                CoverNumber--;                
+            }
+            //throw new NotImplementedException();
+        }
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            CoverFlowing();
+            lock(CoverNumberLock)
+            {
+                CoverNumber++;
+                Monitor.Pulse(CoverNumberLock);
+            }
+            //CoverFlowing();
         }
         List<Image> thumnailList = new List<Image>();
 
@@ -235,8 +276,9 @@ namespace TuneRoboWPF.Views
                 if (index == thumnailList.Count - 1)
                 {
                     if (nextReserveImageIndex == 0) nextReserveImageIndex = thumnailList.Count - 1;
-                    else nextReserveImageIndex--;                    
+                    else nextReserveImageIndex--;
                 }
+                
             };
             tt.BeginAnimation(TranslateTransform.YProperty, da);
         }
@@ -271,14 +313,21 @@ namespace TuneRoboWPF.Views
                     Panel.SetZIndex(Cover1, tmpZIndex);
                     //Change to next image
                     Cover1.Source = thumnailList[nextImageIndex].Source;
-
                     Cover1CanVisible = true;
                 }
                 //Console.WriteLine(Panel.GetZIndex(Cover1));
                 //Console.WriteLine(Panel.GetZIndex(Cover2));
-                nextImageIndex--;
-                if (nextImageIndex < 0) nextImageIndex = thumnailList.Count - 1;
                 //Console.WriteLine(nextImageIndex);
+                //nextImageIndex--;
+                //if (nextImageIndex < 0) nextImageIndex = thumnailList.Count - 1;
+                nextImageIndex = nextReserveImageIndex + 1;
+                if (nextImageIndex == thumnailList.Count) nextImageIndex = 0;
+                //Console.WriteLine(nextImageIndex);
+                lock (CanFlowLock)
+                {
+                    CanFlow = true;
+                    Monitor.Pulse(CanFlowLock);
+                }
             };
             image.BeginAnimation(OpacityProperty, da);
         }
@@ -291,6 +340,12 @@ namespace TuneRoboWPF.Views
 
         private void CoverFlowing()
         {
+            lock(CanFlowLock)
+            {
+                CanFlow = false;
+                Monitor.Pulse(CanFlowLock);
+            }
+            
             for (int i = 0; i < thumnailList.Count; i++)
             {
                 TranslationAnimate(i, 0, thumnailTranslationStep);
@@ -298,21 +353,26 @@ namespace TuneRoboWPF.Views
             if (Cover1CanVisible)
             {
                 Cover1.Opacity = 1;
-                OpacityAnimate(Cover2, 1, 0);                
+                OpacityAnimate(Cover2, 1, 0);
             }
             else
             {
                 Cover2.Opacity = 1;
-                OpacityAnimate(Cover1, 1, 0);                
+                OpacityAnimate(Cover1, 1, 0);
             }
-
+            
         }
         private void CoverDownButton_Click(object sender, RoutedEventArgs e)
         {
-            CoverFlowing();
+            lock (CoverNumberLock)
+            {
+                CoverNumber++;
+                Monitor.Pulse(CoverNumberLock);
+            }
+            //CoverFlowing();
         }
         #endregion
 
-        
+
     }
 }

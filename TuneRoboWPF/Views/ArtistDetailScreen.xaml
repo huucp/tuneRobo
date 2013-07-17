@@ -119,7 +119,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="2" Color="LightGray" Direction="330"/>
                 </Border.Effect>
-                <Image Margin="5" Source="{Binding ArtistAvatar}">
+                <Image Margin="5" Source="{Binding ArtistAvatar}" Stretch="UniformToFill">
                     <Image.Effect>
                         <DropShadowEffect ShadowDepth="1" Color="LightGray" Direction="270"/>
                     </Image.Effect>

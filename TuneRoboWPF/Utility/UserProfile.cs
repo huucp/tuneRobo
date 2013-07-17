@@ -8,6 +8,7 @@ namespace TuneRoboWPF.Utility
         public string DisplayName { get; set; }
         public string Email { get; set; }
         public string AvatarURL { get; set; }
+        public string Password { get; set; }
 
         public UserProfile(ProfileReply profile)
         {
@@ -16,12 +17,13 @@ namespace TuneRoboWPF.Utility
             Email = profile.email;
             AvatarURL = profile.avatar_url;
         }
-        public UserProfile(SigninReply profile)
+        public UserProfile(SigninReply profile,string password)
         {
             UserID = profile.user_id;
             DisplayName = profile.display_name;
             Email = profile.email;
             AvatarURL = profile.avatar_url;
+            Password = password;
         }        
     }
 }

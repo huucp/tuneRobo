@@ -19,11 +19,12 @@ namespace TuneRoboWPF
     {
         public App()
         {
-            var preprocessThread = new BackgroundWorker();
-            preprocessThread.DoWork += Preprocess;                           
-            preprocessThread.RunWorkerAsync();
+            Preprocess(null, null);
+            //var preprocessThread = new BackgroundWorker();
+            //preprocessThread.DoWork += Preprocess;                           
+            //preprocessThread.RunWorkerAsync();
         }
-        
+
 
         private void Preprocess(object sender, DoWorkEventArgs e)
         {
@@ -38,15 +39,22 @@ namespace TuneRoboWPF
             base.OnStartup(e);
             StaticMainWindow.Window = new MainWindow();
             StaticMainWindow.Window.Show();
-            
-            if (true)
-            {
-                NBug.Settings.Destination1 = "Type=Mail;From=huupc@tosy.com;To=huupc@tosy.com;SmtpServer=mail.tosy.com;";
 
-                AppDomain.CurrentDomain.UnhandledException += NBug.Handler.UnhandledException;
-                Current.DispatcherUnhandledException += NBug.Handler.DispatcherUnhandledException;
-                System.Threading.Tasks.TaskScheduler.UnobservedTaskException += NBug.Handler.UnobservedTaskException; 
-            }
+#if RELEASE
+            NBug.Settings.Destination1 = "Type=Mail;From=huupc@tosy.com;To=huupc@tosy.com;SmtpServer=mail.tosy.com;";
+            NBug.Settings.Destination2 = "Type=Mail;From=huupc@tosy.com;To=huongptt@tosy.com;SmtpServer=mail.tosy.com;";
+            AppDomain.CurrentDomain.UnhandledException += NBug.Handler.UnhandledException;
+            Current.DispatcherUnhandledException += NBug.Handler.DispatcherUnhandledException;
+            System.Threading.Tasks.TaskScheduler.UnobservedTaskException += NBug.Handler.UnobservedTaskException; 
+#endif
+            //if (false)
+            //{
+            //    NBug.Settings.Destination1 = "Type=Mail;From=huupc@tosy.com;To=huupc@tosy.com;SmtpServer=mail.tosy.com;";
+
+            //    AppDomain.CurrentDomain.UnhandledException += NBug.Handler.UnhandledException;
+            //    Current.DispatcherUnhandledException += NBug.Handler.DispatcherUnhandledException;
+            //    System.Threading.Tasks.TaskScheduler.UnobservedTaskException += NBug.Handler.UnobservedTaskException; 
+            //}
 
         }
     }

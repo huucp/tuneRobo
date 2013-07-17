@@ -110,6 +110,10 @@ namespace TuneRoboWPF.Views
 
         private bool DeleteLocalMotion()
         {
+            var title = (string) TryFindResource("WantDeleteMotionText") + " " + ViewModel.MotionTitle+"?";
+            var result = WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.YesNo,
+                                            MessageBoxImage.Question, MessageBoxResult.Yes);
+            if (result == MessageBoxResult.No) return false;
             var motionPath = GlobalFunction.GetLocalMotionPath(MotionID);            
             var musicPath = GlobalFunction.GetLocalMusicPath(MotionID);
             try

@@ -15,18 +15,23 @@
     <sys:String x:Key="FieldRequiredText">required field</sys:String>    
     <sys:String x:Key="CreateAccountSuccessfullyText">Create account successfully</sys:String>
     <sys:String x:Key="CheckEmailForPasswordText">Please check your register email for password</sys:String>
+    <sys:String x:Key="UsernameLengthErrorText">Your display name's length must be between 1 and 128 characters</sys:String>
     <sys:String x:Key="CreateAccountEmailErrorText">Your email is invalid</sys:String>
     <sys:String x:Key="CheckEmailErrorText">Please check your email and try again.</sys:String>
+    <sys:String x:Key="CreateAccountEmailExistedText">Your register email is existed</sys:String>
+    <sys:String x:Key="CheckEmailExistedText">Please use another email and try again.</sys:String>
     <sys:String x:Key="CreateAccountNameErrorText">Your display name is invalid</sys:String>
     <sys:String x:Key="CheckNameErrorText">Please use another nick name and try again</sys:String>
     <sys:String x:Key="CreateAccountDefaultErrorText">An unknown error occurred when create Tosy account</sys:String>
     <sys:String x:Key="CheckDefaultErrorText">Please try again later</sys:String>
-    <sys:String x:Key="ForgotEmailText">Enter your Tosy account to get started.</sys:String>    
+    <sys:String x:Key="ForgotEmailText">Enter your registered email to get started.</sys:String>    
     <sys:String x:Key="ResetPasswordText">Reset</sys:String>    
     <sys:String x:Key="ResetPasswordSuccessfullyText">Your password has been reset. Check your email for new password!</sys:String>    
     <sys:String x:Key="ResetPasswordEmailErrorText">Your Tosy account is invalid</sys:String>    
     <sys:String x:Key="ResetPasswordCheckEmailErrorText">Please check your Tosy account and try again</sys:String>    
-    <sys:String x:Key="ResetPasswordDefaultErrorText">An unknown error occurred when reset your passwod</sys:String>    
+    <sys:String x:Key="ResetPasswordDefaultErrorText">An unknown error occurred when reset your password</sys:String>
+    <sys:String x:Key="EmailNullErrorText">Your email is invalid</sys:String>    
+    <sys:String x:Key="PasswordNullErrorText">Your password cannot be empty</sys:String>    
     <sys:String x:Key="DownloadingText">Downloading</sys:String>
     <sys:String x:Key="TransferringText">Transferring</sys:String>    
     <sys:String x:Key="LoadingScreenText">loading</sys:String>    
@@ -67,7 +72,9 @@
     <sys:String x:Key="OldPasswordErrorText">Your password is wrong</sys:String>    
     <sys:String x:Key="CheckOldPasswordErrorText">Please check your password and try again</sys:String>    
     <sys:String x:Key="NewPasswordErrorText">Your new password is invalid</sys:String>    
-    <sys:String x:Key="CheckNewPasswordErrorText">Please check your new password and try again</sys:String>    
+    <sys:String x:Key="CheckNewPasswordErrorText">Your password must be at least 6 characters, contain at least 1 upper case letter,at least 1 number and no space. Please check your new password and try again</sys:String>    
+    <sys:String x:Key="SamePasswordErrorText">Your password must be different from your old password</sys:String>    
+    <sys:String x:Key="CheckSamePasswordErrorText">Please use another password and try again</sys:String>    
     <sys:String x:Key="ChangePasswordDefaultText">An unknown error occured when change your password</sys:String>    
     <sys:String x:Key="NetworkErrorText">Cannot connect to server</sys:String>    
     <sys:String x:Key="CheckNetworkText">Please check your internet and try again</sys:String>    
@@ -89,5 +96,8 @@
     <sys:String x:Key="MotionText">motion</sys:String>    
     <sys:String x:Key="MotionsText">motions</sys:String>    
     <sys:String x:Key="RatingText">rating</sys:String>    
-    <sys:String x:Key="RatingsText">ratings</sys:String>    
+    <sys:String x:Key="RatingsText">ratings</sys:String>
+    <sys:String x:Key="TitleRatingWarningText">The title cannot be empty</sys:String>
+    <sys:String x:Key="ReviewRatingWarningText">The review cannot be empty</sys:String>
+    <sys:String x:Key="WantDeleteMotionText">Do you want to delete motion</sys:String>    
 </ResourceDictionary>
