@@ -28,10 +28,12 @@ namespace TuneRoboWPF.Windows
             Owner = owner;
             return ShowDialog();
         }
+       
 
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
             Cursor = Cursors.Wait;
+            ViewModel.EnableUI = false;
             var forgotRequest = new ForgotPasswordStoreRequest(ViewModel.Email);
             forgotRequest.ProcessSuccessfully += (reply) =>
                 Dispatcher.BeginInvoke((Action)delegate
@@ -53,6 +55,7 @@ namespace TuneRoboWPF.Windows
                             var msgError = (string)TryFindResource("ResetPasswordCheckEmailErrorText");
                             WPFMessageBox.Show(this,msgError,titleError,MessageBoxButton.OK,MessageBoxImage.Error,MessageBoxResult.OK);
                             Cursor = Cursors.Arrow;
+                            ViewModel.EnableUI = true;
                         });
                         break;
                     default:
@@ -62,6 +65,7 @@ namespace TuneRoboWPF.Windows
                             var msgError = (string) TryFindResource("CheckDefaultErrorText");
                             WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
                             Cursor = Cursors.Arrow;
+                            ViewModel.EnableUI = true;
                         });
                         break;
                 }

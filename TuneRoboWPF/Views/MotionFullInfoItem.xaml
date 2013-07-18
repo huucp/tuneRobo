@@ -10,6 +10,7 @@
 	d:DesignWidth="500" >
     <UserControl.Resources>
         <converter:IndexToColorConverter x:Key="IndexToColorConverter"/>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtoniTuneStyle}">
             <Setter Property="Visibility" Value="Hidden"/>
             <Style.Triggers>
@@ -18,6 +19,14 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Cursor" Value="Hand"/>
+            <!--<Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="TextDecorations" Value="Underline"/>
+                </Trigger>
+            </Style.Triggers>-->
+        </Style>
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot">
@@ -25,49 +34,71 @@
                    Margin="0" StrokeThickness="0" >
         </Rectangle>
         <Rectangle  RadiusX="23" RadiusY="23" Width="128" Height="128" HorizontalAlignment="Left" 
-                    Margin="10,0,0,0" Stretch="UniformToFill">
+                    Margin="10,0,0,0" Stretch="UniformToFill" Cursor="Hand">
             <Rectangle.Fill>
                 <ImageBrush x:Name="Artwork" 
                             ImageSource="{Binding CoverImage, TargetNullValue={StaticResource DefaultImage}}"/>
             </Rectangle.Fill>
+            <Rectangle.InputBindings>
+                <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
+            </Rectangle.InputBindings>
         </Rectangle>
-        <Grid Margin="148,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" MaxWidth="500">
+        <Grid Margin="148,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
             <TextBlock x:Name="MotionShadow"  TextTrimming="WordEllipsis"  Grid.Row="0" Margin="-2,0,0,0"
-                       Text="{Binding MotionTitle}" HorizontalAlignment="Left" 
-                       FontWeight="Bold"  VerticalAlignment="Top" FontSize="18" Foreground="White">
+                       Text="{Binding MotionTitle}" HorizontalAlignment="Left" Grid.Column="0"
+                       FontWeight="Bold"  VerticalAlignment="Top" FontSize="18" Foreground="White" MaxWidth="500">
                         <TextBlock.RenderTransform>
                             <TranslateTransform Y="1"/>
                         </TextBlock.RenderTransform>
             </TextBlock>
-            <TextBlock x:Name="Motion"  TextTrimming="WordEllipsis" Grid.Row="0" Margin="-2,0,0,0"
-                       Text="{Binding MotionTitle}" HorizontalAlignment="Left" 
-                       FontWeight="Bold"  VerticalAlignment="Top" FontSize="18" Foreground="{StaticResource BlackFont}"/>
-            <TextBlock x:Name="ArtistShadow"  TextTrimming="WordEllipsis" Grid.Row="1"
+            <TextBlock x:Name="Motion"  TextTrimming="WordEllipsis" Grid.Row="0" Grid.Column="0" Margin="-2,0,0,0"
+                       Text="{Binding MotionTitle}" HorizontalAlignment="Left" MaxWidth="500"
+                       FontWeight="Bold"  VerticalAlignment="Top" FontSize="18" Foreground="{StaticResource BlackFont}">                
+                <TextBlock.InputBindings>
+                    <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
+                </TextBlock.InputBindings>
+            </TextBlock>
+            <TextBlock x:Name="ArtistShadow"  TextTrimming="WordEllipsis" Grid.Row="1" Grid.Column="0"
                        Text="{Binding ArtistName}" Foreground="White"
-                       HorizontalAlignment="Left" VerticalAlignment="Top">
+                       HorizontalAlignment="Left" VerticalAlignment="Top" MaxWidth="500">
                         <TextBlock.RenderTransform>
                             <TranslateTransform Y="1"/>
                         </TextBlock.RenderTransform>
             </TextBlock>
-            <TextBlock x:Name="Artist"  TextTrimming="WordEllipsis" Grid.Row="1" 
+            <TextBlock x:Name="Artist"  TextTrimming="WordEllipsis" Grid.Row="1" Grid.Column="0"
                        Text="{Binding ArtistName}" Foreground="{StaticResource GrayFont}"
-                       HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <TextBlock x:Name="DurationShadow" TextTrimming="WordEllipsis" Grid.Row="2" Margin="3,0,0,0"
+                       HorizontalAlignment="Left" VerticalAlignment="Top" MaxWidth="500">
+                <TextBlock.InputBindings>
+                    <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
+                </TextBlock.InputBindings>
+            </TextBlock>
+            <TextBlock x:Name="DurationShadow" TextTrimming="WordEllipsis" Grid.Row="2" Grid.Column="0" Margin="3,0,0,0"
                        Text="{Binding MotionDuration}" Foreground="White"
-                       HorizontalAlignment="Left" VerticalAlignment="Top">
+                       HorizontalAlignment="Left" VerticalAlignment="Top" MaxWidth="500">
                 <TextBlock.RenderTransform>
                     <TranslateTransform Y="1"/>
                 </TextBlock.RenderTransform>
             </TextBlock>
-            <TextBlock x:Name="Duration" TextTrimming="WordEllipsis" Grid.Row="2" Margin="3,0,0,0"
+            <TextBlock x:Name="Duration" TextTrimming="WordEllipsis" Grid.Row="2" Grid.Column="0" Margin="3,0,0,0"
                        Text="{Binding MotionDuration}" Foreground="{StaticResource GrayFont}"
-                       HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                       HorizontalAlignment="Left" VerticalAlignment="Top" MaxWidth="500">
+                <TextBlock.InputBindings>
+                    <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
+                </TextBlock.InputBindings>
+            </TextBlock>
+            <TextBlock FontWeight="Bold" Grid.Row="0" Grid.Column="1" Visibility="{Binding NeedUpdate,Converter={StaticResource BoolToVisibilityConverter}}"                     
+                       FontSize="9.333" Text="{DynamicResource UpdateText}" Foreground="White" Background="#FF0ED41A" 
+                       Margin="10,0,0,0" VerticalAlignment="Top" />
 
         </Grid>
 
@@ -116,5 +147,6 @@
                 Width="70" Height="27"/>
         <Separator Margin="0" Height="1" VerticalAlignment="Top" Background="{Binding Index,Converter={StaticResource IndexToColorConverter},ConverterParameter=1}"/>
         <Separator Margin="0,0,0,0" Height="1" Background="{Binding Index,Converter={StaticResource IndexToColorConverter},ConverterParameter=2}" VerticalAlignment="Bottom"/>
+
     </Grid>
 </UserControl>

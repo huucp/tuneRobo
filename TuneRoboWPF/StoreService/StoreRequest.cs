@@ -47,7 +47,7 @@ namespace TuneRoboWPF.StoreService
 
             };
             signinRequest.ProcessError += (s, msg) => { };
-            GlobalVariables.StoreWorker.AddRequest(signinRequest);
+            GlobalVariables.StoreWorker.ForceAddRequest(signinRequest);
         }
 
         public object Process()

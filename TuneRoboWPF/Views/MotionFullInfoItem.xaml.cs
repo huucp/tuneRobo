@@ -16,11 +16,23 @@ namespace TuneRoboWPF.Views
     /// </summary>
     public partial class MotionFullInfoItem : UserControl
     {
+        public delegate void MotionClickEventHandler(ulong motionID);
+
+        public event MotionClickEventHandler MotionClicked;
+
+        public void OnMotionClick(ulong motionID)
+        {
+            MotionClickEventHandler handler = MotionClicked;
+            if (handler != null) handler(motionID);
+        }
         public MotionFullInfoItem()
         {
             this.InitializeComponent();
+
             DataContext = new MotionFullInfoItemViewModel();
             ViewModel = (MotionFullInfoItemViewModel)DataContext;
+
+            ViewModel.MotionClick = new ViewModelBase.CommandHandler(MotionClickHandler, true);
         }
         public MotionFullInfoItemViewModel ViewModel = new MotionFullInfoItemViewModel();
         private ulong MotionID { get; set; }
@@ -36,6 +48,10 @@ namespace TuneRoboWPF.Views
             }            
             ViewModel.RatingValue = 0.6;
             MotionID = info.MotionID;
+        }
+        private void MotionClickHandler()
+        {
+            OnMotionClick(MotionID);
         }
 
         public void SetMotionInfo(MotionShortInfo info)
@@ -127,6 +143,6 @@ namespace TuneRoboWPF.Views
                 Debug.Fail("Cannot delete");
                 return false;
             }            
-        }
+        }        
     }
 }

@@ -52,7 +52,7 @@
         <ScrollViewer x:Name="MainScrollViewer"  Margin="0" VerticalScrollBarVisibility="Auto" Background="#f2f2f2">
             <Grid>
                 <TabControl Margin="0,200,0,0" Style="{StaticResource TabControlStyle1}">
-                    <TabItem Header="Purchased">
+                    <TabItem Header="{DynamicResource PurchasedText}">
                         <Grid>
                             <ItemsControl VerticalAlignment="Top" Margin="29,40,0,0" 
                                       ItemsSource="{Binding PurchasedMotionList}">
@@ -70,11 +70,11 @@
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
                         </Grid>
-                    </TabItem>
+                    </TabItem>                    
                 </TabControl>
-                <Image x:Name="UserAvatar" HorizontalAlignment="Right" Height="200" Margin="0,40,40,0" VerticalAlignment="Top" 
+                <Image x:Name="UserAvatar" HorizontalAlignment="Left" Height="200" Margin="860,40,0,0" VerticalAlignment="Top" 
                        Width="200" Source="{Binding Avatar,TargetNullValue={StaticResource DefaultAvatarImage}}" Stretch="UniformToFill"/>
-                <Grid x:Name="UsernameGrid"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,60,260,0" Background="{Binding ElementName=MainScrollViewer,Path=Background}">
+                <Grid x:Name="UsernameGrid"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="708.433,60,0,0" Background="{Binding ElementName=MainScrollViewer,Path=Background}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="30"/>

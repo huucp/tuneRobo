@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using MessageBoxUtils;
 using TuneRoboWPF.RobotService;
 using TuneRoboWPF.StoreService.BigRequest;
 using TuneRoboWPF.Utility;
@@ -22,7 +23,7 @@ namespace TuneRoboWPF.Windows
 		    
             RobotRequest = request;
             RobotRequest.ProcessError += Request_ProcessError;
-            RobotRequest.ProcessSuccessfully += Request_ProcessSuccessfully;
+            RobotRequest.ProcessSuccessfully += RobotRequest_ProcessSuccessfully;
             RobotRequest.ProgressReport += Request_ProgressReport;
             
             ProgressBar.Maximum = 100;
@@ -40,7 +41,7 @@ namespace TuneRoboWPF.Windows
 
             StoreRequest = request;
             StoreRequest.ProcessError += Request_ProcessError;
-            StoreRequest.ProcessSuccessfully += Request_ProcessSuccessfully;
+            StoreRequest.ProcessSuccessfully += StoreRequest_ProcessSuccessfully;
             StoreRequest.ProgressReport += Request_ProgressReport;
 
             ProgressBar.Maximum = 100;
@@ -60,14 +61,28 @@ namespace TuneRoboWPF.Windows
                                                     ViewModel.Percentage = progressValue;
                                                 });
         }
+        private void RobotRequest_ProcessSuccessfully(object sender)
+        {
+            Dispatcher.BeginInvoke((Action)delegate
+            {
+                DialogResult = true;
+                Close();
+                var title = (string)TryFindResource("TransferCompletedText");
+                WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK, MessageBoxImage.Information,
+                                   MessageBoxResult.OK);
+            });
+        }
 
-        private void Request_ProcessSuccessfully(object sender)
+        private void StoreRequest_ProcessSuccessfully(object sender)
         {
             Dispatcher.BeginInvoke((Action) delegate
-                                                {
-                                                    DialogResult = true; 
-                                                    Close();
-                                                });
+            {
+                DialogResult = true;                
+                Close();
+                var title = (string) TryFindResource("DownloadCompletedText");
+                WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK, MessageBoxImage.Information,
+                                   MessageBoxResult.OK);
+            });
         }
 
         private void Request_ProcessError(TransferMotionToRobot.ErrorCode errorCode, string errorMessage)
@@ -75,8 +90,11 @@ namespace TuneRoboWPF.Windows
             Dispatcher.BeginInvoke((Action) delegate
                                                 {
                                                     DialogResult = false;
-                                                    Console.WriteLine(errorMessage);
+                                                    Console.WriteLine(errorMessage);                                                    
                                                     Close();
+                                                    var title = (string)TryFindResource("TransferErrorText");
+                                                    WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK, MessageBoxImage.Information,
+                                                                       MessageBoxResult.OK);
                                                 });
         }
 
@@ -87,6 +105,9 @@ namespace TuneRoboWPF.Windows
                 DialogResult = false;
                 Console.WriteLine(errorMessage);
                 Close();
+                var title = (string)TryFindResource("DownloadErrorText");
+                WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK, MessageBoxImage.Information,
+                                   MessageBoxResult.OK);
             });
         }
 

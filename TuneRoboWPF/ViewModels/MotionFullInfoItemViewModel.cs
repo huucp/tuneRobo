@@ -1,4 +1,6 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System.Diagnostics;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using TuneRoboWPF.Models;
 
 namespace TuneRoboWPF.ViewModels
@@ -75,6 +77,32 @@ namespace TuneRoboWPF.ViewModels
                 model.Index = value;
                 NotifyPropertyChanged("Index");
             }
+        }
+
+        public bool NeedUpdate
+        {
+            get { return model.NeedUpdate; }
+            set
+            {
+                if (model.NeedUpdate == value) return;
+                model.NeedUpdate = value;
+                NotifyPropertyChanged("NeedUpdate");
+            }
+        }
+
+        public ICommand MotionClick
+        {
+            get { return model.MotionClick ?? new CommandHandler(MotionClickHandler, true); }
+            set
+            {
+                if (model.MotionClick == value) return;
+                model.MotionClick = value;
+                NotifyPropertyChanged("MotionClick");
+            }
+        }
+        private void MotionClickHandler()
+        {
+            Debug.Assert(false, "Not set the motion click event");
         }
     }
 }

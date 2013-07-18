@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace TuneRoboWPF.Models
@@ -14,6 +15,8 @@ namespace TuneRoboWPF.Models
         public string ArtistName = "Artist name";
         public string MotionDuration = string.Empty;
         public bool HitTestVisible = false;
-        public int Index = 0;        
+        public int Index = 0;
+        public bool NeedUpdate = false;
+        public ICommand MotionClick = null;
     }
 }

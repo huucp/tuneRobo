@@ -344,6 +344,8 @@ namespace TuneRoboWPF.Views
             GlobalVariables.RobotWorker.AddJob(stateRequest);
         }
 
+
+        // Get list motion in robot
         private void GetListMotion()
         {
             var listAllMotionRequest = new ListAllMotionRobotRequest();
@@ -357,7 +359,7 @@ namespace TuneRoboWPF.Views
             listAllMotionRequest.ProcessSuccessfully += (listMotionInfo) => Dispatcher.BeginInvoke((Action)delegate
             {
                 if (listMotionInfo.Count == 0) viewModel.NoRobotMotionVisibility = true;
-                listMotionInfo.Sort((x, y) => string.Compare(x.Title, y.Title)); // Sort title
+                listMotionInfo.Sort((x, y) => String.CompareOrdinal(x.Title, y.Title)); // Sort title
                 foreach (MotionInfo info in listMotionInfo)
                 {
                     if (info.MType != MotionInfo.MotionType.Dance) continue;
@@ -439,26 +441,94 @@ namespace TuneRoboWPF.Views
             }
         }
 
-
-        private void LoadLibrary()
+        
+        private void GetUpdateList(List<MotionInfo> listMotionInfo)
         {
+            var listMotionID = listMotionInfo.Select(info => info.MotionID).ToList();
+            var getListMotionVersion = new GetMotionVersionStoreRequest(listMotionID);
+            getListMotionVersion.ProcessSuccessfully += (reply) =>
+            {
+                var updateList = new List<MotionInfo>();
+                for (int i =0; i < listMotionInfo.Count;i++)
+                {
+                    if (listMotionInfo[i].VersionCode<reply.motion_version.version[i].version_id)
+                    {
+                        updateList.Add(listMotionInfo[i]);
+                        listMotionInfo.RemoveAt(i);
+                    }
+                }
+                Dispatcher.BeginInvoke((Action)(() => ReorderLibrary(updateList, listMotionInfo)));
+            };
+            getListMotionVersion.ProcessError += (reply, msg) =>
+            {
+
+            };
+            GlobalVariables.StoreWorker.ForceAddRequest(getListMotionVersion);
+        }
+
+        private void ReorderLibrary(List<MotionInfo> updateList,List<MotionInfo> normalList)
+        {
+            viewModel.LibraryItemsList.Clear();
             int index = 0;
             viewModel.NoLocalMotionVisibility = false;
-            string[] listLocalFile = Directory.GetFiles(GlobalFunction.GetSavedDir(), "*.mrb");
-            Array.Sort(listLocalFile);
-            foreach (var file in listLocalFile)
+            foreach (var motionInfo in updateList)
             {
-                var motionInfo = new MotionInfo(file);
+                var motionItem = new MotionFullInfoItem(); 
+                motionItem.SetMotionInfo(motionInfo);
+                motionItem.ViewModel.HitTestVisible = false;
+                motionItem.ViewModel.NeedUpdate = true;
+                motionItem.ViewModel.Index = ++index;
+                motionItem.CopyMotion += Library_CopyMotion;
+                motionItem.DelteMotion += Library_DeleteMotion;
+                motionItem.MotionClicked += Library_MotionClick;
+                viewModel.LibraryItemsList.Add(motionItem);
+                DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
+            }
+            foreach (var motionInfo in normalList)
+            {
                 var motionItem = new MotionFullInfoItem();
                 motionItem.SetMotionInfo(motionInfo);
                 motionItem.ViewModel.HitTestVisible = false;
                 motionItem.ViewModel.Index = ++index;
                 motionItem.CopyMotion += Library_CopyMotion;
                 motionItem.DelteMotion += Library_DeleteMotion;
+                motionItem.MotionClicked += Library_MotionClick;
+                viewModel.LibraryItemsList.Add(motionItem);
+                DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
+            }
+        }
+
+        private void Library_MotionClick(ulong motionID)
+        {
+            var motionDetail = new MotionDetailScreen();
+            motionDetail.SetInfo(motionID);
+            StaticMainWindow.Window.navigationBar.StoreToggleButton.IsChecked = true;
+            StaticMainWindow.Window.navigationBar.RemoteToggleButton.IsChecked = false;
+            StaticMainWindow.Window.ChangeScreen(motionDetail);
+        }
+
+        private void LoadLibrary()
+        {
+            int index = 0;
+            viewModel.NoLocalMotionVisibility = false;
+            string[] listLocalFile = Directory.GetFiles(GlobalFunction.GetSavedDir(), "*.mrb");
+            var listMotionInfo = listLocalFile.Select(file => new MotionInfo(file)).ToList();
+            listMotionInfo.Sort((x, y) => String.CompareOrdinal(x.Title, y.Title)); // Sort title
+            foreach (var motionInfo in listMotionInfo)
+            {
+                var motionItem = new MotionFullInfoItem();
+                motionItem.SetMotionInfo(motionInfo);
+                motionItem.ViewModel.HitTestVisible = false;
+                motionItem.ViewModel.Index = ++index;
+                motionItem.CopyMotion += Library_CopyMotion;
+                motionItem.DelteMotion += Library_DeleteMotion;
+                motionItem.MotionClicked += Library_MotionClick;
                 viewModel.LibraryItemsList.Add(motionItem);
                 DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
             }
             if (index == 0) viewModel.NoLocalMotionVisibility = true;
+            
+            GetUpdateList(listMotionInfo);
         }
 
         private void Library_DeleteMotion(object sender, RoutedEventArgs e)

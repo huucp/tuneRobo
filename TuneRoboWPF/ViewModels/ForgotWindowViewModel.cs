@@ -15,5 +15,15 @@ namespace TuneRoboWPF.ViewModels
                 NotifyPropertyChanged("Email");
             }
         }
+        public bool EnableUI
+        {
+            get { return model.EnableUI; }
+            set
+            {
+                if (model.EnableUI == value) return;
+                model.EnableUI = value;
+                NotifyPropertyChanged("EnableUI");
+            }
+        }
     }
 }

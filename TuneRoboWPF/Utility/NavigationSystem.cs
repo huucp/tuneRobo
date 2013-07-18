@@ -91,7 +91,7 @@ namespace TuneRoboWPF.Utility
             switch (ScreenList[CurrentIndex].Type)
             {
                 case Screen.ScreenType.StoreScreen:
-                    var storeScreen = new StoreScreen();
+                    var storeScreen = new NewStoreScreen();
                     storeScreen.SetInfo(false);
                     return storeScreen;
                 case Screen.ScreenType.MotionDetail:

@@ -8,5 +8,6 @@ namespace TuneRoboWPF.Models
     public class ForgotWindowModel
     {
         public string Email = string.Empty;
+        public bool EnableUI = true;
     }
 }

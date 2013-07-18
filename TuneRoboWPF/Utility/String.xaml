@@ -40,6 +40,7 @@
     <sys:String x:Key="ReviewTabHeaderText">Rating and Reviews</sys:String>    
     <sys:String x:Key="RelatedTabHeaderText">Related</sys:String>     
     <sys:String x:Key="FreeText">Free</sys:String>
+    <sys:String x:Key="PurchasedText">Purchased</sys:String>
     <sys:String x:Key="InstalledText">Installed</sys:String>
     <sys:String x:Key="UpdateText">Update</sys:String>
     <sys:String x:Key="CopyText">Copy</sys:String>
@@ -100,4 +101,8 @@
     <sys:String x:Key="TitleRatingWarningText">The title cannot be empty</sys:String>
     <sys:String x:Key="ReviewRatingWarningText">The review cannot be empty</sys:String>
     <sys:String x:Key="WantDeleteMotionText">Do you want to delete motion</sys:String>    
+    <sys:String x:Key="DownloadCompletedText">Download motion completed</sys:String>
+    <sys:String x:Key="TransferCompletedText">Transfer motion completed</sys:String>
+    <sys:String x:Key="DownloadErrorText">Download motion error</sys:String>    
+    <sys:String x:Key="TransferErrorText">Transfer motion error</sys:String>    
 </ResourceDictionary>

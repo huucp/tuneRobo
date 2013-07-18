@@ -19,7 +19,7 @@ namespace TuneRoboWPF.Windows
 
 #if DEBUG
             UsernameTextBox.Text = "huupc@tosy.com";
-            PasswordBox.Password = "1";
+            PasswordBox.Password = "123456A";
 #endif
         }
 
@@ -42,8 +42,15 @@ namespace TuneRoboWPF.Windows
             return true;
         }
 
+        private void SetEnableUI(bool state)
+        {
+            LoginButton.IsEnabled = state;
+            CancelButton.IsEnabled = state;
+        }
+
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            SetEnableUI(false);
             if (!ValidateData()) return;
             var signinRequest = new SigninStoreRequest(UsernameTextBox.Text, PasswordBox.Password,
                                                        SigninRequest.Type.USER);
@@ -62,6 +69,7 @@ namespace TuneRoboWPF.Windows
                 {
                     Cursor = Cursors.Arrow;
                     WPFMessageBox.Show(this, "Login failed", "Login error", MessageBoxButton.OK, MessageBoxImage.Error,MessageBoxResult.OK);
+                    SetEnableUI(true);
                 });
             GlobalVariables.StoreWorker.AddRequest(signinRequest);
             Cursor = Cursors.Wait;

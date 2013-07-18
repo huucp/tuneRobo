@@ -73,7 +73,7 @@ namespace TuneRoboWPF.Windows
             string password = NewPassword.Password;
             
             if (password.Length < 6 || !Regex.IsMatch(password, "\\d")
-                || !Regex.IsMatch(password, "[A-Z]") || Regex.IsMatch(password,@"[\w\s]"))
+                || !Regex.IsMatch(password, "[A-Z]") || Regex.IsMatch(password,@"[\s]"))
             {
                 var titleError = (string)TryFindResource("NewPasswordErrorText");
                 var msgError = (string)TryFindResource("CheckNewPasswordErrorText");
