@@ -31,12 +31,14 @@ namespace TuneRoboWPF.Windows
             {
                 var title = (string) TryFindResource("EmailNullErrorText");
                 WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                SetEnableUI(true);
                 return false;
             }
             if (string.IsNullOrWhiteSpace(password))
             {
                 var title = (string)TryFindResource("PasswordNullErrorText");
                 WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                SetEnableUI(true);
                 return false;
             }
             return true;

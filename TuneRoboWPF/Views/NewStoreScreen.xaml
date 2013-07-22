@@ -1,20 +1,72 @@
-﻿<UserControl x:Class="TuneRoboWPF.Views.NewStoreScreen"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" xmlns:Views="clr-namespace:TuneRoboWPF.Views"
+             xmlns:Views="clr-namespace:TuneRoboWPF.Views"
+             xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="TuneRoboWPF.Views.NewStoreScreen" 
+             mc:Ignorable="d"
              d:DesignHeight="1000" d:DesignWidth="1100" Width="Auto" Height="Auto"
              Loaded="UserControl_Loaded">
 
+	<UserControl.Resources>
+		<Style x:Key="CoverDownButtonStyle" TargetType="{x:Type Button}">
+			<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+			<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="1"/>
+            <Setter Property="Visibility" Value="Collapsed"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Border BorderBrush="{x:Null}" BorderThickness="0" Margin="0" Height="26" Width="26" CornerRadius="13" Background="#FF454545">
+							<ed:BlockArrow Fill="#FFCACACA" Height="Auto" Margin="5,8,5,5" Orientation="Down" Stroke="Black" Width="Auto" d:LayoutOverrides="VerticalAlignment" StrokeThickness="0"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsKeyboardFocused" Value="true"/>
+							<Trigger Property="ToggleButton.IsChecked" Value="true"/>
+							<Trigger Property="IsEnabled" Value="false">
+								<Setter Property="Foreground" Value="#ADADAD"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=CoverThumnail,Path=IsMouseOver}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+		</Style>
+	</UserControl.Resources>
+
     <ScrollViewer x:Name="MainScrollViewer" Margin="0" CanContentScroll="True" VerticalScrollBarVisibility="Auto" Background="#FFF5F6F7">
         <ScrollViewer.Resources>
-            <Style TargetType="ScrollViewer">
-                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            </Style>
-            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource FullAppleScrollBar}"/>
+        	<Style TargetType="{x:Type ScrollViewer}">
+        		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        	</Style>
+        	<Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource FullAppleScrollBar}"/>
         </ScrollViewer.Resources>
         <Grid>
+            <Border x:Name="HotContentPresenterDropShadow" CornerRadius="4" VerticalAlignment="Top" Height="468" BorderThickness="1" Width="1037" Margin="0,353,0,0">
+                <Border.BorderBrush>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#c3c4c4" Offset="0"/>
+                        <GradientStop Color="#c3c4c4" Offset="0.002"/>
+                        <GradientStop Color="#b4b6b5" Offset="0.009"/>
+                        <GradientStop Color="#b4b6b5" Offset="0.991"/>
+                        <GradientStop Color="#9e9e9f" Offset="0.998"/>
+                        <GradientStop Color="#9e9e9f" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Effect>
+                    <DropShadowEffect  Direction="270" Color="#cccdcc" ShadowDepth="1" BlurRadius="3" />
+                </Border.Effect>
+            </Border>
             <Border x:Name="HotContentPresenter" CornerRadius="4" VerticalAlignment="Top" Height="468" BorderThickness="1" Width="1037" Margin="0,353,0,0">
                 <Border.BorderBrush>
                     <LinearGradientBrush EndPoint="0,1">
@@ -40,8 +92,8 @@
                         </Border.Background>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
+                            	<ColumnDefinition Width="Auto"/>
+                            	<ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock x:Name="HotListTitleShadow"  HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" 
         						Text="{DynamicResource HotListText}" VerticalAlignment="Center" 
@@ -64,11 +116,11 @@
         						       Foreground="{StaticResource BlackFont}" VerticalAlignment="Center" Grid.Column="1" 
                                        Cursor="Hand" FontSize="10.667" FontWeight="Bold">
                                 <TextBlock.Style>
-                                   <Style TargetType="TextBlock">                                       
+                                   <Style TargetType="{x:Type TextBlock}">                                       
                                        <Style.Triggers>
-                                           <Trigger Property ="IsMouseOver" Value="True">
-                                                <Setter Property= "TextDecorations" Value="Underline"/>
-                                           </Trigger>
+                                       	<Trigger Property ="IsMouseOver" Value="True">
+                                       		<Setter Property= "TextDecorations" Value="Underline"/>
+                                       	</Trigger>
                                        </Style.Triggers>
                                     </Style>
                                </TextBlock.Style>
@@ -87,9 +139,9 @@
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                                         <WrapPanel.Resources>
-                                            <Style TargetType="{x:Type Views:MotionHorizontalItem}">
-                                                <Setter Property="Margin" Value="1,0,1,1"/>
-                                            </Style>
+                                        	<Style TargetType="{x:Type Views:MotionHorizontalItem}">
+                                        		<Setter Property="Margin" Value="1,0,1,1"/>
+                                        	</Style>
                                         </WrapPanel.Resources>
                                     </WrapPanel>
                                 </ItemsPanelTemplate>
@@ -149,6 +201,21 @@
                      ItemsSource="{Binding ArtistsList}"
                      PreviewMouseWheel="ArtistLisBox_PreviewMouseWheel"
                      Template="{StaticResource AppleListBoxControlTemplate}" VerticalAlignment="Top" Width="1037" />
+            <Border x:Name="FeaturedContentPresenterDropShadow" CornerRadius="4" Height="468" BorderThickness="1" Width="1037" Margin="0,1061,0,40">
+                <Border.BorderBrush>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#c3c4c4" Offset="0"/>
+                        <GradientStop Color="#c3c4c4" Offset="0.002"/>
+                        <GradientStop Color="#b4b6b5" Offset="0.009"/>
+                        <GradientStop Color="#b4b6b5" Offset="0.991"/>
+                        <GradientStop Color="#9e9e9f" Offset="0.998"/>
+                        <GradientStop Color="#9e9e9f" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Effect>
+                    <DropShadowEffect  Direction="270" Color="#cccdcc" ShadowDepth="1" BlurRadius="3"/>
+                </Border.Effect>
+            </Border>
             <Border x:Name="FeaturedContentPresenter" CornerRadius="4" Height="468" BorderThickness="1" Width="1037" Margin="0,1061,0,40">
                 <Border.BorderBrush>
                     <LinearGradientBrush EndPoint="0,1">
@@ -174,8 +241,8 @@
                         </Border.Background>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
+                            	<ColumnDefinition Width="Auto"/>
+                            	<ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock x:Name="FeaturedListTitleShadow"  HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" 
         						Text="{DynamicResource FeaturedListText}" VerticalAlignment="Center" 
@@ -199,11 +266,11 @@
         						       Foreground="{StaticResource BlackFont}" VerticalAlignment="Center" Grid.Column="1" 
                                        FontSize="10.667" FontWeight="Bold" Cursor="Hand">
                                 <TextBlock.Style>
-                                   <Style TargetType="TextBlock">                                       
+                                   <Style TargetType="{x:Type TextBlock}">                                       
                                        <Style.Triggers>
-                                           <Trigger Property ="IsMouseOver" Value="True">
-                                                <Setter Property= "TextDecorations" Value="Underline"/>
-                                           </Trigger>
+                                       	<Trigger Property ="IsMouseOver" Value="True">
+                                       		<Setter Property= "TextDecorations" Value="Underline"/>
+                                       	</Trigger>
                                        </Style.Triggers>
                                     </Style>
                                </TextBlock.Style>
@@ -222,9 +289,9 @@
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                                         <WrapPanel.Resources>
-                                            <Style TargetType="{x:Type Views:MotionHorizontalItem}">
-                                                <Setter Property="Margin" Value="1,0,1,1"/>
-                                            </Style>
+                                        	<Style TargetType="{x:Type Views:MotionHorizontalItem}">
+                                        		<Setter Property="Margin" Value="1,0,1,1"/>
+                                        	</Style>
                                         </WrapPanel.Resources>
                                     </WrapPanel>
                                 </ItemsPanelTemplate>
@@ -277,16 +344,25 @@
                     </Grid>
                 </DockPanel>
             </Border>
-            <Border BorderBrush="LightGray" BorderThickness="2,0,2,2" Height="334" Margin="0" VerticalAlignment="Top" Width="1038" ClipToBounds="True" CornerRadius="0,0,0,0">
+            <Border Name="CoverBorderDropShadow" BorderBrush="#b4b6b5" BorderThickness="1,0,1,1" Height="334" Margin="0" VerticalAlignment="Top" Width="1038">
+                <Border.Effect>
+                    <DropShadowEffect  Direction="270" Color="#cccdcc" ShadowDepth="1" BlurRadius="3"/>
+                </Border.Effect>
+            </Border>
+            <Border Name="CoverBorder"  BorderBrush="#b4b6b5" BorderThickness="1,0,1,1" Height="334" Margin="0" VerticalAlignment="Top" Width="1038" ClipToBounds="True">
                 <Grid Margin="0">
                     <Image x:Name="Cover1" HorizontalAlignment="Left" Margin="0" Width="777" VerticalAlignment="Top" Height="333" Stretch="UniformToFill"/>
                     <Image x:Name="Cover2" HorizontalAlignment="Left" Margin="0" Width="777" Height="333" VerticalAlignment="Top" Stretch="UniformToFill"/>
-                    <Image x:Name="Image1" Margin="777,-111,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" Height="111" Stretch="UniformToFill"/>
-                    <Image x:Name="Image2" HorizontalAlignment="Left" Margin="777,0,0,0" Width="259" Height="111" VerticalAlignment="Top" Stretch="UniformToFill"/>
-                    <Image x:Name="Image3" HorizontalAlignment="Left" Height="111" Margin="777,111,0,0" VerticalAlignment="Top" Width="259" Stretch="UniformToFill"/>
-                    <Image x:Name="Image4" HorizontalAlignment="Left" Height="111" Margin="777,222,0,0" VerticalAlignment="Top" Width="259" Stretch="UniformToFill"/>
-                    <Button Content="Down" HorizontalAlignment="Right" Height="31" Margin="0,0,94,8" VerticalAlignment="Bottom" Width="51.5" Click="CoverDownButton_Click"/>
-                </Grid>
+                    <Grid Margin="777,0,0,0" Name="CoverThumnail">
+                        <Image x:Name="Thumnail1" Margin="0,-111,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" Height="111" Stretch="UniformToFill"/>
+                        <Image x:Name="Thumnail2" HorizontalAlignment="Left" Margin="0,0,0,0" Width="259" Height="111" VerticalAlignment="Top" Stretch="UniformToFill"/>
+                        <Image x:Name="Thumnail3" HorizontalAlignment="Left" Height="111" Margin="0,111,0,0" VerticalAlignment="Top" Width="259" Stretch="UniformToFill"/>
+                        <Image x:Name="Thumnail4" HorizontalAlignment="Left" Height="111" Margin="0,222,0,0" VerticalAlignment="Top" Width="259" Stretch="UniformToFill"/>
+                        <Button Content="Down" HorizontalAlignment="Center" Height="26" Margin="0,0,0,7" VerticalAlignment="Bottom" Width="26" Click="CoverDownButton_Click" 
+                            Style="{DynamicResource CoverDownButtonStyle}" Cursor="Hand"/>
+                    </Grid>
+                    
+                </Grid>                
             </Border>
         </Grid>
     </ScrollViewer>

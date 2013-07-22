@@ -26,7 +26,6 @@ namespace TuneRoboWPF.Windows
             DataContext = new RatingWindowViewModel();
             ViewModel = (RatingWindowViewModel)DataContext;
 
-            SubmitButton.IsEnabled = false;
         }
 
         private void UpdateExistComment()
@@ -124,6 +123,14 @@ namespace TuneRoboWPF.Windows
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(ViewModel.Title) ^ string.IsNullOrWhiteSpace(ViewModel.Review)) // ^: xor operator
+            {
+                SubmitButton.IsEnabled = false;
+            }
+            else
+            {
+                SubmitButton.IsEnabled = true;
+            }
             //SubmitButton.IsEnabled = !string.IsNullOrEmpty(ViewModel.Title);
         }
 

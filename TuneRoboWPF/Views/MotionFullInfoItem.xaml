@@ -96,8 +96,8 @@
                     <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>
                 </TextBlock.InputBindings>
             </TextBlock>
-            <TextBlock FontWeight="Bold" Grid.Row="0" Grid.Column="1" Visibility="{Binding NeedUpdate,Converter={StaticResource BoolToVisibilityConverter}}"                     
-                       FontSize="9.333" Text="{DynamicResource UpdateText}" Foreground="White" Background="#FF0ED41A" 
+            <TextBlock x:Name ="NeedUpdate" FontWeight="Bold" Grid.Row="0" Grid.Column="1" Visibility="{Binding NeedUpdate,Converter={StaticResource BoolToVisibilityConverter}}"                     
+                       FontSize="9.333" Text="{DynamicResource UpdateText}" Foreground="red"  
                        Margin="10,0,0,0" VerticalAlignment="Top" />
 
         </Grid>

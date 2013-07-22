@@ -19,7 +19,7 @@ namespace TuneRoboWPF.ViewModels
                         model.ImageSource = GlobalResource.SleepIcon;
                         break;
                     case RobotTransformButtonModel.ButtonState.InActive:
-                        model.ImageSource = GlobalResource.LockImageSource;
+                        //model.ImageSource = GlobalResource.LockImageSource;
                         break;
                 }
                 return model.ImageSource;

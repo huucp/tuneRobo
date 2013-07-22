@@ -43,6 +43,7 @@ namespace TuneRoboWPF.Windows
             StoreRequest.ProcessError += Request_ProcessError;
             StoreRequest.ProcessSuccessfully += StoreRequest_ProcessSuccessfully;
             StoreRequest.ProgressReport += Request_ProgressReport;
+            StoreRequest.ProcessCancel += StoreRequest_ProcessCancel;
 
             ProgressBar.Maximum = 100;
 
@@ -51,6 +52,15 @@ namespace TuneRoboWPF.Windows
             ViewModel = (TransferWindowViewModel)DataContext;
             ViewModel.Title = motionTitle;
             ViewModel.TransferText = (string) TryFindResource("DownloadingText");
+        }
+
+        private void StoreRequest_ProcessCancel()
+        {
+            Dispatcher.BeginInvoke((Action)delegate
+            {
+                DialogResult = true;
+                Close();                
+            });
         }
 
 	    private void Request_ProgressReport(int progressValue)

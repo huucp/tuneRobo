@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="TuneRoboWPF.Views.SeeAllScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             x:Name="UserControl" Loaded="UserControl_Loaded" 
+             mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="702">
+    <Grid Background="{StaticResource MainBackground}">
+        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollChanged="ScrollViewer_ScrollChanged">
+            <ScrollViewer.Resources>
+                <Style TargetType="ScrollViewer">
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                </Style>
+                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource FullAppleScrollBar}"/>
+            </ScrollViewer.Resources>
+            <Grid>
+                
+            </Grid>
+        </ScrollViewer>
+            
+    </Grid>
+</UserControl>

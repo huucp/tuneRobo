@@ -100,6 +100,7 @@ namespace TuneRoboWPF.Windows
                     WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
                     Cursor = Cursors.Arrow;
                     Close();
+                    GlobalVariables.CurrentUser.Password = NewPassword.Password;
                 });
             changePassRequest.ProcessError += (reply, msg) =>
                 Dispatcher.BeginInvoke((Action)delegate

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using MessageBoxUtils;
 using TuneRoboWPF.Utility;
@@ -46,6 +47,19 @@ namespace TuneRoboWPF.Windows
                 });
             forgotRequest.ProcessError += (reply, msg) =>
             {
+                if (reply == null)
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        var titleError = (string)TryFindResource("ResetPasswordDefaultErrorText");
+                        var msgError = (string)TryFindResource("CheckDefaultErrorText");
+                        WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                        Cursor = Cursors.Arrow;
+                        ViewModel.EnableUI = true;
+                    });
+                    Debug.Fail("Reply is null");
+                    return;
+                }                
                 switch (reply.type)
                 {
                     case (int)ForgotPassReply.Type.EMAIL_ERROR:

@@ -12,7 +12,8 @@ namespace TuneRoboWPF.ViewModels
         {
             get
             {
-                model.ImageSource = Active ? ActiveImageSource : InactiveImageSource;
+                if (Active) model.ImageSource = ActiveImageSource;
+                //else model.ImageSource = InactiveImageSource;
                 return model.ImageSource;
             }
         }

@@ -451,9 +451,15 @@ namespace TuneRoboWPF.Views
                 var updateList = new List<MotionInfo>();
                 for (int i =0; i < listMotionInfo.Count;i++)
                 {
-                    if (listMotionInfo[i].VersionCode<reply.motion_version.version[i].version_id)
+                    if (listMotionInfo[i].VersionCode < reply.motion_version.version[i].version_id)
                     {
                         updateList.Add(listMotionInfo[i]);
+                    }
+                }
+                for (int i = 0; i < listMotionInfo.Count; i++)
+                {
+                    if (listMotionInfo[i].VersionCode < reply.motion_version.version[i].version_id)
+                    {
                         listMotionInfo.RemoveAt(i);
                     }
                 }

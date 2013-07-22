@@ -72,9 +72,9 @@
                         </Grid>
                     </TabItem>                    
                 </TabControl>
-                <Image x:Name="UserAvatar" HorizontalAlignment="Left" Height="200" Margin="860,40,0,0" VerticalAlignment="Top" 
+                <Image x:Name="UserAvatar" HorizontalAlignment="Right" Height="200" Margin="0,40,40,0" VerticalAlignment="Top" 
                        Width="200" Source="{Binding Avatar,TargetNullValue={StaticResource DefaultAvatarImage}}" Stretch="UniformToFill"/>
-                <Grid x:Name="UsernameGrid"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="708.433,60,0,0" Background="{Binding ElementName=MainScrollViewer,Path=Background}">
+                <Grid x:Name="UsernameGrid" VerticalAlignment="Top" Margin="0,60,260,0" Background="{Binding ElementName=MainScrollViewer,Path=Background}" HorizontalAlignment="Right">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="30"/>

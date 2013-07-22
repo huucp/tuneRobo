@@ -178,22 +178,22 @@ namespace TuneRoboWPF.Views
         #region Cover
         private void InitCover()
         {
-            Image1.Source = new BitmapImage(new Uri(new FileInfo("1.png").FullName, UriKind.RelativeOrAbsolute));
-            Image2.Source = new BitmapImage(new Uri(new FileInfo("2.jpg").FullName, UriKind.RelativeOrAbsolute));
-            Image3.Source = new BitmapImage(new Uri(new FileInfo("3.jpg").FullName, UriKind.RelativeOrAbsolute));
-            Image4.Source = new BitmapImage(new Uri(new FileInfo("4.jpg").FullName, UriKind.RelativeOrAbsolute));
+            Thumnail1.Source = new BitmapImage(new Uri(new FileInfo("1.png").FullName, UriKind.RelativeOrAbsolute));
+            Thumnail2.Source = new BitmapImage(new Uri(new FileInfo("2.jpg").FullName, UriKind.RelativeOrAbsolute));
+            Thumnail3.Source = new BitmapImage(new Uri(new FileInfo("3.jpg").FullName, UriKind.RelativeOrAbsolute));
+            Thumnail4.Source = new BitmapImage(new Uri(new FileInfo("4.jpg").FullName, UriKind.RelativeOrAbsolute));
 
-            thumnailList.Add(Image1);
-            thumnailList.Add(Image2);
-            thumnailList.Add(Image3);
-            thumnailList.Add(Image4);
+            thumnailList.Add(Thumnail1);
+            thumnailList.Add(Thumnail2);
+            thumnailList.Add(Thumnail3);
+            thumnailList.Add(Thumnail4);
 
 
             firstMargin = thumnailList[0].Margin;
 
-            Cover1.Source = Image2.Source;
+            Cover1.Source = Thumnail2.Source;
             Cover1.Opacity = 0;
-            Cover2.Source = Image3.Source;
+            Cover2.Source = Thumnail3.Source;
 
             Panel.SetZIndex(Cover1, 1);
             Panel.SetZIndex(Cover2, 2);
@@ -272,7 +272,7 @@ namespace TuneRoboWPF.Views
                 {
                     image.Margin = firstMargin;
                 }
-                else image.Margin = new Thickness(777, image.Margin.Top + thumnailTranslationStep, 0, 0);
+                else image.Margin = new Thickness(0, image.Margin.Top + thumnailTranslationStep, 0, 0);
                 if (index == thumnailList.Count - 1)
                 {
                     if (nextReserveImageIndex == 0) nextReserveImageIndex = thumnailList.Count - 1;

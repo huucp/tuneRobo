@@ -232,6 +232,9 @@
     <Compile Include="Views\SearchResultScreen.xaml.cs">
       <DependentUpon>SearchResultScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SeeAllScreen.xaml.cs">
+      <DependentUpon>SeeAllScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StoreScreen.xaml.cs">
       <DependentUpon>StoreScreen.xaml</DependentUpon>
     </Compile>
@@ -396,6 +399,10 @@
     <Page Include="Views\SearchResultScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SeeAllScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StoreScreen.xaml">
       <SubType>Designer</SubType>

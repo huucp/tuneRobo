@@ -9,9 +9,15 @@ namespace TuneRoboWPF.StoreService
 {
     public class StoreConnection
     {
-        private const string IPServer = "183.91.7.159";
+        // Local server
+        //private const string IPServer = "183.91.7.159";
         //private const string IPServer = "192.168.1.51";
-        private const int PortServer = 8769;
+        //private const int PortServer = 8769;
+
+        // Amazon server
+        private const string IPServer = "54.213.2.129";
+        private const int PortServer = 1234;
+
         private const int MagicByte = 0xEE;
         private const int HeaderSize = 8;
         public static int RetryTime = 5;
@@ -81,7 +87,7 @@ namespace TuneRoboWPF.StoreService
 
                 while (ret < 4)
                 {
-                    if (Connection.Available == 0) break;
+                    //if (Connection.Available == 0) break;
                     var ret_ = Connection.Receive(buffer);
                     if (ret_ == 0) break;
                     ret += ret_;
@@ -95,7 +101,7 @@ namespace TuneRoboWPF.StoreService
                 while (ret < size)
                 {
                     //Console.WriteLine("need receive more {0:d} bytes.", size - ret);
-                    if (Connection.Available == 0) break;
+                    //if (Connection.Available == 0) break;
                     var ret_ = Connection.Receive(buffer);
                     if (ret_ == 0) break;
                     ret += ret_;

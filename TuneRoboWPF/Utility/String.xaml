@@ -15,6 +15,8 @@
     <sys:String x:Key="FieldRequiredText">required field</sys:String>    
     <sys:String x:Key="CreateAccountSuccessfullyText">Create account successfully</sys:String>
     <sys:String x:Key="CheckEmailForPasswordText">Please check your register email for password</sys:String>
+    <sys:String x:Key="EmailEmptyErrorText">Your registered email cannot be empty</sys:String>
+    <sys:String x:Key="UsernameEmptyErrorText">Your display name cannot be empty</sys:String>
     <sys:String x:Key="UsernameLengthErrorText">Your display name's length must be between 1 and 128 characters</sys:String>
     <sys:String x:Key="CreateAccountEmailErrorText">Your email is invalid</sys:String>
     <sys:String x:Key="CheckEmailErrorText">Please check your email and try again.</sys:String>

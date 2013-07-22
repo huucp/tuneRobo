@@ -39,7 +39,19 @@ namespace TuneRoboWPF.Windows
                 WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
                 return false;
             }
-            if (ViewModel.Username.Length < 1 || ViewModel.Username.Length > 128)
+            if (ViewModel.Email.Length==0)
+            {
+                var title = (string)TryFindResource("EmailEmptyErrorText");
+                WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                return false;
+            }
+            if (ViewModel.Username.Length == 0)
+            {
+                var title = (string)TryFindResource("UsernameEmptyErrorText");
+                WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                return false;
+            }
+            if (ViewModel.Username.Length > 128)
             {
                 var title = (string)TryFindResource("UsernameLengthErrorText");
                 WPFMessageBox.Show(this, "", title, MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
@@ -85,6 +97,20 @@ namespace TuneRoboWPF.Windows
                 });
             createRequest.ProcessError += (reply, msg) =>
             {
+                if (reply == null)
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        var titleError = (string)TryFindResource("CreateAccountDefaultErrorText");
+                        var msgError = (string)TryFindResource("CheckDefaultErrorText");
+                        WPFMessageBox.Show(this, msgError, titleError, MessageBoxButton.OK, MessageBoxImage.Error,
+                                           MessageBoxResult.OK);
+                        Cursor = Cursors.Arrow;
+                        ViewModel.EnableUI = true;
+                    });
+                    Debug.Fail("Reply is null");
+                    return;
+                }    
                 switch (reply.type)
                 {
                     case (int)SignupReply.Type.INVALID_EMAIL:

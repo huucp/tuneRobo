@@ -32,6 +32,16 @@ namespace TuneRoboWPF.StoreService.BigRequest
             if (handler != null) handler(errorCode, errorMessage);
         }
 
+        public delegate void CancelEventHandler();
+
+        public event CancelEventHandler ProcessCancel;
+
+        private void OnProcessCancel()
+        {
+            CancelEventHandler handler = ProcessCancel;
+            if (handler != null) handler();
+        }
+
         public delegate void ProgressReportEventHandler(int progressValue);
 
         public event ProgressReportEventHandler ProgressReport;
@@ -124,6 +134,11 @@ namespace TuneRoboWPF.StoreService.BigRequest
             var motionData = new List<byte>();
             for (int i = 0; i < numberOfMotionTrunk; i++)
             {
+                if (CancelProcess)
+                {
+                    OnProcessCancel();
+                    return null;
+                }
                 var request = new DownloadMotionTrunkDataStoreRequest(MotionID, ReadMotionDataRequest.Type.MOTION,
                                                                       (ulong)(i * trunkSize), (ulong)trunkSize);
                 var reply = (Reply)request.Process();
@@ -179,6 +194,11 @@ namespace TuneRoboWPF.StoreService.BigRequest
             var musicData = new List<byte>();
             for (int i = 0; i < numberOfMusicTrunk; i++)
             {
+                if (CancelProcess)
+                {
+                    OnProcessCancel();
+                    return null;
+                }
                 var request = new DownloadMotionTrunkDataStoreRequest(MotionID, ReadMotionDataRequest.Type.MUSIC,
                                                                       (ulong)(i * trunkSize), (ulong)trunkSize);
                 var reply = (Reply)request.Process();
