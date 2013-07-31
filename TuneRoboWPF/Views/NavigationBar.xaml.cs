@@ -1,7 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MessageBoxUtils;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
@@ -96,7 +98,21 @@ namespace TuneRoboWPF.Views
         {
             var signoutRequest = new SignoutStoreRequest();
             signoutRequest.ProcessSuccessfully += (reply) => OnLogoutSuccessfully(null);
-            signoutRequest.ProcessError += (reply, msg) => Debug.Fail(reply.type.ToString(), msg);
+            signoutRequest.ProcessError += (reply, msg) =>
+            {
+                if (reply == null) Debug.Fail("reply is null");
+                else Debug.Fail(reply.type.ToString(), msg);
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    var titleError = (string)Application.Current.TryFindResource("StoreConnectionkErrorText");
+                    var msgError = (string)Application.Current.TryFindResource("CheckNetworkText");
+                    WPFMessageBox.Show(StaticMainWindow.Window, msgError, titleError, MessageBoxButton.OK,
+                                       MessageBoxImage.Error, MessageBoxResult.OK);
+
+                    // Auto logout
+                    OnLogoutSuccessfully(null);
+                });
+            };
             GlobalVariables.StoreWorker.AddRequest(signoutRequest);
         }
 

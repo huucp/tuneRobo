@@ -76,7 +76,7 @@ namespace TuneRoboWPF.Views
             searchRequest.ProcessError += (reply, msg) =>
             {
                 Debug.Fail(msg, reply.type.ToString());
-                Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
+                if (FirstLoad) Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
             };
             GlobalVariables.StoreWorker.ForceAddRequest(searchRequest);
         }
@@ -98,7 +98,7 @@ namespace TuneRoboWPF.Views
 
         private void MainScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            if (IsLoaded)
+            if (IsLoaded && !FirstLoad)
             {               
                 if (MainScrollViewer.VerticalOffset + 10 > MainScrollViewer.ScrollableHeight)
                 {

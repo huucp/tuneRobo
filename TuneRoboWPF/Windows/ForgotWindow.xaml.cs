@@ -73,6 +73,7 @@ namespace TuneRoboWPF.Windows
                         });
                         break;
                     default:
+                        Debug.Fail("unknown error when reset password",Enum.GetName(typeof(comm.Reply),reply.type));
                         Dispatcher.BeginInvoke((Action)delegate
                         {
                             var titleError = (string)TryFindResource("ResetPasswordDefaultErrorText");

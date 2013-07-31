@@ -258,7 +258,7 @@ namespace TuneRoboWPF.Views
             numberRatingRequest.ProcessError += (reply, msg) =>
                                                     {
                                                         if (reply == null) Debug.Fail("reply is null");
-                                                        Debug.Assert(false, msg + reply.type);
+                                                        else Debug.Assert(false, msg + reply.type);
                                                     };
             GlobalVariables.StoreWorker.ForceAddRequest(numberRatingRequest);
         }
@@ -353,10 +353,17 @@ namespace TuneRoboWPF.Views
                     }
                 });
             relationRequest.ProcessError += (reply, msg) =>
-                                                {
-                                                    if (reply == null) Debug.Fail("reply is null");
-                                                    else Debug.Fail(reply.type.ToString(), msg);
-                                                };
+            {
+                if (reply == null) Debug.Fail("reply is null");
+                else Debug.Fail(reply.type.ToString(), msg);
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    var titleError = (string)Application.Current.TryFindResource("StoreConnectionkErrorText");
+                    var msgError = (string)Application.Current.TryFindResource("CheckNetworkText");
+                    WPFMessageBox.Show(StaticMainWindow.Window, msgError, titleError, MessageBoxButton.OK,
+                                       MessageBoxImage.Error, MessageBoxResult.OK);                    
+                });
+            };
             GlobalVariables.StoreWorker.AddRequest(relationRequest);
         }
 

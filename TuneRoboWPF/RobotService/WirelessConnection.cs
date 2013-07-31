@@ -30,7 +30,7 @@ namespace TuneRoboWPF.RobotService
             Connection.SendTimeout = GlobalVariables.Timeout;
             Connection.ReceiveTimeout = GlobalVariables.Timeout;
 
-            var titleError = (string)Application.Current.TryFindResource("NetworkErrorText");
+            var titleError = (string)Application.Current.TryFindResource("WirelessConnectionkErrorText");
             var msgError = (string)Application.Current.TryFindResource("CheckNetworkText");
 
 

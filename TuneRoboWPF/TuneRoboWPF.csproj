@@ -103,6 +103,7 @@
     <Compile Include="Models\RemoteControlScreenModel.cs" />
     <Compile Include="Models\RobotTransformButtonModel.cs" />
     <Compile Include="Models\SearchResultScreenModel.cs" />
+    <Compile Include="Models\SeeAllScreenModel.cs" />
     <Compile Include="Models\SignupWindowModel.cs" />
     <Compile Include="Models\StoreScreenModel.cs" />
     <Compile Include="Models\TempStoreScreenModel.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="ViewModels\RobotTransformButtonViewModel.cs" />
     <Compile Include="ViewModels\ScreenshotImageViewModel.cs" />
     <Compile Include="ViewModels\SearchResultScreenViewModel.cs" />
+    <Compile Include="ViewModels\SeeAllScreenViewModel.cs" />
     <Compile Include="ViewModels\SignupWindowViewModel.cs" />
     <Compile Include="ViewModels\StoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TempStoreScreenViewModel.cs" />
@@ -582,6 +584,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\mRobo_big.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\default_screenshot.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\default_icon.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />

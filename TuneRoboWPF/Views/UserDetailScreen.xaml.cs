@@ -109,7 +109,8 @@ namespace TuneRoboWPF.Views
                 });
 	        purchaseRequest.ProcessError += (reply, msg) =>
             {
-                Debug.Fail(reply.type.ToString(), msg);
+                if(reply==null) Debug.Fail("reply is null");
+                else Debug.Fail(reply.type.ToString(), msg);
                 Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
             };                               
             GlobalVariables.StoreWorker.ForceAddRequest(purchaseRequest);

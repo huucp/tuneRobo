@@ -107,6 +107,10 @@ namespace TuneRoboWPF.Windows
                     DialogResult = true;
                     Cursor = Cursors.Arrow;
                     Close();
+
+                    var title = (string) TryFindResource("RatingSuccessfullyText");
+                    WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK,
+                                       MessageBoxImage.Information, MessageBoxResult.OK);
                 });
             ratingRequest.ProcessError += (reply, msg) =>
                                               {

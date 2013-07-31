@@ -37,7 +37,7 @@
     <sys:String x:Key="DownloadingText">Downloading</sys:String>
     <sys:String x:Key="TransferringText">Transferring</sys:String>    
     <sys:String x:Key="LoadingScreenText">loading</sys:String>    
-    <sys:String x:Key="ErrorScreenText">We encounted an error. Please check your connection and retry.</sys:String>    
+    <sys:String x:Key="ErrorScreenText">We encounted an connection error. Please check your connection and retry.</sys:String>    
     <sys:String x:Key="DetailsTabHeaderText">Details</sys:String>
     <sys:String x:Key="ReviewTabHeaderText">Rating and Reviews</sys:String>    
     <sys:String x:Key="RelatedTabHeaderText">Related</sys:String>     
@@ -79,8 +79,9 @@
     <sys:String x:Key="SamePasswordErrorText">Your password must be different from your old password</sys:String>    
     <sys:String x:Key="CheckSamePasswordErrorText">Please use another password and try again</sys:String>    
     <sys:String x:Key="ChangePasswordDefaultText">An unknown error occured when change your password</sys:String>    
-    <sys:String x:Key="NetworkErrorText">Cannot connect to server</sys:String>    
-    <sys:String x:Key="CheckNetworkText">Please check your internet and try again</sys:String>    
+    <sys:String x:Key="StoreConnectionkErrorText">The connection to server is error</sys:String>    
+    <sys:String x:Key="WirelessConnectionkErrorText">The wireless connection to robot is error</sys:String>    
+    <sys:String x:Key="CheckNetworkText">Please check your connection and try again</sys:String>    
     <sys:String x:Key="FileText">File</sys:String>
     <sys:String x:Key="FileErrorText">File error</sys:String>
     <sys:String x:Key="IsNotExistText">is not exist</sys:String>    
@@ -90,6 +91,7 @@
     <sys:String x:Key="NoResultForText">There is no results for</sys:String>    
     <sys:String x:Key="NoMotionInLocalText">There is no motion in your computer</sys:String>    
     <sys:String x:Key="NoMotionInRobotText">There is no motion in your robot</sys:String>
+    <sys:String x:Key="NoMotionInCategoryText">There is no motion in category</sys:String>
     <sys:String x:Key="RobotConnectionLostText">Your connection to robot is lost</sys:String>
     <sys:String x:Key="WantReconnectRobotText">Do you want to reconnect?</sys:String>
     <sys:String x:Key="AvatarNotImageText">Your avatar url is not an image</sys:String>
@@ -106,5 +108,6 @@
     <sys:String x:Key="DownloadCompletedText">Download motion completed</sys:String>
     <sys:String x:Key="TransferCompletedText">Transfer motion completed</sys:String>
     <sys:String x:Key="DownloadErrorText">Download motion error</sys:String>    
-    <sys:String x:Key="TransferErrorText">Transfer motion error</sys:String>    
+    <sys:String x:Key="TransferErrorText">Transfer motion error</sys:String>
+    <sys:String x:Key="RatingSuccessfullyText">Your rating is submitted</sys:String>    
 </ResourceDictionary>

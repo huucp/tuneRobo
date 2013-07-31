@@ -114,7 +114,7 @@
                             </TextBlock>
                             <TextBlock x:Name="SeeAllHot" HorizontalAlignment="Left" Margin="14,4,0,0" Text="{DynamicResource SeeAllText}"
         						       Foreground="{StaticResource BlackFont}" VerticalAlignment="Center" Grid.Column="1" 
-                                       Cursor="Hand" FontSize="10.667" FontWeight="Bold">
+                                       Cursor="Hand" FontSize="10.667" FontWeight="Bold" MouseDown="SeeAllHot_MouseDown">
                                 <TextBlock.Style>
                                    <Style TargetType="{x:Type TextBlock}">                                       
                                        <Style.Triggers>
@@ -194,8 +194,9 @@
                     </Grid>
                 </DockPanel>
             </Border>
-            <ListBox x:Name="ArtistsLisBox" Height="200"
-                     Margin="0,841,0,20"  BorderThickness="1,0,1,0" BorderBrush="{StaticResource ListBoxHorizontalBorderBrush}" HorizontalAlignment="Stretch"
+            <ListBox x:Name="ArtistsLisBox" Height="200" Background="Transparent"
+                     Margin="0,841,0,20"  BorderThickness="1,0,1,0" 
+                     BorderBrush="{StaticResource ListBoxHorizontalBorderBrush}" HorizontalAlignment="Stretch"
                      Style="{StaticResource ListBoxVerticalStyle}"
                      ItemsPanel="{StaticResource WrapPanelListBoxTemplate}"
                      ItemsSource="{Binding ArtistsList}"
@@ -264,7 +265,7 @@
                             </TextBlock>
                             <TextBlock x:Name="SeeAllFeatured" HorizontalAlignment="Left" Margin="14,4,0,0" Text="{DynamicResource SeeAllText}"
         						       Foreground="{StaticResource BlackFont}" VerticalAlignment="Center" Grid.Column="1" 
-                                       FontSize="10.667" FontWeight="Bold" Cursor="Hand">
+                                       FontSize="10.667" FontWeight="Bold" Cursor="Hand" MouseDown="SeeAllFeatured_MouseDown">
                                 <TextBlock.Style>
                                    <Style TargetType="{x:Type TextBlock}">                                       
                                        <Style.Triggers>

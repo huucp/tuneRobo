@@ -3,14 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Height="180" Width="320"
              d:DesignHeight="180" d:DesignWidth="320"
              xmlns:converter="clr-namespace:TuneRoboWPF.Converter">
     <UserControl.Resources>
         <converter:BoolToVisibilityConverter x:Key="BoolToThumbnailVisibilityConverter"/>
     </UserControl.Resources>
-    <Grid>
-        <Image Width="320" Height="180" Stretch="UniformToFill" Source="{Binding ScreenshotSource}"/>
+    <UserControl.Effect>
+        <DropShadowEffect BlurRadius="3" ShadowDepth="2" Color="LightGray" Direction="270"/>
+    </UserControl.Effect>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">        
+        <Image Width="320" Height="180" Stretch="UniformToFill" Source="{Binding ScreenshotSource,TargetNullValue={StaticResource DefaultScreenshot}}" />
         <Rectangle Fill="Black" Opacity="0.3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                    Visibility="{Binding IsYoutubeThumbnail,Converter={StaticResource BoolToThumbnailVisibilityConverter},ConverterParameter='Collapsed'}"/>
         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Resources/video_play.png"

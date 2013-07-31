@@ -19,7 +19,7 @@
             </Rectangle.InputBindings>
             <Rectangle.Fill>
                 <ImageBrush x:Name="ArtworkImage" 
-                            ImageSource="{Binding CoverImage, TargetNullValue={StaticResource DefaultImage}}"/>
+                            ImageSource="{Binding CoverImage, TargetNullValue={StaticResource DefaultIcon}}"/>
             </Rectangle.Fill>
             <Rectangle.Effect>
                 <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="LightGray" Direction="270"/>

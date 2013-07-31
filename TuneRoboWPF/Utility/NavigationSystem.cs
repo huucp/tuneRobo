@@ -24,7 +24,7 @@ namespace TuneRoboWPF.Utility
 
         private void UpdateNavigationButton()
         {
-           // if (CurrentIndex==-1) return;
+            // if (CurrentIndex==-1) return;
             if (CurrentIndex > ScreenList.Count - 2)
             {
 
@@ -96,21 +96,26 @@ namespace TuneRoboWPF.Utility
                     return storeScreen;
                 case Screen.ScreenType.MotionDetail:
                     var motionScreen = new MotionDetailScreen();
-                    var motionID = (ulong) ScreenList[CurrentIndex].Parameter;
-                    motionScreen.SetInfo(motionID,false);
+                    var motionID = (ulong)ScreenList[CurrentIndex].Parameter;
+                    motionScreen.SetInfo(motionID, false);
                     return motionScreen;
                 case Screen.ScreenType.ArtistDetail:
                     var artistScreen = new ArtistDetailScreen();
                     var artistID = (ulong)ScreenList[CurrentIndex].Parameter;
                     artistScreen.SetInfo(artistID, false);
                     return artistScreen;
-                    case Screen.ScreenType.Search:
+                case Screen.ScreenType.Search:
                     var searchScreen = new SearchResultScreen();
-                    var query = (string) ScreenList[CurrentIndex].Parameter;
-                    searchScreen.SetQuery(query,false);
+                    var query = (string)ScreenList[CurrentIndex].Parameter;
+                    searchScreen.SetQuery(query, false);
                     return searchScreen;
+                case Screen.ScreenType.SeeAll:
+                    var seeAllScreen = new SeeAllScreen();
+                    var category = (string)ScreenList[CurrentIndex].Parameter;
+                    seeAllScreen.SetCategory(category, false);
+                    return seeAllScreen;
                 default:
-                    Debug.Fail(string.Format("GetCurrentScreen error, index{0}", CurrentIndex));
+                    Debug.Fail(string.Format("GetCurrentScreen error, index: {0}", CurrentIndex));
                     return null;
             }
             return null;
@@ -121,7 +126,7 @@ namespace TuneRoboWPF.Utility
     {
         public enum ScreenType
         {
-            StoreScreen, MotionDetail, ArtistDetail,Search
+            StoreScreen, MotionDetail, ArtistDetail, Search, SeeAll
         }
 
         public ScreenType Type { get; set; }

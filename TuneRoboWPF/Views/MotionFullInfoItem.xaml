@@ -37,7 +37,7 @@
                     Margin="10,0,0,0" Stretch="UniformToFill" Cursor="Hand">
             <Rectangle.Fill>
                 <ImageBrush x:Name="Artwork" 
-                            ImageSource="{Binding CoverImage, TargetNullValue={StaticResource DefaultImage}}"/>
+                            ImageSource="{Binding CoverImage, TargetNullValue={StaticResource DefaultIcon}}"/>
             </Rectangle.Fill>
             <Rectangle.InputBindings>
                 <MouseBinding Command="{Binding MotionClick}" MouseAction="LeftClick"/>

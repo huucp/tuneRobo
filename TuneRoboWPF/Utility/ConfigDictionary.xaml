@@ -7,6 +7,8 @@
     </Style>
     <BitmapImage x:Key="DefaultImage" UriSource="/Resources/cov894.jpeg" />
     <BitmapImage x:Key="DefaultAvatarImage" UriSource="/Resources/default_user.jpg" />
+    <BitmapImage x:Key="DefaultScreenshot" UriSource="/Resources/default_screenshot.jpg" />
+    <BitmapImage x:Key="DefaultIcon" UriSource="/Resources/default_icon.jpg" />
     <BitmapImage x:Key="YoutubeImage" UriSource="/Resources/youtube.jpg"/>
     <BitmapImage x:Key="TrashIcon" UriSource="/Resources/trash.png"/>
     <BitmapImage x:Key="PlayMotionHeader" UriSource="/Resources/play Gray.png"/>

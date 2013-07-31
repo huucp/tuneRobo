@@ -58,7 +58,7 @@ namespace TuneRoboWPF.Windows
         {
             Dispatcher.BeginInvoke((Action)delegate
             {
-                DialogResult = true;
+                DialogResult = false;
                 Close();                
             });
         }

@@ -69,9 +69,12 @@
                 <TranslateTransform Y="1"/>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <TextBlock x:Name="ContentTextBlock" Margin="0,82.04,0,0" 
-                   HorizontalAlignment="Left" VerticalAlignment="Top" 
+        <TextBlock x:Name="ContentTextBlock" Margin="0,82.04,0,30" 
+                   HorizontalAlignment="Left" VerticalAlignment="Bottom" 
                    TextWrapping="Wrap" Text="{Binding CommentContent}"
                    FontSize="12" Foreground="{StaticResource BlackFont}"/>
+        <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="100,0,100,1" Background="#d9d9d9"/>
+        <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="120,0" Background="#fbfbfb"/>
+        
     </Grid>
 </UserControl>

@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Views="clr-namespace:TuneRoboWPF.Views"
+             xmlns:converter="clr-namespace:TuneRoboWPF.Converter" 
              x:Name="UserControl" Loaded="UserControl_Loaded" 
              mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="702">
+    <UserControl.Resources>
+        <converter:BoolToVisibilityConverter x:Key="NoResultVisibilityConverter"/>
+    </UserControl.Resources>
     <Grid Background="{StaticResource MainBackground}">
-        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        <ScrollViewer x:Name="MainScrollViewer" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ScrollChanged="ScrollViewer_ScrollChanged">
             <ScrollViewer.Resources>
                 <Style TargetType="ScrollViewer">
@@ -15,9 +20,54 @@
                 <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource FullAppleScrollBar}"/>
             </ScrollViewer.Resources>
             <Grid>
-                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="86"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ItemsControl HorizontalAlignment="Stretch" Margin="20,0" ItemsSource="{Binding CategoryList}"  Grid.Row="1">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <WrapPanel.Resources>
+                                    <Style TargetType="{x:Type Views:MotionItemVertical}">
+                                        <Setter Property="Margin" Value="20,0,0,0"/>
+                                    </Style>
+                                </WrapPanel.Resources>
+                            </WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <TextBlock x:Name="CategoryHeaderShadow" Margin="42,33,20,0" TextWrapping="NoWrap" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left"
+					Text="{Binding Category}" FontWeight="UltraBold" FontSize="24" Foreground="White" TextTrimming="WordEllipsis">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform Y="1"/>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBlock x:Name="CategoryHeader" Margin="42,33,20,0" TextWrapping="NoWrap" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left"
+					Text="{Binding Category}" FontWeight="UltraBold" FontSize="24" TextTrimming="WordEllipsis">
+                    <TextBlock.Foreground>
+            		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            			<GradientStop Color="#FF8B8B8B" Offset="1"/>
+            			<GradientStop Color="#FF414141"/>
+            		</LinearGradientBrush>
+            	</TextBlock.Foreground>
+                </TextBlock>
             </Grid>
         </ScrollViewer>
-            
+        <Border Background="{StaticResource MainBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Visibility="{Binding NoResultVisibility,Converter={StaticResource NoResultVisibilityConverter}}">
+            <Grid>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="UltraBold"
+                           Foreground="White" Text="{Binding NoResultText}" TextTrimming="WordEllipsis">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform Y="1"/>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="UltraBold"
+                           Foreground="{StaticResource BlackFont}" Text="{Binding NoResultText}" TextTrimming="WordEllipsis"/>
+            </Grid>
+
+        </Border>
     </Grid>
+
 </UserControl>
