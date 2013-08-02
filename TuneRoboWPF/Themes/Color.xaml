@@ -6,4 +6,5 @@
     <SolidColorBrush x:Key="GrayFont" Color="#7D7D7D"/>
     <SolidColorBrush x:Key="DarkGrayFont" Color="#646464"/>
     <SolidColorBrush x:Key="BlackFont" Color="#323232"/>
+    <Color x:Key="MainBackgroundColor">WhiteSmoke</Color>
 </ResourceDictionary>

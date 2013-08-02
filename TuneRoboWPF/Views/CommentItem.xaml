@@ -73,8 +73,28 @@
                    HorizontalAlignment="Left" VerticalAlignment="Bottom" 
                    TextWrapping="Wrap" Text="{Binding CommentContent}"
                    FontSize="12" Foreground="{StaticResource BlackFont}"/>
-        <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="100,0,100,1" Background="#d9d9d9"/>
-        <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="120,0" Background="#fbfbfb"/>
-        
+        <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="80,0,80,1">
+            <!--<Separator.Background>#d9d9d9</Separator.Background>-->
+            <Separator.Background>
+                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                    <GradientStop Color="{StaticResource MainBackgroundColor}" Offset="0"/>
+                    <GradientStop Color="#d9d9d9" Offset="0.05"/>
+                    <GradientStop Color="#d9d9d9" Offset="0.95"/>
+                    <GradientStop Color="{StaticResource MainBackgroundColor}" Offset="1"/>
+                </LinearGradientBrush>
+            </Separator.Background>
+        </Separator>
+        <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="120,0">
+            <!--<Separator.Background>#fbfbfb</Separator.Background>-->
+            <Separator.Background>
+                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                    <GradientStop Color="{StaticResource MainBackgroundColor}" Offset="0"/>
+                    <GradientStop Color="#fbfbfb" Offset="0.05"/>
+                    <GradientStop Color="#fbfbfb" Offset="0.95"/>
+                    <GradientStop Color="{StaticResource MainBackgroundColor}" Offset="1"/>
+                </LinearGradientBrush>
+            </Separator.Background>
+        </Separator>
+
     </Grid>
 </UserControl>

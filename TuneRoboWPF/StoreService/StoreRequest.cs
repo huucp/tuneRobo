@@ -70,7 +70,7 @@ namespace TuneRoboWPF.StoreService
                     if (GlobalVariables.UserOnline && count > 0)
                     {
                         AutoSignin();
-                        GlobalVariables.StoreWorker.ForceAddRequest(this);
+                        //GlobalVariables.StoreWorker.ForceAddRequest(this);
                         return null;
                     }
                     //GlobalVariables.ServerConnection.Connection.Close();                    

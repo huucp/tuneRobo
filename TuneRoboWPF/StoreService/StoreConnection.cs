@@ -20,6 +20,7 @@ namespace TuneRoboWPF.StoreService
 
         private const int MagicByte = 0xEE;
         private const int HeaderSize = 8;
+
         public static int RetryTime = 5;
 
         public Socket Connection;

@@ -21,6 +21,20 @@ namespace TuneRoboWPF.Windows
             UsernameTextBox.Text = "huupc@tosy.com";
             PasswordBox.Password = "123456A";
 #endif
+            //if (!Window.IsVisible)
+            //{
+            //    Window.Show();
+            //}
+
+            //if (Window.WindowState == WindowState.Minimized)
+            //{
+            //    Window.WindowState = WindowState.Normal;
+            //}
+
+            //Window.Activate();
+            //Window.Topmost = true;  // important
+            //Window.Topmost = false; // important
+            //Window.Focus();         // important
         }
 
         private bool ValidateData()

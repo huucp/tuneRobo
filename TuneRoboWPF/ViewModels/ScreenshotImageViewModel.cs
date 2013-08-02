@@ -8,7 +8,7 @@ namespace TuneRoboWPF.ViewModels
 {
     public class ScreenshotImageViewModel : ViewModelBase
     {
-        private BitmapImage screenshotSource;
+        private BitmapImage screenshotSource = null;
         public BitmapImage ScreenshotSource
         {
             get { return screenshotSource; }

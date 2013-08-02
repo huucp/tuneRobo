@@ -12,7 +12,8 @@
     <UserControl.Effect>
         <DropShadowEffect BlurRadius="3" ShadowDepth="2" Color="LightGray" Direction="270"/>
     </UserControl.Effect>
-    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">        
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Image Width="320" Height="180" Stretch="UniformToFill" Source="{StaticResource DefaultScreenshot}"/>
         <Image Width="320" Height="180" Stretch="UniformToFill" Source="{Binding ScreenshotSource,TargetNullValue={StaticResource DefaultScreenshot}}" />
         <Rectangle Fill="Black" Opacity="0.3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                    Visibility="{Binding IsYoutubeThumbnail,Converter={StaticResource BoolToThumbnailVisibilityConverter},ConverterParameter='Collapsed'}"/>

@@ -139,7 +139,7 @@ namespace TuneRoboWPF.Views
         private void ChangePassMenu_Click(object sender, RoutedEventArgs e)
         {
             var changePassWindow = new ChangePasswordWindow();
-            changePassWindow.ShowDialog();
+            changePassWindow.ShowDialog(StaticMainWindow.Window);
         }
 
         private bool onRemote = true;

@@ -173,18 +173,27 @@ namespace TuneRoboWPF.Views
                 defaultYoutubeImage.ViewModel.ScreenshotSource = (BitmapImage)FindResource("YoutubeImage");
                 defaultYoutubeImage.ViewModel.IsYoutubeThumbnail = true;
                 ViewModel.ScreenshotsList.Add(defaultYoutubeImage);
+                for (int i = 0; i < urls.Count; i++)
+                {
+                    var image = new ScreenshotImage();
+                    image.ViewModel.ScreenshotSource = null;
+                    image.ViewModel.IsYoutubeThumbnail = false;
+                    ViewModel.ScreenshotsList.Add(image);
+                }
             }));
             LoadYoutubeThumnail(Info.video_url);
-            foreach (string t in urls)
+            int[] currentScreenshot = {1};
+            for (int i = 0; i < urls.Count; i++)
             {
-                var downloadImageRequest = new ImageDownload(t);
+                var downloadImageRequest = new ImageDownload(urls[i]);
                 downloadImageRequest.DownloadCompleted += (imageSource) =>
                         Dispatcher.BeginInvoke((Action)delegate
                         {
                             var image = new ScreenshotImage();
                             image.ViewModel.ScreenshotSource = imageSource;
                             image.ViewModel.IsYoutubeThumbnail = false;
-                            ViewModel.ScreenshotsList.Add(image);
+                            ViewModel.ScreenshotsList[currentScreenshot[0]] = image;
+                            currentScreenshot[0]++;
                         });
                 downloadImageRequest.DownloadFailed += (s, msg) => Debug.Fail(msg);
                 GlobalVariables.ImageDownloadWorker.AddDownload(downloadImageRequest);
@@ -361,7 +370,7 @@ namespace TuneRoboWPF.Views
                     var titleError = (string)Application.Current.TryFindResource("StoreConnectionkErrorText");
                     var msgError = (string)Application.Current.TryFindResource("CheckNetworkText");
                     WPFMessageBox.Show(StaticMainWindow.Window, msgError, titleError, MessageBoxButton.OK,
-                                       MessageBoxImage.Error, MessageBoxResult.OK);                    
+                                       MessageBoxImage.Error, MessageBoxResult.OK);
                 });
             };
             GlobalVariables.StoreWorker.AddRequest(relationRequest);

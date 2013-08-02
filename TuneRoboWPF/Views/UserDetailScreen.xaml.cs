@@ -138,7 +138,7 @@ namespace TuneRoboWPF.Views
 	    private void ChangePassword_Click(object sender, MouseButtonEventArgs e)
 	    {
 	        var changePassWindow = new ChangePasswordWindow();
-	        changePassWindow.ShowDialog();
+	        changePassWindow.ShowDialog(StaticMainWindow.Window);
 	    }
 	}
 }
