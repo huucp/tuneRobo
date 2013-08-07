@@ -17,7 +17,7 @@ namespace TuneRoboWPF
         {
             InitializeComponent();
             navigationBar.LoginProcessSuccessfully += navigationBar_LoginProcessSuccessfully;
-            navigationBar.LogoutSuccessfully += navigationBar_LogoutSuccessfully;            
+            navigationBar.LogoutSuccessfully += navigationBar_LogoutSuccessfully;
         }
 
         private void navigationBar_LogoutSuccessfully(object sender)
@@ -94,7 +94,7 @@ namespace TuneRoboWPF
 
         private void MainScreen_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
             //if (GlobalVariables.ServerConnection.ConfigAndConnectSocket() == 0)
             //{
             //    //MessageBox.Show("Cannot connect to server!", "Connection error", MessageBoxButton.OK,
@@ -166,6 +166,10 @@ namespace TuneRoboWPF
             //}
             MainDock.Children.Remove(lastElement);
             MainDock.Children.Add(screen);
+
+            //GC.Collect();
+            //GC.WaitForPendingFinalizers();
+
         }
 
         private UIElement MainContentScreen;
@@ -193,7 +197,7 @@ namespace TuneRoboWPF
         {
             var lastElement = MainDock.Children[MainDock.Children.Count - 1];
             MainDock.Children.Remove(lastElement);
-             MainContentScreen.Visibility = Visibility.Visible;
+            MainContentScreen.Visibility = Visibility.Visible;
         }
     }
 }

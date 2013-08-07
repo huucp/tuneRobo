@@ -26,7 +26,7 @@ namespace TuneRoboWPF.ViewModels
                 switch (value)
                 {
                     case "Hot":
-                        CategoryType = CategoryMotionRequest.Type.ALL;
+                        CategoryType = CategoryMotionRequest.Type.TOPRATED;
                         break;
                     case "Featured":
                         CategoryType=CategoryMotionRequest.Type.FEATURE;

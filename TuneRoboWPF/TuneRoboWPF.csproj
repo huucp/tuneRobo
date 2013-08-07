@@ -42,6 +42,9 @@
     <Reference Include="NBug">
       <HintPath>C:\Users\huupc.TOSYOFFICE\Desktop\cs\NBug\lib\net40-client\NBug.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\..\tuneRobo\packages\NLog.2.0.1.2\lib\net40\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="protobuf-net">
       <HintPath>..\..\tuneRobo\tuneRobo\bin\Debug\protobuf-net.dll</HintPath>
@@ -158,6 +161,7 @@
     <Compile Include="StoreService\StoreReply.cs" />
     <Compile Include="StoreService\StoreRequest.cs" />
     <Compile Include="Utility\CRCCCIT.cs" />
+    <Compile Include="Utility\FastSmartWeakEvent.cs" />
     <Compile Include="Utility\GlobalResource.cs" />
     <Compile Include="Utility\GlobalVariables.cs" />
     <Compile Include="Utility\MotionInfo.cs" />
@@ -165,6 +169,7 @@
     <Compile Include="Utility\RobotState.cs" />
     <Compile Include="Utility\GlobalFunctions.cs" />
     <Compile Include="Utility\UserProfile.cs" />
+    <Compile Include="Utility\WeakEventManagerBase.cs" />
     <Compile Include="Utility\Worker.cs" />
     <Compile Include="ViewModels\ArtistDetailScreenViewModel.cs" />
     <Compile Include="ViewModels\ArtistItemVerticalViewModel.cs" />
@@ -501,6 +506,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>String.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -11,9 +11,11 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using TuneRoboWPF.StoreService;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
+using comm;
 using motion;
 
 namespace TuneRoboWPF.Views
@@ -54,7 +56,7 @@ namespace TuneRoboWPF.Views
 
         private void GetHotList()
         {
-            var hotListRequest = new ListCategoryMotionStoreRequest(CategoryMotionRequest.Type.ALL, 0, 15);
+            var hotListRequest = new ListCategoryMotionStoreRequest(CategoryMotionRequest.Type.TOPRATED, 0, 15);
             hotListRequest.ProcessSuccessfully += (reply) =>
                 Dispatcher.BeginInvoke((Action)delegate
                 {
@@ -66,6 +68,7 @@ namespace TuneRoboWPF.Views
                         ViewModel.HotMotionsList.Add(motionItem);
                         DownloadImage(info.motion_id, info.icon_url, motionItem);
                     }
+                    //hotListRequest.ProcessSuccessfully-=
                 });
             hotListRequest.ProcessError += (reply, msg) =>
             {
@@ -117,25 +120,49 @@ namespace TuneRoboWPF.Views
         private void GetFeaturedList()
         {
             var featuredListRequest = new ListCategoryMotionStoreRequest(CategoryMotionRequest.Type.FEATURE, 0, 16);
-            featuredListRequest.ProcessSuccessfully += (reply) =>
-                Dispatcher.BeginInvoke((Action)delegate
-                {
-                    foreach (var info in reply.list_motion.motion_short_info)
-                    {
-                        var motionItem = new MotionHorizontalItem();
-                        motionItem.SetInfo(info);
-                        motionItem.MotionClicked += motionItem_MotionClicked;
-                        ViewModel.FeaturedMotionsList.Add(motionItem);
-                        DownloadImage(info.motion_id, info.icon_url, motionItem);
-                    }
-                    StaticMainWindow.Window.ShowContentScreen();
-                });
+            featuredListRequest.ProcessSuccessfully += OnFeaturedListRequestOnProcessSuccessfully;
             featuredListRequest.ProcessError += (reply, msg) =>
             {
                 Debug.Assert(false, msg);
                 Dispatcher.BeginInvoke((Action)(() => StaticMainWindow.Window.ShowErrorScreen()));
             };
+
+            //featuredListRequest.SuccesfullyEvent += OnFeaturedListRequestOnProcessSuccessfully;
+
             GlobalVariables.StoreWorker.ForceAddRequest(featuredListRequest);
+        }
+
+        private void OnFeaturedListRequestOnProcessSuccessfully(object sender, EventArgs e)
+        {
+            Dispatcher.BeginInvoke((Action)delegate
+            {
+                var reply = (Reply)sender;
+                foreach (var info in reply.list_motion.motion_short_info)
+                {
+                    var motionItem = new MotionHorizontalItem();
+                    motionItem.SetInfo(info);
+                    //motionItem.MotionClicked += motionItem_MotionClicked;
+                    ViewModel.FeaturedMotionsList.Add(motionItem);
+                    //DownloadImage(info.motion_id, info.icon_url, motionItem);
+                }
+                StaticMainWindow.Window.ShowContentScreen();
+            });
+        }
+
+        private void OnFeaturedListRequestOnProcessSuccessfully(Reply reply)
+        {
+            Dispatcher.BeginInvoke((Action) delegate
+                                                {
+                                                    foreach (var info in reply.list_motion.motion_short_info)
+                                                    {
+                                                        var motionItem = new MotionHorizontalItem();
+                                                        motionItem.SetInfo(info);
+                                                        motionItem.MotionClicked += motionItem_MotionClicked;
+                                                        ViewModel.FeaturedMotionsList.Add(motionItem);
+                                                        DownloadImage(info.motion_id, info.icon_url, motionItem);
+                                                    }
+                                                    StaticMainWindow.Window.ShowContentScreen();
+                                                });
         }
 
         private void motionItem_MotionClicked(ulong motionID)
@@ -184,12 +211,25 @@ namespace TuneRoboWPF.Views
 
 
         #region Cover
+        private DispatcherTimer timer = new DispatcherTimer();
+
+        
+        
         private void InitCover()
         {
-            Thumnail1.Source = new BitmapImage(new Uri(new FileInfo("1.png").FullName, UriKind.RelativeOrAbsolute));
-            Thumnail2.Source = new BitmapImage(new Uri(new FileInfo("2.jpg").FullName, UriKind.RelativeOrAbsolute));
-            Thumnail3.Source = new BitmapImage(new Uri(new FileInfo("3.jpg").FullName, UriKind.RelativeOrAbsolute));
-            Thumnail4.Source = new BitmapImage(new Uri(new FileInfo("4.jpg").FullName, UriKind.RelativeOrAbsolute));
+            var thumnail1 = new BitmapImage(new Uri(new FileInfo("1.png").FullName, UriKind.RelativeOrAbsolute));
+            thumnail1.Freeze();
+            var thumnail2 = new BitmapImage(new Uri(new FileInfo("2.jpg").FullName, UriKind.RelativeOrAbsolute));
+            thumnail2.Freeze();
+            var thumnail3 = new BitmapImage(new Uri(new FileInfo("3.jpg").FullName, UriKind.RelativeOrAbsolute));
+            thumnail3.Freeze();
+            var thumnail4 = new BitmapImage(new Uri(new FileInfo("4.jpg").FullName, UriKind.RelativeOrAbsolute));
+            thumnail4.Freeze();
+
+            Thumnail1.Source = thumnail1;
+            Thumnail2.Source = thumnail2;
+            Thumnail3.Source = thumnail3;
+            Thumnail4.Source = thumnail4;
 
             thumnailList.Add(Thumnail1);
             thumnailList.Add(Thumnail2);
@@ -206,14 +246,7 @@ namespace TuneRoboWPF.Views
             Panel.SetZIndex(Cover1, 1);
             Panel.SetZIndex(Cover2, 2);
 
-            //Console.WriteLine(Cover1.Opacity);
-            //Console.WriteLine(Cover2.Opacity);
-
-            var CoverWorker = new BackgroundWorker();
-            CoverWorker.DoWork += CoverWorker_DoWork;
-            CoverWorker.RunWorkerAsync();
-
-            timer.Interval = new TimeSpan(0, 0, 5);
+            timer.Interval = TimeSpan.FromSeconds(3);
             timer.Tick += timer_Tick;
             timer.Start();
         }
@@ -223,46 +256,20 @@ namespace TuneRoboWPF.Views
         private bool CanFlow = true;
         private object CanFlowLock = new object();
 
-        private void CoverWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (true)
-            {
-
-                lock (CoverNumberLock)
-                {
-                    while (CoverNumber == 0)
-                    {
-                        Monitor.Wait(CoverNumberLock);    
-                    }                    
-                }
-
-                lock (CanFlowLock)
-                {
-                    while (!CanFlow)
-                    {
-                        Monitor.Wait(CanFlowLock);
-                    }
-                }
-                Dispatcher.BeginInvoke((Action) CoverFlowing);
-                CoverNumber--;                
-            }
-            //throw new NotImplementedException();
-        }
+        
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            lock(CoverNumberLock)
-            {
-                CoverNumber++;
-                Monitor.Pulse(CoverNumberLock);
-            }
-            //CoverFlowing();
+           
+            CoverFlowing();
         }
         List<Image> thumnailList = new List<Image>();
 
         private Thickness firstMargin;
 
-        private DispatcherTimer timer = new DispatcherTimer();
+        private bool TranslationAnimateDone = true;
+        private bool OpacityAnimateDone = true;
+ 
 
         private void TranslationAnimate(int index, double from, double to)
         {
@@ -286,8 +293,9 @@ namespace TuneRoboWPF.Views
                     if (nextReserveImageIndex == 0) nextReserveImageIndex = thumnailList.Count - 1;
                     else nextReserveImageIndex--;
                 }
-                
+                TranslationAnimateDone = true;
             };
+            TranslationAnimateDone = false;
             tt.BeginAnimation(TranslateTransform.YProperty, da);
         }
 
@@ -331,12 +339,11 @@ namespace TuneRoboWPF.Views
                 nextImageIndex = nextReserveImageIndex + 1;
                 if (nextImageIndex == thumnailList.Count) nextImageIndex = 0;
                 //Console.WriteLine(nextImageIndex);
-                lock (CanFlowLock)
-                {
-                    CanFlow = true;
-                    Monitor.Pulse(CanFlowLock);
-                }
+                
+
+                OpacityAnimateDone = true;
             };
+            OpacityAnimateDone = false;
             image.BeginAnimation(OpacityProperty, da);
         }
 
@@ -347,13 +354,10 @@ namespace TuneRoboWPF.Views
         private bool Cover1CanVisible = true;
 
         private void CoverFlowing()
-        {
-            lock(CanFlowLock)
-            {
-                CanFlow = false;
-                Monitor.Pulse(CanFlowLock);
-            }
-            
+        {            
+            if (!OpacityAnimateDone || !TranslationAnimateDone) return;            
+
+
             for (int i = 0; i < thumnailList.Count; i++)
             {
                 TranslationAnimate(i, 0, thumnailTranslationStep);
@@ -371,15 +375,16 @@ namespace TuneRoboWPF.Views
             
         }
         private void CoverDownButton_Click(object sender, RoutedEventArgs e)
-        {
-            lock (CoverNumberLock)
-            {
-                CoverNumber++;
-                Monitor.Pulse(CoverNumberLock);
-            }
-            //CoverFlowing();
+        {            
+            CoverFlowing();
         }
         #endregion
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {           
+            timer.Stop();
+            Console.WriteLine("unloaded");
+        }
 
     }
 }

@@ -163,7 +163,9 @@ namespace TuneRoboWPF.Utility
             }
             if (GlobalVariables.ImageDictionary.ContainsKey(url))
             {
-                OnDownloadCompleted(GlobalVariables.ImageDictionary[url]);
+                var image = GlobalVariables.ImageDictionary[url];
+                image.Freeze();
+                OnDownloadCompleted(image);
                 return;
             }
             var cachedImagePath = FindImageInStorage(filename);

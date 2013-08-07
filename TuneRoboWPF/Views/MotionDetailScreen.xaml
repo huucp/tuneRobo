@@ -220,15 +220,15 @@
                                    VerticalAlignment="Top"  Text="{DynamicResource DescriptionText}" FontWeight="Bold" FontSize="20"/>
                         
                         <TextBlock Grid.Row="1"  x:Name="MotionDescriptionTextBlockShadow" Margin="27.5,46,0,0" TextWrapping="Wrap" 
-                                   Text="{Binding MotionDescription}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="751"
+                                   Text="{Binding MotionDescription}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="751"
                                    Foreground="White" FontSize="13">
                                     <TextBlock.RenderTransform>
                                         <TranslateTransform Y="1"/>
                                     </TextBlock.RenderTransform>
                         </TextBlock>
                         <TextBlock Grid.Row="1"  x:Name="MotionDescriptionTextBlock" Margin="27.5,46,0,0" TextWrapping="Wrap" 
-                                   Text="{Binding MotionDescription}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="751"
-                                   Foreground="{StaticResource BlackFont}" FontSize="13"/>
+                                   Text="{Binding MotionDescription}" HorizontalAlignment="Left" Width="751"
+                                   Foreground="{StaticResource BlackFont}" FontSize="13" VerticalAlignment="Top"/>
 
                     </Grid>
                 </TabItem>

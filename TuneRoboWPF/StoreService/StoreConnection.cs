@@ -4,11 +4,17 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using TuneRoboWPF.Utility;
+using NLog;
 
 namespace TuneRoboWPF.StoreService
 {
     public class StoreConnection
     {
+        // Log
+#if Debug
+        private static Logger logger = LogManager.GetCurrentClassLogger(); 
+#endif
+
         // Local server
         //private const string IPServer = "183.91.7.159";
         //private const string IPServer = "192.168.1.51";
@@ -29,8 +35,8 @@ namespace TuneRoboWPF.StoreService
         public static StoreConnection Instance { get { return Lazy.Value; } }
         private static ulong packetID = 0;
         //private List<MessageType.Type> listID = new List<MessageType.Type>();
-        const int BufferLength = 100000;
-        public static int DataChunkSize = 32768;
+        const int BufferLength = 17000;
+        public static int DataChunkSize = 16384;
 
         private StoreConnection()
         {
@@ -81,6 +87,9 @@ namespace TuneRoboWPF.StoreService
             try
             {
                 var ret = Connection.Receive(buffer);
+#if Debug
+                logger.Info(ret); 
+#endif
                 if (ret == 0) return null;
                 var receive = GlobalFunction.SplitByteArray(buffer, 0, ret);
                 packet.AddRange(receive);
@@ -90,6 +99,9 @@ namespace TuneRoboWPF.StoreService
                 {
                     //if (Connection.Available == 0) break;
                     var ret_ = Connection.Receive(buffer);
+#if Debug
+                    logger.Info(ret_); 
+#endif
                     if (ret_ == 0) break;
                     ret += ret_;
                     var receive_ = GlobalFunction.SplitByteArray(buffer, 0, ret_);
@@ -104,6 +116,9 @@ namespace TuneRoboWPF.StoreService
                     //Console.WriteLine("need receive more {0:d} bytes.", size - ret);
                     //if (Connection.Available == 0) break;
                     var ret_ = Connection.Receive(buffer);
+#if Debug
+                    logger.Info(ret_); 
+#endif
                     if (ret_ == 0) break;
                     ret += ret_;
                     var receive_ = GlobalFunction.SplitByteArray(buffer, 0, ret_);
@@ -114,6 +129,9 @@ namespace TuneRoboWPF.StoreService
             {
                 if (se.SocketErrorCode == SocketError.TimedOut)
                 {
+#if Debug
+                    logger.Error(se.Message); 
+#endif
                     Console.WriteLine("Receive timed out!");
                     return null;
                 }

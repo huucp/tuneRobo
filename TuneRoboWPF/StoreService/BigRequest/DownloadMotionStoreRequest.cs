@@ -7,11 +7,17 @@ using ProtoBuf;
 using TuneRoboWPF.Utility;
 using comm;
 using motion;
+using NLog;
 
 namespace TuneRoboWPF.StoreService.BigRequest
 {
     public class DownloadMotionStoreRequest : IRequest
     {
+        // Log
+        #if DEBUG
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        #endif
+
         public delegate void SuccessfullyEventHandler(object sender);
 
         public event SuccessfullyEventHandler ProcessSuccessfully;
@@ -105,22 +111,38 @@ namespace TuneRoboWPF.StoreService.BigRequest
 
         public object Process()
         {
-            int trunkSize = 32768;
+            int trunkSize = 16384;
+
+#if Debug
+            logger.Info("Download motion begin, id motion: " + MotionID);
+#endif
+
             // Get info
             var motionDownloadRequest = new GetDowloadMotionInfoStoreRequest(MotionID);
             var motionDownloadReply = (Reply)motionDownloadRequest.Process();
             if (motionDownloadReply == null)
             {
                 OnProcessError(DownloadMotionErrorCode.ReplyNull, "Reply is null");
+#if DEBUG
+                logger.Error("reply is null");
+#endif
                 return null;
             }
             if (motionDownloadReply.type != (decimal)Reply.Type.OK)
             {
                 OnProcessError(ConvertReplyErrorCode((Reply.Type)motionDownloadReply.type), "Get motion info download failed: " + motionDownloadReply.type);
+                #if DEBUG
+                logger.Error("Get info motion download error");
+                #endif
                 return motionDownloadReply;
             }
             ulong motionSize = motionDownloadReply.motion_download.motion_file_size;
             ulong musicSize = motionDownloadReply.motion_download.music_file_size;
+
+            #if DEBUG
+            logger.Info("Motion size: " + motionSize);
+            logger.Info("Music size: " + musicSize);
+            #endif
 
             var numberOfMotionTrunk = (int)(motionSize / (decimal)trunkSize);
             var numberOfMusicTrunk = (int)(musicSize / (decimal)trunkSize);
@@ -137,6 +159,9 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 if (CancelProcess)
                 {
                     OnProcessCancel();
+                    #if DEBUG
+                    logger.Info("Cancel download");
+                    #endif
                     return null;
                 }
                 var request = new DownloadMotionTrunkDataStoreRequest(MotionID, ReadMotionDataRequest.Type.MOTION,
@@ -145,11 +170,21 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 if (reply == null)
                 {
                     OnProcessError(DownloadMotionErrorCode.ReplyNull, "Reply is null");
+
+#if DEBUG
+                    logger.Error("Transfer motion error: reply is null"); 
+#endif
+
                     return null;
                 }
                 if (reply.type != (decimal)Reply.Type.OK)
                 {
                     OnProcessError(ConvertReplyErrorCode((Reply.Type)reply.type), "Download motion failed");
+
+#if Debug
+                    logger.Error("Transfer motion error: reply is error"); 
+#endif
+
                     return reply;
                 }
                 motionData.AddRange(reply.read_data.data);
@@ -159,6 +194,11 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 {
                     currentPercentage = tempPercentage;
                     OnProgessReport(currentPercentage);
+
+
+#if Debug
+                    logger.Info("Download percentages: " + currentPercentage); 
+#endif
                 }
             }
             var remainMotionDataSize = (int)(motionSize % (decimal)trunkSize);
@@ -169,14 +209,20 @@ namespace TuneRoboWPF.StoreService.BigRequest
                                                                                       (ulong)(numberOfMotionTrunk * trunkSize),
                                                                                       (ulong)remainMotionDataSize);
                 var remainMotionReply = (Reply)remainMotionRequest.Process();
-                if (remainMotionReply==null)
+                if (remainMotionReply == null)
                 {
                     OnProcessError(DownloadMotionErrorCode.ReplyNull, "Reply is null");
+#if Debug
+                    logger.Error("Transfer motion error - last package: reply is null"); 
+#endif
                     return null;
                 }
                 if (remainMotionReply.type != (decimal)Reply.Type.OK)
                 {
                     OnProcessError(ConvertReplyErrorCode((Reply.Type)remainMotionReply.type), "Download motion failed");
+#if Debug
+                    logger.Error("Transfer motion error - last package: reply is error"); 
+#endif
                     return remainMotionReply;
                 }
                 motionData.AddRange(remainMotionReply.read_data.data);
@@ -186,7 +232,13 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 {
                     currentPercentage = tempPercentage;
                     OnProgessReport(currentPercentage);
+#if Debug
+                    logger.Error("Transfer motion error - last package: reply is null"); 
+#endif
                 }
+#if Debug
+                logger.Info("Download motion done"); 
+#endif
             }
 
 
@@ -197,19 +249,28 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 if (CancelProcess)
                 {
                     OnProcessCancel();
+#if Debug
+                    logger.Info("Cancel download"); 
+#endif
                     return null;
                 }
                 var request = new DownloadMotionTrunkDataStoreRequest(MotionID, ReadMotionDataRequest.Type.MUSIC,
                                                                       (ulong)(i * trunkSize), (ulong)trunkSize);
                 var reply = (Reply)request.Process();
-                if (reply==null)
+                if (reply == null)
                 {
                     OnProcessError(DownloadMotionErrorCode.ReplyNull, "Reply is null");
+#if Debug
+                    logger.Error("Transfer music error: reply is null"); 
+#endif
                     return null;
                 }
                 if (reply.type != (decimal)Reply.Type.OK)
                 {
                     OnProcessError(ConvertReplyErrorCode((Reply.Type)reply.type), "Download motion failed");
+#if Debug
+                    logger.Error("Transfer music error: reply is error"); 
+#endif
                     return reply;
                 }
                 musicData.AddRange(reply.read_data.data);
@@ -219,6 +280,9 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 {
                     currentPercentage = tempPercentage;
                     OnProgessReport(currentPercentage);
+#if Debug
+                    logger.Info("Download percentages: " + currentPercentage); 
+#endif
                 }
             }
             var remainMusicDataSize = (int)(musicSize % (decimal)trunkSize);
@@ -229,14 +293,20 @@ namespace TuneRoboWPF.StoreService.BigRequest
                                                                                       (ulong)(numberOfMusicTrunk * trunkSize),
                                                                                       (ulong)remainMusicDataSize);
                 var remainMusicReply = (Reply)remainMusicRequest.Process();
-                if (remainMusicReply==null)
+                if (remainMusicReply == null)
                 {
                     OnProcessError(DownloadMotionErrorCode.ReplyNull, "Reply is null");
+#if Debug
+                    logger.Error("Transfer music error - last package: reply is null"); 
+#endif
                     return null;
                 }
                 if (remainMusicReply.type != (decimal)Reply.Type.OK)
                 {
                     OnProcessError(ConvertReplyErrorCode((Reply.Type)remainMusicReply.type), "Download motion failed");
+#if Debug
+                    logger.Error("Transfer music error - last package: reply is error"); 
+#endif
                     return remainMusicReply;
                 }
                 musicData.AddRange(remainMusicReply.read_data.data);
@@ -246,6 +316,9 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 {
                     currentPercentage = tempPercentage;
                     OnProgessReport(currentPercentage);
+#if Debug
+                    logger.Info("Download percentages: " + currentPercentage); 
+#endif
                 }
             }
 
@@ -256,6 +329,11 @@ namespace TuneRoboWPF.StoreService.BigRequest
             File.WriteAllBytes(motionPath, motionData.ToArray());
 
             OnProgessReport(100);
+
+#if Debug
+            logger.Info("Download done!"); 
+#endif
+
             OnProcessSuccessfully(null);
             return null;
         }

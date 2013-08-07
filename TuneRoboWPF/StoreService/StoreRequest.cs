@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.Eventing;
 using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Forms;
@@ -14,6 +15,18 @@ namespace TuneRoboWPF.StoreService
 {
     public class StoreRequest : IRequest
     {
+        //public delegate void StoreRequestSuccessfullyEventHandler(Reply sender);
+        FastSmartWeakEvent<EventHandler> _eEvent = new FastSmartWeakEvent<EventHandler>();
+        public event EventHandler SuccesfullyEvent
+        {
+            add{_eEvent.Add(value);}
+            remove {_eEvent.Remove(value);}
+        }
+        public void RaiseEvent(Reply sender)
+        {
+            _eEvent.Raise(sender,EventArgs.Empty);
+        }
+
         public delegate void SuccessfullyEventHandler(Reply sender);
 
         public event SuccessfullyEventHandler ProcessSuccessfully;
@@ -39,15 +52,15 @@ namespace TuneRoboWPF.StoreService
 
         private void AutoSignin()
         {
-            var signinRequest = new SigninStoreRequest(GlobalVariables.CurrentUser.Email, GlobalVariables.CurrentUser.Password,
-                                                       SigninRequest.Type.USER);
-            signinRequest.ProcessSuccessfully += (s) =>
-            {
+            //var signinRequest = new SigninStoreRequest(GlobalVariables.CurrentUser.Email, GlobalVariables.CurrentUser.Password,
+            //                                           SigninRequest.Type.USER);
+            //signinRequest.ProcessSuccessfully += (s) =>
+            //{
 
 
-            };
-            signinRequest.ProcessError += (s, msg) => { };
-            GlobalVariables.StoreWorker.ForceAddRequest(signinRequest);
+            //};
+            //signinRequest.ProcessError += (s, msg) => { };
+            //GlobalVariables.StoreWorker.ForceAddRequest(signinRequest);
         }
 
         public object Process()
@@ -57,6 +70,7 @@ namespace TuneRoboWPF.StoreService
                 if (GlobalVariables.RequestDictionary.ContainsKey(RequestKey))
                 {
                     OnProcessSuccessfully(GlobalVariables.RequestDictionary[RequestKey]);
+                    RaiseEvent(GlobalVariables.RequestDictionary[RequestKey]);
                     return GlobalVariables.RequestDictionary[RequestKey];
                 }
             }
@@ -125,6 +139,7 @@ namespace TuneRoboWPF.StoreService
             if (dataReply.type == (decimal)Reply.Type.OK)
             {
                 OnProcessSuccessfully(dataReply);
+                RaiseEvent(dataReply);
                 if (!string.IsNullOrEmpty(RequestKey))
                 {
                     GlobalVariables.RequestDictionary.Add(RequestKey, dataReply);
@@ -140,6 +155,35 @@ namespace TuneRoboWPF.StoreService
         public virtual void BuildPacket()
         {
             Packet = new byte[] { };
+        }
+
+    }
+
+    //public sealed class StoreRequestSuccesfullyEventManager:WeakEventManagerBase<StoreRequestSuccesfullyEventManager,StoreRequest>
+    //{
+    //    //protected override void StartListening(StoreRequest source)
+    //    //{
+    //    //    source.ProcessSuccessfully += DeliverEvent;
+    //    //}
+
+    //    //protected override void StopListening(StoreRequest source)
+    //    //{
+    //    //    source.ProcessSuccessfully -= DeliverEvent;
+    //    //}
+    //}
+
+    public class StoreRequestSuccesfullyFastSmartEventSource
+    {
+        public delegate void StoreRequestSuccessfullyEventHandler(Reply sender);
+        FastSmartWeakEvent<StoreRequestSuccessfullyEventHandler> _eEvent= new FastSmartWeakEvent<StoreRequestSuccessfullyEventHandler>();
+        public event StoreRequestSuccessfullyEventHandler SuccesfullyEvent
+        {
+            add{_eEvent.Add(value);}
+            remove {_eEvent.Remove(value);}
+        }
+        public void RaiseEvent(Reply sender)
+        {
+            _eEvent.Raise(sender,EventArgs.Empty);
         }
 
     }
