@@ -12,8 +12,7 @@ namespace comm
 {
   
   public partial class Reply : global::ProtoBuf.IExtensible
-  {
-    
+  {    
 
     private motion.CreateMotionReply _create_motion = null;
     [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"create_motion", DataFormat = global::ProtoBuf.DataFormat.Default)]
@@ -275,7 +274,24 @@ namespace comm
       get { return _user_own_motion; }
       set { _user_own_motion = value; }
     }
-    
+
+    private motion.AddMotionRecommendedReply _add_motion_recommended = null;
+    [global::ProtoBuf.ProtoMember(46, IsRequired = false, Name=@"add_motion_recommended", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public motion.AddMotionRecommendedReply add_motion_recommended
+    {
+      get { return _add_motion_recommended; }
+      set { _add_motion_recommended = value; }
+    }
+
+    private motion.RemoveMotionRecommendedReply _remove_motion_recommended = null;
+    [global::ProtoBuf.ProtoMember(47, IsRequired = false, Name=@"remove_motion_recommended", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public motion.RemoveMotionRecommendedReply remove_motion_recommended
+    {
+      get { return _remove_motion_recommended; }
+      set { _remove_motion_recommended = value; }
+    }    
   }
   
 }
@@ -359,6 +375,15 @@ namespace motion
     {
       get { return _motion_duration; }
       set { _motion_duration = value; }
+    }
+
+    private string _cover = "";
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"cover", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string cover
+    {
+      get { return _cover; }
+      set { _cover = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -951,6 +976,15 @@ namespace motion
       get { return _icon_URL; }
       set { _icon_URL = value; }
     }
+
+    private string _cover = "";
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"cover", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string cover
+    {
+      get { return _cover; }
+      set { _cover = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -1296,6 +1330,15 @@ namespace motion
       get { return _avg_rating_artist; }
       set { _avg_rating_artist = value; }
     }
+
+    private string _cover = "";
+    [global::ProtoBuf.ProtoMember(22, IsRequired = false, Name=@"cover", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string cover
+    {
+      get { return _cover; }
+      set { _cover = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -1501,7 +1544,10 @@ namespace motion
       TOPRATED = 3,
             
       [global::ProtoBuf.ProtoEnum(Name=@"FEATURE", Value=4)]
-      FEATURE = 4
+      FEATURE = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"RECOMMENDED", Value=5)]
+      RECOMMENDED = 5
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -2093,6 +2139,15 @@ namespace motion
       get { return _rating_count; }
       set { _rating_count = value; }
     }
+
+    private string _cover = "";
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"cover", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string cover
+    {
+      get { return _cover; }
+      set { _cover = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -2124,7 +2179,10 @@ namespace motion
       FEATURE = 3,
             
       [global::ProtoBuf.ProtoEnum(Name=@"ALL", Value=4)]
-      ALL = 4
+      ALL = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"RECOMMENDED", Value=5)]
+      RECOMMENDED = 5
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -2165,7 +2223,10 @@ namespace motion
       FEATURE = 3,
             
       [global::ProtoBuf.ProtoEnum(Name=@"ALL", Value=4)]
-      ALL = 4
+      ALL = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"RECOMMENDED", Value=5)]
+      RECOMMENDED = 5
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -2439,6 +2500,117 @@ namespace motion
             
       [global::ProtoBuf.ProtoEnum(Name=@"NOT_OWNED", Value=2)]
       NOT_OWNED = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AddMotionRecommendedRequest")]
+  public partial class AddMotionRecommendedRequest : global::ProtoBuf.IExtensible
+  {
+    public AddMotionRecommendedRequest() {}
+    
+    private ulong _motion_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong motion_id
+    {
+      get { return _motion_id; }
+      set { _motion_id = value; }
+    }
+    private uint _index;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"index", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public uint index
+    {
+      get { return _index; }
+      set { _index = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AddMotionRecommendedReply")]
+  public partial class AddMotionRecommendedReply : global::ProtoBuf.IExtensible
+  {
+    public AddMotionRecommendedReply() {}
+    
+    private ulong _motion_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong motion_id
+    {
+      get { return _motion_id; }
+      set { _motion_id = value; }
+    }
+    private uint _index;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"index", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public uint index
+    {
+      get { return _index; }
+      set { _index = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_MOTION", Value=4)]
+      NO_MOTION = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"OUT_OF_INDEX", Value=5)]
+      OUT_OF_INDEX = 5
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RemoveMotionRecommendedRequest")]
+  public partial class RemoveMotionRecommendedRequest : global::ProtoBuf.IExtensible
+  {
+    public RemoveMotionRecommendedRequest() {}
+    
+    private uint _index;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"index", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public uint index
+    {
+      get { return _index; }
+      set { _index = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RemoveMotionRecommendedReply")]
+  public partial class RemoveMotionRecommendedReply : global::ProtoBuf.IExtensible
+  {
+    public RemoveMotionRecommendedReply() {}
+    
+    private ulong _motion_id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ulong motion_id
+    {
+      get { return _motion_id; }
+      set { _motion_id = value; }
+    }
+    private uint _index;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"index", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public uint index
+    {
+      get { return _index; }
+      set { _index = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"Type")]
+    public enum Type
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_MOTION", Value=4)]
+      NO_MOTION = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"OUT_OF_INDEX", Value=5)]
+      OUT_OF_INDEX = 5
     }
   
     private global::ProtoBuf.IExtension extensionObject;

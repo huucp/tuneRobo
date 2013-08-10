@@ -130,6 +130,15 @@ namespace TuneRoboWPF.Views
         private void UpdateArtwork(string url)
         {
             var downloadImageRequest = new ImageDownload(url);
+            var cacheImage = downloadImageRequest.FindInCacheOrLocal();
+            if (cacheImage != null)
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    ViewModel.CoverImage = cacheImage;
+                });
+                return;
+            }
             downloadImageRequest.DownloadCompleted += (image) =>
                 Dispatcher.BeginInvoke((Action)delegate
                 {
@@ -152,6 +161,18 @@ namespace TuneRoboWPF.Views
             string videoID = GetYoutubeVideoID(url);
             string thumnailUrl = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
             var thumnailDownload = new ImageDownload(thumnailUrl);
+            var cacheImage = thumnailDownload.FindInCacheOrLocal();
+            if (cacheImage != null)
+            {
+                Dispatcher.BeginInvoke((Action)(delegate
+                {
+                    var youtubeImage = new ScreenshotImage();
+                    youtubeImage.ViewModel.ScreenshotSource = cacheImage;
+                    youtubeImage.ViewModel.IsYoutubeThumbnail = true;
+                    ViewModel.ScreenshotsList[0] = youtubeImage;
+                }));
+                return;
+            }
             thumnailDownload.DownloadCompleted += (image) =>
                 Dispatcher.BeginInvoke((Action)(delegate
                 {
@@ -182,10 +203,23 @@ namespace TuneRoboWPF.Views
                 }
             }));
             LoadYoutubeThumnail(Info.video_url);
-            int[] currentScreenshot = {1};
+            int[] currentScreenshot = { 1 };
             for (int i = 0; i < urls.Count; i++)
             {
                 var downloadImageRequest = new ImageDownload(urls[i]);
+                var cacheImage = downloadImageRequest.FindInCacheOrLocal();
+                if (cacheImage != null)
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        var image = new ScreenshotImage();
+                        image.ViewModel.ScreenshotSource = cacheImage;
+                        image.ViewModel.IsYoutubeThumbnail = false;
+                        ViewModel.ScreenshotsList[currentScreenshot[0]] = image;
+                        currentScreenshot[0]++;
+                    });
+                    return;
+                }
                 downloadImageRequest.DownloadCompleted += (imageSource) =>
                         Dispatcher.BeginInvoke((Action)delegate
                         {
@@ -230,6 +264,12 @@ namespace TuneRoboWPF.Views
         private void UpdateRelatedMotionCover(string url, MotionItemVertical item)
         {
             var coverImage = new ImageDownload(url);
+            BitmapImage cacheImage = coverImage.FindInCacheOrLocal();
+            if (cacheImage != null)
+            {
+                Dispatcher.BeginInvoke((Action)(() => item.SetImage(cacheImage)));
+                return;
+            }
             coverImage.DownloadCompleted += (image) =>
                 Dispatcher.BeginInvoke((Action)(() => item.SetImage(image)));
             coverImage.DownloadFailed += (s, msg) => Debug.Fail(msg);

@@ -17,7 +17,7 @@ namespace TuneRoboWPF.Windows
         private UpdateProfileWindowViewModel ViewModel { get; set; }
         public UpdateProfileWindow()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             DataContext = new UpdateProfileWindowViewModel();
             ViewModel = (UpdateProfileWindowViewModel)DataContext;
@@ -65,6 +65,7 @@ namespace TuneRoboWPF.Windows
         private void UpdateProfile(string displayName, string avatarUrl)
         {
             var updateProfileRequest = new SetUserInfoStoreRequest(displayName, avatarUrl);
+            if (string.IsNullOrEmpty(avatarUrl)) Console.WriteLine("Avatar empty");
             updateProfileRequest.ProcessSuccessfully += reply =>
                 Dispatcher.BeginInvoke((Action)(delegate
                 {

@@ -99,8 +99,11 @@ namespace comm
   }
   
 }
+
+
 // Generated from: user.proto
 // Note: requires additional types generated from: comm.proto
+// Note: requires additional types generated from: motion.proto
 namespace user
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SignupRequest")]
@@ -720,57 +723,12 @@ namespace user
       get { return _user_id; }
       set { _user_id = value; }
     }
-    private readonly global::System.Collections.Generic.List<user.NotificationReply.MotionShortInfo> _motionshortinfo = new global::System.Collections.Generic.List<user.NotificationReply.MotionShortInfo>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"motionshortinfo", DataFormat = global::ProtoBuf.DataFormat.Group)]
-    public global::System.Collections.Generic.List<user.NotificationReply.MotionShortInfo> motionshortinfo
+    private readonly global::System.Collections.Generic.List<motion.MotionShortInfo> _motion_short_info = new global::System.Collections.Generic.List<motion.MotionShortInfo>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"motion_short_info", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<motion.MotionShortInfo> motion_short_info
     {
-      get { return _motionshortinfo; }
+      get { return _motion_short_info; }
     }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MotionShortInfo")]
-  public partial class MotionShortInfo : global::ProtoBuf.IExtensible
-  {
-    public MotionShortInfo() {}
-    
-    private ulong _motion_id;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"motion_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public ulong motion_id
-    {
-      get { return _motion_id; }
-      set { _motion_id = value; }
-    }
-    private string _icon_url;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"icon_url", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public string icon_url
-    {
-      get { return _icon_url; }
-      set { _icon_url = value; }
-    }
-    private string _title;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"title", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public string title
-    {
-      get { return _title; }
-      set { _title = value; }
-    }
-    private string _artist_name;
-    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"artist_name", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public string artist_name
-    {
-      get { return _artist_name; }
-      set { _artist_name = value; }
-    }
-    private uint _rating;
-    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"rating", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public uint rating
-    {
-      get { return _rating; }
-      set { _rating = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
   
     [global::ProtoBuf.ProtoContract(Name=@"Type")]
     public enum Type
@@ -886,23 +844,6 @@ namespace user
       PUBLISHER = 2
     }
   
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"KickUserResponse")]
-  public partial class KickUserResponse : global::ProtoBuf.IExtensible
-  {
-    public KickUserResponse() {}
-    
-    private ulong _user_id;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"user_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public ulong user_id
-    {
-      get { return _user_id; }
-      set { _user_id = value; }
-    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

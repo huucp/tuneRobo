@@ -58,6 +58,15 @@ namespace TuneRoboWPF.Views
         private void UpdateArtistAvatar(string url)
         {
             var avatarRequest = new ImageDownload(url);
+            var cacheImage = avatarRequest.FindInCacheOrLocal();
+            if (cacheImage != null)
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    ViewModel.ArtistAvatar = cacheImage;
+                });
+                return;
+            }
             avatarRequest.DownloadCompleted += (image) =>
                 Dispatcher.BeginInvoke((Action)delegate
                 {
@@ -70,6 +79,12 @@ namespace TuneRoboWPF.Views
         private void DownloadMotionImage(string url, MotionItemVertical motion)
         {
             var download = new ImageDownload(url);
+            var cacheImage = download.FindInCacheOrLocal();
+            if (cacheImage != null)
+            {
+                Dispatcher.BeginInvoke((Action)(() => motion.SetImage(cacheImage)));
+                return;
+            }
             download.DownloadCompleted += (image) => Dispatcher.BeginInvoke((Action)(() => motion.SetImage(image)));
             download.DownloadFailed += (s, msg) => Debug.Fail(msg);
             GlobalVariables.ImageDownloadWorker.AddDownload(download);

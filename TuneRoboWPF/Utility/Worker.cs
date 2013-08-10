@@ -50,7 +50,7 @@ namespace TuneRoboWPF.Utility
             return (File.Exists(filePath) && fileInfo.Length != 0) ? filePath : null;
         }
 
-        private bool LoadImageInStorage(string cachedImagePath, string url)
+        private BitmapImage LoadImageInStorage(string cachedImagePath, string url)
         {
             bool loadImage = true;
             if (cachedImagePath != null)
@@ -72,24 +72,20 @@ namespace TuneRoboWPF.Utility
                     }
                     catch (Exception e)
                     {
-                        loadImage = false;
                         File.Delete(cachedImagePath);
                         Debug.Fail(e.Message);
+                        loadImage = false;
+                        return null;
                     }
 
                     if (loadImage)
                     {
                         GlobalVariables.ImageDictionary.Add(url, bitmapImage);
-
-                        OnDownloadCompleted(bitmapImage);
+                        return bitmapImage;
                     }
                 }
             }
-            else
-            {
-                loadImage = false;
-            }
-            return loadImage;
+            return null;
         }
 
         private void DownloadImageFromUrl(string url, string filename)
@@ -161,17 +157,21 @@ namespace TuneRoboWPF.Utility
                 OnDownloadFailed(null, "URL invalid");
                 return;
             }
-            if (GlobalVariables.ImageDictionary.ContainsKey(url))
-            {
-                var image = GlobalVariables.ImageDictionary[url];
-                image.Freeze();
-                OnDownloadCompleted(image);
-                return;
-            }
-            var cachedImagePath = FindImageInStorage(filename);
-            if (LoadImageInStorage(cachedImagePath, url)) return;
             DownloadImageFromUrl(url, filename);
 
+        }
+
+        public BitmapImage FindInCacheOrLocal()
+        {
+            if (GlobalVariables.ImageDictionary.ContainsKey(ImageUrl))
+            {
+                var image = GlobalVariables.ImageDictionary[ImageUrl];
+                image.Freeze();
+                return image;
+            }
+            string filename = GlobalFunction.CalculateMD5Hash(ImageUrl);
+            var cachedImagePath = FindImageInStorage(filename + ".jpg");
+            return LoadImageInStorage(cachedImagePath, ImageUrl);
         }
     }
 

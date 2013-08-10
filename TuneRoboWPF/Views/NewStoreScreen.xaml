@@ -350,15 +350,22 @@
                     <DropShadowEffect  Direction="270" Color="#cccdcc" ShadowDepth="1" BlurRadius="3"/>
                 </Border.Effect>
             </Border>
-            <Border Name="CoverBorder"  BorderBrush="#b4b6b5" BorderThickness="1,0,1,1" Height="334" Margin="0" VerticalAlignment="Top" Width="1038" ClipToBounds="True">
+            <Border Name="CoverBorder"  BorderBrush="#b4b6b5" BorderThickness="1,0,1,1" Height="334" Margin="0" VerticalAlignment="Top" Width="1038" ClipToBounds="True"
+                    MouseDown="CoverBorder_MouseDown" Cursor="Hand">
                 <Grid Margin="0">
-                    <Image x:Name="Cover1" HorizontalAlignment="Left" Margin="0" Width="777" VerticalAlignment="Top" Height="333" Stretch="UniformToFill"/>
-                    <Image x:Name="Cover2" HorizontalAlignment="Left" Margin="0" Width="777" Height="333" VerticalAlignment="Top" Stretch="UniformToFill"/>
-                    <Grid Margin="777,0,0,0" Name="CoverThumnail">
-                        <Image x:Name="Thumnail1" Margin="0,-111,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" Height="111" Stretch="UniformToFill"/>
-                        <Image x:Name="Thumnail2" HorizontalAlignment="Left" Margin="0,0,0,0" Width="259" Height="111" VerticalAlignment="Top" Stretch="UniformToFill"/>
-                        <Image x:Name="Thumnail3" HorizontalAlignment="Left" Height="111" Margin="0,111,0,0" VerticalAlignment="Top" Width="259" Stretch="UniformToFill"/>
-                        <Image x:Name="Thumnail4" HorizontalAlignment="Left" Height="111" Margin="0,222,0,0" VerticalAlignment="Top" Width="259" Stretch="UniformToFill"/>
+                    <Image x:Name="Cover1" Source="{Binding ThumbnailSource2, TargetNullValue={StaticResource DefaultScreenshot}}"
+                           HorizontalAlignment="Left" Margin="0" Width="777" VerticalAlignment="Top" Height="333" Stretch="UniformToFill"/>
+                    <Image x:Name="Cover2" Source="{Binding ThumbnailSource3, TargetNullValue={StaticResource DefaultScreenshot}}"
+                           HorizontalAlignment="Left" Margin="0" Width="777" Height="333" VerticalAlignment="Top" Stretch="UniformToFill"/>
+                    <Grid Margin="777,0,0,0" Name="CoverThumnail" Cursor="Arrow">
+                        <Image x:Name="Thumbnail1" Source="{Binding ThumbnailSource1, TargetNullValue={StaticResource DefaultScreenshot}}" 
+                               Margin="0,-111,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="259" Height="111" Stretch="UniformToFill"/>
+                        <Image x:Name="Thumbnail2" Source="{Binding ThumbnailSource2, TargetNullValue={StaticResource DefaultScreenshot}}" 
+                               HorizontalAlignment="Left" Margin="0,0,0,0" Width="259" Height="111" VerticalAlignment="Top" Stretch="UniformToFill"/>
+                        <Image x:Name="Thumbnail3" Source="{Binding ThumbnailSource3, TargetNullValue={StaticResource DefaultScreenshot}}" 
+                               HorizontalAlignment="Left" Height="111" Margin="0,111,0,0" VerticalAlignment="Top" Width="259" Stretch="UniformToFill"/>
+                        <Image x:Name="Thumbnail4" Source="{Binding ThumbnailSource4, TargetNullValue={StaticResource DefaultScreenshot}}" 
+                               HorizontalAlignment="Left" Height="111" Margin="0,222,0,0" VerticalAlignment="Top" Width="259" Stretch="UniformToFill"/>
                         <Button Content="Down" HorizontalAlignment="Center" Height="26" Margin="0,0,0,7" VerticalAlignment="Bottom" Width="26" Click="CoverDownButton_Click" 
                             Style="{DynamicResource CoverDownButtonStyle}" Cursor="Hand"/>
                     </Grid>

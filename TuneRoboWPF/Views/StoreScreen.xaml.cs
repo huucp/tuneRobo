@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
@@ -147,12 +148,24 @@ namespace TuneRoboWPF.Views
         private void DownloadImage(ulong id, string url, object item)
         {
             var imageDownload = new ImageDownload(url);
+            BitmapImage cacheImage = imageDownload.FindInCacheOrLocal();
+            
             if (item is MotionItemVertical)
             {
+                if (cacheImage != null)
+                {
+                    ((MotionItemVertical) item).SetImage(cacheImage);
+                    return;
+                }
                 imageDownload.DownloadCompleted += ((MotionItemVertical)item).SetImage;
             }
             if (item is ArtistItemVertical)
             {
+                if (cacheImage != null)
+                {
+                    ((ArtistItemVertical)item).SetImage(cacheImage);
+                    return;
+                }
                 imageDownload.DownloadCompleted += ((ArtistItemVertical)item).SetImage;
             }
             GlobalVariables.ImageDownloadWorker.AddDownload(imageDownload);

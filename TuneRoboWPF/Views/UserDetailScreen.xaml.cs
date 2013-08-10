@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
 using TuneRoboWPF.StoreService.SimpleRequest;
@@ -28,19 +29,28 @@ namespace TuneRoboWPF.Views
         private void DownloadAvatar()
         {
             var imageDownload = new ImageDownload(GlobalVariables.CurrentUser.AvatarURL);
+            BitmapImage cacheImage = imageDownload.FindInCacheOrLocal();
+            if (cacheImage != null)
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    ViewModel.Avatar = cacheImage;
+                });
+                return;
+            }
             imageDownload.DownloadCompleted += (image) => 
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     ViewModel.Avatar = image;
                 });
             imageDownload.DownloadFailed += (s, msg) =>
-                                                {
-                                                    Dispatcher.BeginInvoke((Action)delegate
+            {
+                Dispatcher.BeginInvoke((Action)delegate
                 {
                     ViewModel.Avatar = null;
                 });
-                                                    Debug.Fail(msg);
-                                                };
+                Debug.Fail(msg);
+            };
             GlobalVariables.ImageDownloadWorker.AddDownload(imageDownload);
         }
 
@@ -126,6 +136,12 @@ namespace TuneRoboWPF.Views
         private void DownloadMotionImage(string url, MotionItemVertical motion)
         {
             var download = new ImageDownload(url);
+            BitmapImage cacheImage = download.FindInCacheOrLocal();
+            if (cacheImage!=null)
+            {
+                Dispatcher.BeginInvoke((Action)(() => motion.SetImage(cacheImage)));
+                return;
+            }
             download.DownloadCompleted += (image) => Dispatcher.BeginInvoke((Action)(() => motion.SetImage(image)));
             download.DownloadFailed += (s, msg) =>
             {

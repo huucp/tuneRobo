@@ -11,7 +11,7 @@ namespace TuneRoboWPF.StoreService
     public class StoreConnection
     {
         // Log
-#if Debug
+#if DEBUG
         private static Logger logger = LogManager.GetCurrentClassLogger(); 
 #endif
 
@@ -87,7 +87,7 @@ namespace TuneRoboWPF.StoreService
             try
             {
                 var ret = Connection.Receive(buffer);
-#if Debug
+#if DEBUG
                 logger.Info(ret); 
 #endif
                 if (ret == 0) return null;
@@ -99,7 +99,7 @@ namespace TuneRoboWPF.StoreService
                 {
                     //if (Connection.Available == 0) break;
                     var ret_ = Connection.Receive(buffer);
-#if Debug
+#if DEBUG
                     logger.Info(ret_); 
 #endif
                     if (ret_ == 0) break;
@@ -116,7 +116,7 @@ namespace TuneRoboWPF.StoreService
                     //Console.WriteLine("need receive more {0:d} bytes.", size - ret);
                     //if (Connection.Available == 0) break;
                     var ret_ = Connection.Receive(buffer);
-#if Debug
+#if DEBUG
                     logger.Info(ret_); 
 #endif
                     if (ret_ == 0) break;
@@ -129,7 +129,7 @@ namespace TuneRoboWPF.StoreService
             {
                 if (se.SocketErrorCode == SocketError.TimedOut)
                 {
-#if Debug
+#if DEBUG
                     logger.Error(se.Message); 
 #endif
                     Console.WriteLine("Receive timed out!");

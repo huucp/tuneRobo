@@ -160,8 +160,11 @@ namespace comm
       [global::ProtoBuf.ProtoEnum(Name=@"GET_LIST_USER_INFO", Value=146)]
       GET_LIST_USER_INFO = 146,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"KICK_USER_RESPONSE", Value=147)]
-      KICK_USER_RESPONSE = 147
+      [global::ProtoBuf.ProtoEnum(Name=@"ADD_MOTION_RECOMMENED", Value=147)]
+      ADD_MOTION_RECOMMENED = 147,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"REM_MOTION_RECOMMENED", Value=148)]
+      REM_MOTION_RECOMMENED = 148
     }
   
     private global::ProtoBuf.IExtension extensionObject;

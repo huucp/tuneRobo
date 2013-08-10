@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using TuneRoboWPF.StoreService.SimpleRequest;
 using TuneRoboWPF.Utility;
@@ -91,6 +92,12 @@ namespace TuneRoboWPF.Views
         private void UpdateSearchMotionCover(string url, MotionItemVertical item)
         {
             var coverImage = new ImageDownload(url);
+            BitmapImage cacheImage = coverImage.FindInCacheOrLocal();
+            if (cacheImage!=null)
+            {
+                Dispatcher.BeginInvoke((Action)(() => item.SetImage(cacheImage)));
+                return;
+            }
             coverImage.DownloadCompleted += (image) =>
                 Dispatcher.BeginInvoke((Action)(() => item.SetImage(image)));
             GlobalVariables.ImageDownloadWorker.AddDownload(coverImage);

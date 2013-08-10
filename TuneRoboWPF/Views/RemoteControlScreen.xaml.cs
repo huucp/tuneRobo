@@ -554,6 +554,15 @@ namespace TuneRoboWPF.Views
             motionInfoRequest.ProcessSuccessfully += (data) =>
             {
                 var imageDownload = new ImageDownload(data.motion_info.info.icon_url);
+                BitmapImage cacheImage = imageDownload.FindInCacheOrLocal();
+                if (cacheImage!=null)
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        model.CoverImage = cacheImage;
+                    });
+                    return;
+                }
                 imageDownload.DownloadCompleted += (img) => Dispatcher.
                                                                 BeginInvoke((Action)delegate
                                                                 {

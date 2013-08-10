@@ -10,12 +10,10 @@
 // Generated from: comm.proto
 namespace comm
 {
- 
-  
   
   public partial class Reply : global::ProtoBuf.IExtensible
   {
-    
+   
 
     private artist.CreateArtistReply _create_artist = null;
     [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"create_artist", DataFormat = global::ProtoBuf.DataFormat.Default)]
@@ -70,8 +68,6 @@ namespace comm
       get { return _number_all_artist; }
       set { _number_all_artist = value; }
     }
-    
-  
     
   }
   

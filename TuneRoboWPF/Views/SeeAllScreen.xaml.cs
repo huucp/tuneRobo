@@ -94,6 +94,12 @@ namespace TuneRoboWPF.Views
         private void UpdateMotionCover(string url, MotionItemVertical item)
         {
             var coverImage = new ImageDownload(url);
+            BitmapImage cacheImage = coverImage.FindInCacheOrLocal();
+            if (cacheImage!=null)
+            {
+                Dispatcher.BeginInvoke((Action)(() => item.SetImage(cacheImage)));
+                return;
+            }
             coverImage.DownloadCompleted += (image) =>
                 Dispatcher.BeginInvoke((Action)(() => item.SetImage(image)));
             GlobalVariables.ImageDownloadWorker.AddDownload(coverImage);

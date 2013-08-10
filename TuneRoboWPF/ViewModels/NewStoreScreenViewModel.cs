@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Media.Imaging;
 using TuneRoboWPF.Models;
 using TuneRoboWPF.Views;
 
 namespace TuneRoboWPF.ViewModels
 {
-    public class NewStoreScreenViewModel:ViewModelBase
+    public class NewStoreScreenViewModel : ViewModelBase
     {
         private NewStoreScreenModel model = new NewStoreScreenModel();
 
@@ -17,7 +18,7 @@ namespace TuneRoboWPF.ViewModels
             get { return model.HotMotionsList; }
             set
             {
-                if (model.HotMotionsList == value)return;
+                if (model.HotMotionsList == value) return;
                 model.HotMotionsList = value;
                 NotifyPropertyChanged("HotMotionsList");
             }
@@ -42,6 +43,47 @@ namespace TuneRoboWPF.ViewModels
                 if (model.FeaturedMotionsList == value) return;
                 model.FeaturedMotionsList = value;
                 NotifyPropertyChanged("FeaturedMotionsList");
+            }
+        }
+
+        public BitmapImage ThumbnailSource1
+        {
+            get { return model.ThumbnailSource1; }
+            set
+            {
+                if (Equals(model.ThumbnailSource1, value)) return;
+                model.ThumbnailSource1 = value;
+                NotifyPropertyChanged("ThumbnailSource1");
+            }
+        }
+        public BitmapImage ThumbnailSource2
+        {
+            get { return model.ThumbnailSource2; }
+            set
+            {
+                if (Equals(model.ThumbnailSource2, value)) return;
+                model.ThumbnailSource2 = value;
+                NotifyPropertyChanged("ThumbnailSource2");
+            }
+        }
+        public BitmapImage ThumbnailSource3
+        {
+            get { return model.ThumbnailSource3; }
+            set
+            {
+                if (Equals(model.ThumbnailSource3, value)) return;
+                model.ThumbnailSource3 = value;
+                NotifyPropertyChanged("ThumbnailSource3");
+            }
+        }
+        public BitmapImage ThumbnailSource4
+        {
+            get { return model.ThumbnailSource4; }
+            set
+            {
+                if (Equals(model.ThumbnailSource4, value)) return;
+                model.ThumbnailSource4 = value;
+                NotifyPropertyChanged("ThumbnailSource4");
             }
         }
     }
