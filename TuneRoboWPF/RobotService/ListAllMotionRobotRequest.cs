@@ -37,10 +37,16 @@ namespace TuneRoboWPF.RobotService
             WrongSessionID = 3
 
         }
-        private WirelessConnection Connection = new WirelessConnection();
+        private static WirelessConnection Connection = null;
         private bool SetupConnection()
         {
-            return (Connection.ConfigAndConnectSocket() == 1);
+            if (Connection==null)
+            {
+                Connection = RobotRequest.Conn;
+                //Connection = new WirelessConnection();
+                //return (Connection.ConfigAndConnectSocket() == 1);
+            }
+            return true;
         }
         public object Process()
         {
@@ -72,7 +78,7 @@ namespace TuneRoboWPF.RobotService
                 listMotionInfo.Add(GetMotionInfoAtIndex(i));
             }
             OnProcessSuccessfully(listMotionInfo);
-            Connection.ReleaseConnection();
+            //Connection.ReleaseConnection();
             return 1;
         }
 

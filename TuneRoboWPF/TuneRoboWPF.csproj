@@ -160,7 +160,9 @@
     <Compile Include="StoreService\StoreConnection.cs" />
     <Compile Include="StoreService\StoreReply.cs" />
     <Compile Include="StoreService\StoreRequest.cs" />
+    <Compile Include="Utility\CRC16.cs" />
     <Compile Include="Utility\CRCCCIT.cs" />
+    <Compile Include="Utility\DebugHelper.cs" />
     <Compile Include="Utility\FastSmartWeakEvent.cs" />
     <Compile Include="Utility\GlobalResource.cs" />
     <Compile Include="Utility\GlobalVariables.cs" />

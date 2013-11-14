@@ -124,6 +124,10 @@ namespace TuneRoboWPF.Utility
                         dic["PORTWIRELESS"] = portWireless;
                     }
                 }
+                else
+                {
+                    // TODO: must create the INI file
+                }
             }
             catch
             {
@@ -352,7 +356,7 @@ namespace TuneRoboWPF.Utility
                 var info = new FileInfo(image);
                 DateTime today = DateTime.Today;
                 DateTime creationTime = info.CreationTime;
-                if ((today-creationTime).TotalDays > 14)
+                if ((today - creationTime).TotalDays > 14)
                 {
                     File.Delete(image);
                 }
@@ -360,14 +364,14 @@ namespace TuneRoboWPF.Utility
         }
 
         public static bool IsAnImage(string s)
-        {            
-            var imageExtension=new List<string>(){"jpg","jpeg","png"};
-            foreach(var extionsion in imageExtension)
+        {
+            var imageExtension = new List<string>() { "jpg", "jpeg", "png" };
+            foreach (var extionsion in imageExtension)
             {
                 if (s.EndsWith(extionsion)) return true;
             }
             return false;
-        }       
+        }
         #region RemoteViaWifi
         // Convert a decimal number to a hexadecimal number in 2 byte little endian format
         public static byte[] DecToLE2(int num)
@@ -454,7 +458,7 @@ namespace TuneRoboWPF.Utility
         public static string ByteArrayToHexString(byte[] ba)
         {
             var hex = BitConverter.ToString(ba);
-            return hex.Replace("-", "");
+            return hex.Replace("-", " ");
         }
 
         // Convert a hex string to a byte array
@@ -516,9 +520,11 @@ namespace TuneRoboWPF.Utility
 
         public static byte[] GenerateCrc(byte[] byteArray)
         {
-            var genCrc = new CRCCCIT(InitialCrcValue.NonZero1);
+            //var genCrc = new CRCCCIT(InitialCrcValue.NonZero1);
+            var genCrc = new CRC16();
             byte[] array = genCrc.ComputeChecksumBytes(byteArray);
-            return array.Reverse().ToArray();
+            var result = array.ToArray();
+            return result;
         }
 
         /// <summary>
@@ -556,7 +562,13 @@ namespace TuneRoboWPF.Utility
             var crcPacket = ByteArrayToHexString(SplitByteArray(packet, 3, 2));
             var data = SplitByteArray(packet, 8, packet.Length - 8);
             var crcData = GenerateCrcInString(data);
-            return (crcData == crcPacket);
+            //return (crcData == crcPacket);
+            if (crcData != crcPacket)
+            {
+                DebugHelper.WriteLineDebug(crcData + " vs " + crcPacket);
+                return false;
+            }
+            return true;
         }
 
 

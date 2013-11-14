@@ -9,8 +9,8 @@ namespace TuneRoboWPF.Utility
     {
         public enum MotionType
         {
-            Transform= 1,
-            Untransform =2,
+            Transform = 1,
+            Untransform = 2,
             Dance = 3
         }
         public string FilePath { get; set; }
@@ -34,7 +34,7 @@ namespace TuneRoboWPF.Utility
         private void GetInfo(byte[] infoData)
         {
             byte[] typeBytes = GlobalFunction.SplitByteArray(infoData, FirstIndex["type"], 1);
-            MType = (MotionType) typeBytes[0];
+            MType = (MotionType)typeBytes[0];
 
             byte[] idBytes = GlobalFunction.SplitByteArray(infoData, FirstIndex["id"], 8);
             MotionID = GlobalFunction.LE8ToDec(idBytes);
@@ -43,15 +43,16 @@ namespace TuneRoboWPF.Utility
             Duration = GlobalFunction.LE4ToDec(durationBytes);
 
             int firstCRPos = FindCRPosition(1, infoData);
-            byte[] titleBytes = GlobalFunction.SplitByteArray(infoData, FirstIndex["rest"], firstCRPos + 1 - FirstIndex["rest"]);
+            byte[] titleBytes = GlobalFunction.SplitByteArray(infoData, FirstIndex["rest"], firstCRPos - FirstIndex["rest"]);
             Title = Encoding.UTF8.GetString(titleBytes);
 
             int secondCRPos = FindCRPosition(2, infoData);
-            byte[] artistBytes = GlobalFunction.SplitByteArray(infoData, firstCRPos, secondCRPos - firstCRPos);
+            byte[] artistBytes = GlobalFunction.SplitByteArray(infoData, firstCRPos + 1, secondCRPos - firstCRPos - 1);
             Artist = Encoding.UTF8.GetString(artistBytes);
 
-            byte[] versionBytes = GlobalFunction.SplitByteArray(infoData, secondCRPos, infoData.Length - secondCRPos - 1);
-            VersionCode = ulong.Parse(Encoding.UTF8.GetString(versionBytes));
+            byte[] versionBytes = GlobalFunction.SplitByteArray(infoData, secondCRPos + 1, infoData.Length - secondCRPos - 2);
+            var versionString = Encoding.UTF8.GetString(versionBytes);
+            VersionCode = ulong.Parse(versionString);
         }
 
         private int FindCRPosition(int CRIndex, byte[] data)

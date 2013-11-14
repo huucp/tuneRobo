@@ -2,7 +2,7 @@
 
 namespace TuneRoboWPF.RobotService
 {
-    public class DeleteMotionRequest:RobotRequest
+    public class DeleteMotionRequest : RobotRequest
     {
         private ulong MotionID { get; set; }
         public DeleteMotionRequest(RobotPacket.PacketID packetID, ulong motionID)
@@ -13,13 +13,15 @@ namespace TuneRoboWPF.RobotService
 
         public override byte[] BuildRequest()
         {
-            var packet = new RobotPacket(RequestID);
-            packet.Parameters = GlobalFunction.DecToLE8(MotionID);
+            var packet = new RobotPacket(RequestID)
+                             {
+                                 Parameters = GlobalFunction.DecToLE8(MotionID)
+                             };
             return packet.BuildPacket();
         }
     }
 
-    public class GetMotionCountRequest:RobotRequest
+    public class GetMotionCountRequest : RobotRequest
     {
         public GetMotionCountRequest(RobotPacket.PacketID id)
         {
@@ -32,10 +34,10 @@ namespace TuneRoboWPF.RobotService
         }
     }
 
-    public class GetMotionInfoAtIndexRequest:RobotRequest
+    public class GetMotionInfoAtIndexRequest : RobotRequest
     {
         private int Index { get; set; }
-        public GetMotionInfoAtIndexRequest(RobotPacket.PacketID id,int index)
+        public GetMotionInfoAtIndexRequest(RobotPacket.PacketID id, int index)
         {
             RequestID = id;
             Index = index;
@@ -43,13 +45,15 @@ namespace TuneRoboWPF.RobotService
 
         public override byte[] BuildRequest()
         {
-            var packet = new RobotPacket(RequestID);
-            packet.Parameters = GlobalFunction.DecToLE4(Index);
+            var packet = new RobotPacket(RequestID)
+                             {
+                                 Parameters = GlobalFunction.DecToLE4(Index)
+                             };
             return packet.BuildPacket();
         }
     }
 
-    public class GetMotionInfoWithIDRequest:RobotRequest
+    public class GetMotionInfoWithIDRequest : RobotRequest
     {
         private ulong MotionID { get; set; }
         public GetMotionInfoWithIDRequest(ulong motionID, RobotPacket.PacketID packetID)
@@ -60,13 +64,15 @@ namespace TuneRoboWPF.RobotService
 
         public override byte[] BuildRequest()
         {
-            var packet = new RobotPacket(RequestID);
-            packet.Parameters = GlobalFunction.DecToLE8(MotionID);
+            var packet = new RobotPacket(RequestID)
+                             {
+                                 Parameters = GlobalFunction.DecToLE8(MotionID)
+                             };
             return packet.BuildPacket();
         }
     }
 
-    public class GetStateRequest:RobotRequest
+    public class GetStateRequest : RobotRequest
     {
         public GetStateRequest()
         {

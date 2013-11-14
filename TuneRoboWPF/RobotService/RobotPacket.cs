@@ -24,7 +24,7 @@ namespace TuneRoboWPF.RobotService
             Mute = 0x0209,
             SetVolumeLevel = 0x020A,
             SelectMotionToPlay = 0x020B,
-            DeleteMotion = 0x0301,            
+            DeleteMotion = 0x0301,
             CountMotions = 0x0309,
             RequestNextFileName = 0x030A,
             EndListFile = 0x030B,
@@ -41,19 +41,19 @@ namespace TuneRoboWPF.RobotService
             CancelTransferMotionPair = 0x040B
         }
 
-        
+
         private const byte IdentificationByte = 128;
-        private byte[] ReserveBytes = new byte[] {0, 0, 0};
+        private byte[] ReserveBytes = new byte[] { 0, 0, 0 };
         private PacketID commandID;
         public byte[] Parameters { get; set; }
 
         public RobotPacket(PacketID id)
         {
             commandID = id;
-            Parameters = new byte[]{};
+            Parameters = new byte[] { };
             //if
         }
-        
+
 
 
         public byte[] BuildPacket()
@@ -80,11 +80,15 @@ namespace TuneRoboWPF.RobotService
             packet.Add(IdentificationByte);
             packet.AddRange(GlobalFunction.DecToLE2(dataLength));
             packet.AddRange(GlobalFunction.GenerateCrc(data.ToArray()));
-            if (Parameters.Length == 2910)
-            {
-                byte[] crc = GlobalFunction.GenerateCrc(data.ToArray());
-                Console.WriteLine("{0} {0}",crc[0],crc[1]);
-            }
+            //if (data.Count == 2048 + 4)
+            //{
+            //    DebugHelper.WriteLineDebug(GlobalFunction.GenerateCrcInString(data.ToArray()));
+            //}
+            //if (Parameters.Length == 2910)
+            //{
+            //    byte[] crc = GlobalFunction.GenerateCrc(data.ToArray());
+            //    Console.WriteLine("{0} {0}",crc[0],crc[1]);
+            //}
             packet.AddRange(ReserveBytes);
             packet.AddRange(data);
 

@@ -14,9 +14,9 @@ namespace TuneRoboWPF.StoreService.BigRequest
     public class DownloadMotionStoreRequest : IRequest
     {
         // Log
-        #if DEBUG
+#if DEBUG
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        #endif
+#endif
 
         public delegate void SuccessfullyEventHandler(object sender);
 
@@ -131,18 +131,18 @@ namespace TuneRoboWPF.StoreService.BigRequest
             if (motionDownloadReply.type != (decimal)Reply.Type.OK)
             {
                 OnProcessError(ConvertReplyErrorCode((Reply.Type)motionDownloadReply.type), "Get motion info download failed: " + motionDownloadReply.type);
-                #if DEBUG
+#if DEBUG
                 logger.Error("Get info motion download error");
-                #endif
+#endif
                 return motionDownloadReply;
             }
             ulong motionSize = motionDownloadReply.motion_download.motion_file_size;
             ulong musicSize = motionDownloadReply.motion_download.music_file_size;
 
-            #if DEBUG
+#if DEBUG
             logger.Info("Motion size: " + motionSize);
             logger.Info("Music size: " + musicSize);
-            #endif
+#endif
 
             var numberOfMotionTrunk = (int)(motionSize / (decimal)trunkSize);
             var numberOfMusicTrunk = (int)(musicSize / (decimal)trunkSize);
@@ -159,9 +159,9 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 if (CancelProcess)
                 {
                     OnProcessCancel();
-                    #if DEBUG
+#if DEBUG
                     logger.Info("Cancel download");
-                    #endif
+#endif
                     return null;
                 }
                 var request = new DownloadMotionTrunkDataStoreRequest(MotionID, ReadMotionDataRequest.Type.MOTION,
@@ -172,7 +172,7 @@ namespace TuneRoboWPF.StoreService.BigRequest
                     OnProcessError(DownloadMotionErrorCode.ReplyNull, "Reply is null");
 
 #if DEBUG
-                    logger.Error("Transfer motion error: reply is null"); 
+                    logger.Error("Transfer motion error: reply is null");
 #endif
 
                     return null;
@@ -181,8 +181,8 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 {
                     OnProcessError(ConvertReplyErrorCode((Reply.Type)reply.type), "Download motion failed");
 
-#if Debug
-                    logger.Error("Transfer motion error: reply is error"); 
+#if DEBUG
+                    logger.Error("Transfer motion error: reply is error");
 #endif
 
                     return reply;
@@ -196,8 +196,8 @@ namespace TuneRoboWPF.StoreService.BigRequest
                     OnProgessReport(currentPercentage);
 
 
-#if Debug
-                    logger.Info("Download percentages: " + currentPercentage); 
+#if DEBUG
+                    logger.Info("Download percentages: " + currentPercentage);
 #endif
                 }
             }
@@ -212,16 +212,16 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 if (remainMotionReply == null)
                 {
                     OnProcessError(DownloadMotionErrorCode.ReplyNull, "Reply is null");
-#if Debug
-                    logger.Error("Transfer motion error - last package: reply is null"); 
+#if DEBUG
+                    logger.Error("Transfer motion error - last package: reply is null");
 #endif
                     return null;
                 }
                 if (remainMotionReply.type != (decimal)Reply.Type.OK)
                 {
                     OnProcessError(ConvertReplyErrorCode((Reply.Type)remainMotionReply.type), "Download motion failed");
-#if Debug
-                    logger.Error("Transfer motion error - last package: reply is error"); 
+#if DEBUG
+                    logger.Error("Transfer motion error - last package: reply is error");
 #endif
                     return remainMotionReply;
                 }
@@ -232,12 +232,12 @@ namespace TuneRoboWPF.StoreService.BigRequest
                 {
                     currentPercentage = tempPercentage;
                     OnProgessReport(currentPercentage);
-#if Debug
-                    logger.Error("Transfer motion error - last package: reply is null"); 
+#if DEBUG
+                    logger.Error("Transfer motion error - last package: reply is null");
 #endif
                 }
-#if Debug
-                logger.Info("Download motion done"); 
+#if DEBUG
+                logger.Info("Download motion done");
 #endif
             }
 

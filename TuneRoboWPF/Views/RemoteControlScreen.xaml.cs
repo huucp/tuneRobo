@@ -62,7 +62,7 @@ namespace TuneRoboWPF.Views
                     {
                         GlobalVariables.RoboOnline = false;
                         UnconnectedTextBox.Visibility = Visibility.Visible;
-                    }                   
+                    }
                     return;
                 }
                 UpdateRemoteControl();
@@ -165,7 +165,7 @@ namespace TuneRoboWPF.Views
             UpdateControlButtonState();
             //UpdateTransformButton();
         }
-        
+
         private void UpdateRemoteBackground()
         {
             RobotState state = GlobalVariables.CurrentRobotState;
@@ -173,7 +173,7 @@ namespace TuneRoboWPF.Views
             {
                 case RobotState.TransformStates.Closed:
                 case RobotState.TransformStates.Closing:
-                    viewModel.RobotBackgroundImageSource = (BitmapImage) TryFindResource("UntransformRobotImage");
+                    viewModel.RobotBackgroundImageSource = (BitmapImage)TryFindResource("UntransformRobotImage");
                     break;
                 case RobotState.TransformStates.Openning:
                 case RobotState.TransformStates.Opened:
@@ -203,7 +203,7 @@ namespace TuneRoboWPF.Views
             {
                 case RobotState.TransformStates.Closed:
                 case RobotState.TransformStates.Closing:
-                    TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;                    
+                    TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;
                     break;
                 case RobotState.TransformStates.Openning:
                 case RobotState.TransformStates.Opened:
@@ -218,7 +218,7 @@ namespace TuneRoboWPF.Views
             if (state.TransformState == RobotState.TransformStates.Openning ||
                 state.TransformState == RobotState.TransformStates.Closing)
             {
-                PlayPauseButtons.ViewModel.StateButton=PlayPauseButtonModel.ButtonState.Play;
+                PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Play;
             }
             switch (state.MusicState)
             {
@@ -261,7 +261,7 @@ namespace TuneRoboWPF.Views
         }
         private void ConnectMrobo(bool reconnect = false)
         {
-            Cursor = Cursors.Wait;
+            //Cursor = Cursors.Wait;
             var helloRequest = new RemoteRequest(RobotPacket.PacketID.Hello);
             helloRequest.ProcessSuccessfully += (data) =>
             {
@@ -321,8 +321,8 @@ namespace TuneRoboWPF.Views
                     {
                         case RobotRequest.ErrorCode.SetupConnection:
                         case RobotRequest.ErrorCode.WrongSessionID:
-                            var titleError = (string) TryFindResource("RobotConnectionLostText");
-                            var msgError = (string) TryFindResource("WantReconnectRobotText");
+                            var titleError = (string)TryFindResource("RobotConnectionLostText");
+                            var msgError = (string)TryFindResource("WantReconnectRobotText");
                             var result = WPFMessageBox.Show(StaticMainWindow.Window, msgError,
                                                      titleError, MessageBoxButton.YesNo,
                                                      MessageBoxImage.Question, MessageBoxResult.Yes);
@@ -380,32 +380,34 @@ namespace TuneRoboWPF.Views
             });
             listAllMotionRequest.ProcessError += (e, msg) =>
             {
-                //Dispatcher.BeginInvoke((Action)delegate
-                //{
-                //    Cursor = Cursors.Arrow;
-                //});
-                switch (e)
+                Dispatcher.BeginInvoke((Action)delegate
                 {
-                    case ListAllMotionRobotRequest.ErrorCode.SetupConnection:
-                    case ListAllMotionRobotRequest.ErrorCode.WrongSessionID:
-                        var titleReconnect = (string) TryFindResource("RobotConnectionLostText");
-                        var msgReconnect = (string)TryFindResource("WantReconnectRobotText");
-                        var result = WPFMessageBox.Show(StaticMainWindow.Window, titleReconnect,
-                                                 msgReconnect, MessageBoxButton.YesNo,
-                                                 MessageBoxImage.Question, MessageBoxResult.Yes);
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            ConnectMrobo();
-                        }
-                        else
-                        {
-                            GlobalVariables.RoboOnline = false;
-                            UnconnectedTextBox.Visibility = Visibility.Visible;
-                        }
-                        break;
-                }
-                Debug.Fail(msg, Enum.GetName((typeof(ListAllMotionRobotRequest.ErrorCode)), e));
+                    Cursor = Cursors.Arrow;
+
+                    switch (e)
+                    {
+                        case ListAllMotionRobotRequest.ErrorCode.SetupConnection:
+                        case ListAllMotionRobotRequest.ErrorCode.WrongSessionID:
+                            var titleReconnect = (string)TryFindResource("RobotConnectionLostText");
+                            var msgReconnect = (string)TryFindResource("WantReconnectRobotText");
+                            var result = WPFMessageBox.Show(StaticMainWindow.Window, titleReconnect,
+                                                     msgReconnect, MessageBoxButton.YesNo,
+                                                     MessageBoxImage.Question, MessageBoxResult.Yes);
+                            if (result == MessageBoxResult.Yes)
+                            {
+                                ConnectMrobo();
+                            }
+                            else
+                            {
+                                GlobalVariables.RoboOnline = false;
+                                UnconnectedTextBox.Visibility = Visibility.Visible;
+                            }
+                            break;
+                    }
+                    Debug.Fail(msg, Enum.GetName((typeof(ListAllMotionRobotRequest.ErrorCode)), e));
+                });
             };
+
             GlobalVariables.RobotWorker.AddJob(listAllMotionRequest);
         }
 
@@ -441,7 +443,7 @@ namespace TuneRoboWPF.Views
             }
         }
 
-        
+
         private void GetUpdateList(List<MotionInfo> listMotionInfo)
         {
             var listMotionID = listMotionInfo.Select(info => info.MotionID).ToList();
@@ -449,7 +451,7 @@ namespace TuneRoboWPF.Views
             getListMotionVersion.ProcessSuccessfully += (reply) =>
             {
                 var updateList = new List<MotionInfo>();
-                for (int i =0; i < listMotionInfo.Count;i++)
+                for (int i = 0; i < listMotionInfo.Count; i++)
                 {
                     if (listMotionInfo[i].VersionCode < reply.motion_version.version[i].version_id)
                     {
@@ -472,14 +474,14 @@ namespace TuneRoboWPF.Views
             GlobalVariables.StoreWorker.ForceAddRequest(getListMotionVersion);
         }
 
-        private void ReorderLibrary(List<MotionInfo> updateList,List<MotionInfo> normalList)
+        private void ReorderLibrary(List<MotionInfo> updateList, List<MotionInfo> normalList)
         {
             viewModel.LibraryItemsList.Clear();
             int index = 0;
             viewModel.NoLocalMotionVisibility = false;
             foreach (var motionInfo in updateList)
             {
-                var motionItem = new MotionFullInfoItem(); 
+                var motionItem = new MotionFullInfoItem();
                 motionItem.SetMotionInfo(motionInfo);
                 motionItem.ViewModel.HitTestVisible = false;
                 motionItem.ViewModel.NeedUpdate = true;
@@ -533,7 +535,7 @@ namespace TuneRoboWPF.Views
                 DownloadImage(motionInfo.MotionID, motionItem.ViewModel);
             }
             if (index == 0) viewModel.NoLocalMotionVisibility = true;
-            
+
             GetUpdateList(listMotionInfo);
         }
 
@@ -555,7 +557,7 @@ namespace TuneRoboWPF.Views
             {
                 var imageDownload = new ImageDownload(data.motion_info.info.icon_url);
                 BitmapImage cacheImage = imageDownload.FindInCacheOrLocal();
-                if (cacheImage!=null)
+                if (cacheImage != null)
                 {
                     Dispatcher.BeginInvoke((Action)delegate
                     {
@@ -594,15 +596,72 @@ namespace TuneRoboWPF.Views
         {
             int index = RemoteListBox.SelectedIndex;
             var playID = GlobalVariables.CurrentListMotion[index].MotionID;
-            Play(playID);
+            if (GlobalVariables.CurrentRobotState.TransformState == RobotState.TransformStates.Openning)
+            {
+                var stateRequest = new GetStateRequest();
+                stateRequest.ProcessSuccessfully += data => Dispatcher.BeginInvoke((Action)delegate
+                {
+                    UpdateRemoteControl();
+                    Play(playID);
+                    Cursor = Cursors.Arrow;
+                });
+                stateRequest.ProcessError += (errorCode, msg) =>
+                {
+                    Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        Cursor = Cursors.Arrow;
+                        switch (errorCode)
+                        {
+                            case RobotRequest.ErrorCode.SetupConnection:
+                            case RobotRequest.ErrorCode.WrongSessionID:
+                                var titleError = (string)TryFindResource("RobotConnectionLostText");
+                                var msgError = (string)TryFindResource("WantReconnectRobotText");
+                                var result = WPFMessageBox.Show(StaticMainWindow.Window, msgError,
+                                                         titleError, MessageBoxButton.YesNo,
+                                                         MessageBoxImage.Question, MessageBoxResult.Yes);
+                                if (result == MessageBoxResult.Yes)
+                                {
+                                    ConnectMrobo();
+                                }
+                                else
+                                {
+                                    GlobalVariables.RoboOnline = false;
+                                    UnconnectedTextBox.Visibility = Visibility.Visible;
+                                }
+                                break;
+                        }
+                    });
+
+                    Debug.Fail(msg, Enum.GetName((typeof(RobotRequest.ErrorCode)), errorCode));
+                };
+                GlobalVariables.RobotWorker.AddJob(stateRequest);
+            }
+            else
+            {
+                Play(playID);
+            }
+
         }
 
         private void Play(ulong motionID)
         {
             if (GlobalVariables.CurrentRobotState.TransformState != RobotState.TransformStates.Opened)
             {
-                var msgTransform = (string)TryFindResource("MustTransformToPlaytext");
-                var titleTransform = (string)TryFindResource("PleaseTransformText");
+                string msgTransform = string.Empty;
+                string titleTransform = string.Empty;
+                switch (GlobalVariables.CurrentRobotState.TransformState)
+                {
+                    case RobotState.TransformStates.Closed:
+                        msgTransform = (string)TryFindResource("MustTransformToPlaytext");
+                        titleTransform = (string)TryFindResource("PleaseTransformText");
+                        break;
+                    case RobotState.TransformStates.Openning:
+                    case RobotState.TransformStates.Closing:
+                        msgTransform = (string)TryFindResource("RobotTransformingText");
+                        titleTransform = (string)TryFindResource("WaitToTransformedText");
+                        break;
+                }
+
                 WPFMessageBox.Show(StaticMainWindow.Window, titleTransform,
                                          msgTransform, MessageBoxButton.OK,
                                          MessageBoxImage.Information, MessageBoxResult.OK);

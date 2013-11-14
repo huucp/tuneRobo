@@ -87,7 +87,8 @@ namespace TuneRoboWPF.Views
 
         private void TransferButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!GlobalVariables.RoboOnline)
+            //if (!GlobalVariables.RoboOnline)
+            if (false)
             {
                 var title = string.Format("{0}!", TryFindResource("ConnectToRobotText"));
                 WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK, MessageBoxImage.Warning,
@@ -95,7 +96,7 @@ namespace TuneRoboWPF.Views
             }
             else
             {
-                var transferRequest = new TransferMotionToRobot(MotionID);
+                var transferRequest = new TransferMotionToRobot(MotionID);                
                 var transferWindow = new Windows.TransferWindow(transferRequest, MotionID.ToString());
                 if (transferWindow.ShowDialog(StaticMainWindow.Window) == true)
                 {

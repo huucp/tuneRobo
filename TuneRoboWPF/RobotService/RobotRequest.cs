@@ -38,7 +38,7 @@ namespace TuneRoboWPF.RobotService
             WrongSessionID = 4
         }
 
-        public WirelessConnection Conn;
+        public static WirelessConnection Conn = null;
         public RobotPacket.PacketID RequestID { get; set; }
 
         /// <summary>
@@ -47,8 +47,12 @@ namespace TuneRoboWPF.RobotService
         /// <returns>true if success and false if failed</returns>
         private bool SetupConnection()
         {
-            Conn = new WirelessConnection();
-            return (Conn.ConfigAndConnectSocket() == 1);
+            if (Conn == null)
+            {
+                Conn = new WirelessConnection();
+                return (Conn.ConfigAndConnectSocket() == 1);
+            }
+            return true;
         }
 
         /// <summary>
@@ -65,7 +69,8 @@ namespace TuneRoboWPF.RobotService
         /// <returns>Data of reply</returns>
         public object Process()
         {
-            var replyData = new RobotReplyData();
+            //var replyData = new RobotReplyData();
+            RobotReplyData replyData = null;
             if (!SetupConnection())
             {
                 OnProcessError(ErrorCode.SetupConnection, "Setup connection error");
@@ -125,7 +130,7 @@ namespace TuneRoboWPF.RobotService
                 }
             } while (crcCount < WirelessConnection.MaxCrcRetry && crcError);
 
-            ReleaseConenction();
+            //ReleaseConenction();
             return replyData;
         }
         public virtual byte[] BuildRequest()

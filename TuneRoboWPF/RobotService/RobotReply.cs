@@ -33,6 +33,7 @@ namespace TuneRoboWPF.RobotService
                 if (packetID == ID_ACK) return ProcessACKPacket();
                 else
                 {
+                    DebugHelper.WriteLineDebug("Reply packet ID:" + packetID);
                     return ProcessErrorPacket();
                 }
             }
@@ -107,6 +108,7 @@ namespace TuneRoboWPF.RobotService
         private RobotReplyData ProcessErrorPacket()
         {
             var replyData = new RobotReplyData();
+            DebugHelper.WriteLineDebug("ProcessErrorPacket");
             return replyData;
         }
     }

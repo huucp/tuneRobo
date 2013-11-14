@@ -96,7 +96,9 @@
     <sys:String x:Key="WantReconnectRobotText">Do you want to reconnect?</sys:String>
     <sys:String x:Key="AvatarNotImageText">Your avatar url is not an image</sys:String>
     <sys:String x:Key="MustTransformToPlaytext">Your robot must transform before dance</sys:String>
-    <sys:String x:Key="PleaseTransformText">Please let your robot transform</sys:String>    
+    <sys:String x:Key="PleaseTransformText">Please let your robot transform</sys:String>
+    <sys:String x:Key="RobotTransformingText">Your robot is transforming</sys:String>
+    <sys:String x:Key="WaitToTransformedText">Please wait the transform process done</sys:String>
     <sys:String x:Key="NoMotionText">No motion</sys:String>    
     <sys:String x:Key="MotionText">motion</sys:String>    
     <sys:String x:Key="MotionsText">motions</sys:String>    

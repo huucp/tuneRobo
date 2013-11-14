@@ -99,7 +99,7 @@ namespace TuneRoboWPF.Utility
         public static int WirelessPort { get; set; }
         public static int Timeout
         {
-            get { return 30000; }
+            get { return 10000; }
         }
 
         #endregion

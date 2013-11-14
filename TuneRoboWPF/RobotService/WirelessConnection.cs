@@ -12,14 +12,14 @@ using TuneRoboWPF.Utility;
 namespace TuneRoboWPF.RobotService
 {
     public class WirelessConnection
-    {        
+    {
         private Socket Connection;
-        public const int MaxCrcRetry =3 ;
+        public const int MaxCrcRetry = 3;
         public WirelessConnection()
         {
-            Connection= new Socket(AddressFamily.InterNetwork,SocketType.Stream, ProtocolType.IP);
+            Connection = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
         }
-        
+
 
         /// <summary>
         /// Config socket and connect to mRobo
@@ -34,32 +34,34 @@ namespace TuneRoboWPF.RobotService
             var msgError = (string)Application.Current.TryFindResource("CheckNetworkText");
 
 
-            if (GlobalVariables.WirelessIP == null)
-            {
-                Application.Current.Dispatcher.BeginInvoke((Action) (() =>
-                                                                     WPFMessageBox.Show(StaticMainWindow.Window,
-                                                                                        msgError, titleError,
-                                                                                        MessageBoxButton.OK,
-                                                                                        MessageBoxImage.Error,
-                                                                                        MessageBoxResult.OK)));
-                
-                Debug.Fail("IP is invalid");
-                return 0;
-            }
-            if (GlobalVariables.WirelessPort == -1)
-            {
-                Application.Current.Dispatcher.BeginInvoke((Action)(() =>
-                                                                     WPFMessageBox.Show(StaticMainWindow.Window,
-                                                                                        msgError, titleError,
-                                                                                        MessageBoxButton.OK,
-                                                                                        MessageBoxImage.Error,
-                                                                                        MessageBoxResult.OK)));
-                Debug.Fail("Wireless port is invalid");
-                return 0;
-            }
+            //if (GlobalVariables.WirelessIP == null)
+            //{
+            //    Application.Current.Dispatcher.BeginInvoke((Action) (() =>
+            //                                                         WPFMessageBox.Show(StaticMainWindow.Window,
+            //                                                                            msgError, titleError,
+            //                                                                            MessageBoxButton.OK,
+            //                                                                            MessageBoxImage.Error,
+            //                                                                            MessageBoxResult.OK)));
 
-            var clientIpAddress = IPAddress.Parse(GlobalVariables.WirelessIP);
-            var remoteEndPoint = new IPEndPoint(clientIpAddress, GlobalVariables.WirelessPort);
+            //    Debug.Fail("IP is invalid");
+            //    return 0;
+            //}
+            //if (GlobalVariables.WirelessPort == -1)
+            //{
+            //    Application.Current.Dispatcher.BeginInvoke((Action)(() =>
+            //                                                         WPFMessageBox.Show(StaticMainWindow.Window,
+            //                                                                            msgError, titleError,
+            //                                                                            MessageBoxButton.OK,
+            //                                                                            MessageBoxImage.Error,
+            //                                                                            MessageBoxResult.OK)));
+            //    Debug.Fail("Wireless port is invalid");
+            //    return 0;
+            //}
+
+            //var clientIpAddress = IPAddress.Parse(GlobalVariables.WirelessIP);
+            //var remoteEndPoint = new IPEndPoint(clientIpAddress, GlobalVariables.WirelessPort);
+            var clientIpAddress = IPAddress.Parse("169.254.1.1");
+            var remoteEndPoint = new IPEndPoint(clientIpAddress, 6868);
             try
             {
                 IAsyncResult result = Connection.BeginConnect(remoteEndPoint, null, null);
@@ -95,13 +97,21 @@ namespace TuneRoboWPF.RobotService
         {
             var receive = new byte[1024];
             var ret = 0;
-            int temp;
+            int temp = 0;
             var tempReceive = new byte[1024];
             var listByte = new List<byte>();
             do
             {
                 Array.Clear(tempReceive, 0, 1024);
-                temp = Connection.Receive(tempReceive);
+                try
+                {
+                    temp = Connection.Receive(tempReceive);
+                }
+                catch (SocketException se)
+                {
+                    DebugHelper.WriteLineDebug(se.Message);
+                    return null;
+                }
                 ret += temp;
                 listByte.AddRange(GlobalFunction.SplitByteArray(tempReceive, 0, temp));
             } while (temp == 1024);
@@ -130,7 +140,7 @@ namespace TuneRoboWPF.RobotService
                 SendPacket(sendPacket);
             }
             catch (SocketException se)
-            {                
+            {
                 return null;
             }
 
@@ -140,7 +150,7 @@ namespace TuneRoboWPF.RobotService
                 return reply;
             }
             catch (SocketException se)
-            {                
+            {
                 return null;
             }
         }

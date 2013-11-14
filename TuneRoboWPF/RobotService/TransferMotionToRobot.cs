@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using TuneRoboWPF.Utility;
 
@@ -72,6 +71,7 @@ namespace TuneRoboWPF.RobotService
             CancelProcess = false;
         }
 
+        //private StreamWriter writer = new StreamWriter(@"WriteMotion.txt");
         // Transfer process:
         // 1. Create pair
         // 2. Send packets for motion file
@@ -81,7 +81,6 @@ namespace TuneRoboWPF.RobotService
         //  a. Close pair: success, save motion pair
         //  b. Cancel: cancel the operation, data won't be stored in mRobo,
         //  this command could be called any time after "Create pair" command
-
         public object Process()
         {
             const int trunkDataSize = 2048;
@@ -110,7 +109,9 @@ namespace TuneRoboWPF.RobotService
                 OnProcessError(ErrorCode.CreatePairError, "Create pair false");
                 return 0;
             }
-
+#if DEBUG
+            Console.WriteLine("Create pair done");
+#endif
             int numberOfMotionTrunk = motionData.Length / trunkDataSize;
             int numberOfMusicTrunk = musicData.Length / trunkDataSize;
 
@@ -130,6 +131,7 @@ namespace TuneRoboWPF.RobotService
                     return 0;
                 }
                 count++;
+                DebugHelper.WriteLineDebug(count);
                 tempPercentage = count * 100 / totalPackets;
                 if (tempPercentage > currentPercentage)
                 {
@@ -148,6 +150,7 @@ namespace TuneRoboWPF.RobotService
                     return 0;
                 }
                 count++;
+                DebugHelper.WriteLineDebug(count);
                 tempPercentage = count * 100 / totalPackets;
                 if (tempPercentage > currentPercentage)
                 {
@@ -163,6 +166,9 @@ namespace TuneRoboWPF.RobotService
                 return 0;
             }
 
+#if DEBUG
+            Console.WriteLine("Transfer motion file done");
+#endif
             // Transfer music file
 
             int remainderMusicTrunkSize = musicData.Length % trunkDataSize;
@@ -206,16 +212,29 @@ namespace TuneRoboWPF.RobotService
                 OnProcessError(ErrorCode.ClosePairError, "Close pair error");
                 return 0;
             }
-
+            //writer.Close();
+#if DEBUG
+            Console.WriteLine("Done");
+#endif
             OnProgessReport(100);
             OnProcessSuccessfully(null);
             return 1;
+        }
+
+        private void WriteToText(byte[] data)
+        {
+            var s = GlobalFunction.ByteArrayToHexString(data);
+            //writer.WriteLine(s);
         }
 
         private int CreatePair()
         {
             crcCount++;
             var createPairRequest = new CreatePairRequest(MotionID);
+            //var bytes = createPairRequest.BuildRequest();
+            //writer.WriteLine("Create pair command");
+            //WriteToText(bytes);
+            //return 1;
             if (crcCount == WirelessConnection.MaxCrcRetry)
             {
                 crcCount = 0;
@@ -244,22 +263,48 @@ namespace TuneRoboWPF.RobotService
                 return 0;
             }
             var writeMotionDataRequest = new WriteDataRequest(data, packetID);
+            //var bytes = writeMotionDataRequest.BuildRequest();
+            //writer.WriteLine("Write data command");
+            //WriteToText(bytes);
+            //return 1;
             if (crcCount == WirelessConnection.MaxCrcRetry)
             {
                 crcCount = 0;
+#if DEBUG
+                Console.WriteLine("WriteData: reach max crc");
+#endif
                 return 0;
             }
             var reply = writeMotionDataRequest.Process() as RobotReplyData;
-            if (reply == null) return 0;
+            if (reply == null)
+            {
+#if DEBUG
+                Console.WriteLine("WriteData: reply is null");
+#endif
+                return 0;
+            }
 
             // Check reply error
             if (reply.Type == RobotReplyData.ReplyType.CRC)
             {
                 return WriteData(data, packetID);
-            }            
-            else if (reply.Type != RobotReplyData.ReplyType.Success) return 0;
+            }
+            else if (reply.Type != RobotReplyData.ReplyType.Success)
+            {
+#if DEBUG
+                Console.WriteLine("WriteData: reply is not success");
+#endif
+                return WriteData(data, packetID);
+                //return 0;
+            }
 
-            if (GlobalFunction.LE4ToDec(reply.Data) != data.Length) return 0;
+            if (GlobalFunction.LE4ToDec(reply.Data) != data.Length)
+            {
+#if DEBUG
+                Console.WriteLine("WriteData: cannot write all data");
+#endif
+                return 0;
+            }
             crcCount = 0;
             return 1;
         }
@@ -268,6 +313,10 @@ namespace TuneRoboWPF.RobotService
         {
             crcCount++;
             var closeMotionFileRequest = new CloseMotionFileRequest();
+            //var bytes = closeMotionFileRequest.BuildRequest();
+            //writer.WriteLine("Close motion file command");
+            //WriteToText(bytes);
+            //return 1;
             if (crcCount == WirelessConnection.MaxCrcRetry)
             {
                 crcCount = 0;
@@ -289,6 +338,10 @@ namespace TuneRoboWPF.RobotService
         {
             crcCount++;
             var closePairRequest = new ClosePairRequest();
+            //var bytes = closePairRequest.BuildRequest();
+            //writer.WriteLine("Close pair command");
+            //WriteToText(bytes);
+            //return 1;
 
             if (crcCount == WirelessConnection.MaxCrcRetry)
             {
