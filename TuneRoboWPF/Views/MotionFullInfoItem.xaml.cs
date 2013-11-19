@@ -42,10 +42,10 @@ namespace TuneRoboWPF.Views
             ViewModel.MotionTitle = info.Title;
             ViewModel.ArtistName = info.Artist;
             TimeSpan t = TimeSpan.FromSeconds(info.Duration);
-            if (info.Duration>-1)
+            if (info.Duration > -1)
             {
                 ViewModel.MotionDuration = string.Format("{0:D2}:{1:D2}", t.Minutes, t.Seconds);
-            }            
+            }
             ViewModel.RatingValue = 0.6;
             MotionID = info.MotionID;
         }
@@ -57,7 +57,7 @@ namespace TuneRoboWPF.Views
         public void SetMotionInfo(MotionShortInfo info)
         {
             ViewModel.MotionTitle = info.title;
-            ViewModel.ArtistName = info.artist_name;            
+            ViewModel.ArtistName = info.artist_name;
             ViewModel.RatingValue = info.rating / GlobalVariables.RateValueMultiplierFactor;
             MotionID = info.motion_id;
         }
@@ -87,16 +87,41 @@ namespace TuneRoboWPF.Views
 
         private void TransferButton_Click(object sender, RoutedEventArgs e)
         {
-            //if (!GlobalVariables.RoboOnline)
-            if (false)
+            if (!GlobalVariables.RoboOnline)
             {
                 var title = string.Format("{0}!", TryFindResource("ConnectToRobotText"));
                 WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK, MessageBoxImage.Warning,
                                    MessageBoxResult.OK);
             }
+            else if (GlobalVariables.CurrentRobotState.MusicState == RobotState.MusicStates.MusicPlaying)
+            {
+                var titleStop = (string)TryFindResource("StopDanceToCopyText");
+                var msgStop = (string)TryFindResource("WantToStopDanceText");
+                var result = WPFMessageBox.Show(StaticMainWindow.Window, msgStop, titleStop, MessageBoxButton.YesNo,
+                                            MessageBoxImage.Question, MessageBoxResult.Yes);
+                if (result == MessageBoxResult.Yes)
+                {
+                    var musicStopRequest = new RemoteRequest(RobotPacket.PacketID.Stop);
+                    musicStopRequest.ProcessSuccessfully += (data) =>
+                    {
+                        Dispatcher.BeginInvoke((Action)delegate
+                        {
+                            var transferRequest = new TransferMotionToRobot(MotionID);
+                            var transferWindow = new Windows.TransferWindow(transferRequest, MotionID.ToString());
+                            if (transferWindow.ShowDialog(StaticMainWindow.Window) == true)
+                            {
+                                var newEventArgs = new RoutedEventArgs(CopyMotionEvent);
+                                RaiseEvent(newEventArgs);
+                            }
+                        });
+                    };
+                    musicStopRequest.ProcessError += (data, msg) => Debug.Fail(msg);
+                    GlobalVariables.RobotWorker.AddJob(musicStopRequest);
+                }
+            }
             else
             {
-                var transferRequest = new TransferMotionToRobot(MotionID);                
+                var transferRequest = new TransferMotionToRobot(MotionID);
                 var transferWindow = new Windows.TransferWindow(transferRequest, MotionID.ToString());
                 if (transferWindow.ShowDialog(StaticMainWindow.Window) == true)
                 {
@@ -122,16 +147,16 @@ namespace TuneRoboWPF.Views
             {
                 var newEventArgs = new RoutedEventArgs(DeleteMotionEvent);
                 RaiseEvent(newEventArgs);
-            }            
+            }
         }
 
         private bool DeleteLocalMotion()
         {
-            var title = (string) TryFindResource("WantDeleteMotionText") + " " + ViewModel.MotionTitle+"?";
+            var title = (string)TryFindResource("WantDeleteMotionText") + " " + ViewModel.MotionTitle + "?";
             var result = WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.YesNo,
                                             MessageBoxImage.Question, MessageBoxResult.Yes);
             if (result == MessageBoxResult.No) return false;
-            var motionPath = GlobalFunction.GetLocalMotionPath(MotionID);            
+            var motionPath = GlobalFunction.GetLocalMotionPath(MotionID);
             var musicPath = GlobalFunction.GetLocalMusicPath(MotionID);
             try
             {
@@ -143,7 +168,7 @@ namespace TuneRoboWPF.Views
             {
                 Debug.Fail("Cannot delete");
                 return false;
-            }            
-        }        
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@
     {
         public static string PlayImageSource = "/Resources/Play.png";
         public static string PauseImageSource = "/Resources/Pause.png";
+        public static string StopImageSource = "/Resources/Stop.png";
         public static string NextTrackImageSource = "/Resources/Next-Track.png";
         public static string PreviousTrackImageSource = "/Resources/Previous-Track.png";
         public static string LockImageSource = "/Resources/Lock.png";

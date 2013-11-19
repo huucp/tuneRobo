@@ -95,7 +95,7 @@
     <sys:String x:Key="RobotConnectionLostText">Your connection to robot is lost</sys:String>
     <sys:String x:Key="WantReconnectRobotText">Do you want to reconnect?</sys:String>
     <sys:String x:Key="AvatarNotImageText">Your avatar url is not an image</sys:String>
-    <sys:String x:Key="MustTransformToPlaytext">Your robot must transform before dance</sys:String>
+    <sys:String x:Key="MustTransformToPlayText">Your robot must transform before dance</sys:String>
     <sys:String x:Key="PleaseTransformText">Please let your robot transform</sys:String>
     <sys:String x:Key="RobotTransformingText">Your robot is transforming</sys:String>
     <sys:String x:Key="WaitToTransformedText">Please wait the transform process done</sys:String>
@@ -111,5 +111,8 @@
     <sys:String x:Key="TransferCompletedText">Transfer motion completed</sys:String>
     <sys:String x:Key="DownloadErrorText">Download motion error</sys:String>    
     <sys:String x:Key="TransferErrorText">Transfer motion error</sys:String>
-    <sys:String x:Key="RatingSuccessfullyText">Your rating is submitted</sys:String>    
+    <sys:String x:Key="RatingSuccessfullyText">Your rating is submitted</sys:String>
+    <sys:String x:Key="StopDanceToCopyText">To transfer this motion to robot, the dancing must be stopped</sys:String>    
+    <sys:String x:Key="StopDanceToDeleteText">To delete this motion from robot, the dancing must be stopped</sys:String>    
+    <sys:String x:Key="WantToStopDanceText">Do you want to stop the dancing?</sys:String>    
 </ResourceDictionary>

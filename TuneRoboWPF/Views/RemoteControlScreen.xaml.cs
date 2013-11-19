@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using MessageBoxUtils;
@@ -119,10 +120,11 @@ namespace TuneRoboWPF.Views
                 }
                 return;
             }
-            GetState();
+            //GetState();
+            GetState(NullMethod, 0);
             //switch (TransformButton.ViewModel.State)
             //{
-            //    case RobotTransformButtonModel.ButtonState.Transform:
+            //    case RobotTransformButtonModel.ButtonState.Transform
             //        PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.InActive;
             //        SetControlButtonState(false);
             //        break;
@@ -244,6 +246,7 @@ namespace TuneRoboWPF.Views
         {
             NextButton.ViewModel.Active = state;
             PreviousButton.ViewModel.Active = state;
+            StopButton.ViewModel.Active = state;
             VolumeButton.ViewModel.Active = state;
             viewModel.VolumeVisibility = state;
         }
@@ -279,7 +282,8 @@ namespace TuneRoboWPF.Views
                     TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;
                     GetListMotion();
 
-                    GetState();
+                    //GetState();
+                    GetState(NullMethod, 0);
                 });
                 GlobalVariables.RoboOnline = true;
             };
@@ -302,6 +306,51 @@ namespace TuneRoboWPF.Views
             };
 
             GlobalVariables.RobotWorker.AddJob(helloRequest);
+        }
+
+        private void GetState(Action<ulong> method, ulong motionID)
+        {
+            var stateRequest = new GetStateRequest();
+            stateRequest.ProcessSuccessfully += data => Dispatcher.BeginInvoke((Action)delegate
+            {
+                UpdateRemoteControl();
+                method(motionID);
+                Cursor = Cursors.Arrow;
+            });
+            stateRequest.ProcessError += (errorCode, msg) =>
+            {
+                Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Cursor = Cursors.Arrow;
+                    switch (errorCode)
+                    {
+                        case RobotRequest.ErrorCode.SetupConnection:
+                        case RobotRequest.ErrorCode.WrongSessionID:
+                            var titleError = (string)TryFindResource("RobotConnectionLostText");
+                            var msgError = (string)TryFindResource("WantReconnectRobotText");
+                            var result = WPFMessageBox.Show(StaticMainWindow.Window, msgError,
+                                                     titleError, MessageBoxButton.YesNo,
+                                                     MessageBoxImage.Question, MessageBoxResult.Yes);
+                            if (result == MessageBoxResult.Yes)
+                            {
+                                ConnectMrobo();
+                            }
+                            else
+                            {
+                                GlobalVariables.RoboOnline = false;
+                                UnconnectedTextBox.Visibility = Visibility.Visible;
+                            }
+                            break;
+                    }
+                });
+
+                Debug.Fail(msg, Enum.GetName((typeof(RobotRequest.ErrorCode)), errorCode));
+            };
+            GlobalVariables.RobotWorker.AddJob(stateRequest);
+        }
+
+        private void NullMethod(ulong motionID)
+        {
         }
 
         private void GetState()
@@ -414,6 +463,28 @@ namespace TuneRoboWPF.Views
 
         private void MotionTitleItem_DeleteMotion(ulong motionID)
         {
+            if (GlobalVariables.CurrentRobotState.MusicState == RobotState.MusicStates.MusicPlaying)
+            {
+                var titleStop = (string)TryFindResource("StopDanceToDeleteText");
+                var msgStop = (string)TryFindResource("WantToStopDanceText");
+                var result = WPFMessageBox.Show(StaticMainWindow.Window, msgStop, titleStop, MessageBoxButton.YesNo,
+                                            MessageBoxImage.Question, MessageBoxResult.Yes);
+                if (result == MessageBoxResult.Yes)
+                {
+                    var musicStopRequest = new RemoteRequest(RobotPacket.PacketID.Stop);
+                    musicStopRequest.ProcessSuccessfully += (data) => Dispatcher.BeginInvoke((Action)(() => DeleteMotionInRobot(motionID)));
+                    musicStopRequest.ProcessError += (data, msg) => Debug.Fail(msg);
+                    GlobalVariables.RobotWorker.AddJob(musicStopRequest);
+                }
+            }
+            else
+            {
+                DeleteMotionInRobot(motionID);
+            }
+        }
+
+        private void DeleteMotionInRobot(ulong motionID)
+        {
             var delRequest = new RemoteRequest(RobotPacket.PacketID.DeleteMotion, -1, motionID);
             delRequest.ProcessSuccessfully += (reply) =>
                 Dispatcher.BeginInvoke((Action)delegate
@@ -425,7 +496,6 @@ namespace TuneRoboWPF.Views
             delRequest.ProcessError += (errorCode, msg) => Debug.Fail(errorCode.ToString(), msg);
             GlobalVariables.RobotWorker.AddJob(delRequest);
         }
-
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -580,61 +650,13 @@ namespace TuneRoboWPF.Views
             GlobalVariables.StoreWorker.ForceAddRequest(motionInfoRequest);
         }
 
-        private void volumeBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            var volumeRequest = new RemoteRequest(RobotPacket.PacketID.SetVolumeLevel, (int)viewModel.Volume);
-            volumeRequest.ProcessSuccessfully += (reply) => Dispatcher.BeginInvoke((Action)UpdateRemoteControl);
-            volumeRequest.ProcessError += (reply, msg) =>
-                                              {
-                                                  if (reply == null) Debug.Fail(msg);
-                                                  Debug.Fail(reply.ToString(), msg);
-                                              };
-            GlobalVariables.StoreWorker.AddRequest(volumeRequest);
-        }
-
         private void RemoteListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int index = RemoteListBox.SelectedIndex;
             var playID = GlobalVariables.CurrentListMotion[index].MotionID;
             if (GlobalVariables.CurrentRobotState.TransformState == RobotState.TransformStates.Openning)
             {
-                var stateRequest = new GetStateRequest();
-                stateRequest.ProcessSuccessfully += data => Dispatcher.BeginInvoke((Action)delegate
-                {
-                    UpdateRemoteControl();
-                    Play(playID);
-                    Cursor = Cursors.Arrow;
-                });
-                stateRequest.ProcessError += (errorCode, msg) =>
-                {
-                    Dispatcher.BeginInvoke((Action)delegate
-                    {
-                        Cursor = Cursors.Arrow;
-                        switch (errorCode)
-                        {
-                            case RobotRequest.ErrorCode.SetupConnection:
-                            case RobotRequest.ErrorCode.WrongSessionID:
-                                var titleError = (string)TryFindResource("RobotConnectionLostText");
-                                var msgError = (string)TryFindResource("WantReconnectRobotText");
-                                var result = WPFMessageBox.Show(StaticMainWindow.Window, msgError,
-                                                         titleError, MessageBoxButton.YesNo,
-                                                         MessageBoxImage.Question, MessageBoxResult.Yes);
-                                if (result == MessageBoxResult.Yes)
-                                {
-                                    ConnectMrobo();
-                                }
-                                else
-                                {
-                                    GlobalVariables.RoboOnline = false;
-                                    UnconnectedTextBox.Visibility = Visibility.Visible;
-                                }
-                                break;
-                        }
-                    });
-
-                    Debug.Fail(msg, Enum.GetName((typeof(RobotRequest.ErrorCode)), errorCode));
-                };
-                GlobalVariables.RobotWorker.AddJob(stateRequest);
+                GetState(Play, playID);
             }
             else
             {
@@ -652,7 +674,7 @@ namespace TuneRoboWPF.Views
                 switch (GlobalVariables.CurrentRobotState.TransformState)
                 {
                     case RobotState.TransformStates.Closed:
-                        msgTransform = (string)TryFindResource("MustTransformToPlaytext");
+                        msgTransform = (string)TryFindResource("MustTransformToPlayText");
                         titleTransform = (string)TryFindResource("PleaseTransformText");
                         break;
                     case RobotState.TransformStates.Openning:
@@ -670,7 +692,7 @@ namespace TuneRoboWPF.Views
             }
             Cursor = Cursors.Wait;
             var playRequest = new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay, -1, motionID);
-            playRequest.ProcessSuccessfully += (data) => Dispatcher.BeginInvoke((Action)GetState);
+            playRequest.ProcessSuccessfully += (data) => Dispatcher.BeginInvoke((Action)(() => GetState(NullMethod, 0)));
             playRequest.ProcessError += (errorCode, msg) =>
             {
                 Dispatcher.BeginInvoke((Action)delegate
@@ -699,5 +721,39 @@ namespace TuneRoboWPF.Views
             };
             GlobalVariables.RobotWorker.AddJob(playRequest);
         }
+
+        #region Update volume value
+
+        private bool dragStarted = false;
+        private void VolumeSlider_OnDragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            UpdateVolume((int)viewModel.Volume);
+            dragStarted = false;
+        }
+
+        private void VolumeSlider_OnDragStarted(object sender, DragStartedEventArgs e)
+        {
+            dragStarted = true;
+        }
+
+        private void VolumeSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (!dragStarted) UpdateVolume((int)viewModel.Volume);
+        }
+
+        private void UpdateVolume(int value)
+        {
+            var volumeRequest = new RemoteRequest(RobotPacket.PacketID.SetVolumeLevel, value);
+            volumeRequest.ProcessSuccessfully += (reply) => Dispatcher.BeginInvoke((Action)UpdateRemoteControl);
+            volumeRequest.ProcessError += (reply, msg) =>
+            {
+                if (reply == null) Debug.Fail(msg);
+                Debug.Fail(reply.ToString(), msg);
+            };
+            GlobalVariables.StoreWorker.AddRequest(volumeRequest);
+
+        }
+
+        #endregion
     }
 }

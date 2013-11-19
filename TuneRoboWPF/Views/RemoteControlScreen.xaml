@@ -190,25 +190,26 @@
         		</Style>
         	</ListBox.ItemContainerStyle>            
         </ListBox>
-        <Grid Grid.Column="1" Margin="0,0,0,10" VerticalAlignment="Bottom" d:IsHidden="True">
+        <Grid x:Name="ControlPanel" Grid.Column="1" Margin="0,0,0,10" VerticalAlignment="Bottom" d:IsHidden="false">
+        	<local:RobotTransformButton x:Name="TransformButton" 
+        		Margin="20,0,0,0" Width="Auto" Height="35" 
+        		VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                
         	<local:PreviousTrackButton x:Name="PreviousButton" 
         		Margin="104,0,0,0" Width="35" 
         		Height="35" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="19.957,-0.912" />
         	<local:PlayPauseButton x:Name="PlayPauseButtons" 
         		Height="35" Margin="139,0,0,0" VerticalAlignment="Center" Width="Auto" HorizontalAlignment="Left"/>
         	<local:NextTrackButton x:Name="NextButton" Margin="174,0,203.5,0" VerticalAlignment="Center" 
-        		Width="Auto" Height="35" 
-                               />
+        		Width="Auto" Height="35"/>
+        	<local:StopButton x:Name="StopButton" HorizontalAlignment="Left" Height="35" Margin="209,0,0,0" VerticalAlignment="Top" Width="35"/>
         	<local:VolumeButton x:Name="VolumeButton" Margin="0,0,110,0" 
         		VerticalAlignment="Center" Width="Auto" Height="35" HorizontalAlignment="Right"/>
-        	<local:RobotTransformButton x:Name="TransformButton" 
-        		Margin="20,0,0,0" Width="Auto" Height="35" 
-        		VerticalAlignment="Center" HorizontalAlignment="Left"/>
                 
         	<ProgressBar x:Name="volumeBar"  Height="9" Width="100"
         		Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Maximum="10"
         		Style="{DynamicResource VolumeStyle}" HorizontalAlignment="Right" Margin="0,0,20,3" VerticalAlignment="Center"
-        		Background="#cdced5" BorderBrush="#FFb6b6ba" BorderThickness="1" ValueChanged="volumeBar_ValueChanged" 
+        		Background="#cdced5" BorderBrush="#FFb6b6ba" BorderThickness="1"  
         		Visibility="{Binding VolumeVisibility, ConverterParameter=Collapsed, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         		<ProgressBar.Effect>
         			<DropShadowEffect ShadowDepth="1" BlurRadius="1" Color="White"/>
@@ -218,7 +219,10 @@
         		Width="100" Value="{Binding Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
         		IsSnapToTickEnabled="True" TickFrequency="1" IsMoveToPointEnabled="true" 
         		Visibility="{Binding VolumeVisibility, ConverterParameter=Collapsed, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-        		Style="{StaticResource VolumeSliderStyle}"/>
+        		Style="{StaticResource VolumeSliderStyle}"
+                    Thumb.DragCompleted="VolumeSlider_OnDragCompleted"
+                    Thumb.DragStarted="VolumeSlider_OnDragStarted"
+                    ValueChanged="VolumeSlider_OnValueChanged"/>
             
         </Grid>
         <TextBlock x:Name="UnconnectedTextBox" Grid.Column="1"

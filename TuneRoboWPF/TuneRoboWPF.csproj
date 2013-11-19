@@ -117,6 +117,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>String.resx</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="RobotService\InformationRequest.cs" />
     <Compile Include="RobotService\ListAllMotionRobotRequest.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="Views\SeeAllScreen.xaml.cs">
       <DependentUpon>SeeAllScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\StopButton.cs" />
     <Compile Include="Views\StoreScreen.xaml.cs">
       <DependentUpon>StoreScreen.xaml</DependentUpon>
     </Compile>
@@ -507,6 +509,8 @@
     <EmbeddedResource Include="Resources\String.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>String.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -517,59 +521,91 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\cov894.jpeg" />
+    <Resource Include="Resources\cov894.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Play.png" />
-    <Resource Include="Resources\Next-Track.png" />
-    <Resource Include="Resources\Pause.png" />
-    <Resource Include="Resources\Previous-Track.png" />
-    <Resource Include="Resources\Volume-Down.png" />
-    <Resource Include="Resources\Volume-Mute.png" />
-    <Resource Include="Resources\Volume-Up.png" />
+    <Resource Include="Resources\Volume-Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Volume-Mute.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Volume-Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Lock.png" />
+    <Resource Include="Resources\Lock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\mrobo_small.jpg" />
+    <Resource Include="Resources\mrobo_small.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\face-smile-big-4.ico" />
-    <Resource Include="Resources\face-tired.ico" />
+    <Resource Include="Resources\face-smile-big-4.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\face-tired.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\youtube.jpg" />
+    <Resource Include="Resources\youtube.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Background1.png" />
+    <Resource Include="Resources\Background1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\trash.png" />
+    <Resource Include="Resources\trash.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\play Gray.png" />
+    <Resource Include="Resources\play Gray.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\search icon.png" />
+    <Resource Include="Resources\search icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\search-icon-th.png" />
+    <Resource Include="Resources\search-icon-th.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\edit_query.png" />
+    <Resource Include="Resources\edit_query.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\5_content_edit.png" />
+    <Resource Include="Resources\5_content_edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\9_av_play_over_video.png" />
+    <Resource Include="Resources\9_av_play_over_video.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\play over.png" />
+    <Resource Include="Resources\play over.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CoverFlow\CoverFlow.csproj">
@@ -582,22 +618,46 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\video_play.png" />
+    <Resource Include="Resources\video_play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\default_user.jpg" />
+    <Resource Include="Resources\default_user.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\mRobo_Loa.png" />
+    <Resource Include="Resources\mRobo_Loa.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\mRobo_big.png" />
+    <Resource Include="Resources\mRobo_big.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\default_screenshot.jpg" />
+    <Resource Include="Resources\default_screenshot.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\default_icon.jpg" />
+    <Resource Include="Resources\default_icon.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Next-Track.png" />
+    <Resource Include="Resources\Previous-Track.png" />
+    <Resource Include="Resources\Stop.png" />
+    <Resource Include="Resources\Volume-On.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pause.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />

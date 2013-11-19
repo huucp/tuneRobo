@@ -83,7 +83,7 @@ namespace TuneRoboWPF.RobotService
         //  this command could be called any time after "Create pair" command
         public object Process()
         {
-            const int trunkDataSize = 2048;
+            const int trunkDataSize = 4096;
             string musicPath =
                 Path.Combine(GlobalVariables.LOCAL_DIR + GlobalVariables.FOLDER_ROOT + GlobalVariables.FOLDER_PLAYLIST,
                              MotionID.ToString() + ".mp3");

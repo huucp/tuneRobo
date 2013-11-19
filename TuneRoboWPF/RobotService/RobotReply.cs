@@ -20,7 +20,7 @@ namespace TuneRoboWPF.RobotService
 
             if (packetID == ID_CRC_ERROR)
             {
-                replyData.Type =RobotReplyData.ReplyType.CRC;
+                replyData.Type = RobotReplyData.ReplyType.CRC;
                 return replyData;
             }
             else
@@ -75,6 +75,7 @@ namespace TuneRoboWPF.RobotService
             {
                 case RobotPacket.PacketID.Play:
                 case RobotPacket.PacketID.Pause:
+                case RobotPacket.PacketID.Stop:
                 case RobotPacket.PacketID.Forward:
                 case RobotPacket.PacketID.Backward:
                 case RobotPacket.PacketID.OpenTransform:
