@@ -68,11 +68,10 @@ namespace TuneRoboWPF.RobotService
 
                 bool success = result.AsyncWaitHandle.WaitOne(1000, true);
 
-                if (!success)
-                {
-                    Connection.Close();
-                    //throw new ApplicationException("Failed to connect server.");
-                }
+                //if (!success)
+                //{
+                //    Connection.Close();
+                //}
             }
             catch (SocketException e)
             {

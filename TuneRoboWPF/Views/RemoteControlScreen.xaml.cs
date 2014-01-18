@@ -34,7 +34,7 @@ namespace TuneRoboWPF.Views
             PlayPauseButtons.UpdateParentControl += PlayPauseButtonsUpdateParentControl;
             NextButton.UpdateParentControl += NextButton_UpdateParentControl;
             PreviousButton.UpdateParentControl += PreviousButton_UpdateParentControl;
-            TransformButton.UpdateParentControl += TransformButton_UpdateParentControl;
+            //TransformButton.UpdateParentControl += TransformButton_UpdateParentControl;
 
         }
 
@@ -184,34 +184,34 @@ namespace TuneRoboWPF.Views
             }
         }
 
-        private void UpdateTransformButton()
-        {
-            switch (TransformButton.ViewModel.State)
-            {
-                case RobotTransformButtonModel.ButtonState.Transform:
-                    PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.InActive;
-                    break;
-                case RobotTransformButtonModel.ButtonState.Untransform:
-                    PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Play;
-                    break;
-            }
-        }
+        //private void UpdateTransformButton()
+        //{
+        //    switch (TransformButton.ViewModel.State)
+        //    {
+        //        case RobotTransformButtonModel.ButtonState.Transform:
+        //            PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.InActive;
+        //            break;
+        //        case RobotTransformButtonModel.ButtonState.Untransform:
+        //            PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Play;
+        //            break;
+        //    }
+        //}
 
         private void UpdateControlButtonState()
         {
             RobotState state = GlobalVariables.CurrentRobotState;
             SetControlButtonState(true);
-            switch (state.TransformState)
-            {
-                case RobotState.TransformStates.Closed:
-                case RobotState.TransformStates.Closing:
-                    TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;
-                    break;
-                case RobotState.TransformStates.Openning:
-                case RobotState.TransformStates.Opened:
-                    TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Untransform;
-                    break;
-            }
+            //switch (state.TransformState)
+            //{
+            //    case RobotState.TransformStates.Closed:
+            //    case RobotState.TransformStates.Closing:
+            //        TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;
+            //        break;
+            //    case RobotState.TransformStates.Openning:
+            //    case RobotState.TransformStates.Opened:
+            //        TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Untransform;
+            //        break;
+            //}
         }
 
         private void UpdateMusicState()
@@ -279,7 +279,7 @@ namespace TuneRoboWPF.Views
                     }
 
                     UnconnectedTextBox.Visibility = Visibility.Hidden;
-                    TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;
+                    //TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;
                     GetListMotion();
 
                     //GetState();
@@ -411,7 +411,7 @@ namespace TuneRoboWPF.Views
                 listMotionInfo.Sort((x, y) => String.CompareOrdinal(x.Title, y.Title)); // Sort title
                 foreach (MotionInfo info in listMotionInfo)
                 {
-                    if (info.MType != MotionInfo.MotionType.Dance) continue;
+                    //if (info.MType != MotionInfo.MotionType.Dance) continue;
                     var motionTitleItem = new MotionTitleItem();
                     motionTitleItem.MotionID = info.MotionID;
                     motionTitleItem.ViewModel.Title = info.Title;
@@ -654,42 +654,43 @@ namespace TuneRoboWPF.Views
         {
             int index = RemoteListBox.SelectedIndex;
             var playID = GlobalVariables.CurrentListMotion[index].MotionID;
-            if (GlobalVariables.CurrentRobotState.TransformState == RobotState.TransformStates.Openning)
-            {
-                GetState(Play, playID);
-            }
-            else
-            {
-                Play(playID);
-            }
-
+            //if (GlobalVariables.CurrentRobotState.TransformState == RobotState.TransformStates.Openning)
+            //{
+            //    GetState(Play, playID);
+            //}
+            //else
+            //{
+            //    Play(playID);
+            //}
+            Play(playID);
+            Play(playID);
         }
 
         private void Play(ulong motionID)
         {
-            if (GlobalVariables.CurrentRobotState.TransformState != RobotState.TransformStates.Opened)
-            {
-                string msgTransform = string.Empty;
-                string titleTransform = string.Empty;
-                switch (GlobalVariables.CurrentRobotState.TransformState)
-                {
-                    case RobotState.TransformStates.Closed:
-                        msgTransform = (string)TryFindResource("MustTransformToPlayText");
-                        titleTransform = (string)TryFindResource("PleaseTransformText");
-                        break;
-                    case RobotState.TransformStates.Openning:
-                    case RobotState.TransformStates.Closing:
-                        msgTransform = (string)TryFindResource("RobotTransformingText");
-                        titleTransform = (string)TryFindResource("WaitToTransformedText");
-                        break;
-                }
+            //if (GlobalVariables.CurrentRobotState.TransformState != RobotState.TransformStates.Opened)
+            //{
+            //    string msgTransform = string.Empty;
+            //    string titleTransform = string.Empty;
+            //    switch (GlobalVariables.CurrentRobotState.TransformState)
+            //    {
+            //        case RobotState.TransformStates.Closed:
+            //            msgTransform = (string)TryFindResource("MustTransformToPlayText");
+            //            titleTransform = (string)TryFindResource("PleaseTransformText");
+            //            break;
+            //        case RobotState.TransformStates.Openning:
+            //        case RobotState.TransformStates.Closing:
+            //            msgTransform = (string)TryFindResource("RobotTransformingText");
+            //            titleTransform = (string)TryFindResource("WaitToTransformedText");
+            //            break;
+            //    }
 
-                WPFMessageBox.Show(StaticMainWindow.Window, titleTransform,
-                                         msgTransform, MessageBoxButton.OK,
-                                         MessageBoxImage.Information, MessageBoxResult.OK);
-                RemoteListBox.SelectedIndex = -1;
-                return;
-            }
+            //    WPFMessageBox.Show(StaticMainWindow.Window, titleTransform,
+            //                             msgTransform, MessageBoxButton.OK,
+            //                             MessageBoxImage.Information, MessageBoxResult.OK);
+            //    RemoteListBox.SelectedIndex = -1;
+            //    return;
+            //}
             Cursor = Cursors.Wait;
             var playRequest = new RemoteRequest(RobotPacket.PacketID.SelectMotionToPlay, -1, motionID);
             playRequest.ProcessSuccessfully += (data) => Dispatcher.BeginInvoke((Action)(() => GetState(NullMethod, 0)));

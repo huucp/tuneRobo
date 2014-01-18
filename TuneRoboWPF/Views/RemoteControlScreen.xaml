@@ -191,9 +191,9 @@
         	</ListBox.ItemContainerStyle>            
         </ListBox>
         <Grid x:Name="ControlPanel" Grid.Column="1" Margin="0,0,0,10" VerticalAlignment="Bottom" d:IsHidden="false">
-        	<local:RobotTransformButton x:Name="TransformButton" 
+        	<!--<local:RobotTransformButton x:Name="TransformButton" 
         		Margin="20,0,0,0" Width="Auto" Height="35" 
-        		VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        		VerticalAlignment="Center" HorizontalAlignment="Left"/>-->
                 
         	<local:PreviousTrackButton x:Name="PreviousButton" 
         		Margin="104,0,0,0" Width="35" 

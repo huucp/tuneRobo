@@ -6,12 +6,13 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Views="clr-namespace:TuneRoboWPF.Views"
         mc:Ignorable="d" x:Name="MainScreen" x:Class="TuneRoboWPF.MainWindow"
         Title="TuneRobo" Height="770" Width="1100" WindowStartupLocation="CenterScreen" 
-		ResizeMode="CanMinimize"
+        MinHeight="480" MinWidth="640"
+		ResizeMode="CanResize"
     	ContentRendered="MainScreen_ContentRendered"
         Loaded="MainScreen_Loaded" >
     <Grid>
         <DockPanel x:Name="MainDock" LastChildFill="True" >
-            <Views:NavigationBar x:Name="navigationBar" DockPanel.Dock="Top" Width="1100"
+            <Views:NavigationBar x:Name="navigationBar" DockPanel.Dock="Top" HorizontalAlignment="Stretch"
                              StoreButtonClick="navigationBar_StoreButtonClick"
                              RemoteButtonClick="navigationBar_RemoteButtonClick"/>
             <!--<local:StatusBar x:Name="statusBar" DockPanel.Dock = "Bottom"/>-->

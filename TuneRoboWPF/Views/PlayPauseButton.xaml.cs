@@ -130,7 +130,6 @@ namespace TuneRoboWPF.Views
                 Dispatcher.BeginInvoke((Action)delegate
                 {
                     Cursor = Cursors.Arrow;
-                    Cursor = Cursors.Arrow;
                     switch (errorCode)
                     {
                         case RobotRequest.ErrorCode.SetupConnection:

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 namespace TuneRoboWPF.Utility
 {
@@ -52,7 +53,11 @@ namespace TuneRoboWPF.Utility
 
             byte[] versionBytes = GlobalFunction.SplitByteArray(infoData, secondCRPos + 1, infoData.Length - secondCRPos - 2);
             var versionString = Encoding.UTF8.GetString(versionBytes);
-            VersionCode = ulong.Parse(versionString);
+            if (!string.IsNullOrWhiteSpace(versionString)) VersionCode = ulong.Parse(versionString);
+            else
+            {
+                Debug.Fail("Cannot get version code");
+            }
         }
 
         private int FindCRPosition(int CRIndex, byte[] data)
@@ -88,7 +93,7 @@ namespace TuneRoboWPF.Utility
             Title = GetContentString(lines[2]);
             Artist = GetContentString(lines[3]);
             VersionCode = GetContentUlong(lines[4]);
-            Duration = GetContentUint(lines[5]);
+            Duration = (uint)GetContentDouble(lines[5]);
         }
 
         private int FindEqualOperator(string s)
@@ -106,13 +111,34 @@ namespace TuneRoboWPF.Utility
         private ulong GetContentUlong(string line)
         {
             string ulongString = GetContentString(line);
-            return ulong.Parse(ulongString);
+            ulong result;
+            if (ulong.TryParse(ulongString, out result))
+            {
+                return result;
+            }
+            return 1;
         }
 
         private uint GetContentUint(string line)
         {
             string uintString = GetContentString(line);
-            return uint.Parse(uintString);
+            uint result;
+            if (uint.TryParse(uintString, out result))
+            {
+                return result;
+            }
+            return 1;
+        }
+
+        private double GetContentDouble(string line)
+        {
+            string doubleString = GetContentString(line);
+            double result;
+            if (double.TryParse(doubleString, out result))
+            {
+                return result;
+            }
+            return 0.0;
         }
 
         private static string RemoveAllWhiteSpace(string s)

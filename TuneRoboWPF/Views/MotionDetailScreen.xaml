@@ -190,8 +190,8 @@
                             </Rectangle.Fill>
                         </Rectangle>
 
-                        <ListBox Grid.Row="0" x:Name="ScreenshotsListbox" Height="200" Margin="27.5,40,0,0" 
-                                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="751"
+                        <ListBox Grid.Row="0" x:Name="ScreenshotsListbox" Height="200" Margin="27.5,40,58.5,0" 
+                                 VerticalAlignment="Top"
                                  VerticalContentAlignment="Top" Background="Transparent"
                                  BorderThickness="1,0,1,0" BorderBrush="{StaticResource ListBoxHorizontalBorderBrush}"
                                  ItemsPanel="{StaticResource WrapPanelListBoxTemplate}"
@@ -219,8 +219,8 @@
                         <TextBlock x:Name="DescriptionTextBlock" Grid.Row="1"  HorizontalAlignment="Left"  Margin="31.5,10,0,0" TextWrapping="NoWrap" 
                                    VerticalAlignment="Top"  Text="{DynamicResource DescriptionText}" FontWeight="Bold" FontSize="20"/>
                         
-                        <TextBlock Grid.Row="1"  x:Name="MotionDescriptionTextBlockShadow" Margin="27.5,46,0,0" TextWrapping="Wrap" 
-                                   Text="{Binding MotionDescription}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="751"
+                        <TextBlock Grid.Row="1"  x:Name="MotionDescriptionTextBlockShadow" Margin="27.5,46,58.5,0" TextWrapping="Wrap" 
+                                   Text="{Binding MotionDescription}" VerticalAlignment="Top"
                                    Foreground="White" FontSize="13">
                                     <TextBlock.RenderTransform>
                                         <TranslateTransform Y="1"/>
@@ -292,7 +292,7 @@
                         </TextBlock>
                         <TextBlock x:Name="RelatedTextBlock" Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16" FontWeight="ExtraBold"
                                    Text="{Binding MoreByTextBlock}"/>
-                        <ItemsControl VerticalAlignment="Top" Margin="0,40,0,0" FontSize="13.333" Width="820.5" 
+                        <ItemsControl VerticalAlignment="Top" Margin="8.25,40,8.25,0" FontSize="13.333" 
                                       ItemsSource="{Binding RelatedMotionsList}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>

@@ -58,7 +58,7 @@ namespace TuneRoboWPF.RobotService
         /// <summary>
         /// Release connection
         /// </summary>
-        private void ReleaseConenction()
+        private void ReleaseConection()
         {
             Conn.ReleaseConnection();
         }
