@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using MessageBoxUtils;
@@ -8,6 +10,7 @@ using TuneRoboWPF.RobotService;
 using TuneRoboWPF.Utility;
 using TuneRoboWPF.ViewModels;
 using motion;
+using MotionInfo = TuneRoboWPF.Utility.MotionInfo;
 
 namespace TuneRoboWPF.Views
 {
@@ -93,43 +96,66 @@ namespace TuneRoboWPF.Views
                 WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK, MessageBoxImage.Warning,
                                    MessageBoxResult.OK);
             }
-            else if (GlobalVariables.CurrentRobotState.MusicState == RobotState.MusicStates.MusicPlaying)
-            {
-                var titleStop = (string)TryFindResource("StopDanceToCopyText");
-                var msgStop = (string)TryFindResource("WantToStopDanceText");
-                var result = WPFMessageBox.Show(StaticMainWindow.Window, msgStop, titleStop, MessageBoxButton.YesNo,
-                                            MessageBoxImage.Question, MessageBoxResult.Yes);
-                if (result == MessageBoxResult.Yes)
-                {
-                    var musicStopRequest = new RemoteRequest(RobotPacket.PacketID.Stop);
-                    musicStopRequest.ProcessSuccessfully += (data) =>
-                    {
-                        Dispatcher.BeginInvoke((Action)delegate
-                        {
-                            var transferRequest = new TransferMotionToRobot(MotionID);
-                            var transferWindow = new Windows.TransferWindow(transferRequest, MotionID.ToString());
-                            if (transferWindow.ShowDialog(StaticMainWindow.Window) == true)
-                            {
-                                var newEventArgs = new RoutedEventArgs(CopyMotionEvent);
-                                RaiseEvent(newEventArgs);
-                            }
-                        });
-                    };
-                    musicStopRequest.ProcessError += (data, msg) => Debug.Fail(msg);
-                    GlobalVariables.RobotWorker.AddJob(musicStopRequest);
-                }
-            }
             else
             {
-                var transferRequest = new TransferMotionToRobot(MotionID);
-                var transferWindow = new Windows.TransferWindow(transferRequest, MotionID.ToString());
-                if (transferWindow.ShowDialog(StaticMainWindow.Window) == true)
+                if (CheckExistInRobot(GlobalVariables.CurrentListMotion, MotionID))
                 {
-                    var newEventArgs = new RoutedEventArgs(CopyMotionEvent);
-                    RaiseEvent(newEventArgs);
+                    var titleRecopy = (string)TryFindResource("ExistInRobotText");
+                    var msgRecopy = (string)TryFindResource("WantRecopyMotionText");
+                    var recopyResult = WPFMessageBox.Show(StaticMainWindow.Window, msgRecopy, titleRecopy,
+                                                          MessageBoxButton.YesNo, MessageBoxImage.Question,
+                                                          MessageBoxResult.No);
+                    if (recopyResult == MessageBoxResult.No)
+                    {
+                        return;
+                    }
                 }
+                
+                if (GlobalVariables.CurrentRobotState.MusicState == RobotState.MusicStates.MusicPlaying)
+                {
+                    var titleStop = (string)TryFindResource("StopDanceToCopyText");
+                    var msgStop = (string)TryFindResource("WantToStopDanceText");
+                    var result = WPFMessageBox.Show(StaticMainWindow.Window, msgStop, titleStop, MessageBoxButton.YesNo,
+                                                MessageBoxImage.Question, MessageBoxResult.Yes);
+                    if (result == MessageBoxResult.Yes)
+                    {
 
+                        var musicStopRequest = new RemoteRequest(RobotPacket.PacketID.Stop);
+                        musicStopRequest.ProcessSuccessfully += (data) =>
+                        {
+                            Dispatcher.BeginInvoke((Action)delegate
+                            {
+                                var transferRequest = new TransferMotionToRobot(MotionID);
+                                var transferWindow = new Windows.TransferWindow(transferRequest, MotionID.ToString());
+                                if (transferWindow.ShowDialog(StaticMainWindow.Window) == true)
+                                {
+                                    var newEventArgs = new RoutedEventArgs(CopyMotionEvent);
+                                    RaiseEvent(newEventArgs);
+                                }
+                            });
+                        };
+                        musicStopRequest.ProcessError += (data, msg) => Debug.Fail(msg);
+                        GlobalVariables.RobotWorker.AddJob(musicStopRequest);
+
+                    }
+                }
+                else
+                {
+                    var transferRequest = new TransferMotionToRobot(MotionID);
+                    var transferWindow = new Windows.TransferWindow(transferRequest, MotionID.ToString());
+                    if (transferWindow.ShowDialog(StaticMainWindow.Window) == true)
+                    {
+                        var newEventArgs = new RoutedEventArgs(CopyMotionEvent);
+                        RaiseEvent(newEventArgs);
+                    }
+
+                }
             }
+        }
+
+        private bool CheckExistInRobot(List<MotionInfo> list, ulong motionID)
+        {
+            return list.Any(motionInfo => motionID == motionInfo.MotionID);
         }
 
         public static readonly RoutedEvent DeleteMotionEvent = EventManager.RegisterRoutedEvent(

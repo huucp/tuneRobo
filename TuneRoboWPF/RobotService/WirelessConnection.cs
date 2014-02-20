@@ -8,13 +8,17 @@ using System.Text;
 using System.Windows;
 using MessageBoxUtils;
 using TuneRoboWPF.Utility;
+using NLog;
 
 namespace TuneRoboWPF.RobotService
 {
     public class WirelessConnection
     {
+        private bool _needDebugger = true;
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         private Socket Connection;
-        public const int MaxCrcRetry = 3;
+        public const int MaxCrcRetry = 6;
         public WirelessConnection()
         {
             Connection = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
@@ -75,7 +79,7 @@ namespace TuneRoboWPF.RobotService
             }
             catch (SocketException e)
             {
-                Debug.Fail(e.Message);
+                if (_needDebugger) _logger.Fatal("Connect socket error");
                 return 0;
             }
             return Connection.Connected ? 1 : 0;
@@ -108,7 +112,8 @@ namespace TuneRoboWPF.RobotService
                 }
                 catch (SocketException se)
                 {
-                    DebugHelper.WriteLineDebug(se.Message);
+                    DebugHelper.WriteLine(se.Message);
+                    if (_needDebugger) _logger.Error("Receive: socket exception: " + se.Message);
                     return null;
                 }
                 ret += temp;
@@ -118,28 +123,42 @@ namespace TuneRoboWPF.RobotService
 
             if (ret == 0)
             {
-                Console.WriteLine("Receive nothing!.");
+                DebugHelper.WriteLine("Receive nothing!.");
+                if (_needDebugger) _logger.Error("Receive: nothing");
                 return null;
             }
             var hearderIndex = GlobalFunction.FindPacketHeader(receive);
             byte[] receivePacket = GlobalFunction.SplitByteArray(receive, hearderIndex, ret - hearderIndex);
 
-            if (!GlobalFunction.CheckCRC(receivePacket))
-            {
-                Console.WriteLine("CRC error");
-                return null;
-            }
+            //if (!GlobalFunction.CheckCRC(receivePacket))
+            //{
+            //    DebugHelper.WriteLine("CRC error");
+            //    if (_needDebugger) _logger.Error("Receive: CRC error");
+            //    return null;
+            //}
             return new RobotReply(receivePacket);
         }
 
         public RobotReply SendAndReceivePacket(byte[] sendPacket)
         {
+            if (!SocketAlive)
+            {
+                if (ConfigAndConnectSocket() != 1)
+                {
+                    if (_needDebugger)
+                    {
+                        _logger.Error("Cannot re-connect to robot");
+                    }
+                    return null;
+                }
+            }
             try
             {
                 SendPacket(sendPacket);
             }
             catch (SocketException se)
             {
+                if (_needDebugger) _logger.Error("Send: socket exception: " + se.Message);
                 return null;
             }
 
@@ -150,8 +169,42 @@ namespace TuneRoboWPF.RobotService
             }
             catch (SocketException se)
             {
+                if (_needDebugger) _logger.Error("Receive: ", "socket exception: " + se.Message);
                 return null;
             }
         }
+
+        /// <summary>
+        /// Check socket alive
+        /// s.Poll returns true if
+        ///     connection is closed, reset, terminated or pending (meaning no active connection)
+        ///     connection is active and there is data available for reading
+        /// s.Available returns number of bytes available for reading
+        ///     if both are true:
+        ///     there is no data available to read so connection is not active
+        /// </summary>
+        /// <param name="s">socket</param>
+        /// <returns>true if alive and against</returns>
+        private bool SocketConnected(Socket s)
+        {
+            bool part1 = s.Poll(1000, SelectMode.SelectRead);
+            bool part2 = (s.Available == 0);
+            if ((part1 & part2) || !s.Connected)
+                return false;
+            else
+                return true;
+        }
+
+        /// <summary>
+        /// Get connection state
+        /// </summary>
+        public bool SocketAlive
+        {
+            get
+            {
+                return SocketConnected(Connection);
+            }
+        }
+
     }
 }

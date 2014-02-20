@@ -114,5 +114,7 @@
     <sys:String x:Key="RatingSuccessfullyText">Your rating is submitted</sys:String>
     <sys:String x:Key="StopDanceToCopyText">To transfer this motion to robot, the dancing must be stopped</sys:String>    
     <sys:String x:Key="StopDanceToDeleteText">To delete this motion from robot, the dancing must be stopped</sys:String>    
-    <sys:String x:Key="WantToStopDanceText">Do you want to stop the dancing?</sys:String>    
+    <sys:String x:Key="WantToStopDanceText">Do you want to stop the dancing?</sys:String>
+    <sys:String x:Key="ExistInRobotText">This motion is existed in robot.</sys:String>
+    <sys:String x:Key="WantRecopyMotionText">Do you want to re-copy this motion to robot?</sys:String>
 </ResourceDictionary>

@@ -9,6 +9,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using MessageBoxUtils;
+using NLog;
 using TuneRoboWPF.Models;
 using TuneRoboWPF.RobotService;
 using TuneRoboWPF.StoreService.SimpleRequest;
@@ -22,9 +23,12 @@ namespace TuneRoboWPF.Views
     /// </summary>
     public partial class RemoteControlScreen : UserControl
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         public RemoteControlScreen()
         {
             this.InitializeComponent();
+
+            logger.Trace("Hello world!");
 
             // Insert code required on object creation below this point.
             var remoteViewModel = new RemoteControlScreenViewModel();
@@ -35,6 +39,10 @@ namespace TuneRoboWPF.Views
             NextButton.UpdateParentControl += NextButton_UpdateParentControl;
             PreviousButton.UpdateParentControl += PreviousButton_UpdateParentControl;
             //TransformButton.UpdateParentControl += TransformButton_UpdateParentControl;
+
+#if DEBUG
+            //CopyAllButton.Visibility = Visibility.Visible;
+#endif
 
         }
 
@@ -120,20 +128,7 @@ namespace TuneRoboWPF.Views
                 }
                 return;
             }
-            //GetState();
             GetState(NullMethod, 0);
-            //switch (TransformButton.ViewModel.State)
-            //{
-            //    case RobotTransformButtonModel.ButtonState.Transform
-            //        PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.InActive;
-            //        SetControlButtonState(false);
-            //        break;
-            //    case RobotTransformButtonModel.ButtonState.Untransform:
-            //        PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Play;
-            //        SetControlButtonState(true);
-            //        UpdateRemoteControl();
-            //        break;
-            //}
         }
 
         private void PlayPauseButtonsUpdateParentControl(object sender)
@@ -165,7 +160,6 @@ namespace TuneRoboWPF.Views
             UpdateMotionPlay();
             viewModel.Volume = GlobalVariables.CurrentRobotState.Volume;
             UpdateControlButtonState();
-            //UpdateTransformButton();
         }
 
         private void UpdateRemoteBackground()
@@ -184,34 +178,11 @@ namespace TuneRoboWPF.Views
             }
         }
 
-        //private void UpdateTransformButton()
-        //{
-        //    switch (TransformButton.ViewModel.State)
-        //    {
-        //        case RobotTransformButtonModel.ButtonState.Transform:
-        //            PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.InActive;
-        //            break;
-        //        case RobotTransformButtonModel.ButtonState.Untransform:
-        //            PlayPauseButtons.ViewModel.StateButton = PlayPauseButtonModel.ButtonState.Play;
-        //            break;
-        //    }
-        //}
 
         private void UpdateControlButtonState()
         {
             RobotState state = GlobalVariables.CurrentRobotState;
             SetControlButtonState(true);
-            //switch (state.TransformState)
-            //{
-            //    case RobotState.TransformStates.Closed:
-            //    case RobotState.TransformStates.Closing:
-            //        TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;
-            //        break;
-            //    case RobotState.TransformStates.Openning:
-            //    case RobotState.TransformStates.Opened:
-            //        TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Untransform;
-            //        break;
-            //}
         }
 
         private void UpdateMusicState()
@@ -279,11 +250,12 @@ namespace TuneRoboWPF.Views
                     }
 
                     UnconnectedTextBox.Visibility = Visibility.Hidden;
+                    //Cursor = Cursors.Arrow;
                     //TransformButton.ViewModel.State = RobotTransformButtonModel.ButtonState.Transform;
                     GetListMotion();
 
-                    //GetState();
-                    GetState(NullMethod, 0);
+                    GetState();
+                    //GetState(NullMethod, 0);
                 });
                 GlobalVariables.RoboOnline = true;
             };
@@ -539,7 +511,6 @@ namespace TuneRoboWPF.Views
             };
             getListMotionVersion.ProcessError += (reply, msg) =>
             {
-
             };
             GlobalVariables.StoreWorker.ForceAddRequest(getListMotionVersion);
         }
@@ -620,8 +591,24 @@ namespace TuneRoboWPF.Views
             GetListMotion();
         }
 
+        private BitmapImage FindLocalIcon(ulong id)
+        {
+            var filePath = Path.Combine(GlobalFunction.GetIconDir(), id.ToString() + ".jpg");
+            if (File.Exists(filePath))
+            {
+                var image = new BitmapImage(new Uri(filePath, UriKind.RelativeOrAbsolute));
+                return image;
+            }
+            return null;
+        }
         private void DownloadImage(ulong id, MotionFullInfoItemViewModel model)
         {
+            var localIcon = FindLocalIcon(id);
+            if (localIcon != null)
+            {
+                model.CoverImage = localIcon;
+                return;
+            }
             var motionInfoRequest = new GetMotionFullInfoStoreRequest(id);
             motionInfoRequest.ProcessSuccessfully += (data) =>
             {
@@ -632,14 +619,15 @@ namespace TuneRoboWPF.Views
                     Dispatcher.BeginInvoke((Action)delegate
                     {
                         model.CoverImage = cacheImage;
+                        GlobalFunction.SaveIconImage(cacheImage, id);
                     });
                     return;
                 }
-                imageDownload.DownloadCompleted += (img) => Dispatcher.
-                                                                BeginInvoke((Action)delegate
-                                                                {
-                                                                    model.CoverImage = img;
-                                                                });
+                imageDownload.DownloadCompleted += (img) => Dispatcher.BeginInvoke((Action)delegate
+                {
+                    model.CoverImage = img;
+                    GlobalFunction.SaveIconImage(img, id);
+                });
                 GlobalVariables.ImageDownloadWorker.AddDownload(imageDownload);
             };
             motionInfoRequest.ProcessError += (data, msg) =>
@@ -756,5 +744,34 @@ namespace TuneRoboWPF.Views
         }
 
         #endregion
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            int index = 0;
+            int count = 0;
+
+            GlobalVariables.CountError = 0;
+
+            string[] listLocalFile = Directory.GetFiles(GlobalFunction.GetSavedDir(), "*.mrb");
+            var listMotionInfo = listLocalFile.Select(file => new MotionInfo(file)).ToList();
+            listMotionInfo.Sort((x, y) => String.CompareOrdinal(x.Title, y.Title)); // Sort title
+
+            while (count < 1000)
+            {
+                var motionID = listMotionInfo[index].MotionID;
+                var transferRequest = new TransferMotionToRobot(motionID);
+                var transferWindow = new Windows.TransferWindow(transferRequest, motionID.ToString());
+                if (transferWindow.ShowDialog(StaticMainWindow.Window) == true)
+                {
+                }
+                System.Threading.Thread.Sleep(5000);
+                index++;
+                if (index == listMotionInfo.Count) index = 0;
+                count++;
+                DebugHelper.WriteLine("Transfer count :" + count);
+            }
+
+
+        }
     }
 }

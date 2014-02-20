@@ -9,23 +9,23 @@ using comm;
 
 namespace TuneRoboWPF.Windows
 {
-	/// <summary>
-	/// Interaction logic for TransferWindow.xaml
-	/// </summary>
-	public partial class TransferWindow : Window
-	{
+    /// <summary>
+    /// Interaction logic for TransferWindow.xaml
+    /// </summary>
+    public partial class TransferWindow : Window
+    {
         private TransferMotionToRobot RobotRequest { get; set; }
         private DownloadMotionStoreRequest StoreRequest { get; set; }
-	    private TransferWindowViewModel ViewModel;
+        private TransferWindowViewModel ViewModel;
         public TransferWindow(TransferMotionToRobot request, string motionTitle)
-		{
-			InitializeComponent();
-		    
+        {
+            InitializeComponent();
+
             RobotRequest = request;
             RobotRequest.ProcessError += Request_ProcessError;
             RobotRequest.ProcessSuccessfully += RobotRequest_ProcessSuccessfully;
             RobotRequest.ProgressReport += Request_ProgressReport;
-            
+
             ProgressBar.Maximum = 100;
 
             var viewModel = new TransferWindowViewModel();
@@ -33,7 +33,7 @@ namespace TuneRoboWPF.Windows
             ViewModel = (TransferWindowViewModel)DataContext;
             ViewModel.Title = motionTitle;
             ViewModel.TransferText = (string)TryFindResource("TransferringText");
-		}
+        }
 
         public TransferWindow(DownloadMotionStoreRequest request, string motionTitle)
         {
@@ -51,7 +51,7 @@ namespace TuneRoboWPF.Windows
             DataContext = viewModel;
             ViewModel = (TransferWindowViewModel)DataContext;
             ViewModel.Title = motionTitle;
-            ViewModel.TransferText = (string) TryFindResource("DownloadingText");
+            ViewModel.TransferText = (string)TryFindResource("DownloadingText");
         }
 
         private void StoreRequest_ProcessCancel()
@@ -59,13 +59,13 @@ namespace TuneRoboWPF.Windows
             Dispatcher.BeginInvoke((Action)delegate
             {
                 DialogResult = false;
-                Close();                
+                Close();
             });
         }
 
-	    private void Request_ProgressReport(int progressValue)
+        private void Request_ProgressReport(int progressValue)
         {
-            Dispatcher.BeginInvoke((Action) delegate
+            Dispatcher.BeginInvoke((Action)delegate
                                                 {
                                                     ProgressBar.Value = progressValue;
                                                     ViewModel.Percentage = progressValue;
@@ -85,11 +85,11 @@ namespace TuneRoboWPF.Windows
 
         private void StoreRequest_ProcessSuccessfully(object sender)
         {
-            Dispatcher.BeginInvoke((Action) delegate
+            Dispatcher.BeginInvoke((Action)delegate
             {
-                DialogResult = true;                
+                DialogResult = true;
                 Close();
-                var title = (string) TryFindResource("DownloadCompletedText");
+                var title = (string)TryFindResource("DownloadCompletedText");
                 WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK, MessageBoxImage.Information,
                                    MessageBoxResult.OK);
             });
@@ -97,12 +97,14 @@ namespace TuneRoboWPF.Windows
 
         private void Request_ProcessError(TransferMotionToRobot.ErrorCode errorCode, string errorMessage)
         {
-            Dispatcher.BeginInvoke((Action) delegate
+            //GlobalVariables.CountError++;
+            //DebugHelper.WriteLine("Tranfer error count:" + GlobalVariables.CountError);
+            Dispatcher.BeginInvoke((Action)delegate
                                                 {
                                                     DialogResult = false;
-                                                    Console.WriteLine(errorMessage);                                                    
+                                                    Console.WriteLine(errorMessage);
                                                     Close();
-                                                    var title = (string)TryFindResource("TransferErrorText");
+                                                    var title = (string)TryFindResource("TransferErrorText");                                                    
                                                     WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK, MessageBoxImage.Information,
                                                                        MessageBoxResult.OK);
                                                 });
@@ -113,7 +115,7 @@ namespace TuneRoboWPF.Windows
             Dispatcher.BeginInvoke((Action)delegate
             {
                 DialogResult = false;
-                Console.WriteLine(errorMessage);
+                DebugHelper.WriteLine(errorMessage);
                 Close();
                 var title = (string)TryFindResource("DownloadErrorText");
                 WPFMessageBox.Show(StaticMainWindow.Window, "", title, MessageBoxButton.OK, MessageBoxImage.Information,
@@ -123,24 +125,26 @@ namespace TuneRoboWPF.Windows
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            if (RobotRequest == null && StoreRequest == null) return;            
-            if (RobotRequest!=null) GlobalVariables.RobotWorker.AddJob(RobotRequest);
+            if (RobotRequest == null && StoreRequest == null) return;
+            if (RobotRequest != null) GlobalVariables.RobotWorker.AddJob(RobotRequest);
             else
             {
                 GlobalVariables.StoreWorker.AddRequest(StoreRequest);
             }
-        }        
+        }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             if (RobotRequest != null) RobotRequest.CancelProcess = true;
             else StoreRequest.CancelProcess = true;
+            DialogResult = false;
+            Close();
         }
 
         public bool? ShowDialog(Window owner)
         {
             Owner = owner;
             return ShowDialog();
-        }        
-	}
+        }
+    }
 }

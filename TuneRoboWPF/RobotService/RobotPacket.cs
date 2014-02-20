@@ -14,7 +14,7 @@ namespace TuneRoboWPF.RobotService
             Hello = 0x0101,
             GetState = 0x0102,
             Play = 0x0201,
-            Pause = 0x0202,            
+            Pause = 0x0202,
             Forward = 0x0203,
             Backward = 0x0204,
             OpenTransform = 0x0205,
@@ -80,16 +80,8 @@ namespace TuneRoboWPF.RobotService
             var packet = new List<byte>();
             packet.Add(IdentificationByte);
             packet.AddRange(GlobalFunction.DecToLE2(dataLength));
-            packet.AddRange(GlobalFunction.GenerateCrc(data.ToArray()));
-            //if (data.Count == 2048 + 4)
-            //{
-            //    DebugHelper.WriteLineDebug(GlobalFunction.GenerateCrcInString(data.ToArray()));
-            //}
-            //if (Parameters.Length == 2910)
-            //{
-            //    byte[] crc = GlobalFunction.GenerateCrc(data.ToArray());
-            //    Console.WriteLine("{0} {0}",crc[0],crc[1]);
-            //}
+            //packet.AddRange(GlobalFunction.GenerateCrc(data.ToArray()));            
+            packet.AddRange(new byte[2] { 0, 0 });
             packet.AddRange(ReserveBytes);
             packet.AddRange(data);
 

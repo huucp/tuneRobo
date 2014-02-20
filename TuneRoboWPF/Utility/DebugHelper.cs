@@ -7,13 +7,13 @@ namespace TuneRoboWPF.Utility
 {
     public static class DebugHelper
     {
-        public static void WriteLineDebug(object text)
+        public static void WriteLine(object text)
         {
 #if DEBUG
             Console.WriteLine(text.ToString());
 #endif
         }
-        public static void WriteDebug(object text)
+        public static void Write(object text)
         {
 #if DEBUG
             Console.Write(text.ToString());

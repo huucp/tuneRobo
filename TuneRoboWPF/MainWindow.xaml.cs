@@ -17,7 +17,8 @@ namespace TuneRoboWPF
         {
             InitializeComponent();
             navigationBar.LoginProcessSuccessfully += navigationBar_LoginProcessSuccessfully;
-            navigationBar.LogoutSuccessfully += navigationBar_LogoutSuccessfully;            
+            navigationBar.LogoutSuccessfully += navigationBar_LogoutSuccessfully;
+            InitScreen();
         }
 
         private void navigationBar_LogoutSuccessfully(object sender)
@@ -198,6 +199,24 @@ namespace TuneRoboWPF
             var lastElement = MainDock.Children[MainDock.Children.Count - 1];
             MainDock.Children.Remove(lastElement);
             MainContentScreen.Visibility = Visibility.Visible;
+        }
+
+
+        private void InitScreen()
+        {
+            var height = SystemParameters.PrimaryScreenHeight * 0.9;
+            var width = SystemParameters.PrimaryScreenWidth;            
+
+            if (Height > height)
+            {
+                Width = height / Height * Width;
+                Height = height;
+            }
+            if (Width > width)
+            {
+                Height = width / Width * Height;
+                Height = height;
+            }           
         }
     }
 }

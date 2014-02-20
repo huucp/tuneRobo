@@ -198,8 +198,6 @@
     <Compile Include="ViewModels\SearchResultScreenViewModel.cs" />
     <Compile Include="ViewModels\SeeAllScreenViewModel.cs" />
     <Compile Include="ViewModels\SignupWindowViewModel.cs" />
-    <Compile Include="ViewModels\StoreScreenViewModel.cs" />
-    <Compile Include="ViewModels\TempStoreScreenViewModel.cs" />
     <Compile Include="ViewModels\TransferWindowViewModel.cs" />
     <Compile Include="ViewModels\UpdateProfileWindowViewModel.cs" />
     <Compile Include="ViewModels\UserDetailScreenViewModel.cs" />
@@ -246,12 +244,6 @@
       <DependentUpon>SeeAllScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StopButton.cs" />
-    <Compile Include="Views\StoreScreen.xaml.cs">
-      <DependentUpon>StoreScreen.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TempStoreScreen.xaml.cs">
-      <DependentUpon>TempStoreScreen.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MotionFullInfoItem.xaml.cs">
       <DependentUpon>MotionFullInfoItem.xaml</DependentUpon>
     </Compile>
@@ -275,9 +267,6 @@
       <DependentUpon>RobotTransformButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Views\TestRemoteScreen.xaml.cs">
-      <DependentUpon>TestRemoteScreen.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\UserDetailScreen.xaml.cs">
       <DependentUpon>UserDetailScreen.xaml</DependentUpon>
     </Compile>
@@ -415,14 +404,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\StoreScreen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TempStoreScreen.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\MotionFullInfoItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -444,10 +425,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\RobotTransformButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TestRemoteScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -518,7 +495,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\cov894.jpeg">

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using TuneRoboWPF.RobotService;
@@ -50,6 +51,14 @@ namespace TuneRoboWPF.Utility
         {
             get { return _folderPlaylist; }
             set { _folderPlaylist = value; }
+        }
+
+        //Folder Images
+        private static string _folderImages = @"\motionimages";
+        public static string FOLDER_IMAGES
+        {
+            get { return _folderImages; }
+            set { _folderImages = value; }
         }
 
         //Play list file name
@@ -148,5 +157,9 @@ namespace TuneRoboWPF.Utility
             LOCAL_DIR = null;
             SYSTEM_DIR = null;
         }
+
+        // For test transfer motion to robot
+        public static int CountError = 0;
+        public static Stopwatch Sw;
     }
 }

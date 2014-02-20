@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Net.Sockets;
-using System.Text;
 using TuneRoboWPF.Utility;
+using NLog;
 
 namespace TuneRoboWPF.RobotService
 {
     public class RobotRequest : IRequest
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         public delegate void SuccessfullyEventHandler(RobotReplyData robotReplyData);
 
         public event SuccessfullyEventHandler ProcessSuccessfully;
@@ -52,13 +52,17 @@ namespace TuneRoboWPF.RobotService
                 Conn = new WirelessConnection();
                 return (Conn.ConfigAndConnectSocket() == 1);
             }
+            if (!Conn.SocketAlive)
+            {
+                return (Conn.ConfigAndConnectSocket() == 1);
+            }
             return true;
         }
 
         /// <summary>
         /// Release connection
         /// </summary>
-        private void ReleaseConection()
+        private void ReleaseConnection()
         {
             Conn.ReleaseConnection();
         }
@@ -69,12 +73,12 @@ namespace TuneRoboWPF.RobotService
         /// <returns>Data of reply</returns>
         public object Process()
         {
-            //var replyData = new RobotReplyData();
             RobotReplyData replyData = null;
             if (!SetupConnection())
             {
                 OnProcessError(ErrorCode.SetupConnection, "Setup connection error");
-                return replyData;
+                _logger.Error("Cannot connect to robot");
+                return null;
             }
             byte[] packet = BuildRequest();
             RobotReply reply = null;
@@ -84,6 +88,11 @@ namespace TuneRoboWPF.RobotService
             do
             {
                 crcCount++;
+                //if (GlobalVariables.Sw != null && GlobalVariables.Sw.IsRunning)
+                //{
+                //    GlobalVariables.Sw.Stop();
+                //    _logger.Info("1 processing session duration: " + GlobalVariables.Sw.ElapsedMilliseconds);
+                //}
                 try
                 {
                     Conn.SendPacket(packet);
@@ -91,8 +100,13 @@ namespace TuneRoboWPF.RobotService
                 catch (SocketException se)
                 {
                     OnProcessError(ErrorCode.SocketException, se.Message);
+                    _logger.Error("SendPacket socket exception: " + se.Message);
                     return replyData;
                 }
+
+                // For testing transfer speed
+                //OnProcessSuccessfully(null);
+                //return replyData;
 
                 try
                 {
@@ -101,36 +115,44 @@ namespace TuneRoboWPF.RobotService
                 catch (SocketException se)
                 {
                     OnProcessError(ErrorCode.SocketException, se.Message);
+                    _logger.Error("ReceiveReply socket exception: " + se.Message);
                     return replyData;
                 }
+                
+                //if (GlobalVariables.Sw == null || !GlobalVariables.Sw.IsRunning) GlobalVariables.Sw = Stopwatch.StartNew();
                 if (reply != null)
                 {
                     reply.RequestID = RequestID;
                     replyData = reply.Process();
-                    
+
                     switch (replyData.Type)
                     {
                         case RobotReplyData.ReplyType.Success:
                             OnProcessSuccessfully(replyData);
+                            _logger.Info("Receive reply from robot: type successfully");
                             break;
                         case RobotReplyData.ReplyType.Failed:
                             OnProcessError(ErrorCode.ReplyFailed, "Reply error");
+                            _logger.Error("Receive reply from robot: type failed");
                             break;
                         case RobotReplyData.ReplyType.WrongID:
                             OnProcessError(ErrorCode.WrongSessionID, "Wrong session ID");
+                            _logger.Error("Receive reply from robot: type wrong session ID");
                             break;
                         case RobotReplyData.ReplyType.CRC:
                             crcError = true;
+                            _logger.Error("Receive reply from robot: type CRC error");
                             break;
-                    }                    
+                    }
                 }
                 else
                 {
                     OnProcessError(ErrorCode.ReplyNull, "Reply cannot be null");
+                    _logger.Error("Receive reply from robot: reply null");
                 }
             } while (crcCount < WirelessConnection.MaxCrcRetry && crcError);
 
-            //ReleaseConenction();
+            //ReleaseConnection();
             return replyData;
         }
         public virtual byte[] BuildRequest()

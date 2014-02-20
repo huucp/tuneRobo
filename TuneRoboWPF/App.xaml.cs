@@ -42,11 +42,11 @@ namespace TuneRoboWPF
             StaticMainWindow.Window.Show();
 
 #if RELEASE
-            NBug.Settings.Destination1 = "Type=Mail;From=huupc@tosy.com;FromName=NBug Error Reporter;To=huupc@tosy.com;Cc=huongptt@tosy.com;SmtpServer=mail.tosy.com;Port=587;Priority=Normal;Username=huupc@tosy.com;Password=ph0ngv4n;";
-            //NBug.Settings.Destination2 = "Type=Mail;From=huupc@tosy.com;To=huongptt@tosy.com;SmtpServer=mail.tosy.com;";
-            AppDomain.CurrentDomain.UnhandledException += NBug.Handler.UnhandledException;
-            Current.DispatcherUnhandledException += NBug.Handler.DispatcherUnhandledException;
-            System.Threading.Tasks.TaskScheduler.UnobservedTaskException += NBug.Handler.UnobservedTaskException; 
+            //NBug.Settings.Destination1 = "Type=Mail;From=huupc@tosy.com;FromName=NBug Error Reporter;To=huupc@tosy.com;Cc=huongptt@tosy.com;SmtpServer=mail.tosy.com;Port=587;Priority=Normal;Username=huupc@tosy.com;Password=ph0ngv4n;";
+            ////NBug.Settings.Destination2 = "Type=Mail;From=huupc@tosy.com;To=huongptt@tosy.com;SmtpServer=mail.tosy.com;";
+            //AppDomain.CurrentDomain.UnhandledException += NBug.Handler.UnhandledException;
+            //Current.DispatcherUnhandledException += NBug.Handler.DispatcherUnhandledException;
+            //System.Threading.Tasks.TaskScheduler.UnobservedTaskException += NBug.Handler.UnobservedTaskException; 
 #endif
             EventManager.RegisterClassHandler(typeof(TextBox), UIElement.GotFocusEvent, new RoutedEventHandler(TextBox_SelectAllText));
             EventManager.RegisterClassHandler(typeof(TextBox), UIElement.PreviewMouseDownEvent, new MouseButtonEventHandler(TextBox_SelectivelyIgnoreMouseButton));

@@ -304,6 +304,30 @@ namespace TuneRoboWPF.Utility
             return GlobalVariables.LOCAL_DIR + GlobalVariables.FOLDER_ROOT + GlobalVariables.FOLDER_PLAYLIST;
         }
 
+        public static string GetIconDir()
+        {
+            return GlobalVariables.LOCAL_DIR + GlobalVariables.FOLDER_ROOT + GlobalVariables.FOLDER_IMAGES;
+        }
+
+        public static void SaveIconImage(BitmapImage image, ulong motionID)
+        {
+            var iconDir = GetIconDir();
+            if (!Directory.Exists(iconDir))
+            {
+                Directory.CreateDirectory(iconDir);
+            }
+            if (Directory.Exists(iconDir))
+            {
+                var encoder = new JpegBitmapEncoder();
+                string photoPath = Path.Combine(iconDir, motionID + ".jpg");
+                encoder.Frames.Add(BitmapFrame.Create(image));
+                using (var fileStream = new FileStream(photoPath, FileMode.Create))
+                {
+                    encoder.Save(fileStream);
+                }
+            }
+        }
+
         public static string CalculateMD5Hash(string input)
         {
             // step 1, calculate MD5 hash from input
@@ -565,7 +589,6 @@ namespace TuneRoboWPF.Utility
             //return (crcData == crcPacket);
             if (crcData != crcPacket)
             {
-                DebugHelper.WriteLineDebug(crcData + " vs " + crcPacket);
                 return false;
             }
             return true;

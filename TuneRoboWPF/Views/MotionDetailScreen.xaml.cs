@@ -307,7 +307,7 @@ namespace TuneRoboWPF.Views
             numberRatingRequest.ProcessError += (reply, msg) =>
                                                     {
                                                         if (reply == null) Debug.Fail("reply is null");
-                                                        else Debug.Assert(false, msg + reply.type);
+                                                        else Debug.Fail(msg + reply.type);
                                                     };
             GlobalVariables.StoreWorker.ForceAddRequest(numberRatingRequest);
         }
@@ -343,8 +343,10 @@ namespace TuneRoboWPF.Views
             if (transferWindow.ShowDialog(StaticMainWindow.Window) == true)
             {
                 ViewModel.DownloadButtonContent = "Installed";
+                GlobalFunction.SaveIconImage(ViewModel.CoverImage, MotionID);
             }
         }
+
 
         private void ScreenshotsListbox_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {

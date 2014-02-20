@@ -103,6 +103,11 @@ namespace TuneRoboWPF.RobotService
             switch (robotReplyData.Type)
             {
                 case RobotReplyData.ReplyType.Success:
+                    if (robotReplyData.Data.Length!=4)
+                    {
+                        Debug.Fail("ListAllMotionRequest: data reply is not sufficient");
+                        return -1;
+                    }
                     return (int)GlobalFunction.LE4ToDec(robotReplyData.Data);
                 //case RobotReplyData.ReplyType.Failed:
                 //    OnProcessError(ErrorCode.ReplyFailed, "Reply error");

@@ -88,7 +88,7 @@ namespace TuneRoboWPF.StoreService
             {
                 var ret = Connection.Receive(buffer);
 #if DEBUG
-                logger.Info(ret); 
+                //logger.Info(ret); 
 #endif
                 if (ret == 0) return null;
                 var receive = GlobalFunction.SplitByteArray(buffer, 0, ret);
@@ -132,7 +132,7 @@ namespace TuneRoboWPF.StoreService
 #if DEBUG
                     logger.Error(se.Message); 
 #endif
-                    Console.WriteLine("Receive timed out!");
+                    DebugHelper.WriteLine("Receive timed out!");
                     return null;
                 }
             }

@@ -33,7 +33,7 @@ namespace TuneRoboWPF.RobotService
                 if (packetID == ID_ACK) return ProcessACKPacket();
                 else
                 {
-                    DebugHelper.WriteLineDebug("Reply packet ID:" + packetID);
+                    DebugHelper.WriteLine("Reply packet ID:" + packetID);
                     return ProcessErrorPacket();
                 }
             }
@@ -52,7 +52,7 @@ namespace TuneRoboWPF.RobotService
             {
                 return true;
             }
-            Debug.Fail("Wrong sesson ID", String.Format("{0:d} vs {1:d}", GlobalFunction.LE2ToDec(tmp), GlobalFunction.LE2ToDec(GlobalVariables.RobotSessionID)));
+            //Debug.Fail("Wrong sesson ID", String.Format("{0:d} vs {1:d}", GlobalFunction.LE2ToDec(tmp), GlobalFunction.LE2ToDec(GlobalVariables.RobotSessionID)));
             return false;
         }
 
@@ -109,7 +109,6 @@ namespace TuneRoboWPF.RobotService
         private RobotReplyData ProcessErrorPacket()
         {
             var replyData = new RobotReplyData();
-            DebugHelper.WriteLineDebug("ProcessErrorPacket");
             return replyData;
         }
     }
